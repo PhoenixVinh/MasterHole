@@ -1,0 +1,671 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e071bb4379b44fc8bfef60dece523cf5, type: 3}
+  m_Name: LevelSpawnData_1
+  m_EditorClassIdentifier: 
+  listItemSpawns:
+  - id: food_87
+    listSpawnDatas:
+    - p:
+        x: 0
+        y: 0
+        z: 14.376389
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: -0.65
+        y: 0
+        z: 13.250555
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 0.65
+        y: 0
+        z: 13.250555
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: -1.3
+        y: 0
+        z: 12.1247225
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 0
+        y: 0
+        z: 12.1247225
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 1.3
+        y: 0
+        z: 12.1247225
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: -1.9499999
+        y: 0
+        z: 10.99889
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: -0.65
+        y: 0
+        z: 10.99889
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 0.65
+        y: 0
+        z: 10.99889
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 1.9499999
+        y: 0
+        z: 10.99889
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: -2.6
+        y: 0
+        z: 9.873056
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: -1.3
+        y: 0
+        z: 9.873056
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 0
+        y: 0
+        z: 9.873056
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 1.3
+        y: 0
+        z: 9.873056
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+    - p:
+        x: 2.6
+        y: 0
+        z: 9.873056
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 1
+        y: 1
+        z: 1
+      kinematic: 1
+  - id: food_212
+    listSpawnDatas:
+    - p:
+        x: -1.9999999
+        y: 0
+        z: 3.4
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -1.9999999
+        y: 0
+        z: 4.7
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -1.9999999
+        y: 0
+        z: 6
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -1.9999999
+        y: 0
+        z: 7.3
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -0.6999999
+        y: 0
+        z: 3.4
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -0.6999999
+        y: 0
+        z: 4.7
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -0.6999999
+        y: 0
+        z: 6
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: -0.6999999
+        y: 0
+        z: 7.3
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 0.6
+        y: 0
+        z: 3.4
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 0.6
+        y: 0
+        z: 4.7
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 0.6
+        y: 0
+        z: 6
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 0.6
+        y: 0
+        z: 7.3
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 1.9
+        y: 0
+        z: 3.4
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 1.9
+        y: 0
+        z: 4.7
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 1.9
+        y: 0
+        z: 6
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+    - p:
+        x: 1.9
+        y: 0
+        z: 7.3
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.72
+        y: 0.72
+        z: 0.72
+      kinematic: 1
+  - id: food_101
+    listSpawnDatas:
+    - p:
+        x: 1.3
+        y: 0
+        z: 19.25
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 0.6499999
+        y: 0
+        z: 20.375834
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -0.65000004
+        y: 0
+        z: 20.375834
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -1.3
+        y: 0
+        z: 19.25
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -0.64999986
+        y: 0
+        z: 18.124166
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 0.64999986
+        y: 0
+        z: 18.124166
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 2.6
+        y: 0
+        z: 19.25
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 2.2516658
+        y: 0
+        z: 20.55
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 1.2999998
+        y: 0
+        z: 21.501667
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -0.000000113649605
+        y: 0
+        z: 21.85
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -1.3000001
+        y: 0
+        z: 21.501665
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -2.2516658
+        y: 0
+        z: 20.55
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -2.6
+        y: 0
+        z: 19.25
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -2.2516658
+        y: 0
+        z: 17.95
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: -1.2999997
+        y: 0
+        z: 16.998333
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 0.00000003100469
+        y: 0
+        z: 16.65
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 1.2999997
+        y: 0
+        z: 16.998333
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 2.2516658
+        y: 0
+        z: 17.949999
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1
+    - p:
+        x: 0.049999952
+        y: 0
+        z: 19.25
+      r:
+        x: 0
+        y: 0
+        z: 0
+      s:
+        x: 0.31
+        y: 0.31
+        z: 0.31
+      kinematic: 1

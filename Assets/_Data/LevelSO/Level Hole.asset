@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e02a50bca5483ea484f673985c1265, type: 3}
+  m_Name: Level Hole
+  m_EditorClassIdentifier: Assembly-CSharp:HoleLevelData:LevelHoleSO
+  levels:
+  - levelId: 1
+    amountExp: 0
+    radious: 3
+  - levelId: 2
+    amountExp: 15
+    radious: 3.5
+  - levelId: 3
+    amountExp: 45
+    radious: 4
+  - levelId: 4
+    amountExp: 80
+    radious: 4.5
+  - levelId: 5
+    amountExp: 115
+    radious: 5
+  - levelId: 6
+    amountExp: 150
+    radious: 5.5
+  - levelId: 7
+    amountExp: 185
+    radious: 6
+  - levelId: 8
+    amountExp: 220
+    radious: 7
+  - levelId: 9
+    amountExp: 255
+    radious: 8
+  - levelId: 10
+    amountExp: 290
+    radious: 9
