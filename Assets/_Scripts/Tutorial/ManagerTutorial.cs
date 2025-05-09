@@ -16,6 +16,9 @@ namespace _Scripts.Tutorial
         
         public static ManagerTutorial Instance;
 
+
+        public GameObject LevelCoin;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -51,6 +54,15 @@ namespace _Scripts.Tutorial
                     ManagerHomeScene.Instance.LoadTutorial();
                 }
             }
+
+            if (index == 20)
+            {
+                LevelCoin.SetActive(true);
+            }
+            else
+            {
+                LevelCoin.SetActive(false);
+            }
             
         }
 
@@ -61,5 +73,7 @@ namespace _Scripts.Tutorial
                 tutorial.SetActive(false);
             }
         }
+        
+        
     }
 }

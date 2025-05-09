@@ -16,19 +16,25 @@ namespace _Scripts.UI.WinLossUI
         
         public ParticleSystem particle;
 
+        private int coinGet = 75;
         public override void OnEnable()
         {
            
             
             particle.Play();
             base.OnEnable();
-            coinText.text = "75";
+            coinText.text = $"{coinGet}";
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
             coin += 75;
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
             continueButton.onClick.AddListener(ShowNextlevel);
             this.pauseButton.gameObject.SetActive(true);
             
+        }
+
+        public void SetData(int coinGet)
+        {
+            this.coinGet = coinGet;
         }
 
         [ContextMenu("Play")]

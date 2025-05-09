@@ -32,7 +32,7 @@ public class Score : MonoBehaviour
 
         text.text = $"+{_score}";
         //Set scale for text
-        this.transform.localScale = Vector3.one * Mathf.Sqrt(_score);
+        this.transform.localScale = Vector3.one * Mathf.Sqrt(3 + _score)*Camera.main.orthographicSize/10;
         
         
         
