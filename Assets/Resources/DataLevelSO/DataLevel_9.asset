@@ -10,17 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2161d8b5e8741a2a4416a9e99e36ad4, type: 3}
-  m_Name: DataLevel_3
+  m_Name: DataLevel_9
   m_EditorClassIdentifier: 
-  levelSpawnData: {fileID: 11400000, guid: 4e08c31999c071948be47ec6ae557e8f, type: 2}
-  missionData: {fileID: 11400000, guid: ca17a3ccb5255c6409305702199e39cf, type: 2}
-  timeToComplete: 180
+  levelSpawnData: {fileID: 11400000, guid: d66f9392b4ddf68449e5e0921b827a66, type: 2}
+  missionData: {fileID: 11400000, guid: 7eafa4da88299a64e8ec2ea0729073e2, type: 2}
+  timeToComplete: 120
   ScoreDatas:
-  - itemName: food_212
-    score: 1
-  - itemName: food_117
+  - itemName: food_199
     score: 2
-  - itemName: food_120
-    score: 3
-  - itemName: food_13
-    score: 4
+  - itemName: food_53
+    score: 1
