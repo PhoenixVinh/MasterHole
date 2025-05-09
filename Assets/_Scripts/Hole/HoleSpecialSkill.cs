@@ -146,7 +146,7 @@ namespace _Scripts.Hole
                 {
                     scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
                     var sequence2= DOTween.Sequence();
-                    sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 1f));
+                    sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
                     sequence2.OnUpdate(
                         () => { HoleController.Instance.OnUpLevelHole(); }
                     );

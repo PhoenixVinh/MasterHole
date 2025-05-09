@@ -19,7 +19,12 @@ namespace _Scripts.Map.MapSpawnItem
 
 
         public Dictionary<string, List<GameObject>> mapObjects;
+        private GameObject map;
 
+        private Vector3 mapPosition;
+        private Vector3 mapScale;
+        
+        
         private void Awake()
         {
             if (Instance == null)
@@ -46,12 +51,14 @@ namespace _Scripts.Map.MapSpawnItem
 
 
 
-        public void SetData(LevelSpawnData levelSpawnData, List<ItemScoreData> itemScoreData)
+        public void SetData(LevelSpawnData levelSpawnData, List<ItemScoreData> itemScoreData, Vector3 mapPosition, Vector3 mapSize)
         {
             this.levelSpawnData = ScriptableObject.CreateInstance<LevelSpawnData>();
             this.levelSpawnData = levelSpawnData;
             this.itemScores.Clear();
             this.itemScores = itemScoreData;
+            this.mapPosition = mapPosition;
+            this.mapScale = mapSize;
             SpawnMap();
         }
         
@@ -75,6 +82,21 @@ namespace _Scripts.Map.MapSpawnItem
             
             Dictionary<string, GameObject> spawnedObjects = new Dictionary<string,GameObject>();
             spawnedObjects.Clear();
+
+            if (map != null)
+            {
+                map.transform.position = mapPosition;
+                map.transform.localScale = mapScale;
+            }
+            else
+            {
+                GameObject loadMap = Resources.Load<GameObject>("Map/Prefab/Map");
+                
+                map = Instantiate(loadMap, this.mapPosition, Quaternion.identity);
+               
+                map.transform.localScale = mapScale;
+                
+            }
             foreach(var item in levelSpawnData.listItemSpawns)
             {
                 string nameItem = item.id;

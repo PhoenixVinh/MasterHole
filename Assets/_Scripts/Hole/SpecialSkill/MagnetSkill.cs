@@ -88,7 +88,7 @@ public class MagnetSkill : MonoBehaviour
                 {
                     if (obj.transform.localScale.x < item.Value.originScale.x)
                     {
-                        obj.transform.localScale /= 0.95f;
+                        //obj.transform.localScale /= 0.95f;
                     }
                     continue;
                 }
@@ -115,11 +115,11 @@ public class MagnetSkill : MonoBehaviour
             // Scale object to the Hole 
             // Check if it is scaled => Don't Scale again 
             // Scale Object
-            Vector3 minSacle = item.Value.originScale/2f;
-            if (obj.transform.localScale.x > minSacle.x)
-            {
-                obj.transform.localScale *= 0.95f;
-            }
+            // Vector3 minSacle = item.Value.originScale/2f;
+            // if (obj.transform.localScale.x > minSacle.x)
+            // {
+            //     obj.transform.localScale *= 0.95f;
+            // }
         }
         
     }

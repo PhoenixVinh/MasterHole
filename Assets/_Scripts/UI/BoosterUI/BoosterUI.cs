@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using _Scripts.Booster;
 using _Scripts.UI.PopupUI;
 using TMPro;
@@ -12,7 +13,7 @@ namespace _Scripts.UI.BoosterUI
     public class BoosterUI : MonoBehaviour
     {
         public BoosterData boosterData;
-
+        public float time = 15f;
         
         [Header("Booster UI")]
         public GameObject LockUI;
@@ -23,7 +24,7 @@ namespace _Scripts.UI.BoosterUI
         public GameObject hasItem;
         public TMP_Text amountText;
         public GameObject noItem;
-        
+        public Image FillAmount;
         
         
         
@@ -34,6 +35,7 @@ namespace _Scripts.UI.BoosterUI
 
         private void Start()
         {
+            FillAmount.fillAmount = 0;
             buttonUse.GetComponent<Button>().onClick.AddListener(UseSpecialSkill);
         }
 
@@ -54,6 +56,9 @@ namespace _Scripts.UI.BoosterUI
         {
             if (HoleController.Instance.IsProcessSkill(indexSpecialSkill)) return;
             // Check Should Show PopUp Or Not 
+            
+            
+            
 
             if (this.amount <=0)
             {
@@ -61,12 +66,27 @@ namespace _Scripts.UI.BoosterUI
             }
             else
             {
+                StartCoroutine(ShowFillAmount());
                 HoleController.Instance.ProcessSkill(this.indexSpecialSkill);
                 amount--;
                 ManagerBooster.Instance.ChangeAmountBooster(indexSpecialSkill, -1);
                 UpdateUI();
             }
             
+        }
+
+        private IEnumerator ShowFillAmount()
+        {
+            float startTime = 0;
+            while (startTime < time)
+            {
+                float currentamount = FillAmount.fillAmount;
+                
+                startTime += Time.deltaTime;
+                FillAmount.fillAmount = 1 -  startTime / time;
+                yield return null;
+            }
+            FillAmount.fillAmount = 0;
         }
 
 

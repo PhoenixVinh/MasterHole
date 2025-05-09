@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +7,13 @@ namespace _Scripts.UI.HoleUI
 {
     public class LevelUpBar : MonoBehaviour
     {
-        private Slider silder;
+        public Image silder;
 
+        public TMP_Text text;
         private IPrecent holeLevel;
         private void Start()
         {
-            silder = GetComponent<Slider>();
+           
             holeLevel = HoleController.Instance.HoleLevel;
         }
 
@@ -19,14 +21,16 @@ namespace _Scripts.UI.HoleUI
         {
             if (holeLevel.Precent() != 0)
             {
-                silder.value = Mathf.Lerp(silder.value, holeLevel.Precent(), Time.fixedDeltaTime*2);
+                silder.fillAmount = Mathf.Lerp(silder.fillAmount, holeLevel.Precent(), Time.fixedDeltaTime*2);
             }
             else
             {
-                silder.value = 0f;
+                silder.fillAmount = 0f;
             }
 
-            
+            text.text = $"Lv {HoleController.Instance.GetCurrentLevel() + 1}";
+
+
         }
     }
 }
