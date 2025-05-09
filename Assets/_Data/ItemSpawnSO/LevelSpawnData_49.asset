@@ -11,18 +11,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e071bb4379b44fc8bfef60dece523cf5, type: 3}
   m_Name: LevelSpawnData_49
-  m_EditorClassIdentifier:
-  serializationData:
-    SerializedFormat: 0
-    SerializedBytes:
-    ReferencedUnityObjects: []
-    SerializedBytesString:
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
+  m_EditorClassIdentifier: 
   listItemSpawns:
-  - id: food_111
+  - id: food_222
     listSpawnDatas:
     - p:
         x: 0
@@ -2030,7 +2021,7 @@ MonoBehaviour:
         y: 1
         z: 1
       kinematic: 1
-  - id: food_223
+  - id: food_501
     listSpawnDatas:
     - p:
         x: 4.9799995
