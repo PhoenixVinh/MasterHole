@@ -60,7 +60,7 @@ namespace _Scripts.Collection
                 statusIndex++;
             }
             
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.SaveAssets();
         }
 
         public void SetDataUI()

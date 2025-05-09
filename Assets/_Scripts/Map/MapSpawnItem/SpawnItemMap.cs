@@ -140,6 +140,9 @@ namespace _Scripts.Map.MapSpawnItem
                     itemSpawn.transform.position = dataspawn.p.ToVector3();
                     itemSpawn.transform.rotation = Quaternion.Euler(dataspawn.r.ToVector3());
                     itemSpawn.transform.localScale = dataspawn.s.ToVector3();
+                    
+                    Rigidbody rb = itemSpawn.GetComponent<Rigidbody>();
+                    rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
                     if (dataspawn.kinematic)
                     {
                         itemSpawn.GetComponent<Rigidbody>().isKinematic = true;
