@@ -11,5 +11,9 @@ namespace _Scripts.UI
         
         public static string CURRENT_INDEX_PROFILE = "CurrentIndexProfile";
         public static string NAME_PLAYER = "NamePlayer";
+        
+        
+        
+        public static string CURRENT_COLLECTION =  "CurrentCollection";
     }
 }

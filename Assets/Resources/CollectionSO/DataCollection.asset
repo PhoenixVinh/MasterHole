@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57621f7a5c2b493f94a47ba292128f2a, type: 3}
   m_Name: DataCollection
   m_EditorClassIdentifier: 
-  ItemCollectionData: []
+  ItemCollectionData:
+  - id: 1
+    LevelUnlock: 1
+    Lock: 0
+  - id: 2
+    LevelUnlock: 10
+    Lock: 0
+  - id: 3
+    LevelUnlock: 30
+    Lock: 1

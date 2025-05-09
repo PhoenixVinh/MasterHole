@@ -25,11 +25,11 @@ namespace _Scripts.Collection
         
         private ItemCollectionData dataCollection;
         
-        private void Start()
+        private void OnEnable()
         {
-            Check.SetActive(false);
-            Lock.SetActive(false);
-            ProcressBarMain.SetActive(false);
+            //Check.SetActive(false);
+            //Lock.SetActive(false);
+            //ProcressBarMain.SetActive(false);
             
         }
 
@@ -42,6 +42,8 @@ namespace _Scripts.Collection
 
         private void SetUI()
         {
+            
+           
             if (dataCollection.Lock)
             {
                 this.Lock.SetActive(true);
@@ -51,17 +53,23 @@ namespace _Scripts.Collection
             }
             else
             {
+                
                 ItemStatusImage.color = Color.white;
                 if (currentLevel >= dataCollection.LevelUnlock)
                 {
+                  
                     Check.SetActive(true);
-                    
+                    Lock.SetActive(false);
+                    ProcressBarMain.SetActive(false);
                 }
                 else
                 {
                     Check.SetActive(false);
+                    Lock.SetActive(false);
                     ProcessBar.fillAmount = (float)currentLevel / dataCollection.LevelUnlock;
                     ProcessText.text = $"Lv {currentLevel}/{dataCollection.LevelUnlock}";
+                    ProcressBarMain.SetActive(true);
+                   
                 }
                 
             }

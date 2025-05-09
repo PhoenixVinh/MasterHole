@@ -28,7 +28,7 @@ namespace _Scripts.Collection
 
         public void LoadData()
         {
-            currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL,1);
             dataCollection = Resources.Load<CollectionSO>("CollectionSO/DataCollection");
         }
 
@@ -37,7 +37,7 @@ namespace _Scripts.Collection
             int statusIndex = 0;
             for (int i = 0; i < dataCollection.ItemCollectionData.Count; i++)
             {
-                if (currentLevel > dataCollection.ItemCollectionData[i].LevelUnlock)
+                if (currentLevel >= dataCollection.ItemCollectionData[i].LevelUnlock)
                 {
                     dataCollection.ItemCollectionData[i].Lock = false;
                 }
@@ -50,13 +50,16 @@ namespace _Scripts.Collection
                 }
                 
             }
-
+            
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COLLECTION,statusIndex);
+            
             statusIndex++;
             while (statusIndex < dataCollection.ItemCollectionData.Count)
             {
                 dataCollection.ItemCollectionData[statusIndex].Lock = true;
                 statusIndex++;
             }
+            
             AssetDatabase.SaveAssets();
         }
 
