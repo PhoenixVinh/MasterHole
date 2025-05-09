@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
-  m_Name: MissionLevel_2
+  m_Name: MissionLevel_15
   m_EditorClassIdentifier: 
   misstionsData:
-  - idItem: food_120
-    AmountItems: 32
-    image: {fileID: 21300000, guid: 5efb337cbbeccfe49814f167cea3d2fb, type: 3}
-  - idItem: food_50
+  - idItem: food_121
     AmountItems: 11
-    image: {fileID: 21300000, guid: 292251c991aa58842b9bfde0e97c5e14, type: 3}
+    image: {fileID: 21300000, guid: 3aa021bc375b9f0438b74faa39277830, type: 3}
+  - idItem: food_106
+    AmountItems: 6
+    image: {fileID: 21300000, guid: b2a584b608466234bb3dca06972951d0, type: 3}
+  - idItem: food_188
+    AmountItems: 74
+    image: {fileID: 21300000, guid: 59f95f23623a58b46957084782bfe58b, type: 3}
