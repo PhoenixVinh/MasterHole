@@ -32,6 +32,16 @@ public class ManagerWinLoss : MonoBehaviour
     }
 
 
+    public void SetLevelCoin()
+    {
+        this.isLevelCoint = true;
+    }
+
+    public void SetNoLevelCoin()
+    {
+        this.isLevelCoint = false;
+    }
+
     public void OnDisable()
     {
         WinLossEvent.OnWin -= ShowUIWin;
