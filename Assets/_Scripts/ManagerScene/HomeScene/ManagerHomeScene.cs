@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.UI;
+using _Scripts.UI.AnimationUI;
 using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using _Scripts.UI.PopupUI;
 using Unity.VisualScripting;
@@ -15,6 +16,8 @@ namespace _Scripts.ManagerScene.HomeScene
 
         public GameObject ShowLoseGame;
 
+        
+     
         private void Awake()
         {
             if (Instance == null) {
@@ -48,7 +51,16 @@ namespace _Scripts.ManagerScene.HomeScene
             }
         }
 
+        public async void ShowRewardCoin(int amount)
+        {
+            
+            int currentCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 1);
 
+            await Task.Delay(200);
+            RewardCoinEvent.OnRewardCoin?.Invoke(currentCoin - amount, currentCoin);
+            
+           
+        }
         public async void ShowLoseGameUI()
         {
             ShowLoseGame.SetActive(true);
