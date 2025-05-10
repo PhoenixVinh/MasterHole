@@ -15,7 +15,7 @@ namespace _Scripts.Hole
 
         public Vector2 GetDirectionMovement() => _movementDirection;
         
-        public Rigidbody rb;
+      
 
 
 
@@ -32,7 +32,7 @@ namespace _Scripts.Hole
             hits = new Collider[5];
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             
             CheckCanMove();

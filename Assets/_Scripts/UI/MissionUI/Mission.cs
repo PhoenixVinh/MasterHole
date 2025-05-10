@@ -54,7 +54,7 @@ namespace _Scripts.UI.MissionUI
             
             itemSpawnMissions.Add(EffectMission);
             
-            Vector3 screenPosition = UnityEngine.Camera.main.WorldToScreenPoint(positionMinus + new Vector3(0,0,5f));
+            Vector3 screenPosition = UnityEngine.Camera.main.WorldToScreenPoint(HoleController.Instance.transform.position);
             EffectMission.GetComponent<RectTransform>().position = screenPosition;
 
             EffectMission.GetComponent<Image>().sprite = image.sprite;
@@ -215,7 +215,7 @@ namespace _Scripts.UI.MissionUI
             DOTween.KillAll();
             foreach (GameObject item in itemSpawnMissions)
             {
-                if (item.activeSelf)
+                if (item != null && item.activeSelf)
                 {
                     item.SetActive(false);
                 }
