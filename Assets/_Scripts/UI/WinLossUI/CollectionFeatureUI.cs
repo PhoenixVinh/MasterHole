@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Data.CollectionData;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,17 @@ namespace _Scripts.UI.WinLossUI
 
         public float speed;
 
+        public TMP_Text levelDes;
+        public GameObject lockIcon;
+
         private CollectionSO collection;
 
         public void OnEnable()
         {
             collection = Resources.Load<CollectionSO>("CollectionSO/DataCollection");
+            ItemStatusImage.fillAmount = 0;
             SetData();
+            
         }
 
         private void SetData()
@@ -38,7 +44,7 @@ namespace _Scripts.UI.WinLossUI
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)
         {
             yield return new WaitForSecondsRealtime(0.2f);
-
+            levelDes.text = $"Lv{currentLevel}/ {collection.ItemCollectionData[currentIndex].LevelUnlock}";
             float start = 0;
             while (start < currentLevel)
             {
@@ -46,7 +52,12 @@ namespace _Scripts.UI.WinLossUI
                 start += speed;
                 yield return new WaitForSecondsRealtime(0.02f);;
             }
-            
+
+            if (currentLevel == collection.ItemCollectionData[currentIndex].LevelUnlock)
+            {
+                Icon.color =  Color.white;
+                lockIcon.SetActive(false);
+            }
             
         }
     }

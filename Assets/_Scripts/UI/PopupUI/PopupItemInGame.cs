@@ -64,17 +64,17 @@ namespace _Scripts.UI.PopupUI
             this.icon.texture = listSprites[indexSpecialSkill].texture;
             if (indexSpecialSkill == 0)
             {
-                descriptionText = "<color=#00FF00>Attract items</color> into hole for 12 seconds";
+                descriptionText = "<color=#00FF00>Increase the hole</color> size over 15 seconds";
                 this.title.text = "Booster Scale";
             }
             else if (indexSpecialSkill == 1)
             {
-                descriptionText = "<color=#00FF00>Attract items</color> into hole for 12 seconds";
+                descriptionText = "<color=#00FF00>Attract objects</color> from a long distance into the hole for 12 seconds";
                 this.title.text = "Booster Magnet";
             }
             else if (indexSpecialSkill == 2)
             {
-                descriptionText = "<color=#00FF00>Attract items</color> into hole for 12 seconds";
+                descriptionText = "<color=#00FF00>Reveal the locations</color> of mission objects for 15 seconds";
                 this.title.text = "Booster Location";
             }
             else
@@ -82,7 +82,8 @@ namespace _Scripts.UI.PopupUI
                 descriptionText = "<color=#00FF00>Attract items</color> into hole for 12 seconds";
                 this.title.text = "Booster Ice";
             }
-            
+
+            this.description.text = descriptionText;
         }
 
         
