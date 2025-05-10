@@ -143,12 +143,14 @@ public class HoleController : MonoBehaviour
 
     public void UpScaleAnim(float dataLevelRadious)
     {
-        Vector3 scaleUp = new Vector3(dataLevelRadious, transform.localScale.y, dataLevelRadious);
+        Vector3 scaleUp = new Vector3(dataLevelRadious*1.25f, transform.localScale.y, dataLevelRadious*1.25f);
+        
+        
         
         
         DOTween.Sequence().SetId("HoleAnim")
-            .Append(transform.DOScale(scaleUp*1.5f,0.3f))
-            .Append(transform.DOScale(scaleUp,0.3f));
+            .Append(transform.DOScale(scaleUp,0.3f))
+            .Append(transform.DOScale(new Vector3(dataLevelRadious,transform.localScale.y, dataLevelRadious ),0.3f));
         
 
     }

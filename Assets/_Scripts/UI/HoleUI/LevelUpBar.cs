@@ -28,7 +28,7 @@ namespace _Scripts.UI.HoleUI
                 silder.fillAmount = 0f;
             }
 
-            text.text = $"Lv {HoleController.Instance.GetCurrentLevel() + 1}";
+            text.text = $"SIZE {HoleController.Instance.GetCurrentLevel() + 1}";
 
 
         }

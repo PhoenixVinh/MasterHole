@@ -10,7 +10,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
 {
     
     public static ColdownTime Instance;
-    [SerializeField]private Image _fillTimer;
+    //[SerializeField]private Image _fillTimer;
     
     private TMP_Text _txtDisplayTime;
     
@@ -73,7 +73,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         
             TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
             this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
-            _fillTimer.fillAmount = Precent();
+            //_fillTimer.fillAmount = Precent();
             if (_timeColdown <= 30 && !isPlaySound)
             {
                 if (ManagerSound.Instance != null)
