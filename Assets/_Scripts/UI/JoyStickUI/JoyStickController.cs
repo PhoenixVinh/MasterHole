@@ -22,9 +22,9 @@ public class JoyStickController : MonoBehaviour
     private void MoveTarget()
     {
         Vector2 direction = new Vector2(variableJoystick.Horizontal, variableJoystick.Vertical);
-        if (direction.magnitude > 0.1f)
+        if (direction.magnitude > 0.2f)
         {
-            targetMovement.Move(direction);
+            targetMovement.Move(direction.normalized);
         }
         else
         {

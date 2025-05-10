@@ -10,6 +10,7 @@ namespace _Scripts.UI.PopupUI
     public class PopupFreeItem : MonoBehaviour
     {
         public RawImage icon;
+        public TMP_Text title;
         public TMP_Text description;
         public Button continueButton;
         
@@ -20,7 +21,7 @@ namespace _Scripts.UI.PopupUI
         public void SetData(int indexSpecialSkill)
         {
         
-            indexSpecialSkill = indexSpecialSkill;
+            this.indexSpecialSkill = indexSpecialSkill;
             continueButton.onClick.AddListener(AddBoosterItem);
             UpdateUI();
         }
@@ -30,23 +31,23 @@ namespace _Scripts.UI.PopupUI
             this.icon.texture = listSprites[indexSpecialSkill].texture;
             if (indexSpecialSkill == 0)
             {
-                descriptionText = "Increase the size of the hole for 10 seconds";
-             
+                descriptionText = "Increase the hole size over 15 seconds";
+                this.title.text = "Booster Scale";
             }
             else if (indexSpecialSkill == 1)
             {
-                descriptionText = "Increase the size of the hole for 10 seconds";
-             
+                descriptionText = "Attract objects from a long distance into the hole for 12 seconds";
+                this.title.text = "Booster Magnet";
             }
             else if (indexSpecialSkill == 2)
             {
-                descriptionText = "Increase the size of the hole for 10 seconds";
-           
+                descriptionText = "Reveal the locations of mission objects for 15 seconds";
+                this.title.text = "Booster Location";
             }
             else
             {
-                descriptionText = "Increase the size of the hole for 10 seconds";
-              
+                descriptionText = "Reveal the locations of mission objects for 15 seconds";
+                this.title.text = "Booster Ice";
             }
             this.description.text = descriptionText;
             

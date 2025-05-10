@@ -65,7 +65,7 @@ namespace _Scripts.Hole
              Vector3 directionNormalized = new Vector3(_movementDirection.x, 0, _movementDirection.y).normalized;
          
             // // Calculate Max Position Can reach 
-            Vector3 newCircleCenter = new Vector3(transform.position.x, 0, transform.position.z) +directionNormalized*_speedMovement/2;
+            Vector3 newCircleCenter = new Vector3(transform.position.x, 0, transform.position.z) +directionNormalized;
             
             //
             // int numberOfPoints = 8;
@@ -74,7 +74,9 @@ namespace _Scripts.Hole
             
             
             int numberCollider = Physics.OverlapSphereNonAlloc(newCircleCenter, radius, hits, LayerMask.GetMask("Bound"));
-           
+
+            
+            
             canMove = numberCollider == 0;
             //
             // List<Vector3> checkpoints  = new List<Vector3>();
@@ -117,18 +119,18 @@ namespace _Scripts.Hole
 
         public void OnDrawGizmosSelected()
         {
-            // Vector3 directionNormalized = new Vector3(_movementDirection.x, 0, _movementDirection.y).normalized;
-            // Debug.Log(directionNormalized);
-            //
-            // // Calculate Max Position Can reach 
-            // Vector3 newCircleCenter = new Vector3(transform.position.x, 0, transform.position.z) +directionNormalized*_speedMovement;
-            //
-            // newCircleCenter.y = 0;
-            // // Vector3 checkpointPosition = newCircleCenter + directionNormalized*HoleController.Instance.GetCurrentRadius();
-            // // checkpointPosition.y = 0;
-            //
-            //
-            // Gizmos.DrawSphere(newCircleCenter, 2f);
+            Vector3 directionNormalized = new Vector3(_movementDirection.x, 0, _movementDirection.y).normalized;
+           
+            
+            // Calculate Max Position Can reach 
+            Vector3 newCircleCenter = new Vector3(transform.position.x, 0, transform.position.z) +directionNormalized;
+            
+            newCircleCenter.y = 0;
+            // Vector3 checkpointPosition = newCircleCenter + directionNormalized*HoleController.Instance.GetCurrentRadius();
+            // checkpointPosition.y = 0;
+            
+            
+            Gizmos.DrawSphere(newCircleCenter, 2f);
         }
     }
 }

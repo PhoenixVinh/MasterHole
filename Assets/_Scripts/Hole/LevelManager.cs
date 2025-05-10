@@ -1,3 +1,4 @@
+using _Scripts.Sound;
 using _Scripts.UI;
 using HoleLevelData;
 using UnityEngine;
@@ -57,6 +58,10 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            if (ManagerSound.Instance != null)
+            {
+                ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelUpHole);
+            }
             HoleController.Instance.LoadLevel(expUpLevel, dataLevel.radious, true);
             HoleController.Instance.UpScaleAnim(dataLevel.radious);
             HoleController.Instance.PlayHoleScaleUp();

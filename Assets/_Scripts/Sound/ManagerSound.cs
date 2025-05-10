@@ -74,6 +74,19 @@ namespace _Scripts.Sound
             var musicSouce = DictEffectMusic[effectSound];
             musicSouce.volume = volumeSfx;
             musicSouce.Play();
+
+            if (effectSound == EnumEffectSound.Magnet)
+            {
+                //Debug.Log("Magnet");
+                musicSouce.loop = true;
+                musicSouce.Play();
+            }
+        }
+
+        public void StopEffectSound(EnumEffectSound effectSound)
+        {
+            var musicSouce = DictEffectMusic[effectSound];
+            musicSouce.Stop();
         }
     }
 }

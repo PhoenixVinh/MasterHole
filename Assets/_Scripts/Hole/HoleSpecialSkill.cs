@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Event;
 using _Scripts.Map.MapSpawnItem;
+using _Scripts.Sound;
 using _Scripts.UI.MissionUI;
 using _Scripts.UI.SpecialSkillUI;
 using DG.Tweening;
@@ -110,6 +111,7 @@ namespace _Scripts.Hole
 
         private IEnumerator UseMagnetCoroutine()
         {
+           
             IsProcessSkill[1] = true;
             float timeColdown = timeSkill02;
             
