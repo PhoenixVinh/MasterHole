@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using _Scripts.Event;
+using _Scripts.Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,8 @@ public class ColdownTime : MonoBehaviour, IPrecent
     
     private bool isStartColdown = false;
 
+
+    private bool isPlaySound = false;
 
 
     private void Awake()
@@ -71,6 +74,14 @@ public class ColdownTime : MonoBehaviour, IPrecent
             TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
             this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
             _fillTimer.fillAmount = Precent();
+            if (_timeColdown <= 30 && !isPlaySound)
+            {
+                if (ManagerSound.Instance != null)
+                {
+                    ManagerSound.Instance.PlayEffectSound(EnumEffectSound.TimeEnd);
+                    isPlaySound = true;
+                }
+            }
         }
         else
         {
@@ -100,6 +111,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         this.ColdownTimeComplete = levelTimeToComplete;
         this._timeColdown = ColdownTimeComplete;
         StartColdown();
+        isPlaySound = false;
     }
 
     public void AddTime(float timeAdd)

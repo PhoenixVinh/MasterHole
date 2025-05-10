@@ -44,7 +44,7 @@ namespace _Scripts.UI.WinLossUI
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)
         {
             yield return new WaitForSecondsRealtime(0.2f);
-            levelDes.text = $"Lv{currentLevel}/ {collection.ItemCollectionData[currentIndex].LevelUnlock}";
+            levelDes.text = $"Lv {currentLevel}/ {collection.ItemCollectionData[currentIndex].LevelUnlock}";
             float start = 0;
             while (start < currentLevel)
             {

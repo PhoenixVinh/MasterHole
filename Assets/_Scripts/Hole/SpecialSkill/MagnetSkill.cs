@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using _Scripts.Sound;
 using DG.Tweening;
 using DG.Tweening.Core;
 using Unity.VisualScripting;
@@ -40,12 +41,19 @@ public class MagnetSkill : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<SphereCollider>();
+        
     }
 
     private void OnEnable()
     {
         _collider.radius = 0.5f + addingRadius/10f;
+        if (ManagerSound.Instance != null)
+        {
+            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.Magnet);
+        }
     }
+    
+    
     private void Start()
     {
         
@@ -138,6 +146,10 @@ public class MagnetSkill : MonoBehaviour
                     await Task.Delay(50);
                 }
             }
+        }
+        if (ManagerSound.Instance != null)
+        {
+            ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
         }
     }
 }
