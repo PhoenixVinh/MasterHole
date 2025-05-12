@@ -154,7 +154,7 @@ namespace _Scripts.UI.MissionUI
 
             while (currentTime < moveDuration)
             {
-                currentTime += Time.deltaTime;
+                currentTime += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(currentTime / moveDuration); // Tỷ lệ thời gian (0 -> 1)
 
                 // Tính toán vị trí theo AnimationCurve
@@ -167,6 +167,7 @@ namespace _Scripts.UI.MissionUI
 
             // Đảm bảo vị trí cuối cùng chính xác
             effectMission.transform.position = endPoint;
+            effectMission.SetActive(false);
         }
 
         private Vector3 CalculateCurvePosition(float t, Vector3 startPoint, Vector3 endPoint)

@@ -23,10 +23,14 @@ public class HoleCenter : MonoBehaviour
         if (other.CompareTag("Item"))
         {
             var rb = other.transform.parent.GetComponent<Rigidbody>();
+            if (rb == null)
+            {
+                rb = other.GetComponent<Rigidbody>();
+            }
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             rb.isKinematic = false;
-            other.transform.Translate(Vector3.down*0.0001f);
-            other.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
+            other.transform.parent.Translate(Vector3.down*0.0001f);
+            //other.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
             other.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
         }
     }
