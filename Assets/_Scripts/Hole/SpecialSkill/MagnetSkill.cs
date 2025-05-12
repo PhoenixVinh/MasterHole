@@ -85,7 +85,7 @@ public class MagnetSkill : MonoBehaviour
             if(obj == null) continue;
             if(item.Value.isSuction) continue;
             
-            float distance = Vector3.Distance(pos, obj.transform.position);
+            float distance = Vector2.Distance(new Vector2(pos.x, pos.z), new Vector2(obj.transform.position.x, obj.transform.position.z));
             if (distance > radious + 0.2f)
             {
                 if(item.Value.isSuction) continue;
@@ -116,7 +116,7 @@ public class MagnetSkill : MonoBehaviour
             //     continue;
             // }
             //
-            obj.transform.position += directionMovement * suctionforce * Time.deltaTime;
+            obj.transform.position += new Vector3(directionMovement.x, 0, directionMovement.z) * suctionforce * Time.deltaTime;
             // Scale object to the Hole 
             // Check if it is scaled => Don't Scale again 
             // Scale Object
