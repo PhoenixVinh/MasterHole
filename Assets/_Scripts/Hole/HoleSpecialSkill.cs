@@ -117,6 +117,10 @@ namespace _Scripts.Hole
             
             TriggerMagnet.SetActive(true);
             EffectSkill02.gameObject.SetActive(true);
+            if (ManagerSound.Instance != null)
+            {
+                ManagerSound.Instance.PlayEffectSound(EnumEffectSound.Magnet);
+            }
             while (timeColdown > 0)
             {
                 EffectSkill02.startSpeed = HoleController.Instance.GetCurrentScale() * 1.5f;
@@ -127,6 +131,10 @@ namespace _Scripts.Hole
             EffectSkill02.gameObject.SetActive(false);
          
             IsProcessSkill[1] = false;
+            if (ManagerSound.Instance != null)
+            {
+                ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
+            }
         }
 
         private IEnumerator IncreaseRangeCoroutine()
@@ -136,7 +144,7 @@ namespace _Scripts.Hole
             var sequence = DOTween.Sequence();
             sequence.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 1f));
             sequence.OnUpdate(
-                () => { HoleController.Instance.OnUpLevelHole(); }
+                () => {  }
             );
             DOTween.Kill(sequence);
             //this.transform.localScale = new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease);
@@ -150,7 +158,7 @@ namespace _Scripts.Hole
                     var sequence2= DOTween.Sequence();
                     sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
                     sequence2.OnUpdate(
-                        () => { HoleController.Instance.OnUpLevelHole(); }
+                        () => {  }
                     );
                     DOTween.Kill(sequence2);
                 }
@@ -165,7 +173,7 @@ namespace _Scripts.Hole
             sequence = DOTween.Sequence();
             sequence.Append(transform.DOScale(new Vector3(scaleDecrease, transform.localScale.y, scaleDecrease), 1f));
             sequence.OnUpdate(
-                () => { HoleController.Instance.OnUpLevelHole(); }
+                () => { }
             );
             IsProcessSkill[0] = false;
         }

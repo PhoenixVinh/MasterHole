@@ -41,12 +41,14 @@ namespace _Scripts.UI.MissionUI
                 DestroyImmediate(transform.GetChild(0).gameObject);
             }
             TypeItems.Clear();
+            int index = 0;
             foreach (var missionSo in MissionsSO.misstionsData)
             {
                 GameObject mission = Instantiate(Mission, transform);
                 mission.name = "Mission";
-                mission.GetComponent<Mission>().SetData(missionSo);
+                mission.GetComponent<Mission>().SetData(missionSo, index);
                 TypeItems[missionSo.idItem] = mission.GetComponent<Mission>();
+                index++;
             }
         }
 
@@ -71,7 +73,7 @@ namespace _Scripts.UI.MissionUI
                             1,
                             RotateMode.FastBeyond360
                         )
-                        .SetEase(Ease.Linear) // Smooth, consistent speed
+                        .SetUpdate(true).SetEase(Ease.Linear) // Smooth, consistent speed
                 );
                
                 
@@ -84,6 +86,10 @@ namespace _Scripts.UI.MissionUI
                         () =>
                         {
                             Destroy(game);
+
+                            SetIndex();
+
+
                         }
                         );
                    
@@ -98,6 +104,15 @@ namespace _Scripts.UI.MissionUI
             }
         }
 
+        public void SetIndex()
+        {
+            int index = 0;
+            foreach (var value in TypeItems.Values)
+            {
+                value.SetIndexMission(index);
+                index++;
+            }
+        }
         public Sprite GetSprite(string itemType)
         {
             if (!TypeItems.ContainsKey(itemType)) return null;

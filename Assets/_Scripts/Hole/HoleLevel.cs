@@ -51,7 +51,7 @@ public class HoleLevel : MonoBehaviour, IPrecent
         
         // Update Scale of Hole 
         this.transform.localScale = newScale;
-        HoleController.Instance.OnUpLevelHole();
+        //HoleController.Instance.OnUpLevelHole();
         
         
     }

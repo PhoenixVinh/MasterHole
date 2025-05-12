@@ -56,7 +56,7 @@ namespace _Scripts.UI.WinLossUI
         {
             base.OnDisable();
             continueButton.onClick.RemoveAllListeners();
-            this.pauseButton.gameObject.SetActive(true);
+           
         }
 
         private void ShowNextlevel()

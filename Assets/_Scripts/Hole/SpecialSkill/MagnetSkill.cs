@@ -47,10 +47,7 @@ public class MagnetSkill : MonoBehaviour
     private void OnEnable()
     {
         _collider.radius = 0.5f + addingRadius/10f;
-        if (ManagerSound.Instance != null)
-        {
-            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.Magnet);
-        }
+        
     }
     
     
@@ -147,9 +144,6 @@ public class MagnetSkill : MonoBehaviour
                 }
             }
         }
-        if (ManagerSound.Instance != null)
-        {
-            ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
-        }
+      
     }
 }

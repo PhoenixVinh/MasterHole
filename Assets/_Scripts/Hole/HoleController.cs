@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Effects;
+using _Scripts.Event;
 using _Scripts.Hole;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -61,10 +62,7 @@ public class HoleController : MonoBehaviour
     }
 
 
-    public void OnUpLevelHole()
-    {
-       // this._blackHole.changeInitialScale(this.transform.localScale.x);
-    }
+
 
 
     public void LoadLevel(int amountExp, float radius, bool isAnim)
@@ -74,10 +72,14 @@ public class HoleController : MonoBehaviour
         // Update Scale of Hole 
         if (isAnim)
         {
+            
+            //transform.localScale = newScale;
             DOTween.Sequence()
                 .SetId("HoleUpScale")
-                .Append(transform.DOScale(newScale, 1f))
-                .OnComplete(() => OnUpLevelHole());
+                .Append(transform.DOScale(new Vector3(radius * 0.7f, localScale.y, radius*0.7f), 0.1f))
+                .Append(transform.DOScale(newScale, 0.3f));
+                
+            CameraFOVEvent.OnLevelUpEvent?.Invoke(0.4f);
         }
         else
         {
@@ -117,7 +119,7 @@ public class HoleController : MonoBehaviour
 
     public int GetCurrentLevel()
     {
-        return _levelManager.currentLevel;
+        return _levelManager.CurrentLevel;
     }
     // private  IncreaseRangeCoroutine()
     // {

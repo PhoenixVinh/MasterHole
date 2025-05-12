@@ -13,4 +13,6 @@ public class Item : MonoBehaviour
         this.score = score;
         this.type = foodName;
     }
+
+  
 }

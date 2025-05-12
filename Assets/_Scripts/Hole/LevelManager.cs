@@ -8,15 +8,23 @@ public class LevelManager : MonoBehaviour
     // it can load by recouses
     public LevelHoleSO datalevel;
 
-    public int currentLevel = 0;
+    private int currentLevel = 0;
+
+
+    public int CurrentLevel
+    {
+        get { return currentLevel; }
+        private set { currentLevel = value; }
+    } 
     public void Start()
     {
         UpdateLevel();
-        currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+        currentLevel = 0;
     }
 
     private void OnEnable()
     {
+        currentLevel = 0;
         HoleEvent.OnLevelUp += OnLevelup;
     }
 
@@ -62,9 +70,10 @@ public class LevelManager : MonoBehaviour
             {
                 ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelUpHole);
             }
-            HoleController.Instance.LoadLevel(expUpLevel, dataLevel.radious, true);
-            HoleController.Instance.UpScaleAnim(dataLevel.radious);
             HoleController.Instance.PlayHoleScaleUp();
+            HoleController.Instance.LoadLevel(expUpLevel, dataLevel.radious, true);
+            //HoleController.Instance.UpScaleAnim(dataLevel.radious);
+            
         }
        
        
@@ -73,7 +82,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetLevel()
     {
-        currentLevel = 0;
+        currentLevel = 0; 
         UpdateLevel();
     }
 
@@ -81,6 +90,7 @@ public class LevelManager : MonoBehaviour
     {
         return datalevel.levels[currentLevel].radious;
     }
+    
     
     
     

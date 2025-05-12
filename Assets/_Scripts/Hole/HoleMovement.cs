@@ -32,14 +32,14 @@ namespace _Scripts.Hole
             hits = new Collider[5];
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             
             CheckCanMove();
             if (canMove)
             {
-            
-                transform.Translate(new Vector3(_movementDirection.x, 0, _movementDirection.y)*_speedMovement*Time.deltaTime);
+                transform.position += new  Vector3(_movementDirection.x, 0, _movementDirection.y) * _speedMovement*Time.deltaTime;
+            //    transform.Translate(new Vector3(_movementDirection.x, 0, _movementDirection.y)*_speedMovement*Time.deltaTime);
             }
         }
 

@@ -18,6 +18,7 @@ namespace _Scripts.Camera
         public float _targetFOV;
 
         private bool isStartLevel = false;
+        private bool isLevelUp = false;
         private void Start()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -30,13 +31,16 @@ namespace _Scripts.Camera
         private void OnEnable()
         {
             CameraFOVEvent.OnStarLevelEvent += StartLevelFOV;
+            CameraFOVEvent.OnLevelUpEvent += LevelUpEventFOV;
             // HoleEvent.OnLevelUp += UpdateFOV;
             // HoleEvent.OnStartIncreaseSpecialSkill += UpdateFOVBySkill;
         }
 
+       
         private void OnDisable()
         {
             CameraFOVEvent.OnStarLevelEvent -= StartLevelFOV;
+            CameraFOVEvent.OnLevelUpEvent -= LevelUpEventFOV;
         }
 
         private void StartLevelFOV()
@@ -44,12 +48,25 @@ namespace _Scripts.Camera
             StartCoroutine(StartLevelFOVCorutine());
             
         }
+        private void LevelUpEventFOV(float delaytime)
+        {
+            StartCoroutine(LevelUpCoroutine(delaytime));
+        }
+
+        private IEnumerator LevelUpCoroutine(float delaytime)
+        {
+            isLevelUp = true;
+            yield return new WaitForSeconds(delaytime);
+            isLevelUp = false;
+        }
+
 
         private IEnumerator StartLevelFOVCorutine()
         {
             _virtualCamera.m_Lens.OrthographicSize = startLevelFOV;
             isStartLevel = true;
             yield return new WaitForSeconds(0.75f);
+            
             isStartLevel = false;
         }
 
@@ -70,11 +87,12 @@ namespace _Scripts.Camera
         private void FixedUpdate()
         {
             if (isStartLevel) return;
+            if(isLevelUp) return;
             float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
             
             
             _virtualCamera.m_Lens.OrthographicSize =
-                Mathf.Lerp(_virtualCamera.m_Lens.OrthographicSize, baseFOV + addingFOV, Time.deltaTime);
+                Mathf.Lerp(_virtualCamera.m_Lens.OrthographicSize, baseFOV + addingFOV, Time.deltaTime*5f);
         }
 
         private void UpdateFOV() 

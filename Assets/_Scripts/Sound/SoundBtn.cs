@@ -16,7 +16,8 @@ namespace _Scripts.Sound
 
         private void PlaySound()
         {
-            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);
+            if(ManagerSound.Instance != null)
+                ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace _Scripts.Hole
 {
     public class HoleBottom : MonoBehaviour
     {
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             // Check if it is the item Destroy it 
             if (other.CompareTag("Item"))
@@ -27,7 +27,6 @@ namespace _Scripts.Hole
                 TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
                 ManagerMission.Instance.CheckMinusItems(other.transform.parent.GetComponent<Item>().type, other.transform.position);
-                other.transform.parent.gameObject.SetActive(false);
                 Destroy(other.transform.parent.gameObject);
                 
                

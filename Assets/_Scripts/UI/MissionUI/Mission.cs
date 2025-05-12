@@ -13,6 +13,9 @@ namespace _Scripts.UI.MissionUI
 {
     public class Mission : MonoBehaviour
     {
+
+        private int indexMission;
+        
         
         public int amountItem;
         public string itemType;
@@ -22,7 +25,8 @@ namespace _Scripts.UI.MissionUI
 
         
         [SerializeField] private ParticleSystem particle;
-
+        public AnimationCurve heightCurve;
+       
         public bool IsDone() => amountItem == 0;
         public int GetAmountItem() => amountItem;
 
@@ -31,7 +35,7 @@ namespace _Scripts.UI.MissionUI
 
         private HashSet<GameObject> itemSpawnMissions;
 
-        public void SetData(MissionData missionData)
+        public void SetData(MissionData missionData, int index)
         {
             itemSpawnMissions = new HashSet<GameObject>();
             particle.Stop();
@@ -39,6 +43,7 @@ namespace _Scripts.UI.MissionUI
             this.itemType = missionData.idItem;
             _text.text = this.amountItem.ToString();
             image.sprite = missionData.image;    
+            this.indexMission = index;
         }
         public Sprite GetImage() => image.sprite;
         public void MinusItem(Vector3 positionMinus)
@@ -55,7 +60,7 @@ namespace _Scripts.UI.MissionUI
             itemSpawnMissions.Add(EffectMission);
             
             Vector3 screenPosition = UnityEngine.Camera.main.WorldToScreenPoint(HoleController.Instance.transform.position);
-            EffectMission.GetComponent<RectTransform>().position = screenPosition;
+            EffectMission.GetComponent<RectTransform>().anchoredPosition = screenPosition;
 
             EffectMission.GetComponent<Image>().sprite = image.sprite;
             EffectMission.SetActive(true);
@@ -68,12 +73,42 @@ namespace _Scripts.UI.MissionUI
             }
             
             
-            EffectMission.transform.localScale = new Vector3(1, 1, 1) * 1.2f;
+            //EffectMission.transform.localScale = new Vector3(1, 1, 1) * 1.2f;
             
           
             amountItem--;
             amountItem = amountItem >= 0 ? amountItem : 0;
-            StartCoroutine(PlayEffectCoroutine(EffectMission));
+            StartCoroutine(MoveWithCurve(1.2f,screenPosition, this.transform.position, EffectMission));
+            
+            EffectMission.transform.localScale = Vector3.zero;
+            DOTween.Sequence()
+                .SetId(IdDotween)
+                .Append(EffectMission.transform.DOScale(Vector3.one * 1.2f, 0.8f))
+                .Append(EffectMission.transform.DOScale(Vector3.one * 0.9f, 0.4f))
+                .SetUpdate(true)
+                .OnComplete(
+                    () =>
+                    {
+                        if (EffectMission != null)
+                        {
+                            EffectMission.SetActive(false);
+                        }
+                        
+                        DOTween.Sequence()
+                            .Append(transform.DOScale(Vector3.one * 1.2f, 0.2f))
+                            .Append(transform.DOScale(Vector3.one, 0.1f))
+                            .SetUpdate(true);
+                        if (this._text != null)
+                        {
+                            this._text.text = this.amountItem.ToString();
+                        }
+                        if (particle != null)
+                        {
+                            particle.Play();
+                        }
+                    }
+                );
+
             // DOTween.Sequence()
             //     .SetId(IdDotween)
             //     .Append(EffectMission.transform.DOMove(this.transform.position, 1.2f)
@@ -110,8 +145,52 @@ namespace _Scripts.UI.MissionUI
 
         }
         
-        
-        
+        private IEnumerator MoveWithCurve(float moveDuration,Vector3 startPoint, Vector3 endPoint, GameObject effectMission)
+        {
+            
+         
+            
+            float currentTime = 0f;
+
+            while (currentTime < moveDuration)
+            {
+                currentTime += Time.deltaTime;
+                float t = Mathf.Clamp01(currentTime / moveDuration); // Tỷ lệ thời gian (0 -> 1)
+
+                // Tính toán vị trí theo AnimationCurve
+                Vector3 newPosition = CalculateCurvePosition(t,startPoint, transform.position );
+                effectMission.transform.position = newPosition;
+
+                yield return null; // Chờ frame tiếp theo
+                
+            }
+
+            // Đảm bảo vị trí cuối cùng chính xác
+            effectMission.transform.position = endPoint;
+        }
+
+        private Vector3 CalculateCurvePosition(float t, Vector3 startPoint, Vector3 endPoint)
+        {
+
+
+            var heightC = -100;
+            if (indexMission == 0)
+            {
+                heightC = -60;
+            }
+            else
+            {
+                heightC = -100;
+            }
+            
+            
+            float y = Mathf.Lerp(startPoint.y, endPoint.y, t);
+            
+            float curveValue = heightCurve.Evaluate(t); // Giá trị từ 0 đến 1
+            float x = Mathf.Lerp(startPoint.x, endPoint.x, t) + curveValue * heightC;
+
+            return new Vector3(x, y, 0);
+        }
         private IEnumerator PlayEffectCoroutine(GameObject EffectMission)
         {
         
@@ -213,6 +292,7 @@ namespace _Scripts.UI.MissionUI
             
             DOTween.Kill(IdDotween);
             DOTween.KillAll();
+            StopAllCoroutines();
             foreach (GameObject item in itemSpawnMissions)
             {
                 if (item != null && item.activeSelf)
@@ -221,6 +301,11 @@ namespace _Scripts.UI.MissionUI
                 }
             }
 
+        }
+
+        public void SetIndexMission(int index)
+        {
+            indexMission = index;
         }
     }
 }

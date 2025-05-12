@@ -362,6 +362,30 @@ MonoBehaviour:
   _text: {fileID: 95337127195504720}
   image: {fileID: 95337128282196323}
   particle: {fileID: 8367774321327983298}
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0019226074
+      value: -0.0078125
+      inSlope: 13.113907
+      outSlope: 13.113907
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.038276497
+    - serializedVersion: 3
+      time: 1
+      value: -0.0143585205
+      inSlope: -12.278119
+      outSlope: -12.278119
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.025700808
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &95337128282196327
 GameObject:
   m_ObjectHideFlags: 0
