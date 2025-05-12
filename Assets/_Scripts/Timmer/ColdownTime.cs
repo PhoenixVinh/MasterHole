@@ -98,8 +98,13 @@ public class ColdownTime : MonoBehaviour, IPrecent
 
 
     [ContextMenu("Start Coldown")]
-    public void StartColdown()
+    public async void StartColdown()
     {
+
+        while (HoleController.Instance.HoleMovement.GetDirectionMovement() != Vector2.zero)
+        {
+            await Task.Delay(100); 
+        }
         this.isStartColdown = true;
     }
 
@@ -112,6 +117,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         this._timeColdown = ColdownTimeComplete;
         StartColdown();
         isPlaySound = false;
+        
     }
 
     public void AddTime(float timeAdd)
