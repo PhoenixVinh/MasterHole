@@ -92,11 +92,11 @@ public class HoleController : MonoBehaviour
             transform.localScale = newScale;
         }
 
-        foreach (var bot in bottomHoles)
-        {
-            bot.transform.localScale = new Vector3(1,1, 1+ addding*radius);
-            bot.transform.localPosition = new Vector3(0,0,radius*downposition);
-        }
+        // foreach (var bot in bottomHoles)
+        // {
+        //     bot.transform.localScale = new Vector3(1,1, 1+ addding*radius);
+        //     bot.transform.localPosition = new Vector3(0,0,radius*downposition);
+        // }
         
         
 

@@ -22,7 +22,7 @@ namespace _Scripts.Camera
         private void Start()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
-            _targetFOV = _virtualCamera.m_Lens.OrthographicSize;
+            _targetFOV = _virtualCamera.m_Lens.FieldOfView;
         }
         
         
@@ -63,7 +63,7 @@ namespace _Scripts.Camera
 
         private IEnumerator StartLevelFOVCorutine()
         {
-            _virtualCamera.m_Lens.OrthographicSize = startLevelFOV;
+            _virtualCamera.m_Lens.FieldOfView = startLevelFOV;
             isStartLevel = true;
             yield return new WaitForSeconds(0.75f);
             
@@ -91,8 +91,8 @@ namespace _Scripts.Camera
             float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
             
             
-            _virtualCamera.m_Lens.OrthographicSize =
-                Mathf.Lerp(_virtualCamera.m_Lens.OrthographicSize, baseFOV + addingFOV, Time.deltaTime*5f);
+            _virtualCamera.m_Lens.FieldOfView =
+                Mathf.Lerp(_virtualCamera.m_Lens.FieldOfView, baseFOV + addingFOV, Time.deltaTime*5f);
         }
 
         private void UpdateFOV() 

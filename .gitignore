@@ -29,6 +29,7 @@
 # Visual Studio cache directory
 .vs/
 
+
 # Gradle cache directory
 .gradle/
 
@@ -64,6 +65,14 @@ sysinfo.txt
 *.unitypackage
 *.unitypackage.meta
 *.app
+
+# Firebase
+/[Aa]ssets/Plugins/Android/Firebase*
+/[Aa]ssets/Plugins/iOS/Firebase*
+/[Aa]ssets/Firebase/Editor/*
+google-services.json
+GoogleService-Info.plist
+
 
 # Crashlytics generated file
 crashlytics-build.properties
