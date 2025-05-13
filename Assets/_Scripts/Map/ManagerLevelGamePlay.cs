@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using _Scripts.Booster;
 using _Scripts.Event;
+using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Map.MapSpawnItem;
 using _Scripts.ObjectPooling;
+using _Scripts.Sound;
 using _Scripts.Tutorial;
 using _Scripts.UI;
 using _Scripts.UI.MissionUI;
@@ -26,7 +28,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         
         currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         level = ScriptableObject.CreateInstance<LevelGamePlaySO>();
-       
+        //ManagerHomeScene.Instance.HideLoadingUI();
     }
    
 
@@ -61,11 +63,12 @@ public class ManagerLevelGamePlay : MonoBehaviour
         return true;
     }
 
-    public Task<bool>  SpawnLevel()
+    public async  Task<bool>  SpawnLevel()
     {
-        
-        
-        
+        if(ManagerHomeScene.Instance != null)
+            ManagerHomeScene.Instance.ShowLoadingUI();
+        if(ManagerSound.Instance != null)
+            ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
         MissionPooling.Instance.DisactiveAllItem();
         HoleController.Instance.Reset();
         HoleController.Instance.SetPosition(Vector3.zero);
@@ -81,7 +84,12 @@ public class ManagerLevelGamePlay : MonoBehaviour
         HoleController.Instance.gameObject.SetActive(true);
         CameraFOVEvent.OnStarLevelEvent?.Invoke();
 
-        return Task.FromResult(true);
+        if (ManagerHomeScene.Instance != null)
+        {
+            ManagerHomeScene.Instance.HideLoadingUI();
+        }
+            
+        return true;
 
     }
 
@@ -92,6 +100,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         if (LoadLevelSO())
         {
             ManagerTutorial.Instance.ShowTutorials(currentLevel);
+            
             SpawnLevel();
             
         }

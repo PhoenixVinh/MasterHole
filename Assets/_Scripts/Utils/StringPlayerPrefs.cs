@@ -15,6 +15,6 @@ namespace _Scripts.UI
         
         
         public static string CURRENT_COLLECTION =  "CurrentCollection";
-        public static string HoleSkinIndex = "HoleskinIndex";
+        public static string HOLESKININDEX = "HoleskinIndex";
     }
 }

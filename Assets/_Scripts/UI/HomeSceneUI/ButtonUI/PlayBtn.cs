@@ -1,3 +1,4 @@
+using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,7 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
             int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 0);
           
             if (currentEnergy == 0) return;
+            ManagerHomeScene.Instance.ShowLoadingUI();
             base.ChangeScene();
           
         }

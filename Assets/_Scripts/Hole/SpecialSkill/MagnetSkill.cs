@@ -58,9 +58,9 @@ public class MagnetSkill : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!_suckecObjects.ContainsKey(other.gameObject))
+        if (!_suckecObjects.ContainsKey(other.transform.parent.gameObject))
         {
-            _suckecObjects.Add(other.gameObject, new suckecObjectParameter(other.gameObject.transform.localScale, false) );
+            _suckecObjects.Add(other.transform.parent.gameObject, new suckecObjectParameter(other.gameObject.transform.localScale, false) );
         }
     }
     
@@ -99,7 +99,7 @@ public class MagnetSkill : MonoBehaviour
                 }
                 
             }
-            if (distance < 0.2f)
+            if (distance < 0.5f)
             {
                 item.Value.SetBoolSuction(true);
                 
@@ -131,19 +131,19 @@ public class MagnetSkill : MonoBehaviour
 
     public async void OnDisable()
     {
-        foreach (var item in _suckecObjects)
-        {
-            if(item.Key == null) continue;
-            else
-            {
-                
-                while ( item.Key != null && item.Key.transform.localScale.x < item.Value.originScale.x) 
-                {
-                    item.Key.transform.localScale /= 0.95f;
-                    await Task.Delay(50);
-                }
-            }
-        }
+        // foreach (var item in _suckecObjects)
+        // {
+        //     if(item.Key == null) continue;
+        //     else
+        //     {
+        //         
+        //         while ( item.Key != null && item.Key.transform.localScale.x < item.Value.originScale.x) 
+        //         {
+        //             item.Key.transform.localScale /= 0.95f;
+        //             await Task.Delay(50);
+        //         }
+        //     }
+        // }
       
     }
 }

@@ -136,6 +136,11 @@ namespace _Scripts.Map.MapSpawnItem
                 foreach (var dataspawn in item.listSpawnDatas)
                 {
                     GameObject itemSpawn = Instantiate(prefabInstance, transform);
+                    // for (int i = 0; i < itemSpawn.transform.childCount; i++)
+                    // {
+                    //     itemSpawn.transform.GetChild(i).transform.position += new Vector3(0, 1, 0);
+                    // }
+                    
                     itemSpawn.name = prefabInstance.name;
                     itemSpawn.transform.position = dataspawn.p.ToVector3();
                     itemSpawn.transform.rotation = Quaternion.Euler(dataspawn.r.ToVector3());

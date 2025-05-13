@@ -74,7 +74,7 @@ namespace _Scripts.UI.HoleSkinUI
             }
             else
             {
-                int indexSkin = PlayerPrefs.GetInt(StringPlayerPrefs.HoleSkinIndex, 0);
+                int indexSkin = PlayerPrefs.GetInt(StringPlayerPrefs.HOLESKININDEX, 0);
                 button.onClick.AddListener(SetEquippedSkin);
                 
                 
@@ -93,7 +93,7 @@ namespace _Scripts.UI.HoleSkinUI
         {
             HoleEvent.OnSkinSelected?.Invoke();
             SetUIEquipped();
-            PlayerPrefs.SetInt(StringPlayerPrefs.HoleSkinIndex, this.indexSkinHole);
+            PlayerPrefs.SetInt(StringPlayerPrefs.HOLESKININDEX, this.indexSkinHole);
         }
 
         private void SetUIEquipped()
