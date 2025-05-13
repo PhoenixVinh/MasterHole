@@ -4,6 +4,7 @@ using _Scripts.Map.MapSpawnItem;
 using _Scripts.ObjectPooling;
 using _Scripts.Sound;
 using _Scripts.UI.MissionUI;
+using _Scripts.Vibration;
 using UnityEngine;
 
 namespace _Scripts.Hole
@@ -15,12 +16,18 @@ namespace _Scripts.Hole
             // Check if it is the item Destroy it 
             if (other.CompareTag("Item"))
             {
+                
+               
 
                 if (ManagerSound.Instance != null)
                 {
                     ManagerSound.Instance.PlayEffectSound(EnumEffectSound.EatItem);
                 }
-                
+
+                if (ManagerVibration.Instance != null)
+                {
+                    ManagerVibration.Instance.UseVibration(EnumVibration.Light);
+                }
                 int score = other.transform.parent.GetComponent<Item>().score;
                 ItemEvent.OnAddScore?.Invoke(score);
                 SpawnItemMap.Instance.RemoveItem(other.gameObject);
