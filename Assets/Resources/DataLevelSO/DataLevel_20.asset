@@ -15,6 +15,16 @@ MonoBehaviour:
   levelSpawnData: {fileID: 11400000, guid: a188271cc7b2d6d438729bcf07badd6f, type: 2}
   missionData: {fileID: 11400000, guid: 70e4c5975dba4244f941b2178e641a16, type: 2}
   timeToComplete: 15
-  ScoreDatas: []
+  ScoreDatas:
+  - itemName: coin_cat
+    score: 1
+  - itemName: coin_big
+    score: 1
+  - itemName: coin_small
+    score: 1
+  - itemName: coin_pig
+    score: 1
+  - itemName: coin_chinese
+    score: 1
   mapPosition: {x: 0, y: -10.69, z: 17.46}
   mapScale: {x: 11000, y: 10000, z: 11000}

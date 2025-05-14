@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Phoneix
+  companyName: Phoenix
   productName: Black Hole
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -48,7 +48,7 @@ PlayerSettings:
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
-  unsupportedMSAAFallback: 0
+  unsupportedMSAAFallback: 1
   m_MTRendering: 1
   mipStripping: 0
   numberOfMipsStripped: 0
@@ -128,7 +128,7 @@ PlayerSettings:
   stadiaTargetFramerate: 0
   vulkanNumSwapchainBuffers: 3
   vulkanEnableSetSRGBWrite: 0
-  vulkanEnablePreTransform: 1
+  vulkanEnablePreTransform: 0
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   m_SupportedAspectRatios:
@@ -159,15 +159,15 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Phoneix.BlackHole
+    Android: com.holemaster.eatthemall.holeiomaster
   buildNumber:
     Standalone: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 0
+  overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 22
-  AndroidTargetSdkVersion: 0
+  AndroidTargetSdkVersion: 35
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -246,10 +246,10 @@ PlayerSettings:
   useCustomLauncherManifest: 1
   useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 1
-  useCustomBaseGradleTemplate: 1
+  useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 1
-  useCustomProguardFile: 1
-  AndroidTargetArchitectures: 2
+  useCustomProguardFile: 0
+  AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -261,7 +261,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 1
+  androidUseCustomKeystore: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -818,6 +818,7 @@ PlayerSettings:
     Nintendo Switch: DOTWEEN
     PS4: DOTWEEN
     PS5: DOTWEEN
+    Server: 
     Stadia: DOTWEEN
     Standalone: DOTWEEN
     WebGL: DOTWEEN
