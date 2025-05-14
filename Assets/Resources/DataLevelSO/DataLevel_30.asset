@@ -12,65 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2161d8b5e8741a2a4416a9e99e36ad4, type: 3}
   m_Name: DataLevel_30
   m_EditorClassIdentifier: 
-  levelSpawnData: {fileID: 11400000, guid: 8aef499017ba0c646b5dde07fd01dc84, type: 2}
-  missionData: {fileID: 11400000, guid: e7aaa9d9172e7d642accdc87ae8b5296, type: 2}
-  timeToComplete: 165
+  levelSpawnData: {fileID: 11400000, guid: e7cb464d4008d5647941a3318998df5f, type: 2}
+  missionData: {fileID: 11400000, guid: e67dae2c0e7fb004496724aeda0f0120, type: 2}
+  timeToComplete: 200
   ScoreDatas:
-  - itemName: food_184
+  - itemName: food_10
     score: 1
-  - itemName: food_195
-    score: 3
-  - itemName: food_112
-    score: 2
-  - itemName: food_101
-    score: 2
-  - itemName: food_13
-    score: 2
-  - itemName: food_212
+  - itemName: food_9
     score: 1
-  - itemName: food_51
+  - itemName: food_53
     score: 1
-  - itemName: food_92
-    score: 1
-  - itemName: food_541
-    score: 2
-  - itemName: food_553
-    score: 3
-  - itemName: food_210
-    score: 1
-  - itemName: food_185
-    score: 1
-  - itemName: food_543
-    score: 2
-  - itemName: food_17
-    score: 1
-  - itemName: food_52
-    score: 1
-  - itemName: food_199
-    score: 1
-  - itemName: food_87
-    score: 1
-  - itemName: food_132
+  - itemName: food_129
     score: 1
   - itemName: food_4
     score: 1
-  - itemName: food_50
-    score: 2
-  - itemName: food_487
+  - itemName: food_18
     score: 1
-  - itemName: food_527
+  - itemName: food_15
     score: 1
-  - itemName: food_121
+  - itemName: food_17
     score: 1
-  - itemName: food_207
-    score: 5
-  - itemName: food_130
-    score: 2
-  - itemName: food_217
-    score: 2
-  - itemName: food_528
-    score: 2
-  - itemName: food_188
+  - itemName: food_12
     score: 1
-  mapPosition: {x: 0, y: -10.69, z: 19.87}
-  mapScale: {x: 13000, y: 10000, z: 13000}
+  - itemName: food_16
+    score: 1
+  mapPosition: {x: 6.1, y: -10.69, z: 5.6}
+  mapScale: {x: 12000, y: 10000, z: 12000}
