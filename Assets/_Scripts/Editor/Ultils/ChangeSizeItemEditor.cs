@@ -15,7 +15,7 @@ namespace _Scripts.Editor.Ultils
         
         public Transform parentSpawn;
 
-        public string searchITems;
+        public string searchITems = "";
         
         public string prefabPath = "PrefabInstance/";
         public List<string> subfolderLoad = new List<string>()
@@ -43,7 +43,7 @@ namespace _Scripts.Editor.Ultils
             EditorGUI.BeginChangeCheck();
             levelSpawnData = (LevelSpawnData)EditorGUILayout.ObjectField("Item Spawn", levelSpawnData, typeof(LevelSpawnData), false);
             parentSpawn = (Transform)EditorGUILayout.ObjectField("Parent Spawn", parentSpawn, typeof(Transform), true);
-            searchITems = EditorGUILayout.TextField("Search ITems", searchITems);
+            searchITems = EditorGUILayout.TextField("Search Items", searchITems);
             
             if (levelSpawnData == null) return;
             
