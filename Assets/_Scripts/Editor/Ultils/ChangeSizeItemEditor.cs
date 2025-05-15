@@ -13,9 +13,9 @@ namespace _Scripts.Editor.Ultils
         public Dictionary<string, List<ItemSpawnData>> itemDatas = new Dictionary<string, List<ItemSpawnData>>(); 
         
         
-        public Transform parentSpawn; 
-        
-        
+        public Transform parentSpawn;
+
+        public string searchITems;
         
         public string prefabPath = "PrefabInstance/";
         public List<string> subfolderLoad = new List<string>()
@@ -43,6 +43,8 @@ namespace _Scripts.Editor.Ultils
             EditorGUI.BeginChangeCheck();
             levelSpawnData = (LevelSpawnData)EditorGUILayout.ObjectField("Item Spawn", levelSpawnData, typeof(LevelSpawnData), false);
             parentSpawn = (Transform)EditorGUILayout.ObjectField("Parent Spawn", parentSpawn, typeof(Transform), true);
+            searchITems = EditorGUILayout.TextField("Search ITems", searchITems);
+            
             if (levelSpawnData == null) return;
             
             if (EditorGUI.EndChangeCheck())
@@ -87,15 +89,18 @@ namespace _Scripts.Editor.Ultils
                 EditorGUI.BeginChangeCheck();
                 foreach (var item in itemDatas)
                 {
-                
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(item.Key);  
-                    GUILayout.BeginVertical();
-                    Size[index].x = EditorGUILayout.Slider(Size[index].x, 0,10);
-                    Size[index].y = EditorGUILayout.Slider(Size[index].y, 0,10);
-                    Size[index].z = EditorGUILayout.Slider(Size[index].z, 0,10);
-                    GUILayout.EndVertical();
-                    GUILayout.EndHorizontal();
+                    if (item.Key != null && (item.Key.Contains(searchITems) || searchITems == ""))
+                    {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Label(item.Key);  
+                        GUILayout.BeginVertical();
+                        Size[index].x = EditorGUILayout.Slider(Size[index].x, 0,10);
+                        Size[index].y = EditorGUILayout.Slider(Size[index].y, 0,10);
+                        Size[index].z = EditorGUILayout.Slider(Size[index].z, 0,10);
+                        GUILayout.EndVertical();
+                        GUILayout.EndHorizontal();
+                    }
+                    
                     index++;
                 }
                 GUILayout.EndScrollView();
