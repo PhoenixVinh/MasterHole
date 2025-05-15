@@ -15,5 +15,12 @@ namespace _Scripts.UI
         
         
         public static string CURRENT_COLLECTION =  "CurrentCollection";
+        public static string HOLESKININDEX = "HoleskinIndex";
+        
+        
+        
+        public static string USE_VIBRATION = "UseVibration";
+        
+        public static string USE_SOUND = "UseSound";
     }
 }

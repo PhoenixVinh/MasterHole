@@ -12,7 +12,7 @@ namespace _Scripts.Collection
 
         public List<ItemCollection> UIItemCollections;
 
-        private CollectionSO dataCollection;
+        public CollectionSO dataCollection;
 
 
         private int currentLevel = 1;
@@ -29,7 +29,7 @@ namespace _Scripts.Collection
         public void LoadData()
         {
             currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL,1);
-            dataCollection = Resources.Load<CollectionSO>("CollectionSO/DataCollection");
+           
         }
 
         public void ResetData()
@@ -60,7 +60,7 @@ namespace _Scripts.Collection
                 statusIndex++;
             }
             
-            //AssetDatabase.SaveAssets();
+           
         }
 
         public void SetDataUI()

@@ -24,7 +24,7 @@ public class HoleController : MonoBehaviour
     
     [Header("Variables")]
     public float _speedMovement;
-    public float _radious;
+ 
     [Header("Effects")] public HoleScaleEffect holeScaleEffect;
 
     
@@ -33,15 +33,21 @@ public class HoleController : MonoBehaviour
     public HoleMovement HoleMovement => _holeMovement;
 
     //public BlackHole _blackHole;
-
+    public List<GameObject> bottomHoles;
 
     private HoleLevel _holeLevel;
     public HoleLevel HoleLevel => _holeLevel;
 
 
     private HoleSpecialSkill _holeSpecialSkill;
+  
     [SerializeField] private LevelManager _levelManager;
     
+    
+    
+    [Header("Hole Bottom")]
+    public float addding;
+    public float downposition;
     private void Awake()
     {
         Instance = this;
@@ -76,7 +82,7 @@ public class HoleController : MonoBehaviour
             //transform.localScale = newScale;
             DOTween.Sequence()
                 .SetId("HoleUpScale")
-                .Append(transform.DOScale(new Vector3(radius * 0.7f, localScale.y, radius*0.7f), 0.1f))
+                .Append(transform.DOScale(new Vector3(radius * 0.9f, localScale.y, radius*0.7f), 0.1f))
                 .Append(transform.DOScale(newScale, 0.3f));
                 
             CameraFOVEvent.OnLevelUpEvent?.Invoke(0.4f);
@@ -85,7 +91,14 @@ public class HoleController : MonoBehaviour
         {
             transform.localScale = newScale;
         }
-       
+
+        // foreach (var bot in bottomHoles)
+        // {
+        //     bot.transform.localScale = new Vector3(1,1, 1+ addding*radius);
+        //     bot.transform.localPosition = new Vector3(0,0,radius*downposition);
+        // }
+        
+        
 
         
        
@@ -121,10 +134,7 @@ public class HoleController : MonoBehaviour
     {
         return _levelManager.CurrentLevel;
     }
-    // private  IncreaseRangeCoroutine()
-    // {
-    //     float timeIncrease = 20f; 
-    // }
+    
     public void SetPosition(Vector3 position)
     {
         this.transform.position = position;

@@ -20,11 +20,11 @@ namespace _Scripts.UI.WinLossUI
         public TMP_Text levelDes;
         public GameObject lockIcon;
 
-        private CollectionSO collection;
+        public  CollectionSO collection;
 
         public void OnEnable()
         {
-            collection = Resources.Load<CollectionSO>("CollectionSO/DataCollection");
+            
             ItemStatusImage.fillAmount = 0;
             SetData();
             
@@ -44,7 +44,7 @@ namespace _Scripts.UI.WinLossUI
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)
         {
             yield return new WaitForSecondsRealtime(0.2f);
-            levelDes.text = $"Lv {currentLevel}/{collection.ItemCollectionData[currentIndex].LevelUnlock}";
+            levelDes.text = $"Lv {currentLevel + 1}/{collection.ItemCollectionData[currentIndex].LevelUnlock}";
             float start = 0;
             while (start < currentLevel)
             {
@@ -58,7 +58,37 @@ namespace _Scripts.UI.WinLossUI
                 Icon.color =  Color.white;
                 lockIcon.SetActive(false);
             }
+            ResetData(currentLevel);
+        }
+        public void ResetData(int currentLevel)
+        {
+            int statusIndex = 0;
+            for (int i = 0; i < collection.ItemCollectionData.Count; i++)
+            {
+                if (currentLevel >= collection.ItemCollectionData[i].LevelUnlock)
+                {
+                    collection.ItemCollectionData[i].Lock = false;
+                }
+                else if (currentLevel < collection.ItemCollectionData[i].LevelUnlock)
+                {
+                    collection.ItemCollectionData[i].Lock = false;
+
+                    statusIndex = i;
+                    break;
+                }
+                
+            }
             
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COLLECTION,statusIndex);
+            
+            statusIndex++;
+            while (statusIndex < collection.ItemCollectionData.Count)
+            {
+                collection.ItemCollectionData[statusIndex].Lock = true;
+                statusIndex++;
+            }
+            
+           
         }
     }
 }

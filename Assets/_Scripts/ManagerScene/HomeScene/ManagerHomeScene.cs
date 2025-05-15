@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.UI;
@@ -16,8 +17,8 @@ namespace _Scripts.ManagerScene.HomeScene
 
         public GameObject ShowLoseGame;
 
-        
-     
+
+        public GameObject LoadingUI;
         private void Awake()
         {
             if (Instance == null) {
@@ -36,6 +37,7 @@ namespace _Scripts.ManagerScene.HomeScene
 
         public async void LoadTutorial()
         {
+           
             int CurrentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
             if (CurrentLevel == 3)
             {
@@ -69,9 +71,23 @@ namespace _Scripts.ManagerScene.HomeScene
             Resource.Instance.MinusHealth();
             
         }
-        
-        
-        
-        
+
+
+        public void ShowLoadingUI()
+        {
+            LoadingUI.gameObject.SetActive(true);
+        }
+
+        public void HideLoadingUI()
+        {
+            StartCoroutine(HideLoadingUICoroutine());
+          
+        }
+
+        private IEnumerator HideLoadingUICoroutine()
+        {
+            yield return new WaitForSeconds(1f);
+            LoadingUI.gameObject.SetActive(false);
+        }
     }
 }
