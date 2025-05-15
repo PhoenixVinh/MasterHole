@@ -13,8 +13,62 @@ MonoBehaviour:
   m_Name: DataLevel_31
   m_EditorClassIdentifier: 
   levelSpawnData: {fileID: 11400000, guid: 94058cb6adc557e479f5d5c752f54cbb, type: 2}
-  missionData: {fileID: 0}
-  timeToComplete: 0
-  ScoreDatas: []
-  mapPosition: {x: 0, y: -10.6, z: 0}
-  mapScale: {x: 10000, y: 10000, z: 10000}
+  missionData: {fileID: 11400000, guid: 8c269a70916fd5845935c8990b45e136, type: 2}
+  timeToComplete: 165
+  ScoreDatas:
+  - itemName: food_10
+    score: 1
+  - itemName: food_100
+    score: 1
+  - itemName: food_94
+    score: 1
+  - itemName: food_130
+    score: 1
+  - itemName: food_87
+    score: 1
+  - itemName: food_212
+    score: 1
+  - itemName: food_195
+    score: 1
+  - itemName: food_50
+    score: 1
+  - itemName: food_222
+    score: 1
+  - itemName: food_541
+    score: 1
+  - itemName: food_120
+    score: 1
+  - itemName: food_207
+    score: 1
+  - itemName: food_121
+    score: 1
+  - itemName: food_17
+    score: 1
+  - itemName: food_487
+    score: 1
+  - itemName: food_95
+    score: 1
+  - itemName: food_112
+    score: 1
+  - itemName: food_199
+    score: 1
+  - itemName: food_92
+    score: 1
+  - itemName: food_4
+    score: 1
+  - itemName: food_51
+    score: 1
+  - itemName: food_114
+    score: 1
+  - itemName: food_18
+    score: 1
+  - itemName: food_15
+    score: 1
+  - itemName: food_20
+    score: 1
+  - itemName: food_9
+    score: 1
+  - itemName: food_13
+    score: 1
+  mapPosition: {x: 0, y: -10.69, z: 19.87}
+  mapScale: {x: 13000, y: 10000, z: 13000}

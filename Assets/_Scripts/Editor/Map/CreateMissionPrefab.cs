@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,8 @@ using UnityEngine;
 
 namespace _Scripts.Editor.Map
 {
+    
+    
     public class CreateMissionPrefab : EditorWindow
     {
         public LevelGamePlaySO dataLevel;
@@ -30,8 +33,9 @@ namespace _Scripts.Editor.Map
 
         public bool showMision = false;
 
-        public string searchName = "food_4";
+      
         public string parentFolderPath = "Assets/TextureObjectCapture";
+        public string parentFolderPathOther = "Assets/Model/Texture2D";
 
         [MenuItem("Tools/DataLevel/Mission")]
         public static void ShowWindow(LevelGamePlaySO data)
@@ -98,12 +102,56 @@ namespace _Scripts.Editor.Map
                 EditorGUILayout.Space();
             }
 
-            if (GUILayout.Button("Finding"))
+            if (GUILayout.Button("Create Mission"))
             {
-                FindImagesInChildrenFolders();
+                CreateMission();
             }
 
             EditorGUILayout.EndScrollView();
+        }
+
+        private void CreateMission()
+        {
+            MissionSO mission = ScriptableObject.CreateInstance<MissionSO>();
+            
+            
+            int lastIndex = dataLevel.name.LastIndexOf('_');
+            mission.name = $"MissionLevel_{dataLevel.name.Substring(lastIndex + 1)}";
+            
+          
+            string assetPath = "Assets/_Data/MissionSO/" + $"{mission.name}.asset";
+            
+            
+            
+            if (File.Exists(assetPath))
+            {
+                AssetDatabase.DeleteAsset(assetPath);
+            }
+            
+            
+            mission.misstionsData = new List<MissionData>();
+            int index = 0;
+            foreach (var item in itemDatas)
+            {
+                
+                if (checks[index])
+                {
+                    mission.misstionsData.Add(
+                        new MissionData(
+                                item.Key,
+                                item.Value,
+                                FindSprite(item.Key)
+                                
+                            )
+                        
+                        );
+                }
+                index++;
+            }
+            AssetDatabase.CreateAsset(mission,  assetPath);
+            dataLevel.missionData = mission;
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
 
@@ -190,56 +238,109 @@ namespace _Scripts.Editor.Map
         }
 
         [ContextMenu("Finding Image")]
-        void FindImagesInChildrenFolders()
+        public Sprite  FindSprite(string searchName)
         {
-            if (Directory.Exists(parentFolderPath))
-            {
-                string[] subFolders = Directory.GetDirectories(parentFolderPath); // Lấy danh sách các thư mục con
+            string pathFinding = "";
+         
+            string[] subFolders = Directory.GetDirectories(parentFolderPath); // Lấy danh sách các thư mục con
 
-                if (subFolders.Length > 0)
+            if (subFolders.Length > 0)
+            {
+                foreach (string subFolderPath in subFolders)
                 {
-                    foreach (string subFolderPath in subFolders)
+                    
+                    var result = FindImagesInFolder(subFolderPath, searchName); // Gọi hàm tìm kiếm trong từng thư mục con
+                    if (result != "")
                     {
-                        Debug.Log("Tìm kiếm trong thư mục con: " + subFolderPath);
-                        FindImagesInFolder(subFolderPath); // Gọi hàm tìm kiếm trong từng thư mục con
+                        pathFinding = result;
                     }
-                }
-                else
-                {
-                    Debug.Log("Không có thư mục con nào trong: " + parentFolderPath);
                 }
             }
             else
             {
-                Debug.LogError("Không tìm thấy thư mục cha: " + parentFolderPath);
+                Debug.Log("Không có thư mục con nào trong: " + parentFolderPath);
             }
+            
+            
+            // Finding in other Folder 
+            if (pathFinding == "")
+            {
+                var result = findingOtherFolder(searchName);
+                if (result != "")
+                {
+                    pathFinding = result;
+                }
+            }
+
+            if (pathFinding == null)
+            {
+                Debug.LogError($"Could not find Images in folder {parentFolderPath}");
+                return null;
+            }
+            else
+            {
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(pathFinding);
+                return sprite;
+            }
+            
         }
 
-        void FindImagesInFolder(string folderPath)
-        {
-            string[] imageExtensions = { ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".tga" };
-            string[] allFiles =
-                Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories); // Tìm kiếm trong cả thư mục con
 
+
+        public string findingOtherFolder(string searchName)
+        {
+            string[] imageExtensions = { ".png"};
+            string[] allFiles =
+                Directory.GetFiles(parentFolderPathOther, "*.png"); // Tìm kiếm trong cả thư mục con
+         
             var foundImages = allFiles
                 .Where(file =>
-                    imageExtensions.Contains(Path.GetExtension(file).ToLower()) &&
-                    Path.GetFileNameWithoutExtension(file).ToLower() == searchName.ToLower());
+                    Path.GetFileName(file).ToLower() == $"{searchName.ToLower()}.png");
+
+            if (foundImages != null)
+            {
+               
+                foreach (string path in foundImages)
+                {
+                    return path;
+                }
+               
+            }
+            return "";
+            
+        }
+
+        public string FindImagesInFolder(string folderPath, string searchName)
+        {
+            string[] imageExtensions = { ".png"};
+            string[] allFiles =
+                Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories); // Tìm kiếm trong cả thư mục con
+         
+            var foundImages = allFiles
+                .Where(file =>
+                  Path.GetFileName(file).ToLower() == $"{searchName.ToLower()}.png");
 
             if (foundImages != null)
             {
                 Debug.Log($"Tìm thấy {foundImages} ảnh có tên chứa '{searchName}' trong thư mục: {folderPath}");
                 foreach (string path in foundImages)
                 {
-                    Debug.Log(path);
+                    return path;
+                 
+                  
+                   
 
                 }
+               
             }
-            else
-            {
-                Debug.Log($"Không tìm thấy ảnh nào có tên chứa '{searchName}' trong thư mục: {folderPath}");
-            }
-        
+
+            return "";
+
+        }
+
+        public void OnDestroy()
+        {
+            DestroyImmediate(parent);
         }
     }
 }
