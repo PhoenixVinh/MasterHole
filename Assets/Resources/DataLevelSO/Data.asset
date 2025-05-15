@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2161d8b5e8741a2a4416a9e99e36ad4, type: 3}
-  m_Name: DataLevel_16
+  m_Name: Data
   m_EditorClassIdentifier: 
-  levelSpawnData: {fileID: 11400000, guid: 51f1dec8bcd05f74cb163b7eb4e56597, type: 2}
-  missionData: {fileID: 11400000, guid: 3c0b7a53fafc05f4fa255c2fdfa1d5b4, type: 2}
-  timeToComplete: 105
+  levelSpawnData: {fileID: 11400000, guid: 94058cb6adc557e479f5d5c752f54cbb, type: 2}
+  missionData: {fileID: 0}
+  timeToComplete: 0
   ScoreDatas: []
-  mapPosition: {x: 0, y: -10.72, z: -22.75}
-  mapScale: {x: 11000, y: 10000, z: 11000}
+  mapPosition: {x: 0, y: -10.6, z: 0}
+  mapScale: {x: 10000, y: 10000, z: 10000}
