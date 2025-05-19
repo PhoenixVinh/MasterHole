@@ -62,7 +62,7 @@ namespace _Scripts.UI.HoleSkinUI
             this.txtStatus.text = $"Unlock level {levelUnlock}";
             icon.color = new Color(0.2f, 0.2f, 0.2f, 1);
             isLock = true;
-            
+            SetSize(BGLock);
         }
 
         private void SetUI()
@@ -103,6 +103,7 @@ namespace _Scripts.UI.HoleSkinUI
             checkicon.SetActive(true);
             icon.color = new Color(1, 1, 1, 1);
             this.txtStatus.text = "Equipped";
+            SetSize(BGSelected);
         }
 
         public void SetUIEquip()
@@ -113,6 +114,17 @@ namespace _Scripts.UI.HoleSkinUI
             checkicon.SetActive(false);
             icon.color = new Color(1, 1, 1, 1);
             this.txtStatus.text = "Equip";
+            SetSize(BGNormal);
+        }
+
+
+        public void SetSize(Sprite sprite)
+        {
+            Vector2 spriteSize = new Vector2(sprite.rect.width, sprite.rect.height);
+
+            // Set the button's RectTransform size to match the sprite
+        
+            this.GetComponent<RectTransform>() .sizeDelta = spriteSize;
         }
 
 
