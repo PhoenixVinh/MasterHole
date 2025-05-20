@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2161d8b5e8741a2a4416a9e99e36ad4, type: 3}
+  m_Name: DataLevel_99
+  m_EditorClassIdentifier: 
+  levelSpawnData: {fileID: 11400000, guid: 3d3255d8a53b7d949bed785ada5b2c95, type: 2}
+  missionData: {fileID: 11400000, guid: 98a1b64bb52a08c4a94766c56950e5e4, type: 2}
+  timeToComplete: 180
+  ScoreDatas:
+  - itemName: food_199
+    score: 3
+  - itemName: food_215
+    score: 2
+  - itemName: food_546
+    score: 2
+  - itemName: food_212
+    score: 1
+  - itemName: food_52
+    score: 3
+  - itemName: food_77
+    score: 3
+  - itemName: food_195
+    score: 3
+  - itemName: food_53
+    score: 1
+  - itemName: food_231
+    score: 1
+  - itemName: food_232
+    score: 3
+  - itemName: food_38
+    score: 3
+  - itemName: food_188
+    score: 1
+  - itemName: food_233
+    score: 1
+  - itemName: food_234
+    score: 1
+  - itemName: food_505
+    score: 3
+  - itemName: food_121
+    score: 2
+  - itemName: food_194
+    score: 2
+  - itemName: food_193
+    score: 3
+  - itemName: food_120
+    score: 2
+  - itemName: food_96
+    score: 1
+  - itemName: food_321
+    score: 2
+  - itemName: food_197
+    score: 1
+  - itemName: food_248
+    score: 2
+  - itemName: food_246
+    score: 3
+  - itemName: food_85
+    score: 1
+  - itemName: food_343
+    score: 2
+  - itemName: food_325
+    score: 2
+  - itemName: food_328
+    score: 2
+  - itemName: food_360
+    score: 3
+  - itemName: food_332
+    score: 1
+  - itemName: food_223
+    score: 3
+  - itemName: food_323
+    score: 1
+  - itemName: food_200
+    score: 2
+  - itemName: food_211
+    score: 1
+  - itemName: food_87
+    score: 1
+  - itemName: food_333
+    score: 2
+  - itemName: food_329
+    score: 1
+  - itemName: food_222
+    score: 4
+  - itemName: food_207
+    score: 5
+  - itemName: food_110
+    score: 3
+  - itemName: food_61
+    score: 2
+  - itemName: food_106
+    score: 3
+  - itemName: food_235
+    score: 2
+  - itemName: food_236
+    score: 2
+  - itemName: food_115
+    score: 2
+  - itemName: food_114
+    score: 2
+  - itemName: food_324
+    score: 3
+  - itemName: food_49
+    score: 2
+  - itemName: food_132
+    score: 3
+  mapPosition: {x: -9.4, y: -10.69, z: 36.78}
+  mapScale: {x: 15000, y: 10000, z: 15000}

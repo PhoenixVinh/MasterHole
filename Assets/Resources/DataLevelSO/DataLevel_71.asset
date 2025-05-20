@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2161d8b5e8741a2a4416a9e99e36ad4, type: 3}
+  m_Name: DataLevel_71
+  m_EditorClassIdentifier: 
+  levelSpawnData: {fileID: 11400000, guid: 80ba1f815f7538f4e93a872fb3c123ed, type: 2}
+  missionData: {fileID: 11400000, guid: 84ff9967dba5f5e4eb1ed5feb2c78079, type: 2}
+  timeToComplete: 140
+  ScoreDatas:
+  - itemName: food_501
+    score: 2
+  - itemName: food_120
+    score: 2
+  - itemName: food_77
+    score: 3
+  - itemName: food_336
+    score: 3
+  - itemName: food_199
+    score: 3
+  - itemName: food_473
+    score: 3
+  - itemName: food_356
+    score: 3
+  - itemName: food_207
+    score: 3
+  - itemName: food_505
+    score: 3
+  - itemName: food_541
+    score: 3
+  - itemName: food_316
+    score: 1
+  - itemName: food_17
+    score: 2
+  - itemName: food_319
+    score: 2
+  - itemName: food_318
+    score: 1
+  - itemName: food_188
+    score: 2
+  - itemName: food_330
+    score: 1
+  - itemName: food_331
+    score: 1
+  - itemName: food_546
+    score: 2
+  - itemName: food_335
+    score: 3
+  - itemName: food_130
+    score: 2
+  - itemName: food_358
+    score: 1
+  - itemName: food_323
+    score: 1
+  - itemName: food_333
+    score: 1
+  - itemName: food_325
+    score: 2
+  - itemName: food_52
+    score: 3
+  - itemName: food_324
+    score: 2
+  - itemName: food_132
+    score: 3
+  - itemName: food_343
+    score: 3
+  - itemName: food_334
+    score: 1
+  - itemName: food_50
+    score: 2
+  - itemName: food_117
+    score: 2
+  - itemName: food_53
+    score: 2
+  mapPosition: {x: 0, y: -10.69, z: 3.3}
+  mapScale: {x: 13000, y: 10000, z: 13000}

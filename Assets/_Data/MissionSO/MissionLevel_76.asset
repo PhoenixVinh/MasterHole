@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_76
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: food_47
+    AmountItems: 303
+    image: {fileID: 21300000, guid: 35aba90b197d0964193f047bf2099a20, type: 3}
+  - idItem: food_488
+    AmountItems: 30
+    image: {fileID: 21300000, guid: 62d4250bdac81444a8d038861495fbc9, type: 3}
+  - idItem: food_61
+    AmountItems: 2
+    image: {fileID: 21300000, guid: 4579f69be4ec1c44e99883e1e220d73a, type: 3}
