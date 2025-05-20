@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Sound;
+using _Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
     public static ColdownTime Instance;
     //[SerializeField]private Image _fillTimer;
     
-    private TMP_Text _txtDisplayTime;
-    
-    
+    [SerializeField]private TMP_Text _txtDisplayTime;
+    [SerializeField]private TMP_Text _txtLevel;
+    [SerializeField]private Image imgDisplayTime;
     public float ColdownTimeComplete = 300;
     private float _timeColdown = 0;
     
@@ -33,7 +34,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
     private void Start()
     {
         _timeColdown = ColdownTimeComplete;
-        _txtDisplayTime = transform.Find("LabelTime").GetComponent<TMP_Text>();
+        
        
 
     }
@@ -88,7 +89,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
             // Process when playe lose
             WinLossEvent.OnLoss?.Invoke();
         }
-        
+
+        imgDisplayTime.fillAmount = Precent();
+
     }
 
     public float Precent()
@@ -117,6 +120,8 @@ public class ColdownTime : MonoBehaviour, IPrecent
         this._timeColdown = ColdownTimeComplete;
         StartColdown();
         isPlaySound = false;
+        int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+        _txtLevel.text = level.ToString();
         
     }
 

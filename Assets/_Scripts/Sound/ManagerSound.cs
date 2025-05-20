@@ -26,7 +26,8 @@ namespace _Scripts.Sound
         [SerializeField]private Dictionary<EnumEffectSound, AudioSource> DictEffectMusic = new Dictionary<EnumEffectSound, AudioSource>();
 
 
-        public bool canSound = true;
+        public bool canBgMusic = true;
+        public bool canSfxMusic = true;
         private void Awake()
         {
             if (Instance == null)
@@ -63,10 +64,10 @@ namespace _Scripts.Sound
         public void Start()
         {
             
-            canSound = PlayerPrefs.GetInt(StringPlayerPrefs.USE_SOUND, 1) == 1;
-            Debug.Log(PlayerPrefs.GetInt(StringPlayerPrefs.USE_SOUND));
+            canBgMusic = PlayerPrefs.GetInt(StringPlayerPrefs.USE_BGMUSIC, 1) == 1;
+            canSfxMusic = PlayerPrefs.GetInt(StringPlayerPrefs.USE_SFXSOUND, 1) == 1;         
             DictBackgroundMusic[EnumBackgroundSound.HomeMusic].volume = volumeBg;
-            if (canSound)
+            if (canBgMusic)
             {
                 DictBackgroundMusic[EnumBackgroundSound.HomeMusic].Play();
             }
@@ -75,7 +76,7 @@ namespace _Scripts.Sound
 
         public void ChangeBackgroundMusic(EnumBackgroundSound backgroundSound)
         {
-            if (!canSound) return;
+            if (!canBgMusic) return;
             foreach (var audioSource in DictBackgroundMusic)
             {
                 audioSource.Value.Stop();
@@ -86,7 +87,7 @@ namespace _Scripts.Sound
 
         public void PlayEffectSound(EnumEffectSound effectSound)
         {
-            if (!canSound) return;
+            if (!canSfxMusic) return;
             //DictEffectMusic[effectSound].volume = volumeSfx;
             var musicSouce = DictEffectMusic[effectSound];
             musicSouce.volume = volumeSfx;
@@ -108,8 +109,8 @@ namespace _Scripts.Sound
 
         public void SetSound(bool value)
         {
-            canSound = value;
-            PlayerPrefs.SetInt(StringPlayerPrefs.USE_SOUND, value? 1 : 0);
+            //canSound = value;
+            //PlayerPrefs.SetInt(StringPlayerPrefs.USE_SOUND, value? 1 : 0);
             if (value)
             {
                 TurnOnBGMusic();
@@ -129,6 +130,26 @@ namespace _Scripts.Sound
         public void TurnOnBGMusic()
         {
             DictBackgroundMusic[EnumBackgroundSound.HomeMusic].Play();
+        }
+
+        public void SetBGMusic(bool value)
+        {
+            PlayerPrefs.SetInt(StringPlayerPrefs.USE_BGMUSIC, value ? 1 : 0);
+            this.canBgMusic = value;
+            if (canBgMusic)
+            {
+                TurnOnBGMusic();
+            }
+            else
+            {
+                TurnOffBGMusic();
+            }
+        }
+
+        public void SetSfxSound(bool value)
+        {
+            PlayerPrefs.SetInt(StringPlayerPrefs.USE_SFXSOUND, value ? 1 : 0);
+            this.canSfxMusic = value;
         }
     }
 }

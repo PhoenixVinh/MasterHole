@@ -34,7 +34,7 @@ namespace _Scripts.UI.WinLossUI
             coin += 75;
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
             continueButton.onClick.AddListener(ShowNextlevel);
-            this.pauseButton.gameObject.SetActive(true);
+           
             StartCoroutine(DelayAppearButton());
             homeBtn.onClick.AddListener(ChangeHomeScene);
         }

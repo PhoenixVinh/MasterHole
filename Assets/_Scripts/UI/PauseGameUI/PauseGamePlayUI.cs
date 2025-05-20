@@ -11,8 +11,7 @@ public class PauseGamePlayUI: PauseGame
     public Button exitButton;
     public Button continueButton;
     public Button quitButton;
-    public Button settingButton;
-    public GameObject SettingUI;
+   
 
     private void Start()
     {

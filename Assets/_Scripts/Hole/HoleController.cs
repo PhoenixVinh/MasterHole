@@ -33,7 +33,7 @@ public class HoleController : MonoBehaviour
     public HoleMovement HoleMovement => _holeMovement;
 
     //public BlackHole _blackHole;
-    public List<GameObject> bottomHoles;
+   // public List<GameObject> bottomHoles;
 
     private HoleLevel _holeLevel;
     public HoleLevel HoleLevel => _holeLevel;
