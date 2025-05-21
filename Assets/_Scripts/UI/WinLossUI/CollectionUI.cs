@@ -1,23 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Scripts.Collection;
-using _Scripts.Data.CollectionData;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
-using _Scripts.UI.PauseGameUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
+[Serializable]
+public struct ItemCollection
+{
+    public int levelUnlock;
+    public Sprite sprite;
+}
+
 
 namespace _Scripts.UI.WinLossUI
 {
-    public class CollectionUI : PauseGame
+    public class CollectionUI : MonoBehaviour
     {
-        public CollectionSO collection;
-        public SkinSO skin;
+        public List<ItemCollection> items;
 
         public Image image;
 
@@ -25,9 +28,8 @@ namespace _Scripts.UI.WinLossUI
         public Button continueButton;
         public Button homeBtn;
 
-        public override void OnEnable()
+        public void OnEnable()
         {
-            base.OnEnable();
             continueButton.onClick.AddListener(ShowNextlevel);
             homeBtn.onClick.AddListener(ChangeHomeScene);
         }
@@ -35,25 +37,15 @@ namespace _Scripts.UI.WinLossUI
 
         public bool CanShowContent(int level)
         {
-
-            foreach (var i in collection.ItemCollectionData)
-            {
-                if (level == i.LevelUnlock)
-                {
-                    image.sprite = i.image;
-                    return true;
-                }
-            }
-
-            foreach (var i in skin.skins)
-            {
-                if (level == i.levelUnlock)
-                {
-                    image.sprite = i.image;
-                    return true;
-                }
-            }
            
+            foreach (ItemCollection item in items)
+            {
+                if (item.levelUnlock == level)
+                {
+                    image.sprite = item.sprite;
+                    return true;
+                }
+            }
 
             return false;
         }
@@ -66,13 +58,15 @@ namespace _Scripts.UI.WinLossUI
         private void ChangeHomeScene()
         {
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-            
+         
         }
         
         private void ShowNextlevel()
         {
             
-            this.content.SetActive(false);
+            this.gameObject.SetActive(false);
+            // Change Data Level 
+
             ManagerLevelGamePlay.Instance.LoadNextLevel();
            
         }

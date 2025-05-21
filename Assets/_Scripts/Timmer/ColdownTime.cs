@@ -60,10 +60,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
     private void FixedUpdate()
     {
         if(!isStartColdown) return;
-        else
-        {
-            CalucalteTime();
-        }
+       
+        CalucalteTime();
+        
     }
 
     private void CalucalteTime()
@@ -104,26 +103,30 @@ public class ColdownTime : MonoBehaviour, IPrecent
     public async void StartColdown()
     {
 
-        while (HoleController.Instance.HoleMovement.GetDirectionMovement() == Vector2.zero)
+        while (HoleController.Instance.HoleMovement.GetDirectionMovement().magnitude < 0.5f)
         {
             await Task.Delay(100); 
         }
+        Debug.Log("Starting Coldown");
 
-       
         this.isStartColdown = true;
     }
 
 
 
 
-    public void SetData(float levelTimeToComplete)
+    public  void SetData(float levelTimeToComplete)
     {
         this.ColdownTimeComplete = levelTimeToComplete;
         this._timeColdown = ColdownTimeComplete;
-        StartColdown();
+        this.isStartColdown = false;
         isPlaySound = false;
+        TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
+        this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         _txtLevel.text = level.ToString();
+        StartColdown();
+        
         
     }
 

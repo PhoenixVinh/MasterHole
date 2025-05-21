@@ -22,8 +22,8 @@ namespace _Scripts.UI.PauseGameUI
 
         private void Start()
         {
-            canBgMusic = PlayerPrefs.GetInt(StringPlayerPrefs.USE_VIBRATION) == 1;
-            canSfxSound = PlayerPrefs.GetInt(StringPlayerPrefs.USE_BGMUSIC) == 1;
+            canBgMusic = PlayerPrefs.GetInt(StringPlayerPrefs.USE_BGMUSIC) == 1;
+            canSfxSound = PlayerPrefs.GetInt(StringPlayerPrefs.USE_SFXSOUND) == 1;
             canVibration = PlayerPrefs.GetInt(StringPlayerPrefs.USE_VIBRATION) == 1;
             SetUI();
         }

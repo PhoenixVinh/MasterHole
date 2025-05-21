@@ -14,7 +14,7 @@ namespace _Scripts.UI.MissionUI
     public class Mission : MonoBehaviour
     {
 
-        
+        [SerializeField] private GameObject IconMission;
         private int indexMission;
         
         
@@ -161,9 +161,15 @@ namespace _Scripts.UI.MissionUI
             
             
             DOTween.Sequence()
-                .Append(transform.DOScale(Vector3.one * 1.2f, 0.2f))
+                .Append(transform.DOScale(Vector3.one * 1.4f, 0.2f))
                 .Append(transform.DOScale(Vector3.one, 0.1f))
-                .SetUpdate(true);
+                .Join(IconMission.transform.DOShakeScale(0.3f, 0.3f))
+                .SetUpdate(true)
+                .OnComplete(
+                    () =>
+                    {
+                        IconMission.transform.localScale = Vector3.one;
+                    });
             if (_text != null)
             {
                 _text.text = amountItem.ToString();

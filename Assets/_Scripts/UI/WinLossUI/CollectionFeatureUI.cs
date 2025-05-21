@@ -26,25 +26,27 @@ namespace _Scripts.UI.WinLossUI
         {
             
             ItemStatusImage.fillAmount = 0;
-            SetData();
+            
             
         }
 
-        private void SetData()
+        public void SetData(int level)
         {
-            int currentIndex = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COLLECTION, 0);
-            Icon.sprite = ItemSprites[currentIndex];
+           
+            
             Icon.color =  new Color(0.6f, 0.6f,0.6f,1f);
             
-            int currentLevel =  PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 0);
+         
 
-            StartCoroutine(ChangeFill(currentLevel, currentIndex));
+            StartCoroutine(ChangeFill(level, collection.GetLevelCollection(level)));
+            Icon.sprite = ItemSprites[collection.GetLevelCollection(level)];
         }
 
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)
         {
+            
             yield return new WaitForSecondsRealtime(0.2f);
-            levelDes.text = $"Lv {currentLevel + 1}/{collection.ItemCollectionData[currentIndex].LevelUnlock}";
+            levelDes.text = $"Lv {currentLevel}/{collection.ItemCollectionData[currentIndex].LevelUnlock}";
             float start = 0;
             while (start < currentLevel)
             {
@@ -59,6 +61,7 @@ namespace _Scripts.UI.WinLossUI
                 lockIcon.SetActive(false);
             }
             ResetData(currentLevel);
+           
         }
         public void ResetData(int currentLevel)
         {

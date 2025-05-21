@@ -15,4 +15,9 @@ public class HoleEvent
     public delegate void HoleSkiEvent();
 
     public static HoleSkiEvent OnSkinSelected;
+
+
+
+    public delegate void TurnOffSkillUI();
+    public static TurnOffSkillUI OnTurnOffSkillUI;
 }

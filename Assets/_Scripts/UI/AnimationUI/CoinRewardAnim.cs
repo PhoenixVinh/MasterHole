@@ -71,16 +71,16 @@ namespace _Scripts.UI.AnimationUI
             
             for (int i = 0; i < pileOfCoins.transform.childCount; i++)
             {
-                pileOfCoins.transform.GetChild(i).DOScale(1f, 0.3f).SetDelay(delay).SetEase(Ease.OutBack);
+                pileOfCoins.transform.GetChild(i).DOScale(1f, 0.3f).SetUpdate(true).SetDelay(delay).SetEase(Ease.OutBack);
 
                 pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().DOAnchorPos(targetPos.GetComponent<RectTransform>().anchoredPosition, 0.8f)
-                    .SetDelay(delay + 0.5f).SetEase(Ease.InBack).OnComplete(
+                    .SetUpdate(true).SetDelay(delay + 0.5f).SetEase(Ease.InBack).OnComplete(
                         () =>
                         {
-                            iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f)*1.1f, 0.3f).OnComplete(
+                            iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f)*1.1f, 0.3f).SetUpdate(true).OnComplete(
                                 () =>
                                 {
-                                    iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+                                    iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f).SetUpdate(true);
                                     this.counter.text = $"{Mathf.RoundToInt(startCoint + (i)*adding)}";
                                 }
                                 );
@@ -88,11 +88,11 @@ namespace _Scripts.UI.AnimationUI
                     );
                  
 
-                pileOfCoins.transform.GetChild(i).DORotate(Vector3.zero, 0.5f).SetDelay(delay + 0.5f)
+                pileOfCoins.transform.GetChild(i).DORotate(Vector3.zero, 0.5f).SetUpdate(true).SetDelay(delay + 0.5f)
                     .SetEase(Ease.Flash);
                 
                 
-                pileOfCoins.transform.GetChild(i).DOScale(0f, 0.3f).SetDelay(delay + 1.5f).SetEase(Ease.OutBack);
+                pileOfCoins.transform.GetChild(i).DOScale(0f, 0.3f).SetUpdate(true).SetDelay(delay + 1.5f).SetEase(Ease.OutBack);
 
                 delay += 0.1f;
 
