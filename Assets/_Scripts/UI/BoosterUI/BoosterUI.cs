@@ -12,6 +12,10 @@ namespace _Scripts.UI.BoosterUI
 {
     public class BoosterUI : MonoBehaviour
     {
+
+        public GameObject effectSnow;
+        
+        
         public BoosterData boosterData;
         public float time = 15f;
         
@@ -40,6 +44,26 @@ namespace _Scripts.UI.BoosterUI
         }
 
 
+        private void OnEnable()
+        {
+            HoleEvent.OnTurnOffSkillUI += TurnOffUIProcess;
+        }
+
+        private void OnDisable()
+        {
+            HoleEvent.OnTurnOffSkillUI -= TurnOffUIProcess;
+        }
+
+        private void TurnOffUIProcess()
+        {
+            StopAllCoroutines();
+            FillAmount.fillAmount = 0;
+            if (indexSpecialSkill == 3)
+            {
+                effectSnow.SetActive(false);
+            }
+        }
+
         public void SetData(BoosterData boosterData, int indexSpecialSkill)
         {
             this.amount = boosterData.Amount;
@@ -55,7 +79,7 @@ namespace _Scripts.UI.BoosterUI
         private void UseSpecialSkill()
         {
             if (HoleController.Instance.IsProcessSkill(indexSpecialSkill)) return;
-            // Check Should Show PopUp Or Not 
+            
             
             
             
@@ -68,6 +92,11 @@ namespace _Scripts.UI.BoosterUI
             {
                 StartCoroutine(ShowFillAmount());
                 HoleController.Instance.ProcessSkill(this.indexSpecialSkill);
+
+                if (indexSpecialSkill == 3)
+                {
+                    effectSnow.SetActive(true);
+                }
                 amount--;
                 ManagerBooster.Instance.ChangeAmountBooster(indexSpecialSkill, -1);
                 UpdateUI();
@@ -86,6 +115,8 @@ namespace _Scripts.UI.BoosterUI
                 FillAmount.fillAmount = 1 -  startTime / time;
                 yield return null;
             }
+            if(effectSnow != null)
+                effectSnow.SetActive(false);
             FillAmount.fillAmount = 0;
         }
 

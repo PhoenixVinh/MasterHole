@@ -81,9 +81,10 @@ public class ManagerLevelGamePlay : MonoBehaviour
         Task.Delay(100);
         ColdownTime.Instance.SetData(level.timeToComplete);
         ManagerBooster.Instance.SetData();
+       
         HoleController.Instance.gameObject.SetActive(true);
         CameraFOVEvent.OnStarLevelEvent?.Invoke();
-
+        HoleEvent.OnTurnOffSkillUI?.Invoke();
         if (ManagerHomeScene.Instance != null)
         {
             ManagerHomeScene.Instance.HideLoadingUI();
