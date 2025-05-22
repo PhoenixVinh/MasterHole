@@ -8,6 +8,7 @@ namespace _Scripts.UI.PopupUI
         public static ManagerPopup Instance;
         public PopupItemInGame popupBuyItemInGame;
         public PopupFreeItem popupFreeItem;
+        public PopupBuyEnergy popupBuyEnergy;
         private void Awake()
         {
             if (Instance == null)
@@ -31,6 +32,11 @@ namespace _Scripts.UI.PopupUI
         {
             popupFreeItem.SetData(index);
             popupFreeItem.gameObject.SetActive(true);
+        }
+
+        public void ShowPopupBuyEnergy()
+        {
+            popupBuyEnergy.gameObject.SetActive(true);
         }
     }
 }

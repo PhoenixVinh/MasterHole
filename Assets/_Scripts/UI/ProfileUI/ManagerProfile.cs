@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using _Scripts.Event;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ namespace _Scripts.UI.ProfileUI
         
         private int indexSelected = 0;
         
+        public TMP_InputField inputText;
+        
         public ProfileHomeScene profileHomeScene;
         private void Start()
         {
@@ -28,11 +31,13 @@ namespace _Scripts.UI.ProfileUI
             SetData();
             saveButton.onClick.AddListener(SaveProfile);
             avatarBtns[indexSelected].gameObject.GetComponent<AvatarBtn>().ChangeStatus(true);
+            inputText.text = PlayerPrefs.GetString(StringPlayerPrefs.NAME_PLAYER, "????");
         }
 
         private void SaveProfile()
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_INDEX_PROFILE, indexSelected);
+            PlayerPrefs.SetString(StringPlayerPrefs.NAME_PLAYER, inputText.text);
             this.gameObject.SetActive(false);
         }
 

@@ -12,7 +12,7 @@ public class PauseGamePlayUI: PauseGame
 {
     public Button exitButton;
     public Button continueButton;
-    public Button quitButton;
+   
    
     public TMP_Text levelText;
 
@@ -25,19 +25,12 @@ public class PauseGamePlayUI: PauseGame
     private void Start()
     {
         exitButton.onClick.AddListener(CloseUI);
-        quitButton.onClick.AddListener(QuitGame);
+      
         continueButton.onClick.AddListener(CloseUI);
        
     }
 
-    private void QuitGame()
-    {
-         this.OnDisable();
-         SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-         ManagerHomeScene.Instance.ShowLoseGameUI();
-         // Show popup minus health 
-
-    }
+   
     
     
 

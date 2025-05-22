@@ -1,6 +1,8 @@
 using _Scripts.Event;
+using _Scripts.UI.PopupUI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 {
@@ -13,7 +15,10 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         private int amountCoin = 0;
         
         public static Resource Instance;
-        
+
+
+
+        public Button energyBtn;
         private void Awake()
         {
             if (Instance == null) {
@@ -22,19 +27,16 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             } else {
                 Destroy (gameObject);
             }
-           
+            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 9000); 
         }
         
         public void OnEnable()
         {
-
+            energyBtn.onClick.AddListener(
+                () => ManagerPopup.Instance?.ShowPopupBuyEnergy()
+            );
             UpdateText();
             ResourceEvent.OnUpdateResource += UpdateText;
-        }
-        public void OnDisable()
-        {
-            // PlayerPrefs.SetInt("Coin", amountCoin);
-            // PlayerPrefs.SetInt("Heart", amountHeart);
         }
         private void UpdateText()
         {
@@ -48,6 +50,11 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             this.Energy.UseEnergy();
         }
 
+        public void PlusHealth()
+        {
+            this.Energy.AddEnergy();
+        }
+
         public void AddMaxHealth()
         {
             this.Energy.AddMaxEnergy();
@@ -59,6 +66,17 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, 7500);
             amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 9000); 
             coin.text = amountCoin.ToString();
+        }
+        
+        public bool useCoin(int amount)
+        {
+            if (this.amountCoin >= amount)
+            {
+                this.amountCoin -= amount;
+                return true;
+            }
+
+            return false;
         }
     }
 }

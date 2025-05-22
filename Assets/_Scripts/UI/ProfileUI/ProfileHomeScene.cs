@@ -7,6 +7,8 @@ namespace _Scripts.UI.ProfileUI
     {
         
         public Image ProfileImage;
+        
+        
         public void Start()
         {
             UpdateProfile();

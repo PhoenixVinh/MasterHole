@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Firebase;
-using Firebase.Analytics;
-using Firebase.Extensions;
+
 using UnityEngine;
 
 public class FirebaseSetup : MonoBehaviour
@@ -31,17 +26,17 @@ public class FirebaseSetup : MonoBehaviour
     //
     // }
 
-
-    [ContextMenu("TEST LOGIN")]
-    public void TestLogin()
-    {
-        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
-
-    
-    }
-
-    public void OnDestroy()
-    {
-        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd);
-    }
+    //
+    // [ContextMenu("TEST LOGIN")]
+    // public void TestLogin()
+    // {
+    //     FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
+    //
+    //
+    // }
+    //
+    // public void OnDestroy()
+    // {
+    //     FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd);
+    // }
 }

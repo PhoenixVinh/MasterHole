@@ -107,7 +107,8 @@ public class ColdownTime : MonoBehaviour, IPrecent
         {
             await Task.Delay(100); 
         }
-       
+        Debug.Log("Starting Coldown");
+
         this.isStartColdown = true;
     }
 

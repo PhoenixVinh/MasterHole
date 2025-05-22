@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using _Scripts.Collection;
+
+
 using _Scripts.Data.CollectionData;
 using _Scripts.ManagerScene;
-using _Scripts.ManagerScene.HomeScene;
+
 using _Scripts.UI.PauseGameUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,7 +25,7 @@ namespace _Scripts.UI.WinLossUI
 
         public override void OnEnable()
         {
-            base.OnEnable();
+          
             continueButton.onClick.AddListener(ShowNextlevel);
             homeBtn.onClick.AddListener(ChangeHomeScene);
         }

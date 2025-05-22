@@ -7,11 +7,26 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 {
     public class Energy : MonoBehaviour
     {
+        public static Energy Instance;
+
+
+        private void Awake()
+        {
+            Instance = this;
+            
+        }
+
+
         [SerializeField] TMP_Text energyText;
         [SerializeField] TMP_Text timeText;
 
         [SerializeField]private int restoreDuration = 5;
         [SerializeField]private int maxEnergy = 25;
+        
+        
+        
+        
+        public int MaxEnergy => maxEnergy;
         private int currentEnergy = 5;
         
         private DateTime nextEnergyTime;
@@ -23,8 +38,9 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         private const string LAST_TIME = "LastTime"; 
         
         
-
-        private void Start()
+        private string timeValue;
+        public string TimeValue => timeValue;
+        private void OnEnable()
         {
             if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY))
             {
@@ -58,6 +74,14 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             }
         }
 
+        public void AddEnergy()
+        {
+            currentEnergy++;
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
+            UpdateEnergy();
+            UpdateEnergyTimer();
+            
+        }
 
         private IEnumerator RestoreEnergy()
         {
@@ -118,7 +142,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
             TimeSpan time = nextEnergyTime - DateTime.Now;
 
-            string timeValue = String.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+            timeValue = String.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
             timeText.text = timeValue;
         }
 
