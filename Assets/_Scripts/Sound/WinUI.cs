@@ -23,6 +23,9 @@ namespace _Scripts.UI.WinLossUI
 
         private int coinGet = 75;
         public Button homeBtn;
+
+
+        public CollectionUI collection;
         public override void OnEnable()
         {
            
@@ -61,11 +64,21 @@ namespace _Scripts.UI.WinLossUI
 
         private void ShowNextlevel()
         {
-            
-            this.gameObject.SetActive(false);
-            // Change Data Level 
+            int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            if (collection.CanShowContent(level))
+            {
+                collection.ShowContent();
+                this.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+                // Change Data Level 
 
-            ManagerLevelGamePlay.Instance.LoadNextLevel();
+                ManagerLevelGamePlay.Instance.LoadNextLevel();
+            }
+            
+           
            
         }
         private IEnumerator DelayAppearButton()

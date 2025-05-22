@@ -104,10 +104,12 @@ public class ColdownTime : MonoBehaviour, IPrecent
     public async void StartColdown()
     {
 
-        while (HoleController.Instance.HoleMovement.GetDirectionMovement() != Vector2.zero)
+        while (HoleController.Instance.HoleMovement.GetDirectionMovement() == Vector2.zero)
         {
             await Task.Delay(100); 
         }
+
+       
         this.isStartColdown = true;
     }
 
