@@ -73,7 +73,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 }
             }
         }
-T
+
         public void AddEnergy()
         {
             currentEnergy++;

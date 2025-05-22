@@ -27,7 +27,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             } else {
                 Destroy (gameObject);
             }
-           
+            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 9000); 
         }
         
         public void OnEnable()
