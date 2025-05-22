@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class JoyStickController : MonoBehaviour
 {
-    public DynamicJoystick variableJoystick;
+    public FloatingJoystick variableJoystick;
     
     public IMovement targetMovement;
 
 
     public void Start()
     {
-        variableJoystick = GetComponent<DynamicJoystick>();
+        variableJoystick = GetComponent<FloatingJoystick>();
         targetMovement = HoleController.Instance.HoleMovement;
     }
 

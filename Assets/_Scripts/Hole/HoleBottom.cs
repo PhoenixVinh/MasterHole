@@ -1,4 +1,8 @@
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Map.MapSpawnItem;
 using _Scripts.ObjectPooling;
@@ -11,10 +15,18 @@ namespace _Scripts.Hole
 {
     public class HoleBottom : MonoBehaviour
     {
+        public HashSet<GameObject> Items;
+            
+        private void OnEnable()
+        {
+            Items = new HashSet<GameObject>();
+        }
+
+        
         private void OnTriggerStay(Collider other)
         {
             // Check if it is the item Destroy it 
-            if (other.CompareTag("Item"))
+            if (other.CompareTag("Item") && !Items.Contains(other.gameObject))
             {
                 
                
@@ -34,11 +46,33 @@ namespace _Scripts.Hole
                 TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
                 ManagerMission.Instance.CheckMinusItems(other.transform.parent.GetComponent<Item>().type, other.transform.position);
-                Destroy(other.transform.parent.gameObject);
+                Items.Add(other.gameObject);
+
+                StartCoroutine(DestroyCoroutine(other.transform.gameObject));
+                
+               
+                
                 
                
             }
             
+        }
+
+        private IEnumerator DestroyCoroutine(GameObject transformGameObject)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            if (transformGameObject != null)
+            {
+                Items.Remove(transformGameObject);
+                Destroy(transformGameObject.transform.parent.gameObject);
+            }
+               
+        }
+
+        public void OnDestroy()
+        {
+            StopAllCoroutines();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace _Scripts.Tutorial
                     PlayerPrefs.Save();
                     
                     SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-                    ManagerHomeScene.Instance.LoadTutorial();
+                    ManagerHomeScene.Instance?.LoadTutorial();
                 }
             }
 

@@ -3,26 +3,33 @@ using System.Collections;
 using _Scripts.Event;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts.Camera
 {
     public class CameraFOV : MonoBehaviour
     {
-        [Header("FOV Start Level")] public float startLevelFOV = 15f;
+       public float startLevelDistance = 15f;
         
         
-        public CinemachineVirtualCamera _virtualCamera;
+        public CinemachineFramingTransposer _virtualCamera;
 
-        public float baseFOV = 10f;
-        public float scaleByHole = 1f;
-        public float _targetFOV;
+        public float targetDistance = 10;
+        public float scaleByHole = 5;
+        public float baseDistance = 5;
+        
+        
+        //
+        // public float baseFOV = 10f;
+        // public float scaleByHole = 1f;
+        // public float _targetFOV;
 
         private bool isStartLevel = false;
         private bool isLevelUp = false;
         private void Start()
         {
-            _virtualCamera = GetComponent<CinemachineVirtualCamera>();
-            _targetFOV = _virtualCamera.m_Lens.FieldOfView;
+            _virtualCamera = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
+            targetDistance = _virtualCamera.m_CameraDistance;
         }
         
         
@@ -63,10 +70,12 @@ namespace _Scripts.Camera
 
         private IEnumerator StartLevelFOVCorutine()
         {
-            _virtualCamera.m_Lens.FieldOfView = startLevelFOV;
+            _virtualCamera.m_CameraDistance = startLevelDistance;
             isStartLevel = true;
             yield return new WaitForSeconds(0.75f);
-            
+            float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
+            // targetDistance = baseDistance + addingFOV;
+            // _virtualCamera.m_CameraDistance = targetDistance;
             isStartLevel = false;
         }
 
@@ -77,9 +86,9 @@ namespace _Scripts.Camera
 
         private IEnumerator UpdateFOVBySkillCoroutine(float timeskill)
         {
-            _targetFOV *= 1.2f;
+            targetDistance *= 1.2f;
             yield return new WaitForSeconds(timeskill);
-            _targetFOV /= 1.2f;
+            targetDistance /= 1.2f;
         }
 
 
@@ -89,18 +98,12 @@ namespace _Scripts.Camera
             if (isStartLevel) return;
             if(isLevelUp) return;
             float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
+            targetDistance = baseDistance + addingFOV;
+            _virtualCamera.m_CameraDistance = Mathf.Lerp(_virtualCamera.m_CameraDistance, targetDistance, Time.deltaTime * 10f);
             
-            
-            _virtualCamera.m_Lens.FieldOfView =
-                Mathf.Lerp(_virtualCamera.m_Lens.FieldOfView, baseFOV + addingFOV, Time.deltaTime*5f);
         }
 
-        private void UpdateFOV() 
-        {
-            // Change FOV of Camera;
-            _targetFOV*= 1.1f;
-           
-        }
+        
         
         
         

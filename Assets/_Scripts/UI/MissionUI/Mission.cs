@@ -14,6 +14,7 @@ namespace _Scripts.UI.MissionUI
     public class Mission : MonoBehaviour
     {
 
+        [SerializeField] private GameObject IconMission;
         private int indexMission;
         
         
@@ -78,34 +79,23 @@ namespace _Scripts.UI.MissionUI
           
             amountItem--;
             amountItem = amountItem >= 0 ? amountItem : 0;
-            StartCoroutine(MoveWithCurve(1.2f,screenPosition, this.transform.position, EffectMission));
+            StartCoroutine(MoveWithCurve(0.8f,screenPosition, this.transform.position, EffectMission));
             
             EffectMission.transform.localScale = Vector3.zero;
             DOTween.Sequence()
                 .SetId(IdDotween)
-                .Append(EffectMission.transform.DOScale(Vector3.one * 1.2f, 0.8f))
-                .Append(EffectMission.transform.DOScale(Vector3.one * 0.9f, 0.4f))
+                .Append(EffectMission.transform.DOScale(Vector3.one * 1f, 0.8f))
+                .Append(EffectMission.transform.DOScale(Vector3.one * 0.8f, 0.4f))
                 .SetUpdate(true)
                 .OnComplete(
                     () =>
                     {
-                        if (EffectMission != null)
-                        {
-                            EffectMission.SetActive(false);
-                        }
+                        // if (EffectMission != null)
+                        // {
+                        //     EffectMission.SetActive(false);
+                        // }
                         
-                        DOTween.Sequence()
-                            .Append(transform.DOScale(Vector3.one * 1.2f, 0.2f))
-                            .Append(transform.DOScale(Vector3.one, 0.1f))
-                            .SetUpdate(true);
-                        if (this._text != null)
-                        {
-                            this._text.text = this.amountItem.ToString();
-                        }
-                        if (particle != null)
-                        {
-                            particle.Play();
-                        }
+                      
                     }
                 );
 
@@ -168,6 +158,28 @@ namespace _Scripts.UI.MissionUI
             // Đảm bảo vị trí cuối cùng chính xác
             effectMission.transform.position = endPoint;
             effectMission.SetActive(false);
+            
+            
+            DOTween.Sequence()
+                .Append(transform.DOScale(Vector3.one * 1.4f, 0.2f))
+                .Append(transform.DOScale(Vector3.one, 0.1f))
+                .Join(IconMission.transform.DOShakeScale(0.3f, 0.3f))
+                .SetUpdate(true)
+                .OnComplete(
+                    () =>
+                    {
+                        IconMission.transform.localScale = Vector3.one;
+                    });
+            if (_text != null)
+            {
+                _text.text = amountItem.ToString();
+            }
+            
+            if (particle != null)
+            {
+                particle.Play();
+            }
+            
         }
 
         private Vector3 CalculateCurvePosition(float t, Vector3 startPoint, Vector3 endPoint)

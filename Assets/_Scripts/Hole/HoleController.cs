@@ -33,7 +33,7 @@ public class HoleController : MonoBehaviour
     public HoleMovement HoleMovement => _holeMovement;
 
     //public BlackHole _blackHole;
-    public List<GameObject> bottomHoles;
+   // public List<GameObject> bottomHoles;
 
     private HoleLevel _holeLevel;
     public HoleLevel HoleLevel => _holeLevel;
@@ -82,10 +82,10 @@ public class HoleController : MonoBehaviour
             //transform.localScale = newScale;
             DOTween.Sequence()
                 .SetId("HoleUpScale")
-                .Append(transform.DOScale(new Vector3(radius * 0.9f, localScale.y, radius*0.7f), 0.1f))
-                .Append(transform.DOScale(newScale, 0.3f));
+                .Append(transform.DOScale(new Vector3(radius * 1.3f, localScale.y, radius*1.3f), 0.1f))
+                .Append(transform.DOScale(newScale, 0.2f));
                 
-            CameraFOVEvent.OnLevelUpEvent?.Invoke(0.4f);
+            CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
         }
         else
         {

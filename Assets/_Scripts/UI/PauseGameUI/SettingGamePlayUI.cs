@@ -35,8 +35,8 @@ namespace _Scripts.UI.PauseGameUI
         {
             base.OnEnable();
             canVibrate = PlayerPrefs.GetInt(StringPlayerPrefs.USE_VIBRATION) == 1;
-            canSound = PlayerPrefs.GetInt(StringPlayerPrefs.USE_SOUND) == 1;
-          
+            canSound = PlayerPrefs.GetInt(StringPlayerPrefs.USE_BGMUSIC) == 1;
+            
 
             SetUI();
             

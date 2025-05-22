@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Sound;
+using _Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
     public static ColdownTime Instance;
     //[SerializeField]private Image _fillTimer;
     
-    private TMP_Text _txtDisplayTime;
-    
-    
+    [SerializeField]private TMP_Text _txtDisplayTime;
+    [SerializeField]private TMP_Text _txtLevel;
+    [SerializeField]private Image imgDisplayTime;
     public float ColdownTimeComplete = 300;
     private float _timeColdown = 0;
     
@@ -33,7 +34,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
     private void Start()
     {
         _timeColdown = ColdownTimeComplete;
-        _txtDisplayTime = transform.Find("LabelTime").GetComponent<TMP_Text>();
+        
        
 
     }
@@ -59,10 +60,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
     private void FixedUpdate()
     {
         if(!isStartColdown) return;
-        else
-        {
-            CalucalteTime();
-        }
+       
+        CalucalteTime();
+        
     }
 
     private void CalucalteTime()
@@ -88,7 +88,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
             // Process when playe lose
             WinLossEvent.OnLoss?.Invoke();
         }
-        
+
+        imgDisplayTime.fillAmount = Precent();
+
     }
 
     public float Precent()
@@ -101,22 +103,29 @@ public class ColdownTime : MonoBehaviour, IPrecent
     public async void StartColdown()
     {
 
-        while (HoleController.Instance.HoleMovement.GetDirectionMovement() != Vector2.zero)
+        while (HoleController.Instance.HoleMovement.GetDirectionMovement().magnitude < 0.5f)
         {
             await Task.Delay(100); 
         }
+       
         this.isStartColdown = true;
     }
 
 
 
 
-    public void SetData(float levelTimeToComplete)
+    public  void SetData(float levelTimeToComplete)
     {
         this.ColdownTimeComplete = levelTimeToComplete;
         this._timeColdown = ColdownTimeComplete;
-        StartColdown();
+        this.isStartColdown = false;
         isPlaySound = false;
+        TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
+        this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+        int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+        _txtLevel.text = level.ToString();
+        StartColdown();
+        
         
     }
 
