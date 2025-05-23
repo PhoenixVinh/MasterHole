@@ -13,6 +13,9 @@ namespace _Scripts.HACK
         {
             ManagerSound.Instance.PlayEffectSound(effectSound);
             PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0);
+            PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_5, 0);
+            PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_7, 0);
+            PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_SKIN_4, 0);
             Resource.Instance.AddMaxHealth();
             Resource.Instance.AddMaxCoin();
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);

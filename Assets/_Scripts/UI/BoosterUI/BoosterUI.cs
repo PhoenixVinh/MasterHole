@@ -76,7 +76,7 @@ namespace _Scripts.UI.BoosterUI
 
        
 
-        private void UseSpecialSkill()
+        public void UseSpecialSkill()
         {
             if (HoleController.Instance.IsProcessSkill(indexSpecialSkill)) return;
             

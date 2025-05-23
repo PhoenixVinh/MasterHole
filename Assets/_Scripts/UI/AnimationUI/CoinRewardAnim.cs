@@ -24,7 +24,11 @@ namespace _Scripts.UI.AnimationUI
             RewardCoinEvent.OnRewardCoin += CountCoins;
         }
         
-
+        public void OnDisable()
+        {
+            RewardCoinEvent.OnRewardCoin -= CountCoins;
+            DOTween.KillAll();
+        }
 
         void Awake()
         {
@@ -41,10 +45,7 @@ namespace _Scripts.UI.AnimationUI
             }
         }
 
-        public void OnDisable()
-        {
-            RewardCoinEvent.OnRewardCoin -= CountCoins;
-        }
+       
 
         void Reset()
         {
@@ -58,14 +59,14 @@ namespace _Scripts.UI.AnimationUI
         
         public void CountCoins(int startCoint, int TargetCoin)
         {
-            
-          
+            Reset();
+            pileOfCoins.SetActive(true);
             this.counter.text = startCoint.ToString();
             float adding = (float)(TargetCoin - startCoint) / pileOfCoins.transform.childCount;
             
             
-            Reset();
-            pileOfCoins.SetActive(true);
+            
+            
             
             var delay = 0f;
             
@@ -82,6 +83,11 @@ namespace _Scripts.UI.AnimationUI
                                 {
                                     iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f).SetUpdate(true);
                                     this.counter.text = $"{Mathf.RoundToInt(startCoint + (i)*adding)}";
+
+                                    if (i == pileOfCoins.transform.childCount - 1)
+                                    {
+                                        pileOfCoins.SetActive(false);
+                                    }
                                 }
                                 );
                         }
@@ -109,9 +115,9 @@ namespace _Scripts.UI.AnimationUI
           
            
             
-            
-            Reset();
             pileOfCoins.SetActive(true);
+            Reset();
+            
             
             var delay = 0f;
             
@@ -152,7 +158,7 @@ namespace _Scripts.UI.AnimationUI
 
         private void OnDestroy()
         {
-            DOTween.KillAll();
+           
         }
     }
 }

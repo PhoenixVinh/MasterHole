@@ -74,8 +74,10 @@ namespace _Scripts.UI.WinLossUI
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
             if (collection.CanShowContent(level))
             {
-                collection.ShowContent();
+                collection.ShowContent(level);
                 this.gameObject.SetActive(false);
+                
+                
             }
             else
             {

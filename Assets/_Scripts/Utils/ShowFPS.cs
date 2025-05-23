@@ -7,11 +7,26 @@ namespace _Scripts.UI
     public class ShowFPS : MonoBehaviour
     {
         public TMP_Text fpsText;
-
+        public static ShowFPS Instance;
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+               
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Destroy(this);
+            }
+            
+            
+        }
+
+        private void Start()
+        {
             Application.targetFrameRate = 120;
-            DontDestroyOnLoad(this);
         }
 
 

@@ -36,7 +36,12 @@ namespace _Scripts.Vibration
         }
 
         public void Start()
+        
         {
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.USE_VIBRATION))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.USE_VIBRATION, 1);
+            }
             canVibrate = PlayerPrefs.GetInt(StringPlayerPrefs.USE_VIBRATION, 1) == 1; 
         }
 

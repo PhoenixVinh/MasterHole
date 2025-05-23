@@ -89,20 +89,21 @@ namespace _Scripts.UI.HoleSkinUI
             }
         }
 
-        private void SetEquippedSkin()
+        public void SetEquippedSkin()
         {
             HoleEvent.OnSkinSelected?.Invoke();
             SetUIEquipped();
             PlayerPrefs.SetInt(StringPlayerPrefs.HOLESKININDEX, this.indexSkinHole);
         }
 
-        private void SetUIEquipped()
+        public void SetUIEquipped()
         {
             button.image.sprite = BGSelected;
             lockicon.SetActive(false);
             checkicon.SetActive(true);
             icon.color = new Color(1, 1, 1, 1);
             this.txtStatus.text = "Equipped";
+            
             SetSize(BGSelected);
         }
 

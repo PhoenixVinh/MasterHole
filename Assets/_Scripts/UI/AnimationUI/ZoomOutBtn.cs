@@ -19,9 +19,10 @@ public class ZoomOutBtn : MonoBehaviour
         transform.localScale = Vector3.zero;
         DOTween.Sequence()
             .SetId("AnimationZoomOutButton")
+            .SetUpdate(true)
             .Append(transform.DOScale(targetLocalScale * 1.1f, time))
-            .Append(transform.DOScale(targetLocalScale, 0.1f))
-            .SetUpdate(true);
+            .Append(transform.DOScale(targetLocalScale, 0.1f));
+
 
 
 
