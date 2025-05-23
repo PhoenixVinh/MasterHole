@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSpawnData: {fileID: 11400000, guid: 51f1dec8bcd05f74cb163b7eb4e56597, type: 2}
   missionData: {fileID: 11400000, guid: 3c0b7a53fafc05f4fa255c2fdfa1d5b4, type: 2}
-  timeToComplete: 105
-  ScoreDatas: []
+  timeToComplete: 160
+  ScoreDatas:
+  - itemName: food_117
+    score: 2
+  - itemName: food_207
+    score: 3
+  - itemName: food_575
+    score: 1
   mapPosition: {x: 0, y: -10.72, z: -22.75}
   mapScale: {x: 11000, y: 10000, z: 11000}
