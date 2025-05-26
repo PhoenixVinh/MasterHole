@@ -26,6 +26,7 @@ namespace _Scripts.Camera
 
         private bool isStartLevel = false;
         private bool isLevelUp = false;
+        private bool isMove = false;
         private void Start()
         {
             _virtualCamera = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -93,12 +94,23 @@ namespace _Scripts.Camera
 
 
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (isStartLevel) return;
             if(isLevelUp) return;
             float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
-            targetDistance = baseDistance + addingFOV;
+            if (HoleController.Instance.HoleMovement.GetDirectionMovement() == Vector2.zero && !isMove)
+            {
+               
+                targetDistance = baseDistance + addingFOV + 5;
+            }
+            else
+            {
+                isMove = true;
+                targetDistance = baseDistance + addingFOV;
+            }
+            
+            //_virtualCamera.m_CameraDistance = targetDistance;
             _virtualCamera.m_CameraDistance = Mathf.Lerp(_virtualCamera.m_CameraDistance, targetDistance, Time.deltaTime * 10f);
             
         }

@@ -4,25 +4,42 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private Camera _camera;
-    [SerializeField]private Transform _target;
-    [SerializeField]private float _offsetY;
-    public Vector3 offsetAdd;
-    private void Start()
+    public Transform target; // Nhân vật mà camera sẽ theo
+    public float smoothSpeed = 0.125f; // Tốc độ mượt của camera (0.0f - 1.0f)
+    public Vector3 offset; // Khoảng cách ban đầu giữa camera và nhân vật
+    public float cameraDistance = 5f; // Khoảng cách camera đến nhân vật
+    public float minDistance = 2f; // Khoảng cách gần nhất của camera
+    public float maxDistance = 10f; // Khoảng cách xa nhất của camera
+
+    private Vector3 desiredPosition;
+
+    void Start()
     {
-        _camera = GetComponent<Camera>(); 
+        // Khởi tạo offset ban đầu
+        offset = transform.position - target.position;
+        // Đảm bảo cameraDistance nằm trong giới hạn
+        cameraDistance = Mathf.Clamp(cameraDistance, minDistance, maxDistance);
     }
 
-
-
-    public void Update()
+    void Update()
     {
-        FollowTheTarget();
+        // Đảm bảo cameraDistance luôn trong khoảng min-max
+        cameraDistance = Mathf.Clamp(cameraDistance, minDistance, maxDistance);
+
+        // Tính toán vị trí mong muốn của camera
+        desiredPosition = target.position + offset.normalized * cameraDistance;
+
+        // Di chuyển camera mượt mà tới vị trí mong muốn
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
+
+        // Camera luôn hướng về nhân vật
+        transform.LookAt(target);
     }
 
-    private void FollowTheTarget()
+    // Hàm public để set khoảng cách từ bên ngoài (nếu cần)
+    public void SetCameraDistance(float newDistance)
     {
-        Vector3 postion = new Vector3(_target.position.x, _offsetY, _target.position.z) + offsetAdd;
-        _camera.transform.position = postion;
+        cameraDistance = newDistance;
     }
 }

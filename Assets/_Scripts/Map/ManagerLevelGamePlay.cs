@@ -65,26 +65,31 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public async  Task<bool>  SpawnLevel()
     {
+        
+        
         if(ManagerHomeScene.Instance != null)
             ManagerHomeScene.Instance.ShowLoadingUI();
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
+        
+        
         MissionPooling.Instance.DisactiveAllItem();
         HoleController.Instance.Reset();
         HoleController.Instance.SetPosition(Vector3.zero);
         HoleController.Instance.gameObject.SetActive(false);
         
-        Task.Delay(200);
+        //Task.Delay(200);
         SpawnItemMap.Instance.SetData(level.levelSpawnData, level.ScoreDatas, level.mapPosition, level.mapScale);
         ManagerMission.Instance.SetData(level.missionData);
         
-        Task.Delay(100);
+        //Task.Delay(100);
         ColdownTime.Instance.SetData(level.timeToComplete);
         ManagerBooster.Instance.SetData();
        
         HoleController.Instance.gameObject.SetActive(true);
         CameraFOVEvent.OnStarLevelEvent?.Invoke();
         HoleEvent.OnTurnOffSkillUI?.Invoke();
+        //100
         if (ManagerHomeScene.Instance != null)
         {
             ManagerHomeScene.Instance.HideLoadingUI();

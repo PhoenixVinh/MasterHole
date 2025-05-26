@@ -1,8 +1,10 @@
 
 
+using System;
+using System.Threading.Tasks;
 using _Scripts.Data.CollectionData;
 using _Scripts.ManagerScene;
-
+using _Scripts.ManagerScene.HomeScene;
 using _Scripts.UI.PauseGameUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +25,8 @@ namespace _Scripts.UI.WinLossUI
         public Button continueButton;
         public Button homeBtn;
 
+
+        
         public override void OnEnable()
         {
           
@@ -51,18 +55,45 @@ namespace _Scripts.UI.WinLossUI
                     return true;
                 }
             }
-           
+            
 
             return false;
         }
 
-        public void ShowContent()
-        {
+        public async void ShowContent(int level)
+        {   
+            
+            
+            
+            
             this.content.SetActive(true);
+            Time.timeScale = 0;
+
+            if (level == 4)
+            {
+                this.homeBtn.gameObject.SetActive(false);
+                
+                this.continueButton.onClick.RemoveAllListeners();
+                this.continueButton.onClick.AddListener(ShowTutorialSkin);
+                //SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+            }
+            else
+            {
+                this.continueButton.gameObject.SetActive(true);
+                this.homeBtn.gameObject.SetActive(true);
+            }
         }
-        
+
+        private void ShowTutorialSkin()
+        {
+            SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+            this.content.SetActive(false);
+            ManagerHomeScene.Instance?.LoadTutorial();
+        }
+
         private void ChangeHomeScene()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             
         }
@@ -71,10 +102,14 @@ namespace _Scripts.UI.WinLossUI
         {
             
             this.content.SetActive(false);
+            Time.timeScale = 1;
             ManagerLevelGamePlay.Instance.LoadNextLevel();
            
         }
-        
 
+        public void OnDestroy()
+        {
+            Time.timeScale = 1;
+        }
     }
 }

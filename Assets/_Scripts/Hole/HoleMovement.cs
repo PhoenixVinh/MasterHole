@@ -38,7 +38,8 @@ namespace _Scripts.Hole
             CheckCanMove();
             if (canMove)
             {
-                transform.position += new  Vector3(_movementDirection.x, 0, _movementDirection.y) * _speedMovement*Time.deltaTime;
+               Vector3 newPos  = transform.position +  new  Vector3(_movementDirection.x, 0, _movementDirection.y) * _speedMovement*Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, newPos, _speedMovement*Time.deltaTime);
             //    transform.Translate(new Vector3(_movementDirection.x, 0, _movementDirection.y)*_speedMovement*Time.deltaTime);
             }
         }

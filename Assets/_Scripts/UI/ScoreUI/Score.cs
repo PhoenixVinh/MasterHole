@@ -32,7 +32,7 @@ public class Score : MonoBehaviour
 
         text.text = $"+{_score}";
         //Set scale for text
-        this.transform.localScale = Vector3.one * Mathf.Sqrt(3 + _score)*Camera.main.orthographicSize/10;
+        
         
         
         
@@ -53,6 +53,7 @@ public class Score : MonoBehaviour
 
     public void SetData(float speedMovement, float timeToDistroy, int score)
     {
+        this.transform.localScale = Vector3.one * Mathf.Sqrt(_score*1.5f + HoleController.Instance.GetCurrentScale());
         _speedMovement = speedMovement;
         _timeToDistroy = timeToDistroy;
         _score = score;

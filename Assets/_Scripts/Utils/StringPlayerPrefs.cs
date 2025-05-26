@@ -6,6 +6,9 @@ namespace _Scripts.UI
         public static  string CURRENT_LEVEL = "CurrentLevel";
         public static string CURRENT_COIN = "CurrentCoin";
         public static string TUTORIAL_LEVEL_3 = "TutorialLevel_3";
+        public static string TUTORIAL_LEVEL_5 = "TutorialLevel_5";
+        public static string TUTORIAL_LEVEL_7 = "TutorialLevel_7";
+        public static string TUTORIAL_SKIN_4 = "TutorialSkin_4";
         
         
         

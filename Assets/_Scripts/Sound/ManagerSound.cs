@@ -64,6 +64,15 @@ namespace _Scripts.Sound
         public void Start()
         {
             
+            if(!PlayerPrefs.HasKey(StringPlayerPrefs.USE_BGMUSIC))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.USE_BGMUSIC, 1);
+            }
+            if(!PlayerPrefs.HasKey(StringPlayerPrefs.USE_SFXSOUND))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.USE_SFXSOUND, 1);
+            }
+            
             canBgMusic = PlayerPrefs.GetInt(StringPlayerPrefs.USE_BGMUSIC, 1) == 1;
             canSfxMusic = PlayerPrefs.GetInt(StringPlayerPrefs.USE_SFXSOUND, 1) == 1;         
             DictBackgroundMusic[EnumBackgroundSound.HomeMusic].volume = volumeBg;

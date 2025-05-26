@@ -14,6 +14,8 @@ namespace _Scripts.Tutorial
     {
         public List<GameObject> tutorials;
         
+        
+        
         public static ManagerTutorial Instance;
 
 
@@ -34,7 +36,7 @@ namespace _Scripts.Tutorial
         public async void ShowTutorials(int index)
         {
             TurnOffTutorials();
-            if (index <= tutorials.Count)
+            if (index <= 2)
             {
                 await Task.Delay(500);
                 tutorials[index-1].SetActive(true);
@@ -42,18 +44,22 @@ namespace _Scripts.Tutorial
 
             if (index == 3)
             {
-               
-                int checkTutorialLv3 = PlayerPrefs.GetInt(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0);
-                if (checkTutorialLv3 == 0)
-                {
-                    
-                    PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0);
-                    PlayerPrefs.Save();
-                    
-                    SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-                    ManagerHomeScene.Instance?.LoadTutorial();
-                }
+                SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0, 2);
             }
+
+           
+            
+
+            if (index == 5)
+            {
+                SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_5, 1, 3);
+            }
+
+            if (index == 7)
+            {
+                SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_7, 2, 4);
+            }
+            
 
             if (index == 20)
             {
@@ -64,6 +70,27 @@ namespace _Scripts.Tutorial
                 LevelCoin.SetActive(false);
             }
             
+        }
+
+        public void SetTutorialFreeIcon(string keyTutorial, int indexFree, int indexTutorial)
+        {
+            if (!PlayerPrefs.HasKey(keyTutorial))
+            {
+                PlayerPrefs.SetInt(keyTutorial, 0);
+            }
+                
+            int checkTutorial = PlayerPrefs.GetInt(keyTutorial, 0);
+            if (checkTutorial == 0)
+            {
+                    
+                PlayerPrefs.SetInt(keyTutorial, 1);
+                SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+                ManagerHomeScene.Instance?.ShowPopUpFreeITem(indexFree);
+            }
+            else
+            {
+                tutorials[indexTutorial].SetActive(true);
+            }
         }
 
         public void TurnOffTutorials()

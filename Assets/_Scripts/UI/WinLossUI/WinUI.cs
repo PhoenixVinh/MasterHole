@@ -3,6 +3,7 @@ using _Scripts.Event;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
+using _Scripts.UI.AnimationUI;
 using _Scripts.UI.PauseGameUI;
 using TMPro;
 using UnityEngine;
@@ -30,23 +31,25 @@ namespace _Scripts.UI.WinLossUI
 
 
         public CollectionUI collection;
+
+        public CoinRewardAnim coinRewardAnim;
         public override void OnEnable()
         {
-           
-            
+
+
             particle.Play();
             base.OnEnable();
             coinText.text = $"{coinGet}";
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
             coin += coinGet;
             text.text = $"{coin}";
-            RewardCoinEvent.OnRewardCoin?.Invoke(coin - coinGet, coin);
+            coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
             continueButton.onClick.AddListener(ShowNextlevel);
-           
+
             StartCoroutine(DelayAppearButton());
             homeBtn.onClick.AddListener(ChangeHomeScene);
-            collectionFeatureUI.SetData(PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL,1) + 1);
+            collectionFeatureUI.SetData(PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1) + 1);
         }
         
         private void ChangeHomeScene()
@@ -74,8 +77,10 @@ namespace _Scripts.UI.WinLossUI
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
             if (collection.CanShowContent(level))
             {
-                collection.ShowContent();
+                collection.ShowContent(level);
                 this.gameObject.SetActive(false);
+                
+                
             }
             else
             {
