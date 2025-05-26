@@ -102,7 +102,7 @@ namespace _Scripts.Camera
             if (HoleController.Instance.HoleMovement.GetDirectionMovement() == Vector2.zero && !isMove)
             {
                
-                targetDistance = baseDistance + addingFOV + 5;
+                targetDistance = baseDistance + addingFOV + 25;
             }
             else
             {

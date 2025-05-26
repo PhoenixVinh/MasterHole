@@ -61,7 +61,7 @@ namespace _Scripts.Tutorial
             }
             
 
-            if (index == 20)
+            if (index % 20 == 0 && index >= 20 )
             {
                 LevelCoin.SetActive(true);
             }

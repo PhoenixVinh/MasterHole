@@ -67,6 +67,8 @@ public class ManagerLevelGamePlay : MonoBehaviour
     {
         
         
+        
+        
         if(ManagerHomeScene.Instance != null)
             ManagerHomeScene.Instance.ShowLoadingUI();
         if(ManagerSound.Instance != null)
@@ -103,6 +105,14 @@ public class ManagerLevelGamePlay : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevel  = currentLevel + 1;
+        if (currentLevel == 101)
+        {
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 81);
+            currentLevel = 81;
+        }
+
+        
+        
         if (LoadLevelSO())
         {
             ManagerTutorial.Instance.ShowTutorials(currentLevel);
