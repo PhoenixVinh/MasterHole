@@ -10,7 +10,7 @@ namespace _Scripts.UI.AnimationUI
 {
     public class CoinRewardAnim : MonoBehaviour
     {
-        [SerializeField] private GameObject pileOfCoins;
+        [SerializeField] private List<RectTransform> pileOfCoins;
         [SerializeField] private GameObject targetPos;
 
         [SerializeField] private GameObject iconCoin;
@@ -38,127 +38,94 @@ namespace _Scripts.UI.AnimationUI
             initialPos = new List<Vector2>();
             initialRotation = new List<Quaternion>();
             
-            for (int i = 0; i < pileOfCoins.transform.childCount; i++)
+            for (int i = 0; i < pileOfCoins.Count; i++)
             {
-                initialPos.Add(pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition);
-                initialRotation.Add(pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().rotation);
+                initialPos.Add(pileOfCoins[i].anchoredPosition);
+                initialRotation.Add(pileOfCoins[i].rotation);
             }
         }
 
-       
+
 
         void Reset()
         {
-            for (int i = 0; i < pileOfCoins.transform.childCount; i++)
+            for (int i = 0; i < pileOfCoins.Count; i++)
             {
-                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = initialPos[i];
-                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().rotation = initialRotation[i];
+                pileOfCoins[i].anchoredPosition = initialPos[i];
+                pileOfCoins[i].rotation = initialRotation[i];
             }
+            DOTween.KillAll();
         }
 
         
         public void CountCoins(int startCoint, int TargetCoin)
         {
+            DOTween.SetTweensCapacity(500, 125);
+
             Reset();
-            pileOfCoins.SetActive(true);
             this.counter.text = startCoint.ToString();
-            float adding = (float)(TargetCoin - startCoint) / pileOfCoins.transform.childCount;
-            
-            
-            
-            
-            
+            float adding = (float)(TargetCoin - startCoint) / pileOfCoins.Count;
+
             var delay = 0f;
-            
-            for (int i = 0; i < pileOfCoins.transform.childCount; i++)
+
+            for (int i = 0; i < pileOfCoins.Count; i++)
             {
-                pileOfCoins.transform.GetChild(i).DOScale(1f, 0.3f).SetUpdate(true).SetDelay(delay).SetEase(Ease.OutBack);
+                pileOfCoins[i].gameObject.SetActive(true);
+                var sequence = DOTween.Sequence();
+               
+                sequence.SetUpdate(true);
 
-                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().DOAnchorPos(targetPos.GetComponent<RectTransform>().anchoredPosition, 0.8f)
-                    .SetUpdate(true).SetDelay(delay + 0.5f).SetEase(Ease.InBack).OnComplete(
-                        () =>
+                int index = i; // Lưu giá trị i
+
+                // Tính delay tăng dần để các coin chạy lần lượt
+                float coinDelay = delay;
+
+                sequence.Append(pileOfCoins[index].DOScale(1f, 0.3f).SetDelay(coinDelay).SetEase(Ease.OutBack));
+
+                sequence.Append(pileOfCoins[index].DOAnchorPos(targetPos.GetComponent<RectTransform>().anchoredPosition, 0.8f)
+                    .SetDelay(0.5f).SetEase(Ease.InBack).OnComplete(() =>
+                    {
+                        iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f) * 1.1f, 0.3f).SetUpdate(true).OnComplete(() =>
                         {
-                            iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f)*1.1f, 0.3f).SetUpdate(true).OnComplete(
-                                () =>
-                                {
-                                    iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f).SetUpdate(true);
-                                    this.counter.text = $"{Mathf.RoundToInt(startCoint + (i)*adding)}";
+                            iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f).SetUpdate(true);
+                            this.counter.text = $"{Mathf.RoundToInt(startCoint + (index + 1) * adding)}";
+                        });
+                    }));
 
-                                    if (i == pileOfCoins.transform.childCount - 1)
-                                    {
-                                        pileOfCoins.SetActive(false);
-                                    }
-                                }
-                                );
-                        }
-                    );
-                 
+                sequence.Join(pileOfCoins[index].DORotate(Vector3.zero, 0.5f).SetDelay(0.5f).SetEase(Ease.Flash));
 
-                pileOfCoins.transform.GetChild(i).DORotate(Vector3.zero, 0.5f).SetUpdate(true).SetDelay(delay + 0.5f)
-                    .SetEase(Ease.Flash);
-                
-                
-                pileOfCoins.transform.GetChild(i).DOScale(0f, 0.3f).SetUpdate(true).SetDelay(delay + 1.5f).SetEase(Ease.OutBack);
+                sequence.Append(pileOfCoins[index].DOScale(0f, 0.3f).SetDelay(1.5f).SetEase(Ease.OutBack));
 
+                sequence.OnComplete(() =>
+                {
+                    pileOfCoins[index].gameObject.SetActive(false);
+                  
+
+                    if (index == pileOfCoins.Count - 1)
+                    {
+                        Reset();
+                        this.counter.text = TargetCoin.ToString(); // Đảm bảo counter hiển thị giá trị cuối cùng
+                    }
+                });
+
+                // Tăng delay cho coin tiếp theo
                 delay += 0.1f;
-
-                
             }
+            
 
             
         }
         
-        [ContextMenu("Move Anim")]
-        public void Anim()
-        {
-            
-          
-           
-            
-            pileOfCoins.SetActive(true);
-            Reset();
-            
-            
-            var delay = 0f;
-            
-            for (int i = 0; i < pileOfCoins.transform.childCount; i++)
-            {
-                pileOfCoins.transform.GetChild(i).DOScale(1f, 0.3f).SetUpdate(true).SetDelay(delay).SetEase(Ease.OutBack);
-
-                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().DOAnchorPos(targetPos.GetComponent<RectTransform>().anchoredPosition, 0.8f)
-                    .SetUpdate(true).SetDelay(delay + 0.5f).SetEase(Ease.InBack).OnComplete(
-                        () =>
-                        {
-                            iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f)*1.1f, 0.3f).SetUpdate(true).OnComplete(
-                                () =>
-                                {
-                                    iconCoin.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f).SetUpdate(true);
-                                   
-                                }
-                            );
-                        }
-                    );
-                 
-
-                pileOfCoins.transform.GetChild(i).DORotate(Vector3.zero, 0.5f).SetUpdate(true).SetDelay(delay + 0.5f)
-                    .SetEase(Ease.Flash);
-                
-                
-                pileOfCoins.transform.GetChild(i).DOScale(0f, 0.3f).SetUpdate(true).SetDelay(delay + 1.5f).SetEase(Ease.OutBack);
-
-                delay += 0.1f;
-
-                
-            }
-
-            
-        }
+       
+        
         
         
 
         private void OnDestroy()
         {
-           
+            
+            DOTween.KillAll();
+            Reset();
         }
     }
 }

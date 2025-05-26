@@ -158,9 +158,10 @@ namespace _Scripts.UI.MissionUI
             // Đảm bảo vị trí cuối cùng chính xác
             effectMission.transform.position = endPoint;
             effectMission.SetActive(false);
-            
-            
+
+
             DOTween.Sequence()
+                .SetId("Item")
                 .Append(transform.DOScale(Vector3.one * 1.4f, 0.2f))
                 .Append(transform.DOScale(Vector3.one, 0.1f))
                 .Join(IconMission.transform.DOShakeScale(0.3f, 0.3f))
@@ -169,6 +170,8 @@ namespace _Scripts.UI.MissionUI
                     () =>
                     {
                         IconMission.transform.localScale = Vector3.one;
+                        DOTween.Kill("Item");
+
                     });
             if (_text != null)
             {
@@ -202,6 +205,8 @@ namespace _Scripts.UI.MissionUI
             float curveValue = heightCurve.Evaluate(t); // Giá trị từ 0 đến 1
             float x = Mathf.Lerp(startPoint.x, endPoint.x, t) + curveValue * heightC;
 
+            x = x > 100 ? x : 100;
+           
             return new Vector3(x, y, 0);
         }
         private IEnumerator PlayEffectCoroutine(GameObject EffectMission)
