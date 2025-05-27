@@ -36,7 +36,7 @@ namespace _Scripts.UI.WinLossUI
         public override void OnEnable()
         {
 
-           
+            
             particle.Play();
             base.OnEnable();
             coinText.text = $"{coinGet}";
@@ -78,8 +78,9 @@ namespace _Scripts.UI.WinLossUI
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
             if (collection.CanShowContent(level))
             {
-                collection.ShowContent(level);
+               
                 this.gameObject.SetActive(false);
+                collection.ShowContent(level);
                 
                 
             }

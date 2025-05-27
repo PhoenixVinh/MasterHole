@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using _Scripts.Effects;
 using _Scripts.Event;
 using _Scripts.Hole;
+using _Scripts.UI;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -50,6 +52,8 @@ public class HoleController : MonoBehaviour
     [Header("Hole Bottom")]
     public float addding;
     public float downposition;
+
+    private int indexSkin = 0;
     private void Awake()
     {
         Instance = this;
@@ -59,7 +63,8 @@ public class HoleController : MonoBehaviour
         _holeLevel = GetComponent<HoleLevel>();
         _holeSpecialSkill = GetComponent<HoleSpecialSkill>();
         SetData();
-        
+        indexSkin = PlayerPrefs.GetInt(StringPlayerPrefs.HOLESKININDEX, 0);
+
     }
 
     
@@ -93,8 +98,12 @@ public class HoleController : MonoBehaviour
         {
             transform.localScale = newScale;
         }
+
+        if (indexSkin != 1)
+        {
+            HoleSkins.transform.localScale = new Vector3(1, 1, radius);
+        }
         
-        HoleSkins.transform.localScale = new Vector3(1, 1, radius);
 
         // foreach (var bot in bottomHoles)
         // {
@@ -108,6 +117,29 @@ public class HoleController : MonoBehaviour
        
         
         this._holeLevel.SetData(amountExp);
+    }
+
+    public async void Upscale(float time)
+    {
+
+        float radious = GetCurrentRadius() * 1.5f;
+        Vector3 localScale = transform.localScale;
+        Vector3 newScale = new Vector3(radious, localScale.y, radious);
+        
+        //transform.localScale = newScale;
+        DOTween.Sequence()
+            .SetId("HoleUpScale")
+            .Append(transform.DOScale(new Vector3(radious * 1.3f, localScale.y, radious*1.3f), 0.1f))
+            .Append(transform.DOScale(newScale, 0.2f));
+        if (indexSkin != 1)
+        {
+            HoleSkins.transform.localScale = new Vector3(1, 1, radious);
+        }
+        
+        await Task.Delay((int)time*10000);
+        transform.localScale = new Vector3(GetCurrentRadius(), localScale.y, GetCurrentRadius());
+        //CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
+        
     }
     
     

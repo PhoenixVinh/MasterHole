@@ -67,7 +67,7 @@ namespace _Scripts.UI.WinLossUI
             
             
             this.content.SetActive(true);
-            Time.timeScale = 0;
+            
 
             if (level == 4)
             {
@@ -84,6 +84,11 @@ namespace _Scripts.UI.WinLossUI
             }
         }
 
+        public void FixedUpdate()
+        {
+            
+        }
+
         private void ShowTutorialSkin()
         {
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
@@ -93,7 +98,7 @@ namespace _Scripts.UI.WinLossUI
 
         private void ChangeHomeScene()
         {
-            Time.timeScale = 1;
+        
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             
         }
@@ -102,14 +107,11 @@ namespace _Scripts.UI.WinLossUI
         {
             
             this.content.SetActive(false);
-            Time.timeScale = 1;
+            
             ManagerLevelGamePlay.Instance.LoadNextLevel();
            
         }
 
-        public void OnDestroy()
-        {
-            Time.timeScale = 1;
-        }
+ 
     }
 }
