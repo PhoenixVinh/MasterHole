@@ -6,22 +6,24 @@ namespace _Scripts.UI.HomeSceneUI.IConHoleUI
 {
     public class IconHoleUI : MonoBehaviour
     {
-        public List<GameObject> listIconSkins;
-
+        public List<GameObject> Ups;
+        public List<GameObject> Downs;
         private void OnEnable()
         {
             TurnOffAllSkin();
 
             int selectedIndexSkin = PlayerPrefs.GetInt(StringPlayerPrefs.HOLESKININDEX, 0);
-            listIconSkins[selectedIndexSkin].SetActive(true);
+            Ups[selectedIndexSkin].SetActive(true);
+            Downs[selectedIndexSkin].SetActive(true);
         }
 
 
         public void TurnOffAllSkin()
         {
-            foreach (var skin in listIconSkins)
+            for (int i = 0; i < Ups.Count; i++)
             {
-                skin.SetActive(false);
+                Ups[i].SetActive(false);
+                Downs[i].SetActive(false);
             }
         }
     }

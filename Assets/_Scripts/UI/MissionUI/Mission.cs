@@ -84,20 +84,11 @@ namespace _Scripts.UI.MissionUI
             EffectMission.transform.localScale = Vector3.zero;
             DOTween.Sequence()
                 .SetId(IdDotween)
-                .Append(EffectMission.transform.DOScale(Vector3.one * 1f, 0.8f))
-                .Append(EffectMission.transform.DOScale(Vector3.one * 0.8f, 0.4f))
                 .SetUpdate(true)
-                .OnComplete(
-                    () =>
-                    {
-                        // if (EffectMission != null)
-                        // {
-                        //     EffectMission.SetActive(false);
-                        // }
-                        
-                      
-                    }
-                );
+                .Append(EffectMission.transform.DOScale(Vector3.one * 1f, 0.6f))
+                .Append(EffectMission.transform.DOScale(Vector3.one * 0.7f, 0.6f));
+
+
 
             // DOTween.Sequence()
             //     .SetId(IdDotween)
@@ -161,16 +152,15 @@ namespace _Scripts.UI.MissionUI
 
 
             DOTween.Sequence()
-                .SetId("Item")
+                .SetUpdate(true)
                 .Append(transform.DOScale(Vector3.one * 1.4f, 0.2f))
                 .Append(transform.DOScale(Vector3.one, 0.1f))
                 .Join(IconMission.transform.DOShakeScale(0.3f, 0.3f))
-                .SetUpdate(true)
+               
                 .OnComplete(
                     () =>
                     {
                         IconMission.transform.localScale = Vector3.one;
-                        DOTween.Kill("Item");
 
                     });
             if (_text != null)

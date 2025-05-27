@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Sound;
 using _Scripts.UI;
@@ -11,7 +12,9 @@ public class ManagerWinLoss : MonoBehaviour
     public GameObject LevelCoinUI;
 
     private bool isLevelCoint = false;
-    
+
+
+   
     public void OnEnable()
     {
         WinLossEvent.OnWin += ShowUIWin;
@@ -19,6 +22,7 @@ public class ManagerWinLoss : MonoBehaviour
         
         LevelCointEvent.OnStartLevelCoin += StartLevelCoint;
         LevelCointEvent.OnEndLevelCoin += EndLevelCoint;
+        
     }
 
     private void EndLevelCoint()
@@ -48,17 +52,20 @@ public class ManagerWinLoss : MonoBehaviour
         WinLossEvent.OnLoss -= ShowUILoss;
     }
     
-    private void ShowUIWin()
+    private async void ShowUIWin()
     {
+        await Task.Delay(500);
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
+        
         WinUI.SetActive(true);
         int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
         PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
        
     }
-    private void ShowUILoss()
+    private async void ShowUILoss()
     {
+        await Task.Delay(500);
         if (isLevelCoint)
         {
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();

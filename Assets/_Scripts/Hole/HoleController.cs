@@ -42,8 +42,10 @@ public class HoleController : MonoBehaviour
     private HoleSpecialSkill _holeSpecialSkill;
   
     [SerializeField] private LevelManager _levelManager;
-    
-    
+
+
+
+    [SerializeField] private GameObject HoleSkins;
     
     [Header("Hole Bottom")]
     public float addding;
@@ -91,6 +93,8 @@ public class HoleController : MonoBehaviour
         {
             transform.localScale = newScale;
         }
+        
+        HoleSkins.transform.localScale = new Vector3(1, 1, radius);
 
         // foreach (var bot in bottomHoles)
         // {

@@ -7,6 +7,8 @@ namespace _Scripts.Hole
 {
     public class HoleMovement : MonoBehaviour, IMovement
     {
+
+        [SerializeField] private GameObject arrow;
         private Vector2 _movementDirection;
         private float _speedMovement;
         private bool canMove = true;
@@ -42,9 +44,25 @@ namespace _Scripts.Hole
                 transform.position = Vector3.Lerp(transform.position, newPos, _speedMovement*Time.deltaTime);
             //    transform.Translate(new Vector3(_movementDirection.x, 0, _movementDirection.y)*_speedMovement*Time.deltaTime);
             }
+
+            ShowArrow();
+
         }
 
-
+        public void ShowArrow()
+        {
+            if (_movementDirection != Vector2.zero)
+            {
+                arrow.SetActive(true);
+                
+                float angle = Mathf.Atan2(_movementDirection.y, _movementDirection.x) * Mathf.Rad2Deg;
+                arrow.transform.rotation = Quaternion.Euler(0f, -(angle+90), 0f);  
+            }
+            else
+            {
+                arrow.SetActive(false);
+            }
+        }
 
 
 
