@@ -15,6 +15,18 @@ MonoBehaviour:
   levelSpawnData: {fileID: 11400000, guid: 38ee299c143e8444db87e59deaeb2d12, type: 2}
   missionData: {fileID: 11400000, guid: e574688c5041bb94997fc8fd821c3016, type: 2}
   timeToComplete: 150
-  ScoreDatas: []
+  ScoreDatas:
+  - itemName: food_51
+    score: 1
+  - itemName: food_53
+    score: 1
+  - itemName: food_129
+    score: 1
+  - itemName: food_231
+    score: 2
+  - itemName: food_232
+    score: 2
+  - itemName: food_199
+    score: 3
   mapPosition: {x: 0, y: -10.69, z: 14.67}
   mapScale: {x: 5000, y: 10000, z: 5000}
