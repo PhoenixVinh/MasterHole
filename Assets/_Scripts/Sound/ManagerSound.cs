@@ -108,6 +108,12 @@ namespace _Scripts.Sound
                 musicSouce.loop = true;
                 musicSouce.Play();
             }
+
+            if (effectSound == EnumEffectSound.TimeEnd)
+            {
+                musicSouce.loop = true;
+                musicSouce.Play();
+            }
         }
 
         public void StopEffectSound(EnumEffectSound effectSound)

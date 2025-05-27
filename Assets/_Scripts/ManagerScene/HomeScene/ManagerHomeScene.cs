@@ -32,7 +32,7 @@ namespace _Scripts.ManagerScene.HomeScene
             //ShowLoseGame.SetActive(false);
         }
 
-        private async void Start()
+        private async void OnEnable()
         {
             LoadTutorial();
         }

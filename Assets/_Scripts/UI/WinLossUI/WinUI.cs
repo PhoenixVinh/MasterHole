@@ -36,7 +36,7 @@ namespace _Scripts.UI.WinLossUI
         public override void OnEnable()
         {
 
-
+           
             particle.Play();
             base.OnEnable();
             coinText.text = $"{coinGet}";
@@ -46,6 +46,7 @@ namespace _Scripts.UI.WinLossUI
             coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
             continueButton.onClick.AddListener(ShowNextlevel);
+            
 
             StartCoroutine(DelayAppearButton());
             homeBtn.onClick.AddListener(ChangeHomeScene);

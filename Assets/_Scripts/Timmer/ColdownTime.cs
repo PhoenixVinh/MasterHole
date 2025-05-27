@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Sound;
 using _Scripts.UI;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -81,16 +82,36 @@ public class ColdownTime : MonoBehaviour, IPrecent
                     ManagerSound.Instance.PlayEffectSound(EnumEffectSound.TimeEnd);
                     isPlaySound = true;
                 }
+                this._txtDisplayTime.color = Color.red;
+                this._txtDisplayTime.transform.DOScale(Vector3.one*1.2f, 2f);
+                ScaleText();
             }
         }
         else
         {
             // Process when playe lose
             WinLossEvent.OnLoss?.Invoke();
+            ManagerSound.Instance?.StopEffectSound(EnumEffectSound.TimeEnd);
         }
 
         imgDisplayTime.fillAmount = Precent();
 
+    }
+    
+    
+    private void ScaleText()
+    {
+        // Phóng to từ minScale đến maxScale trong duration/2 giây
+        _txtDisplayTime.transform.localScale = Vector3.one * 0.8f; // Đặt kích thước ban đầu
+        _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f,  1f)
+            .SetEase(Ease.InOutSine) // Tạo chuyển động mượt mà
+            .OnComplete(() =>
+            {
+                // Thu nhỏ từ maxScale về minScale trong duration/2 giây
+                _txtDisplayTime.transform.DOScale( Vector3.one * 0.8f, 1f)
+                    .SetEase(Ease.InOutSine)
+                    .OnComplete(ScaleText); // Gọi lại hàm để lặp
+            });
     }
 
     public float Precent()
@@ -125,6 +146,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
         this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         _txtLevel.text = level.ToString();
+        DOTween.KillAll();
+        this._txtDisplayTime.transform.localScale = Vector3.one;
+        this._txtDisplayTime.color = new Color(1,0.85f,0,1);
         StartColdown();
         
         
@@ -134,6 +158,10 @@ public class ColdownTime : MonoBehaviour, IPrecent
     {
         this._timeColdown += timeAdd;
         this.ColdownTimeComplete = _timeColdown;
+        DOTween.KillAll();
+        this._txtDisplayTime.transform.localScale = Vector3.one;
+        this._txtDisplayTime.color = new Color(1,0.85f,0,1);
+        
        
     }
 }

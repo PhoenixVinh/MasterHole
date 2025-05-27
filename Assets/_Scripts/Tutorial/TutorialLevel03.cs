@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _Scripts.Booster;
 using _Scripts.UI.BoosterUI;
 using DG.Tweening;
@@ -12,14 +13,20 @@ namespace _Scripts.Tutorial
     {
         public GameObject Message;
         public  Button Booster;
+        public List<GameObject> specialSkills;
         public BoosterUI boosterUI;
 
         public void OnEnable()
         {
             Message.transform.localScale = Vector3.zero;
+            
             Message.transform.DOScale(Vector3.one, 0.5f);
             Booster.onClick.AddListener(
                 FreeBooster);
+            foreach (var item in specialSkills)         
+            {
+                item.SetActive(false);
+            }
         }
 
         public virtual void FreeBooster()
@@ -33,6 +40,10 @@ namespace _Scripts.Tutorial
 
         public void OnDisable()
         {
+            foreach (var item in specialSkills)         
+            {
+                item.SetActive(true);
+            }
             DOTween.KillAll();
         }
     }
