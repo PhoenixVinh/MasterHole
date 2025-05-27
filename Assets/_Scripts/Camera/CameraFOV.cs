@@ -4,6 +4,7 @@ using _Scripts.Event;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace _Scripts.Camera
 {
@@ -17,7 +18,7 @@ namespace _Scripts.Camera
         public float targetDistance = 10;
         public float scaleByHole = 5;
         public float baseDistance = 5;
-        
+        //public Slider silider;
         
         //
         // public float baseFOV = 10f;
@@ -98,6 +99,8 @@ namespace _Scripts.Camera
         {
             if (isStartLevel) return;
             if(isLevelUp) return;
+            //_virtualCamera.m_CameraDistance = silider.value * 200;
+
             float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
             if (HoleController.Instance.HoleMovement.GetDirectionMovement() == Vector2.zero && !isMove)
             {
@@ -112,7 +115,7 @@ namespace _Scripts.Camera
             
             //_virtualCamera.m_CameraDistance = targetDistance;
             _virtualCamera.m_CameraDistance = Mathf.Lerp(_virtualCamera.m_CameraDistance, targetDistance, Time.deltaTime * 10f);
-            
+
         }
 
         
