@@ -142,26 +142,27 @@ namespace _Scripts.Hole
             IsProcessSkill[0] = true;
             float scaleIncrease = HoleController.Instance.GetCurrentRadius() *1.5f;
             var sequence = DOTween.Sequence();
-            sequence.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 1f));
-            sequence.OnUpdate(
-                () => {  }
-            );
-            DOTween.Kill(sequence);
+            float y = transform.localScale.y;
+            transform.localScale = new Vector3(scaleIncrease, y, scaleIncrease);
+            transform.DOScale(new Vector3(scaleIncrease, y, scaleIncrease), 1f);
+            
+            //DOTween.Kill(sequence);
             //this.transform.localScale = new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease);
+            //HoleController.Instance.Upscale(timeSkill01*10);
             float _timeSkill01 = timeSkill01;
             while (_timeSkill01 > 0)
             {
                 _timeSkill01 -= Time.deltaTime;
-                if (scaleIncrease < HoleController.Instance.GetCurrentRadius() * 1.5f)
-                {
-                    scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
-                    var sequence2= DOTween.Sequence();
-                    sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
-                    sequence2.OnUpdate(
-                        () => {  }
-                    );
-                    DOTween.Kill(sequence2);
-                }
+                // if (scaleIncrease < HoleController.Instance.GetCurrentRadius() * 1.5f)
+                // {
+                //     scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
+                //     var sequence2= DOTween.Sequence();
+                //     sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
+                //     sequence2.OnUpdate(
+                //         () => {  }
+                //     );
+                //     DOTween.Kill(sequence2);
+                // }
                 yield return null;
             }
             // yield return new WaitForSeconds(timeSkill01);
@@ -169,18 +170,17 @@ namespace _Scripts.Hole
          
             // Decease Scale 
             float scaleDecrease = HoleController.Instance.GetCurrentRadius();
-            
-            sequence = DOTween.Sequence();
-            sequence.Append(transform.DOScale(new Vector3(scaleDecrease, transform.localScale.y, scaleDecrease), 1f));
-            sequence.OnUpdate(
-                () => { }
-            );
+            //
+            this.transform.localScale = new Vector3(scaleDecrease, transform.localScale.y, scaleDecrease);
+            transform.DOScale(new Vector3(scaleDecrease, y, scaleDecrease), 1f);
+            //
             IsProcessSkill[0] = false;
         }
 
         public void StopEventSkill()
         {
             StopAllCoroutines();
+            DOTween.KillAll();
             if (IsProcessSkill[1])
             {
                 // magnet Skill stop 

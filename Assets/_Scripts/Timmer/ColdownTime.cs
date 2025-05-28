@@ -103,12 +103,12 @@ public class ColdownTime : MonoBehaviour, IPrecent
     {
         // Phóng to từ minScale đến maxScale trong duration/2 giây
         _txtDisplayTime.transform.localScale = Vector3.one * 0.8f; // Đặt kích thước ban đầu
-        _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f,  1f)
+        _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f,  0.5f)
             .SetEase(Ease.InOutSine) // Tạo chuyển động mượt mà
             .OnComplete(() =>
             {
                 // Thu nhỏ từ maxScale về minScale trong duration/2 giây
-                _txtDisplayTime.transform.DOScale( Vector3.one * 0.8f, 1f)
+                _txtDisplayTime.transform.DOScale( Vector3.one * 0.8f, 0.5f)
                     .SetEase(Ease.InOutSine)
                     .OnComplete(ScaleText); // Gọi lại hàm để lặp
             });

@@ -17,8 +17,9 @@ public class PauseGamePlayUI: PauseGame
     public TMP_Text levelText;
 
 
-    private void OnEnable()
+    public void OnEnable()
     {
+        base.OnEnable();    
         int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         this.levelText.text = $"LEVEL{level}";
     }
