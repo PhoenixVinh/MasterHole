@@ -131,10 +131,10 @@ public class HoleController : MonoBehaviour
             .SetId("HoleUpScale")
             .Append(transform.DOScale(new Vector3(radious * 1.3f, localScale.y, radious*1.3f), 0.1f))
             .Append(transform.DOScale(newScale, 0.2f));
-        if (indexSkin != 1)
-        {
-            HoleSkins.transform.localScale = new Vector3(1, 1, radious);
-        }
+        // if (indexSkin != 1)
+        // {
+        //     HoleSkins.transform.localScale = new Vector3(1, 1, radious);
+        // }
         
         await Task.Delay((int)time*10000);
         transform.localScale = new Vector3(GetCurrentRadius(), localScale.y, GetCurrentRadius());

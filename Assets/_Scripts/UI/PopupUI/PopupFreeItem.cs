@@ -56,6 +56,7 @@ namespace _Scripts.UI.PopupUI
         public void OnDisable()
         {
             continueButton.onClick.RemoveAllListeners();
+           
         }
 
         private void AddBoosterItem()

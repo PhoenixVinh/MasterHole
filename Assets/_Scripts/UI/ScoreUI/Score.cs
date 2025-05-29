@@ -42,7 +42,7 @@ public class Score : MonoBehaviour
             transform.Translate(Vector3.up*Time.deltaTime*_speedMovement);
             yield return null;
         }
-        TextPooling.Instance .ReturnToPool(this.gameObject);
+        TextPooling.Instance.ReturnToPool(this.gameObject);
         
     }
     
@@ -53,7 +53,7 @@ public class Score : MonoBehaviour
 
     public void SetData(float speedMovement, float timeToDistroy, int score)
     {
-        this.transform.localScale = Vector3.one * Mathf.Sqrt(_score*1.5f + HoleController.Instance.GetCurrentScale());
+        this.transform.localScale = Vector3.one * Mathf.Sqrt(_score*1.5f + HoleController.Instance.GetCurrentScale()/2);
         _speedMovement = speedMovement;
         _timeToDistroy = timeToDistroy;
         _score = score;

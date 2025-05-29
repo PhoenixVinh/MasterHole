@@ -116,8 +116,11 @@ public class ManagerLevelGamePlay : MonoBehaviour
         if (LoadLevelSO())
         {
             ManagerTutorial.Instance.ShowTutorials(currentLevel);
-            
+           
             SpawnLevel();
+            
+          
+            
             
         }
         else

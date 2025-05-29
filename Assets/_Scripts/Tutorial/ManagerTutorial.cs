@@ -33,18 +33,20 @@ namespace _Scripts.Tutorial
             }
         }
 
-        public async void ShowTutorials(int index)
+        public async Task<bool> ShowTutorials(int index)
         {
             TurnOffTutorials();
             if (index <= 2)
             {
                 await Task.Delay(500);
                 tutorials[index-1].SetActive(true);
+                return false;
             }
 
             if (index == 3)
             {
                 SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0, 2);
+                return true;
             }
 
            
@@ -53,11 +55,13 @@ namespace _Scripts.Tutorial
             if (index == 5)
             {
                 SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_5, 1, 3);
+                return true;
             }
 
             if (index == 7)
             {
                 SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_7, 2, 4);
+                return true;
             }
             
 
@@ -69,11 +73,15 @@ namespace _Scripts.Tutorial
             {
                 LevelCoin.SetActive(false);
             }
-            
+
+            return false;
+
         }
 
         public void SetTutorialFreeIcon(string keyTutorial, int indexFree, int indexTutorial)
         {
+            
+            
             if (!PlayerPrefs.HasKey(keyTutorial))
             {
                 PlayerPrefs.SetInt(keyTutorial, 0);
@@ -85,6 +93,7 @@ namespace _Scripts.Tutorial
                     
                 PlayerPrefs.SetInt(keyTutorial, 1);
                 SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+               
                 ManagerHomeScene.Instance?.ShowPopUpFreeITem(indexFree);
             }
             else

@@ -77,6 +77,7 @@ namespace _Scripts.ManagerScene.HomeScene
 
         public async void ShowPopUpFreeITem(int index)
         {
+            HideLoadingUI();
             await Task.Delay(1000);
            
             ManagerPopup.Instance?.ShowPopupFreeItem(index);

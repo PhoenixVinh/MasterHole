@@ -25,7 +25,7 @@ namespace _Scripts.Hole
         
         private void OnTriggerEnter(Collider other)
         {
-            // Check if it is the item Destroy it 
+        
             if (other.CompareTag("Item") && !Items.Contains(other.gameObject))
             {
                 

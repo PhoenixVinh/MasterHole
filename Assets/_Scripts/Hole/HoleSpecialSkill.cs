@@ -143,7 +143,7 @@ namespace _Scripts.Hole
             float scaleIncrease = HoleController.Instance.GetCurrentRadius() *1.5f;
             var sequence = DOTween.Sequence();
             float y = transform.localScale.y;
-            transform.localScale = new Vector3(scaleIncrease, y, scaleIncrease);
+            //transform.localScale = new Vector3(scaleIncrease, y, scaleIncrease);
             transform.DOScale(new Vector3(scaleIncrease, y, scaleIncrease), 1f);
             
             //DOTween.Kill(sequence);
@@ -153,16 +153,14 @@ namespace _Scripts.Hole
             while (_timeSkill01 > 0)
             {
                 _timeSkill01 -= Time.deltaTime;
-                // if (scaleIncrease < HoleController.Instance.GetCurrentRadius() * 1.5f)
-                // {
-                //     scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
-                //     var sequence2= DOTween.Sequence();
-                //     sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
-                //     sequence2.OnUpdate(
-                //         () => {  }
-                //     );
-                //     DOTween.Kill(sequence2);
-                // }
+                
+                if (scaleIncrease < HoleController.Instance.GetCurrentRadius() * 1.5f)
+                {
+                    scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
+                    var sequence2= DOTween.Sequence();
+                    sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
+                    
+                }
                 yield return null;
             }
             // yield return new WaitForSeconds(timeSkill01);
@@ -171,7 +169,7 @@ namespace _Scripts.Hole
             // Decease Scale 
             float scaleDecrease = HoleController.Instance.GetCurrentRadius();
             //
-            this.transform.localScale = new Vector3(scaleDecrease, transform.localScale.y, scaleDecrease);
+            
             transform.DOScale(new Vector3(scaleDecrease, y, scaleDecrease), 1f);
             //
             IsProcessSkill[0] = false;

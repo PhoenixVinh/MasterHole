@@ -28,7 +28,7 @@ public class ZoomOutBtn : MonoBehaviour
 
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         DOTween.Kill("AnimationZoomOutButton");
     }

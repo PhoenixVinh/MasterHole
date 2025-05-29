@@ -7,7 +7,8 @@
         Pass
         {
             ZWrite On
-            ZTest LEqual
+            //ZTest Always
+            ZTest Less
             ColorMask 0
         }
         
