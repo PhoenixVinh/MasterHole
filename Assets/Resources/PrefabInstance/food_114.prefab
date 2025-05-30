@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 64344761098410409}
   - component: {fileID: 64828359676027819}
   - component: {fileID: 64299990770769360}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
-  m_TagString: FallingItem_Physics
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,10 +32,10 @@ Transform:
   m_GameObject: {fileID: 1231880325966893}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.0257516, y: 5.0257516, z: 5.0257516}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4331709692988649}
+  m_Father: {fileID: 4036309297348444}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &64129082373355881
@@ -166,10 +166,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.0257516, y: 5.0257516, z: 5.0257516}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4784230135619207}
+  m_Children: []
   m_Father: {fileID: 4036309297348444}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33581063353496061
 MeshFilter:
@@ -264,6 +263,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4784230135619207}
   - {fileID: 4331709692988649}
   m_Father: {fileID: 0}
   m_RootOrder: 0

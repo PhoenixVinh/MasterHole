@@ -30,10 +30,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.933304, y: 5.933304, z: 5.933304}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4187680409403186}
+  m_Children: []
   m_Father: {fileID: 4345826907399929}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33510318429195017
 MeshFilter:
@@ -112,9 +111,9 @@ GameObject:
   - component: {fileID: 64220829210549218}
   - component: {fileID: 64152034440438105}
   - component: {fileID: 64907259927465639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
-  m_TagString: FallingItem_Physics
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,12 +125,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539157269786215}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.933304, y: 5.933304, z: 5.933304}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4859872426255548}
+  m_Father: {fileID: 4345826907399929}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!64 &64659036587331967
@@ -219,6 +218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4187680409403186}
   - {fileID: 4859872426255548}
   m_Father: {fileID: 0}
   m_RootOrder: 0
