@@ -47,12 +47,12 @@ namespace _Scripts.UI.MissionUI
             this.indexMission = index;
         }
         public Sprite GetImage() => image.sprite;
-        public void MinusItem(Vector3 positionMinus)
+        public void MinusItem()
         {
-            AddItem(positionMinus);
+            AddItem();
         }
 
-        private void AddItem(Vector3 positionMinus)
+        private void AddItem()
         {
             
             

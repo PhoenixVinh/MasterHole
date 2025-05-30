@@ -101,17 +101,25 @@ public class ColdownTime : MonoBehaviour, IPrecent
     
     private void ScaleText()
     {
+        var sequence = DOTween.Sequence();
+        sequence.Append(
+            _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f, 0.5f)
+        );
+        sequence.Append(
+            _txtDisplayTime.transform.DOScale(Vector3.one * 0.8f, 0.5f)
+        );
+        sequence.SetLoops(30, LoopType.Yoyo);
         // Phóng to từ minScale đến maxScale trong duration/2 giây
-        _txtDisplayTime.transform.localScale = Vector3.one * 0.8f; // Đặt kích thước ban đầu
-        _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f,  0.5f)
-            .SetEase(Ease.InOutSine) // Tạo chuyển động mượt mà
-            .OnComplete(() =>
-            {
-                // Thu nhỏ từ maxScale về minScale trong duration/2 giây
-                _txtDisplayTime.transform.DOScale( Vector3.one * 0.8f, 0.5f)
-                    .SetEase(Ease.InOutSine)
-                    .OnComplete(ScaleText); // Gọi lại hàm để lặp
-            });
+        // _txtDisplayTime.transform.localScale = Vector3.one * 0.8f; // Đặt kích thước ban đầu
+        // _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f,  0.5f)
+        //     .SetEase(Ease.InOutSine) // Tạo chuyển động mượt mà
+        //     .OnComplete(() =>
+        //     {
+        //         
+        //         _txtDisplayTime.transform.DOScale( Vector3.one * 0.8f, 0.5f)
+        //             .SetEase(Ease.InOutSine)
+        //             .OnComplete(ScaleText); // Gọi lại hàm để lặp
+        //     });
     }
 
     public float Precent()
@@ -146,9 +154,10 @@ public class ColdownTime : MonoBehaviour, IPrecent
         this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         _txtLevel.text = level.ToString();
-        DOTween.KillAll();
+        //DOTween.KillAll();
         this._txtDisplayTime.transform.localScale = Vector3.one;
         this._txtDisplayTime.color = new Color(1,0.85f,0,1);
+        imgDisplayTime.fillAmount = Precent();
         StartColdown();
         
         

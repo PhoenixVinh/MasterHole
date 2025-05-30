@@ -10,6 +10,8 @@ namespace _Scripts.Tutorial
     public class LevelCoin : MonoBehaviour
     {
 
+
+        public GameObject Booster;
         public TMP_Text textScore;
         public UnityEvent EnableEvent;
         public UnityEvent DisableEvent;
@@ -23,6 +25,7 @@ namespace _Scripts.Tutorial
             LevelCointEvent.OnStartLevelCoin?.Invoke();
             ItemEvent.OnAddScore += OnAddScore;
             LevelCointEvent.OnLevelCoinGet += CoinGet;
+            Booster.SetActive(false);
         }
 
         private int CoinGet()
@@ -43,6 +46,7 @@ namespace _Scripts.Tutorial
             LevelCointEvent.OnEndLevelCoin?.Invoke();
             DisableEvent?.Invoke();
             LevelCointEvent.OnLevelCoinGet -= CoinGet;
+            Booster.SetActive(true);
         }
     }
 }

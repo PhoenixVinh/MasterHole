@@ -3,7 +3,12 @@ guid: 42fbeee3982390248bc7fd374ffe4eeb
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kong_mtl
+    second: {fileID: 2100000, guid: 3235fcd982549174da1aeda9cedcc176, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

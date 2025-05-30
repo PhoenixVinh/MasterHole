@@ -50,9 +50,9 @@ namespace _Scripts.UI.WinLossUI
         public override void OnDisable()
         {
             base.OnDisable();
-            // playOnBtn.onClick.RemoveAllListeners();
-            // retryBtn.onClick.RemoveAllListeners();
-            // continueBtn.onClick.RemoveAllListeners();
+            playOnBtn.onClick.RemoveAllListeners();
+            retryBtn.onClick.RemoveAllListeners();
+            continueBtn.onClick.RemoveAllListeners();
             
         }
 

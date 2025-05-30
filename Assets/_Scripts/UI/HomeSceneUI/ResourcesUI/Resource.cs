@@ -27,7 +27,12 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             } else {
                 Destroy (gameObject);
             }
-            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 9000); 
+
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_COIN))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, 900);
+            }
+            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 900); 
         }
         
         public void OnEnable()
@@ -64,7 +69,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         public void AddMaxCoin()
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, 7500);
-            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 9000); 
+            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 7500); 
             coin.text = amountCoin.ToString();
         }
         

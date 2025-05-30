@@ -166,6 +166,15 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         private void Load()
         {
             currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
+            if (!PlayerPrefs.HasKey(NEXT_TIME))
+            {
+                PlayerPrefs.SetString(NEXT_TIME, DateTime.Now.ToString());
+                PlayerPrefs.SetString(LAST_TIME, DateTime.Now.ToString());
+            }
+            
+            
+            
+            
             nextEnergyTime = StringToDate(PlayerPrefs.GetString(NEXT_TIME));
             lastEnergyTime = StringToDate(PlayerPrefs.GetString(LAST_TIME));
 

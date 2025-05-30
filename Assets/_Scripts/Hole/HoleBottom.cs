@@ -29,6 +29,7 @@ namespace _Scripts.Hole
             if (other.CompareTag("Item") && !Items.Contains(other.gameObject))
             {
                 
+                //Debug.Log(other.transform.parent.name);
                
 
                 if (ManagerSound.Instance != null)
@@ -40,12 +41,23 @@ namespace _Scripts.Hole
                 {
                     ManagerVibration.Instance.UseVibration(EnumVibration.Light);
                 }
-                int score = other.transform.parent.GetComponent<Item>().score;
+
+                int score = 1;
+                try
+                {
+                    score = other.transform.parent.GetComponent<Item>().score;
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError(other.name + " has no score");
+                }
+                 
+               
                 ItemEvent.OnAddScore?.Invoke(score);
                 SpawnItemMap.Instance.RemoveItem(other.gameObject);
                 TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
-                ManagerMission.Instance.CheckMinusItems(other.transform.parent.GetComponent<Item>().type, other.transform.position);
+                ManagerMission.Instance.CheckMinusItems(other.transform.parent.name);
                 Items.Add(other.gameObject);
 
                 StartCoroutine(DestroyCoroutine(other.transform.gameObject));

@@ -104,7 +104,9 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        currentLevel  = currentLevel + 1;
+        //currentLevel  = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+        currentLevel += 1;
+        PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel);
         if (currentLevel == 101)
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 81);

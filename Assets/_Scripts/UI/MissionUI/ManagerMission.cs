@@ -18,6 +18,7 @@ namespace _Scripts.UI.MissionUI
         public MissionSO MissionsSO;
         
         
+        
         public Dictionary<string, Mission> TypeItems = new Dictionary<string, Mission>();
 
         private void Awake()
@@ -53,10 +54,17 @@ namespace _Scripts.UI.MissionUI
         }
 
 
-        public void CheckMinusItems(string itemType, Vector3 position)
+        public void CheckMinusItems(string itemType)
         {
-            if (!TypeItems.ContainsKey(itemType)) return;
-            TypeItems[itemType].MinusItem(position);
+
+           
+            
+            if (!TypeItems.ContainsKey(itemType))
+            {
+               
+                return;
+            }
+            TypeItems[itemType].MinusItem();
             
             if (TypeItems[itemType].IsDone())
             {

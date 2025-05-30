@@ -26,14 +26,15 @@ namespace _Scripts.UI.PauseGameUI
         {
             
             
-            int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
-            currentEnergy--;
-            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
+            // int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
+            // currentEnergy--;
+            // PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
             
             
             ResourceEvent.OnUpdateResource?.Invoke();
-            //Resource.Instance.MinusHealth();
+            //Resource.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+            ManagerHomeScene.Instance?.MinusHealth();
             this.OnDisable();
             // Show popup minus health 
 
