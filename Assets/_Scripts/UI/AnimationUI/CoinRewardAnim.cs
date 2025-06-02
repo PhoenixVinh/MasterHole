@@ -21,12 +21,13 @@ namespace _Scripts.UI.AnimationUI
 
         public void OnEnable()
         {
-            RewardCoinEvent.OnRewardCoin += CountCoins;
+            
+            //RewardCoinEvent.OnRewardCoin += CountCoins;
         }
         
         public void OnDisable()
         {
-            RewardCoinEvent.OnRewardCoin -= CountCoins;
+            //RewardCoinEvent.OnRewardCoin -= CountCoins;
             DOTween.KillAll();
         }
 
@@ -62,7 +63,7 @@ namespace _Scripts.UI.AnimationUI
         
         public void CountCoins(int startCoint, int TargetCoin)
         {
-            DOTween.KillAll();
+            
             DOTween.SetTweensCapacity(500, 125);
 
             Reset();
@@ -125,7 +126,7 @@ namespace _Scripts.UI.AnimationUI
         {
             DOTween.SetTweensCapacity(500, 125);
 
-            Reset();
+            //Reset();
           
             var delay = 0f;
 

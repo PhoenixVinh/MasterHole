@@ -9,7 +9,12 @@ public class ObjectPoolingBase<T> : MonoBehaviour where T : Component
 
     public virtual void Awake()
     {
-        Instance = this as T;
+        if(Instance == null)
+            Instance = this as T;
+        else
+        {
+            Destroy(this);
+        }
     }
 
 

@@ -66,7 +66,7 @@ public class ManagerWinLoss : MonoBehaviour
     }
     private async void ShowUILoss()
     {
-        await Task.Delay(1000);
+   
         if (isLevelCoint)
         {
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();

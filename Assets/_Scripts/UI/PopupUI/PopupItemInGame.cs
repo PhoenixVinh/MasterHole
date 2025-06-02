@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.Booster;
+using _Scripts.ObjectPooling;
 using _Scripts.UI.PauseGameUI;
 using TMPro;
 using Unity.VisualScripting;
@@ -46,6 +47,7 @@ namespace _Scripts.UI.PopupUI
             }
             else
             {
+                MessagePooling.Instance.SpawnMessage(buyButton.transform.position);
                 return;
             }
             

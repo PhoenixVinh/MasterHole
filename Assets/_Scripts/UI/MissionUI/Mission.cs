@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Scripts.Effects;
+using System.Threading.Tasks;
 using _Scripts.ObjectPooling;
 using _Scripts.Sound;
 using DG.Tweening;
@@ -52,7 +52,7 @@ namespace _Scripts.UI.MissionUI
             AddItem();
         }
 
-        private void AddItem()
+        private async void AddItem()
         {
             
             
@@ -83,46 +83,33 @@ namespace _Scripts.UI.MissionUI
             
             EffectMission.transform.localScale = Vector3.zero;
             DOTween.Sequence()
-                .SetId(IdDotween)
                 .SetUpdate(true)
                 .Append(EffectMission.transform.DOScale(Vector3.one * 1f, 0.6f))
                 .Append(EffectMission.transform.DOScale(Vector3.one * 0.7f, 0.6f));
 
 
-
-            // DOTween.Sequence()
-            //     .SetId(IdDotween)
-            //     .Append(EffectMission.transform.DOMove(this.transform.position, 1.2f)
-            //         .OnUpdate(() =>
-            //         {
-            //             if (EffectMission != null && this.transform != null)
-            //             {
-            //                 // Cập nhật đích đến của tween hiện tại mà không tạo tween mới
-            //                 EffectMission.transform.DOKill(); // Hủy tween cũ nếu cần
-            //                 EffectMission.transform.DOMove(this.transform.position, 1.2f);
-            //             }
-            //         }))
-            //     .Join(EffectMission.transform.DOScale(new Vector3(0.7f, 0.7f, 0.7f), 1.2f))
-            //     .SetUpdate(true)
-            //     .OnComplete(delegate
-            //     {
-            //         if (EffectMission != null)
-            //         {
-            //             EffectMission.SetActive(false);
-            //         }
-            //
-            //         DOTween.Sequence()
-            //             .Append(transform.DOScale(Vector3.one * 1.2f, 0.2f))
-            //             .Append(transform.DOScale(Vector3.one, 0.1f));
-            //         if (this._text != null)
-            //         {
-            //             this._text.text = this.amountItem.ToString();
-            //         }
-            //         if (particle != null)
-            //         {
-            //             particle.Play();
-            //         }
-            //     });
+            if (amountItem == 0)
+            {
+                DOTween.Sequence()
+                    .SetUpdate(true)
+                    .Append(
+                        transform.DORotate(
+                                new Vector3(0, 180*7, 0),
+                                1,
+                                RotateMode.FastBeyond360
+                            )
+                            .SetEase(Ease.Linear) // Smooth, consistent speed
+                    )
+                    .OnComplete(() =>
+                    {
+                        DOTween.Sequence()
+                            .SetUpdate(true)
+                            .Append(transform.DOScale(Vector3.one * 0.3f, 0.5f));
+                    });
+                await Task.Delay(1500);
+                gameObject.SetActive(false);
+                //Destroy(gameObject);
+            }
 
         }
         
