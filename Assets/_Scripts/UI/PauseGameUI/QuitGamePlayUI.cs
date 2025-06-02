@@ -35,6 +35,11 @@ namespace _Scripts.UI.PauseGameUI
             //Resource.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             ManagerHomeScene.Instance?.MinusHealth();
+            
+            
+            int currentLoseIndex = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX);
+            currentLoseIndex++;
+            PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, currentLoseIndex);
             this.OnDisable();
             // Show popup minus health 
 

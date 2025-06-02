@@ -29,21 +29,7 @@ namespace _Scripts.Firebase
             if (firebaseInitial.firebaseInitialized)
                 FirebaseAnalytics.LogEvent(eventName);
         }
-        // public void LogEventWithParameter(string eventName) // MẪu, sau làm các khác dựa vào hàm này
-        // {
-        //     if (firebaseInitial.firebaseInitialized)
-        //     {
-        //         return;
-        //     }
-        //     FirebaseAnalytics.LogEvent(
-        //         "event_name",
-        //         new Parameter("level", _playinglevel),
-        //         new Parameter("play_type", currentPlayType),
-        //         new Parameter("total_duration_start", total_duration_start),
-        //         new Parameter("play_index", _playingIndexOfLevel),
-        //         new Parameter("lose_index", lose_streak)
-        //     );
-        // }  
+        
         public void LogLvelStart() // MẪu, sau làm các khác dựa vào hàm này
         {
             if (firebaseInitial.firebaseInitialized)
@@ -62,7 +48,7 @@ namespace _Scripts.Firebase
         }
 
 
-        public void LogLevelStart(int playerLevel, PlayType playType,int msec )
+        public void LogLevelStart(int playerLevel, PlayType playType, int msec, int play_index, int lose_index )
         {
             if (firebaseInitial.firebaseInitialized)
             {
@@ -73,8 +59,8 @@ namespace _Scripts.Firebase
                 new Parameter("level", playerLevel),
                 new Parameter("play_type", playType.ToString()),
                 new Parameter("total_duration_start", msec),
-                new Parameter("play_index", playerLevel)
-                
+                new Parameter("play_index", play_index),
+                new Parameter("lose_index", lose_index)
                 
             );
             

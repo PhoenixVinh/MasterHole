@@ -7,6 +7,7 @@ using _Scripts.Map.MapSpawnItem;
 using _Scripts.Sound;
 using _Scripts.UI.MissionUI;
 using _Scripts.UI.SpecialSkillUI;
+using _Scripts.Vibration;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -103,10 +104,12 @@ namespace _Scripts.Hole
 
         private IEnumerator FreezeTimeCoroutine()
         {
+            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.Ice);
             TimeEvent.OnFreezeTime?.Invoke(timeSkill04);
             IsProcessSkill[3] = true;
             yield return new WaitForSeconds(timeSkill04);
             IsProcessSkill[3] = false;
+            ManagerSound.Instance.StopEffectSound(EnumEffectSound.Ice);
         }
 
         private IEnumerator UseMagnetCoroutine()

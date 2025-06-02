@@ -27,5 +27,9 @@ namespace _Scripts.UI
         public static string USE_BGMUSIC = "UseSound";
         
         public static string USE_SFXSOUND = "UseSfxSound";
+        
+        
+        
+        public static string LOSE_INDEX =  "LoseIndex";
     }
 }

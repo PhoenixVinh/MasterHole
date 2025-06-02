@@ -55,7 +55,8 @@ public class ManagerWinLoss : MonoBehaviour
     private async void ShowUIWin()
     {
         await Task.Delay(1000);
-        ManagerSound.Instance?.StopEffectSound(EnumEffectSound.TimeEnd);
+        ManagerSound.Instance?.StopAllSoundSFX();
+        
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
@@ -67,6 +68,7 @@ public class ManagerWinLoss : MonoBehaviour
     private async void ShowUILoss()
     {
    
+        ManagerSound.Instance?.StopAllSoundSFX();
         if (isLevelCoint)
         {
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();

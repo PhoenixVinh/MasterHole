@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using _Scripts.Booster;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Map.MapSpawnItem;
 using _Scripts.ObjectPooling;
@@ -36,7 +37,15 @@ public class ManagerLevelGamePlay : MonoBehaviour
     private void Start()
     {
        
+        
         LoadLevelSO();
+        if (!PlayerPrefs.HasKey(StringPlayerPrefs.LOSE_INDEX))
+        {
+            PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
+        }
+        int currentLose_Index = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX, 0);
+        
+        ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.home, (int)level.timeToComplete*1000, currentLose_Index,currentLose_Index);
         SpawnLevel();
         ManagerTutorial.Instance.ShowTutorials(currentLevel);
         
@@ -53,8 +62,14 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public bool LoadLevelSO()
     {
+
+        int loadLevel = currentLevel;
+        if (currentLevel > 100)
+        {
+            loadLevel = 80 + currentLevel%20;
+        }
         
-        level = Resources.Load<LevelGamePlaySO>($"DataLevelSO/DataLevel_{currentLevel}");
+        level = Resources.Load<LevelGamePlaySO>($"DataLevelSO/DataLevel_{loadLevel}");
         if (level == null)
         {
             Debug.LogError($"No DataLevelSO found in Resources at path: {Application.dataPath}");
@@ -71,8 +86,12 @@ public class ManagerLevelGamePlay : MonoBehaviour
         
         if(ManagerHomeScene.Instance != null)
             ManagerHomeScene.Instance.ShowLoadingUI();
-        if(ManagerSound.Instance != null)
+        if (ManagerSound.Instance != null)
+        {
             ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
+            ManagerSound.Instance.StopAllSoundSFX();
+        }
+           
         
         
         MissionPooling.Instance.DisactiveAllItem();
@@ -104,24 +123,24 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        
+        
         //currentLevel  = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         currentLevel += 1;
         PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel);
-        if (currentLevel == 101)
-        {
-            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 81);
-            currentLevel = 81;
-        }
+     
 
-        
-        
+      
         if (LoadLevelSO())
         {
             ManagerTutorial.Instance.ShowTutorials(currentLevel);
            
             SpawnLevel();
             
-          
+            PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
+        
+            ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.next, (int)level.timeToComplete*1000, 0,0);
+
             
             
         }
@@ -135,5 +154,11 @@ public class ManagerLevelGamePlay : MonoBehaviour
     {
         ManagerTutorial.Instance.ShowTutorials(currentLevel);
         SpawnLevel();
+        int currentLose_Index = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX, 0);
+      
+        
+        
+        ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.retry, (int)level.timeToComplete*1000, currentLose_Index,currentLose_Index);
+
     }
 }

@@ -83,6 +83,13 @@ namespace _Scripts.Sound
            
         }
 
+        public void StopAllSoundSFX()
+        {
+            DictEffectMusic[EnumEffectSound.Magnet].Stop();
+            DictEffectMusic[EnumEffectSound.TimeEnd].Stop();
+            DictEffectMusic[EnumEffectSound.Ice].Stop();
+        }
+
         public void ChangeBackgroundMusic(EnumBackgroundSound backgroundSound)
         {
             if (!canBgMusic) return;
@@ -102,19 +109,17 @@ namespace _Scripts.Sound
             musicSouce.volume = volumeSfx;
             musicSouce.Play();
 
-            if (effectSound == EnumEffectSound.Magnet)
+            if (effectSound == EnumEffectSound.Magnet || effectSound == EnumEffectSound.TimeEnd || effectSound == EnumEffectSound.Ice)
             {
                 //Debug.Log("Magnet");
                 musicSouce.loop = true;
                 musicSouce.Play();
             }
 
-            if (effectSound == EnumEffectSound.TimeEnd)
-            {
-                musicSouce.loop = true;
-                musicSouce.Play();
-            }
+            
         }
+        
+
         
 
         public void StopEffectSound(EnumEffectSound effectSound)

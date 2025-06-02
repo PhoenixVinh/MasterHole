@@ -15,6 +15,7 @@ namespace _Scripts.Sound
         LevelUpHole = 5,
         LevelComplete = 6,
         Magnet = 7, 
-        TimeEnd = 8
+        TimeEnd = 8,
+        Ice = 9
     }
 }

@@ -35,8 +35,13 @@ namespace _Scripts.UI.WinLossUI
             continueBtn.onClick.AddListener(OnClickContinueBtn);
             this.loseUI2.SetActive(false);
             StartCoroutine(DelayAppearButton());
-           
             
+            
+            int currentLoseIndex = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX);
+            currentLoseIndex++;
+            PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, currentLoseIndex);
+
+
         }
 
         private IEnumerator DelayAppearButton()
