@@ -18,6 +18,7 @@ namespace _Scripts.UI.MissionUI
         public MissionSO MissionsSO;
         
         
+        
         public Dictionary<string, Mission> TypeItems = new Dictionary<string, Mission>();
 
         private void Awake()
@@ -34,7 +35,7 @@ namespace _Scripts.UI.MissionUI
         private void CreateMissions()
         {
 
-
+            DOTween.KillAll();
 
             while (transform.childCount > 0)
             {
@@ -53,48 +54,24 @@ namespace _Scripts.UI.MissionUI
         }
 
 
-        public void CheckMinusItems(string itemType, Vector3 position)
+        public void CheckMinusItems(string itemType)
         {
-            if (!TypeItems.ContainsKey(itemType)) return;
-            TypeItems[itemType].MinusItem(position);
+
+           
+            
+            if (!TypeItems.ContainsKey(itemType))
+            {
+               
+                return;
+            }
+            TypeItems[itemType].MinusItem();
             
             if (TypeItems[itemType].IsDone())
             {
                
-                GameObject game = TypeItems[itemType].gameObject; 
+                //GameObject game = TypeItems[itemType].gameObject; 
                 TypeItems.Remove(itemType);
-                Sequence sequence = DOTween.Sequence();
-                sequence.SetDelay(1.2f);
-                sequence.SetUpdate(true);
-                // Append rotation to the sequence
-                sequence.Append(
-                    game.transform.DORotate(
-                            new Vector3(0, 360*3, 0),
-                            1,
-                            RotateMode.FastBeyond360
-                        )
-                        .SetUpdate(true).SetEase(Ease.Linear) // Smooth, consistent speed
-                );
-               
-                
-                
-
-                // Append a callback to destroy the GameObject when the sequence completes
-                sequence.AppendCallback(() =>
-                {
-                    game.transform.DOScale(Vector3.one*0.3f, 0.5f).SetUpdate(true).OnComplete(
-                        () =>
-                        {
-                            Destroy(game);
-
-                            SetIndex();
-
-
-                        }
-                        );
-                   
-                    
-                });
+                SetIndex();
                 
             }
 

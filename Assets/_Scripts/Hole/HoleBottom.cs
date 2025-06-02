@@ -29,28 +29,10 @@ namespace _Scripts.Hole
             if (other.CompareTag("Item") && !Items.Contains(other.gameObject))
             {
                 
+                //Debug.Log(other.transform.parent.name);
                
 
-                if (ManagerSound.Instance != null)
-                {
-                    ManagerSound.Instance.PlayEffectSound(EnumEffectSound.EatItem);
-                }
-
-                if (ManagerVibration.Instance != null)
-                {
-                    ManagerVibration.Instance.UseVibration(EnumVibration.Light);
-                }
-                int score = other.transform.parent.GetComponent<Item>().score;
-                ItemEvent.OnAddScore?.Invoke(score);
-                SpawnItemMap.Instance.RemoveItem(other.gameObject);
-                TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
-                
-                ManagerMission.Instance.CheckMinusItems(other.transform.parent.GetComponent<Item>().type, other.transform.position);
-                Items.Add(other.gameObject);
-
-                StartCoroutine(DestroyCoroutine(other.transform.gameObject));
-                
-               
+              
                 
                 
                
@@ -58,17 +40,7 @@ namespace _Scripts.Hole
             
         }
 
-        private IEnumerator DestroyCoroutine(GameObject transformGameObject)
-        {
-            yield return new WaitForSeconds(0.5f);
-
-            if (transformGameObject != null)
-            {
-                Items.Remove(transformGameObject);
-                Destroy(transformGameObject.transform.parent.gameObject);
-            }
-               
-        }
+       
 
         public void OnDestroy()
         {

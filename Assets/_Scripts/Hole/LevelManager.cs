@@ -28,7 +28,9 @@ public class LevelManager : MonoBehaviour
         HoleEvent.OnLevelUp += OnLevelup;
     }
 
-    private void OnLevelup()
+    
+    
+    public void OnLevelup()
     {
         currentLevel++;
         if (currentLevel < datalevel.levels.Length)
@@ -41,6 +43,9 @@ public class LevelManager : MonoBehaviour
         }
        
     }
+    
+    
+    
 
     private void OnDisable()
     {

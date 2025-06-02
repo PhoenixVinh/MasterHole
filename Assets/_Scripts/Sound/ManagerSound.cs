@@ -115,6 +115,7 @@ namespace _Scripts.Sound
                 musicSouce.Play();
             }
         }
+        
 
         public void StopEffectSound(EnumEffectSound effectSound)
         {

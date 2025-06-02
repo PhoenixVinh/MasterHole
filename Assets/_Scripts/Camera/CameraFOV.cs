@@ -101,7 +101,7 @@ namespace _Scripts.Camera
             if(isLevelUp) return;
             //_virtualCamera.m_CameraDistance = silider.value * 200;
 
-            float addingFOV = HoleController.Instance.transform.localScale.x * scaleByHole;
+            float addingFOV = HoleController.Instance.GetCurrentScale() * scaleByHole;
             if (HoleController.Instance.HoleMovement.GetDirectionMovement() == Vector2.zero && !isMove)
             {
                

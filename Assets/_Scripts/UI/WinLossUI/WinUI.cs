@@ -62,6 +62,7 @@ namespace _Scripts.UI.WinLossUI
         public void SetData(int coinGet)
         {
             this.coinGet = coinGet;
+            this.gameObject.SetActive(true);
         }
 
        

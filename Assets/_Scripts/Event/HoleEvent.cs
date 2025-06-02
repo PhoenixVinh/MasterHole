@@ -12,12 +12,16 @@ public class HoleEvent
 
 
 
-    public delegate void HoleSkiEvent();
+    public delegate void HoleSkinEvent();
 
-    public static HoleSkiEvent OnSkinSelected;
+    public static HoleSkinEvent OnSkinSelected;
 
 
 
     public delegate void TurnOffSkillUI();
     public static TurnOffSkillUI OnTurnOffSkillUI;
+
+
+    public delegate void UpdateFade(float scale);
+    public static UpdateFade OnUpdateFade;
 }

@@ -142,5 +142,18 @@ namespace _Scripts.ManagerScene.HomeScene
             yield return new WaitForSeconds(1f);
             LoadingUI.gameObject.SetActive(false);
         }
+
+        public async void MinusHealth()
+        {
+            await Utills.DelayUntil(() =>
+            {
+                return Resource.Instance != null;
+            });
+            Resource.Instance.MinusHealth();
+        }
+        
+        
+      
+     
     }
 }

@@ -81,10 +81,11 @@ public class ColdownTime : MonoBehaviour, IPrecent
                 {
                     ManagerSound.Instance.PlayEffectSound(EnumEffectSound.TimeEnd);
                     isPlaySound = true;
+                    ScaleItem();
                 }
                 this._txtDisplayTime.color = Color.red;
-                this._txtDisplayTime.transform.DOScale(Vector3.one*1.2f, 2f);
-                ScaleText();
+                //this._txtDisplayTime.transform.DOScale(Vector3.one*1.2f, 2f);
+                
             }
         }
         else
@@ -99,19 +100,30 @@ public class ColdownTime : MonoBehaviour, IPrecent
     }
     
     
-    private void ScaleText()
+    void ScaleItem()
     {
-        // Phóng to từ minScale đến maxScale trong duration/2 giây
-        _txtDisplayTime.transform.localScale = Vector3.one * 0.8f; // Đặt kích thước ban đầu
-        _txtDisplayTime.transform.DOScale(Vector3.one * 1.2f,  0.5f)
-            .SetEase(Ease.InOutSine) // Tạo chuyển động mượt mà
-            .OnComplete(() =>
-            {
-                // Thu nhỏ từ maxScale về minScale trong duration/2 giây
-                _txtDisplayTime.transform.DOScale( Vector3.one * 0.8f, 0.5f)
-                    .SetEase(Ease.InOutSine)
-                    .OnComplete(ScaleText); // Gọi lại hàm để lặp
-            });
+        // Khởi tạo một Sequence mới
+        var scaleSequence = DOTween.Sequence();
+
+        // Lặp lại việc thêm các Tween vào Sequence
+        
+            // Thêm animation phóng to vào chuỗi
+        scaleSequence.Append(this._txtDisplayTime.transform.DOScale(Vector3.one * 1.2f, 0.5f)
+            .SetEase(Ease.OutSine)); // Kiểu chuyển động khi phóng to
+
+        // Thêm animation thu nhỏ vào chuỗi
+        scaleSequence.Append(this._txtDisplayTime.transform.DOScale(Vector3.one * 0.8f, 0.5f)
+            .SetEase(Ease.InSine)); // Kiểu chuyển động khi thu nhỏ
+        
+        scaleSequence.SetLoops(30, LoopType.Yoyo);
+
+   
+
+        // (Tùy chọn) Thêm callback khi toàn bộ chuỗi hoàn thành
+        scaleSequence.OnComplete(() => {
+     
+            transform.localScale = Vector3.one; 
+        });
     }
 
     public float Precent()
@@ -149,6 +161,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         DOTween.KillAll();
         this._txtDisplayTime.transform.localScale = Vector3.one;
         this._txtDisplayTime.color = new Color(1,0.85f,0,1);
+        imgDisplayTime.fillAmount = Precent();
         StartColdown();
         
         
@@ -159,6 +172,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         this._timeColdown += timeAdd;
         this.ColdownTimeComplete = _timeColdown;
         DOTween.KillAll();
+        isPlaySound = false;
         this._txtDisplayTime.transform.localScale = Vector3.one;
         this._txtDisplayTime.color = new Color(1,0.85f,0,1);
         

@@ -58,20 +58,22 @@ public class ManagerWinLoss : MonoBehaviour
         ManagerSound.Instance?.StopEffectSound(EnumEffectSound.TimeEnd);
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
-        
-        WinUI.SetActive(true);
+        //LevelCoinUI.GetComponent<WinUI>().SetData(75);
+        WinUI.GetComponent<WinUI>().SetData(75);
         int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
         PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
        
     }
     private async void ShowUILoss()
     {
-        await Task.Delay(1000);
+   
         if (isLevelCoint)
         {
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();
-            LevelCoinUI.GetComponent<WinUI>().SetData(coinGet);
-            LevelCoinUI.SetActive(true);
+            WinUI.GetComponent<WinUI>().SetData(coinGet);
+            //LevelCoinUI.SetActive(true);
+            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
             return;
 
         }

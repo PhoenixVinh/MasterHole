@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33535969532340870}
   - component: {fileID: 23114510918932087}
   - component: {fileID: 65418792825035785}
+  - component: {fileID: 2653116136634615784}
   m_Layer: 7
   m_Name: WoodCrate_Small
   m_TagString: Item
@@ -97,6 +98,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2152318, y: 0.09213155, z: 1.1247358}
   m_Center: {x: 0, y: 0.046065774, z: 0}
+--- !u!64 &2653116136634615784
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010798420063700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 9366a441c38dccb469038cb69f5a30de, type: 2}
 --- !u!1 &1360094674191260
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +145,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4994038010169550}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &65105632400941063
 BoxCollider:

@@ -47,13 +47,9 @@ public class HoleController : MonoBehaviour
 
 
 
-    [SerializeField] private GameObject HoleSkins;
-    
-    [Header("Hole Bottom")]
-    public float addding;
-    public float downposition;
 
-    private int indexSkin = 0;
+    
+   
     private void Awake()
     {
         Instance = this;
@@ -63,7 +59,7 @@ public class HoleController : MonoBehaviour
         _holeLevel = GetComponent<HoleLevel>();
         _holeSpecialSkill = GetComponent<HoleSpecialSkill>();
         SetData();
-        indexSkin = PlayerPrefs.GetInt(StringPlayerPrefs.HOLESKININDEX, 0);
+        
 
     }
 
@@ -98,17 +94,10 @@ public class HoleController : MonoBehaviour
         {
             transform.localScale = newScale;
         }
-
-        if (indexSkin != 1)
-        {
-            HoleSkins.transform.localScale = new Vector3(1, 1, radius);
-        }
-        
-
-        // foreach (var bot in bottomHoles)
+        HoleEvent.OnUpdateFade?.Invoke(radius);
+        // if (indexSkin != 1)
         // {
-        //     bot.transform.localScale = new Vector3(1,1, 1+ addding*radius);
-        //     bot.transform.localPosition = new Vector3(0,0,radius*downposition);
+        //     HoleSkins.transform.localScale = new Vector3(1, 1, radius);
         // }
         
         

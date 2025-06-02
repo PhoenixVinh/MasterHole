@@ -233,8 +233,8 @@ namespace _Scripts.Map.MapSpawnItem
         
         public void RemoveItem(GameObject item)
         {
-            string name = item.transform.parent.name;
-            mapObjects[name].Remove(item.transform.parent.gameObject);
+            
+            mapObjects[item.name].Remove(item);
         }
         
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
+using _Scripts.ObjectPooling;
 using _Scripts.Sound;
 using _Scripts.UI.PauseGameUI;
 
@@ -50,9 +51,9 @@ namespace _Scripts.UI.WinLossUI
         public override void OnDisable()
         {
             base.OnDisable();
-            // playOnBtn.onClick.RemoveAllListeners();
-            // retryBtn.onClick.RemoveAllListeners();
-            // continueBtn.onClick.RemoveAllListeners();
+            playOnBtn.onClick.RemoveAllListeners();
+            retryBtn.onClick.RemoveAllListeners();
+            continueBtn.onClick.RemoveAllListeners();
             
         }
 
@@ -83,6 +84,10 @@ namespace _Scripts.UI.WinLossUI
                 coin -= pricePlayOn;
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
                 this.gameObject.SetActive(false);   
+            }
+            else
+            {
+                MessagePooling.Instance.SpawnMessage(this.playOnBtn.transform.position);
             }
             
             

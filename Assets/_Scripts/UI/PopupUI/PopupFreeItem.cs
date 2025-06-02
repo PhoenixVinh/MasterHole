@@ -31,22 +31,22 @@ namespace _Scripts.UI.PopupUI
             this.icon.texture = listSprites[indexSpecialSkill].texture;
             if (indexSpecialSkill == 0)
             {
-                descriptionText = "<color=#48F101>Increase the hole</color> size over 15 seconds";
+                descriptionText = "<color=#4CAF50>Increase the hole</color> <color=#4A4A7B>size over 15 seconds</color>";
                 this.title.text = "Booster Scale";
             }
             else if (indexSpecialSkill == 1)
             {
-                descriptionText = "<color=#48F101>Pull in distant</color> items using the hole for 12 seconds";
+                descriptionText = "<color=#4CAF50>Pull in distant</color> <color=#4A4A7B>items using the hole for 12 seconds</color>";
                 this.title.text = "Booster Magnet";
             }
             else if (indexSpecialSkill == 2)
             {
-                descriptionText = "<color=#48F101>Reveal the locations</color> of mission objects for 15 seconds";
+                descriptionText = "<color=#4CAF50>Reveal the locations</color> <color=#4A4A7B>of mission objects for 15 seconds</color>";
                 this.title.text = "Booster Location";
             }
             else
             {
-                descriptionText = "<color=#48F101>Attract items</color> freeze for 12 seconds";
+                descriptionText = "<color=#4CAF50>Attract items</color> <color=#4A4A7B>freeze for 12 seconds</color>";
                 this.title.text = "Booster Ice";
             }
             this.description.text = descriptionText;

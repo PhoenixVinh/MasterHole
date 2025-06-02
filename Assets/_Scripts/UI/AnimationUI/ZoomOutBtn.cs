@@ -8,7 +8,7 @@ public class ZoomOutBtn : MonoBehaviour
     
     
 
-    private void OnEnable()
+    private void Start()
     {
         AnimationGameObjectZoomOut();
     }
@@ -31,6 +31,7 @@ public class ZoomOutBtn : MonoBehaviour
     private void OnDisable()
     {
         DOTween.Kill("AnimationZoomOutButton");
+        DOTween.KillAll();
     }
 
    
