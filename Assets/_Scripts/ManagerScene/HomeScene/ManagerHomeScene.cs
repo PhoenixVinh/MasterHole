@@ -61,6 +61,11 @@ namespace _Scripts.ManagerScene.HomeScene
             {
                 ShowTutorialByLevel(StringPlayerPrefs.TUTORIAL_LEVEL_7, 2);
             }
+
+            if (CurrentLevel == 9)
+            {
+                ShowTutorialByLevel(StringPlayerPrefs.TUTORIAL_LEVEL_9, 3);
+            }
         }
 
         public void ShowTutorialByLevel(string LevelTutorial, int indexFree)
@@ -70,8 +75,6 @@ namespace _Scripts.ManagerScene.HomeScene
             {
                 PlayerPrefs.SetInt(LevelTutorial, 1);
                 ShowPopUpFreeITem(indexFree);
-                    
-
             }
         }
 

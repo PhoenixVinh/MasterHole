@@ -39,12 +39,14 @@ namespace _Scripts.UI.WinLossUI
         private void PlayAgain()
         {
             this.gameObject.SetActive(false);
+            
             ManagerLevelGamePlay.Instance.LoadLevelAgain();
         }
 
         private void goHome()
         {
             this.gameObject.SetActive(false);
+            
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.Event;
+using _Scripts.ObjectPooling;
 using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ namespace _Scripts.UI.PopupUI
 {
     public class PopupBuyEnergy : MonoBehaviour
     {
+
+        [SerializeField]private GameObject message;
+        
         public List<ItemEnergyPopup> energyObjects;
 
         private int maxEnergy;
@@ -61,6 +65,12 @@ namespace _Scripts.UI.PopupUI
                     
                 UpdateUI();
             }
+            else
+            {
+                GameObject messageuUI =  Instantiate(message, refillBtn.transform.position, Quaternion.identity);
+                messageuUI.transform.SetParent(transform);
+                
+            }
             
         }
 
@@ -89,10 +99,10 @@ namespace _Scripts.UI.PopupUI
                 }
                 energyObjects[currentEnergy].SetData(false, Energy.Instance.TimeValue);
 
-                if (currentEnergy + 1 == maxEnergy) return;
-                for (int i = currentEnergy+1; i <= maxEnergy; i++)
+                if (currentEnergy + 2 > maxEnergy) return;
+                for (int i = currentEnergy+1; i < maxEnergy; i++)
                 {
-                    energyObjects[i -1 ].SetData(false, "");
+                    energyObjects[i].SetData(false, "");
                 }
             }
         }

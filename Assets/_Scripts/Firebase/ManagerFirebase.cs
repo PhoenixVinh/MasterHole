@@ -63,8 +63,17 @@ namespace _Scripts.Firebase
                 new Parameter("lose_index", lose_index)
                 
             );
-            
+            Debug.Log("Log Event Success");
         }
+        
+        
+       
+        
+        
+        
+        
+        
+        
 
         public void SetPlayerProperties()
         {
@@ -80,7 +89,7 @@ namespace _Scripts.Firebase
             int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 1);
             int currentCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 1);
             
-            var boosterDataS0 = Resources.Load<BoosterDataSO>("BoosterSO/BoosterData");
+            var boosterDataS0 = JsonUtility.FromJson<BoosterDatas>(PlayerPrefs.GetString(StringPlayerPrefs.BOOSTER_DATA));
             
             
             // Bắn Properties

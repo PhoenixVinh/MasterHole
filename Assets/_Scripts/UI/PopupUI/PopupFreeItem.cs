@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using _Scripts.Booster;
+using _Scripts.Event;
 using _Scripts.UI.PauseGameUI;
 using TMPro;
 using UnityEngine;
@@ -56,6 +58,7 @@ namespace _Scripts.UI.PopupUI
         public void OnDisable()
         {
             continueButton.onClick.RemoveAllListeners();
+            PopupItemEvent.getITem?.Invoke(indexSpecialSkill);
            
         }
 
@@ -64,11 +67,13 @@ namespace _Scripts.UI.PopupUI
             
             
             // Adding Booster
-            var boosterDataS0 = Resources.Load<BoosterDataSO>("BoosterSO/BoosterData");
-
-            boosterDataS0.Boosters[indexSpecialSkill].Amount += 3;
+            // var boosterDatas =  JsonUtility.FromJson<BoosterDatas>(PlayerPrefs.GetString(StringPlayerPrefs.BOOSTER_DATA));
+            //
+            // boosterDatas.Boosters[indexSpecialSkill].Amount += 3;
             
-            
+            //String convert = JsonUtility.ToJson(boosterDatas);
+            //PlayerPrefs.SetString(StringPlayerPrefs.BOOSTER_DATA, convert);
+            ManagerBooster.Instance?.ChangeAmountBooster(indexSpecialSkill,3);
             this.gameObject.SetActive(false);
             
         }

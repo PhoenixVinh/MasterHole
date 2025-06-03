@@ -68,8 +68,8 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         public void AddMaxCoin()
         {
-            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, 7500);
-            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 7500); 
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, 900);
+            amountCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 900); 
             coin.text = amountCoin.ToString();
         }
         
@@ -78,6 +78,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             if (this.amountCoin >= amount)
             {
                 this.amountCoin -= amount;
+                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, amountCoin);
                 return true;
             }
 

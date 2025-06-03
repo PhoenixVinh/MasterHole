@@ -39,7 +39,8 @@ namespace _Scripts.UI.WinLossUI
          
 
             StartCoroutine(ChangeFill(level, collection.GetLevelCollection(level)));
-            Icon.sprite = ItemSprites[collection.GetLevelCollection(level)];
+            Icon.sprite  = collection.ItemCollectionData[collection.GetLevelCollection(level)].image;
+                
         }
 
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)

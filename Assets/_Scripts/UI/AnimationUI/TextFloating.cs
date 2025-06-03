@@ -28,9 +28,9 @@ namespace _Scripts.UI.AnimationUI
                 .SetUpdate(true)
                 .SetId("TextFloating")
                 .Append(transform.DOMove(new Vector3(positonStart.x, positonStart.y + addingPosition, positonStart.z),
-                    .5f))
-                .Join(text.DOFade(0, 0.5f));
-            await Task.Delay(1000);
+                    .7f))
+                .Join(text.DOFade(0, 0.7f));
+            await Task.Delay(1400);
             this.gameObject.SetActive(false);
 
         }

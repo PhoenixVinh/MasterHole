@@ -66,9 +66,13 @@ namespace _Scripts.Collection
                 {
                     Check.SetActive(false);
                     Lock.SetActive(false);
+                    
+                    float present = (float)currentLevel / dataCollection.LevelUnlock;
+                    ItemStatusImage.color = new Color(present, present, present, 1f);
                     ProcessBar.fillAmount = (float)currentLevel / dataCollection.LevelUnlock;
                     ProcessText.text = $"Lv {currentLevel}/{dataCollection.LevelUnlock}";
                     ProcressBarMain.SetActive(true);
+                   
                    
                 }
                 

@@ -26,9 +26,7 @@ namespace _Scripts.UI.PauseGameUI
         {
             
             
-            // int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
-            // currentEnergy--;
-            // PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
+            
             
             
             ResourceEvent.OnUpdateResource?.Invoke();
