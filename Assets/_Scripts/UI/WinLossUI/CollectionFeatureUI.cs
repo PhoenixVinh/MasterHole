@@ -35,11 +35,18 @@ namespace _Scripts.UI.WinLossUI
            
             
             Icon.color =  new Color(0.6f, 0.6f,0.6f,1f);
-            
-         
 
-            StartCoroutine(ChangeFill(level, collection.GetLevelCollection(level)));
-            Icon.sprite  = collection.ItemCollectionData[collection.GetLevelCollection(level)].image;
+            try
+            {
+                StartCoroutine(ChangeFill(level, collection.GetLevelCollection(level)));
+                Icon.sprite = collection.ItemCollectionData[collection.GetLevelCollection(level)].image;
+            }
+            catch (Exception e)
+            {
+                this.gameObject.SetActive(false);
+            }
+
+          
                 
         }
 
@@ -81,6 +88,12 @@ namespace _Scripts.UI.WinLossUI
                     break;
                 }
                 
+            }
+            
+            if (currentLevel >= collection.ItemCollectionData[collection.ItemCollectionData.Count - 1]
+                    .LevelUnlock)
+            {
+                statusIndex = collection.ItemCollectionData.Count - 1;
             }
             
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COLLECTION,statusIndex);

@@ -48,7 +48,15 @@ namespace _Scripts.Collection
                     statusIndex = i;
                     break;
                 }
+
                 
+
+            }
+
+            if (currentLevel >= dataCollection.ItemCollectionData[dataCollection.ItemCollectionData.Count - 1]
+                    .LevelUnlock)
+            {
+                statusIndex = dataCollection.ItemCollectionData.Count - 1;
             }
             
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COLLECTION,statusIndex);

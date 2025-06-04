@@ -15,6 +15,7 @@ namespace _Scripts.HACK
             PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0);
             PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_5, 0);
             PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_7, 0);
+            PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_LEVEL_9, 0);
             PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_SKIN_4, 0);
             Resource.Instance.AddMaxHealth();
             Resource.Instance.AddMaxCoin();

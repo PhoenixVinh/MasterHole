@@ -65,7 +65,11 @@ namespace _Scripts.Firebase
             );
             Debug.Log("Log Event Success");
         }
-        
+
+        public void LogLevelEnd()
+        {
+            
+        }
         
        
         
