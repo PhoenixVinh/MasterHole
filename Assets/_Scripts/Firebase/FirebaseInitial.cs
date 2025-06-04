@@ -65,7 +65,8 @@ public class FirebaseInitial : MonoBehaviour
         // Set default session duration values.
         //FirebaseAnalytics.SetMinimumSessionDuration(new TimeSpan(0, 0, 10));
         FirebaseAnalytics.SetSessionTimeoutDuration(new TimeSpan(0, 30, 0));
-        firebaseInitialized = true; 
+        firebaseInitialized = true;
+        Debug.Log("Initate success firebase");
 
     }
     public void FetchFireBase()

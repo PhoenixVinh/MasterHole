@@ -1,3 +1,4 @@
+using _Scripts.Vibration;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ namespace _Scripts.Sound
         {
             if(ManagerSound.Instance != null)
                 ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);
+            ManagerVibration.Instance?.UseVibration(EnumVibration.Light);
         }
     }
 }

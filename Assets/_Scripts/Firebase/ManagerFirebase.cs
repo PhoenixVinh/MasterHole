@@ -50,7 +50,7 @@ namespace _Scripts.Firebase
 
         public void LogLevelStart(int playerLevel, PlayType playType, int msec, int play_index, int lose_index )
         {
-            if (firebaseInitial.firebaseInitialized)
+            if (!firebaseInitial.firebaseInitialized)
             {
                 Debug.Log("Log Event Fail");
                 return;
@@ -66,6 +66,9 @@ namespace _Scripts.Firebase
                 
             );
            
+            FirebaseAnalytics.LogEvent(
+                "home"
+                );
         }
 
         public void LogLevelEnd()
