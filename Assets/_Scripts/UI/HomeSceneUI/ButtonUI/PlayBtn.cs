@@ -1,3 +1,4 @@
+using System;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
 using _Scripts.Vibration;
@@ -15,13 +16,23 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
         {
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);
             ManagerVibration.Instance?.UseVibration(EnumVibration.Light);
-         
-            int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 0);
+
+
+            DateTime infinity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
+            if (infinity < DateTime.Now)
+            {
+                int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 0);
+                if (currentEnergy == 0) return;
+            }
           
-            if (currentEnergy == 0) return;
             ManagerHomeScene.Instance.ShowLoadingUI();
             base.ChangeScene();
+            
+        
           
         }
+        
+        
+        
     }
 }

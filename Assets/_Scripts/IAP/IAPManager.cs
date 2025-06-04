@@ -1,138 +1,267 @@
 using System;
+using System.Collections.Generic;
+using _Scripts.IAP;
+using _Scripts.UI;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.Purchasing.Extension;
 using UnityEngine.Purchasing.Security;
 
-public class IAPManager : MonoBehaviour, IStoreListener
+public class IAPManager : MonoBehaviour, IDetailedStoreListener
 {
-    private static IStoreController m_StoreController; // Đối tượng điều khiển Store
-    private static IExtensionProvider m_StoreExtensionProvider; // Đối tượng mở rộng cho các nền tảng
+  
+    IStoreController m_StoreController; // The Unity Purchasing system.
 
-    // ID sản phẩm (phải khớp với ID trên Google Play hoặc App Store)
-    public static string kProductIDConsumable = "com.holemaster.pack.starter_deal";
-    public static string kProductIDNonConsumable = "com.holemaster.pack.common_pack";
-    public static string kProductIDSubscription = "subscription_item";
+    public List<PackGold> packs;
+    //Your products IDs. They should match the ids of your products in your store.
 
+    
     void Start()
     {
-        // Kiểm tra xem IAP đã được khởi tạo chưa
-        if (m_StoreController == null)
-        {
-            InitializePurchasing();
-        }
+        InitializePurchasing();
+        UpdateUI();
     }
 
-    public void InitializePurchasing()
+    void InitializePurchasing()
     {
-        // Kiểm tra xem IAP có được hỗ trợ không
-        if (IsInitialized())
-        {
-            return;
-        }
-
-        // Cấu hình các sản phẩm IAP
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-        // Thêm sản phẩm vào danh sách
-        builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
-        //builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable);
-        //builder.AddProduct(kProductIDSubscription, ProductType.Subscription);
+        //Add products that will be purchasable and indicate its type.
+        builder.AddProduct(StringKeyIAP.STARTER_DEAL, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.COMMON_PACK, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.NORMAL_PACK, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.RARE_PACK, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.EPIC_PACK, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.LEGENDARY_PACK, ProductType.NonConsumable);
+        builder.AddProduct(StringKeyIAP.COIN_FEW, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.COIN_BAG, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.COIN_PILE, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.COIN_BOX, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.COIN_CHEST, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.COIN_VAULT, ProductType.Consumable);
+        builder.AddProduct(StringKeyIAP.REMOVE_ADS, ProductType.NonConsumable);
 
-        // Khởi tạo IAP
+
         UnityPurchasing.Initialize(this, builder);
     }
 
-    private bool IsInitialized()
-    {
-        return m_StoreController != null && m_StoreExtensionProvider != null;
-    }
 
-    // Gọi khi khởi tạo thành công
+    // public void BuyGold()
+    // {
+    //     m_StoreController.InitiatePurchase(goldProductId);
+    // }
+
+    // public void BuyDiamond()
+    // {
+    //     m_StoreController.InitiatePurchase(diamondProductId);
+    // }
+
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
-        Debug.Log("IAP Khởi tạo thành công!");
+        Debug.Log("In-App Purchasing successfully initialized");
         m_StoreController = controller;
-        m_StoreExtensionProvider = extensions;
     }
 
     public void OnInitializeFailed(InitializationFailureReason error)
     {
-        Debug.LogError($"IAP Khởi tạo thất bại: {error}");
+        OnInitializeFailed(error, null);
     }
 
     public void OnInitializeFailed(InitializationFailureReason error, string message)
     {
-        Debug.LogError($"IAP Khởi tạo thất bại: {message}");
+        var errorMessage = $"Purchasing failed to initialize. Reason: {error}.";
+
+        if (message != null)
+        {
+            errorMessage += $" More details: {message}";
+        }
+
+        Debug.Log(errorMessage);
     }
 
-    // Gọi khi giao dịch mua hàng
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
-        // Kiểm tra ID sản phẩm
-        if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
+        //Retrieve the purchased product
+        var product = args.purchasedProduct;
+
+        //Add the purchased product to the players inventory
+        if (product.definition.id == StringKeyIAP.STARTER_DEAL)
         {
-            Debug.Log("Mua thành công sản phẩm Consumable!");
-            // Xử lý logic (ví dụ: cộng tiền, vật phẩm,...)
+            packs[0].OnBuySuccess();
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
+        
+        else if (product.definition.id == StringKeyIAP.COMMON_PACK)
         {
-            Debug.Log("Mua thành công sản phẩm Non-Consumable!");
-            // Xử lý logic
+            packs[1].OnBuySuccess();
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
+        else if (product.definition.id == StringKeyIAP.NORMAL_PACK)
         {
-            Debug.Log("Mua thành công sản phẩm Subscription!");
-            // Xử lý logic
+            packs[2].OnBuySuccess();
         }
-        else
+        else if (product.definition.id == StringKeyIAP.RARE_PACK)
         {
-            Debug.Log($"Mua thất bại: Sản phẩm không xác định {args.purchasedProduct.definition.id}");
+            packs[3].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.EPIC_PACK)
+        {
+            packs[4].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.LEGENDARY_PACK)
+        {
+            packs[5].OnBuySuccess();
+            
+        }
+        else if (product.definition.id == StringKeyIAP.COIN_FEW)
+        {
+            packs[6].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.COIN_BAG)
+        {
+            packs[7].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.COIN_PILE)
+        {
+            packs[8].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.COIN_BOX)
+        {
+            packs[9].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.COIN_CHEST)
+        {
+            packs[10].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.COIN_VAULT)
+        {
+            packs[11].OnBuySuccess();
+        }
+        else if (product.definition.id == StringKeyIAP.REMOVE_ADS)
+        {
+            packs[12].OnBuySuccess();
         }
 
+        UpdateUI();
+        Debug.Log($"Purchase Complete - Product: {product.definition.id}");
+
+        //We return Complete, informing IAP that the processing on our side is done and the transaction can be closed.
         return PurchaseProcessingResult.Complete;
     }
 
-    // Gọi khi mua hàng thất bại
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        Debug.LogError($"Mua thất bại: {product.definition.id}, Lý do: {failureReason}");
+        Debug.Log($"Purchase failed - Product: '{product.definition.id}', PurchaseFailureReason: {failureReason}");
     }
 
-    // Hàm gọi khi người chơi nhấn nút mua
-    public void BuyProductID(string productId)
+    public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
-        if (IsInitialized())
+        Debug.Log($"Purchase failed - Product: '{product.definition.id}'," +
+                  $" Purchase failure reason: {failureDescription.reason}," +
+                  $" Purchase failure details: {failureDescription.message}");
+    }
+
+    public void UpdateUI()
+    {
+        if (!PlayerPrefs.HasKey(StringPlayerPrefs.STARTER_DEAL_PACK))
         {
-            Product product = m_StoreController.products.WithID(productId);
-            if (product != null && product.availableToPurchase)
-            {
-                Debug.Log($"Bắt đầu mua sản phẩm: {productId}");
-                m_StoreController.InitiatePurchase(product);
-            }
-            else
-            {
-                Debug.Log("Sản phẩm không khả dụng hoặc không tìm thấy.");
-            }
+            PlayerPrefs.SetInt(StringPlayerPrefs.STARTER_DEAL_PACK, 0);
         }
-        else
+
+        if (!PlayerPrefs.HasKey(StringPlayerPrefs.REMOVED_ADS_PACK))
         {
-            Debug.LogError("IAP chưa được khởi tạo.");
+            PlayerPrefs.SetInt(StringPlayerPrefs.REMOVED_ADS_PACK, 0);
         }
+
+        if (!PlayerPrefs.HasKey(StringPlayerPrefs.REMOVED_ADS_VIP))
+        {
+            PlayerPrefs.SetInt(StringPlayerPrefs.REMOVED_ADS_VIP, 0);
+        }
+
+
+
+
+        int removeAds = PlayerPrefs.GetInt(StringPlayerPrefs.STARTER_DEAL_PACK);
+        int startDeal = PlayerPrefs.GetInt(StringPlayerPrefs.STARTER_DEAL_PACK);
+
+        if (startDeal == 1)
+        {
+            packs[0].gameObject.SetActive(false);
+        }
+
+        if (removeAds == 1)
+        {
+            packs[packs.Count - 1].gameObject.SetActive(false);
+        }
+        
     }
 
-    // Ví dụ gọi hàm mua sản phẩm
-    public void BuyConsumable()
+
+    #region initiate Click Button
+    public void BuyStartDeal()
     {
-        BuyProductID(kProductIDConsumable);
+        m_StoreController.InitiatePurchase(StringKeyIAP.STARTER_DEAL);
     }
 
-    public void BuyNonConsumable()
+    public void BuyCommonPack()
     {
-        BuyProductID(kProductIDNonConsumable);
+        m_StoreController.InitiatePurchase(StringKeyIAP.COMMON_PACK);
     }
 
-    public void BuySubscription()
+    public void BuyNormalPack()
     {
-        BuyProductID(kProductIDSubscription);
+        m_StoreController.InitiatePurchase(StringKeyIAP.NORMAL_PACK);
     }
+
+    public void BuyRarePack()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.RARE_PACK);
+    }
+
+    public void BuyEpicPack()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.EPIC_PACK);
+    }
+
+    public void BuyLegendaryPack()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.LEGENDARY_PACK);
+    }
+
+    public void BuyCoinFew()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.COIN_FEW);
+    }
+
+    public void BuyCoinBag()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.COIN_BAG);
+    }
+
+    public void BuyCoinPile()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.COIN_PILE);
+    }
+
+    public void BuyCoinBox()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.COIN_BOX);
+    }
+
+    public void BuyCoinChest()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.COIN_CHEST);
+    }
+
+    public void BuyCoinVault()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.COIN_VAULT);
+    }
+
+    public void BuyRemoveAds()
+    {
+        m_StoreController.InitiatePurchase(StringKeyIAP.REMOVE_ADS);
+    }
+    
+    
+    #endregion
+    
 }

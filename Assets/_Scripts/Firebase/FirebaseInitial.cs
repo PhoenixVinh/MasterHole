@@ -22,12 +22,10 @@ public class FirebaseInitial : MonoBehaviour
     public string VersionTest = "";
    
 
+    
     private void Awake()
     {
         CoinStart = PlayerPrefs.GetInt("CoinStart", 100);
-    }
-    private void Start()
-    {
 
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {

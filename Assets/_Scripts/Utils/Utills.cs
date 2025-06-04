@@ -14,5 +14,17 @@ namespace _Scripts.UI
                 await Task.Yield();
             }
         }
+        
+        public static DateTime StringToDate(string datetime)
+        {
+            if (String.IsNullOrEmpty(datetime))
+            {
+                return DateTime.Now;
+            }
+            else
+            {
+                return DateTime.Parse(datetime);
+            }
+        }
     }
 }

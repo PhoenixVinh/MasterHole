@@ -52,8 +52,10 @@ namespace _Scripts.Firebase
         {
             if (firebaseInitial.firebaseInitialized)
             {
+                Debug.Log("Log Event Fail");
                 return;
             }
+            Debug.Log("Log Event Success");
             FirebaseAnalytics.LogEvent(
                 EnumValueFirebase.level_start.ToString(),
                 new Parameter("level", playerLevel),
@@ -63,7 +65,7 @@ namespace _Scripts.Firebase
                 new Parameter("lose_index", lose_index)
                 
             );
-            Debug.Log("Log Event Success");
+           
         }
 
         public void LogLevelEnd()

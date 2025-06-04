@@ -15,7 +15,9 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             Instance = this;
             
         }
-
+        
+        
+        
 
         [SerializeField] TMP_Text energyText;
         [SerializeField] TMP_Text timeText;
@@ -24,13 +26,16 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         [SerializeField]private int maxEnergy = 25;
         
         
-        
+        [Header("InFinityHealth")]
+        [SerializeField] private GameObject infinityHealth;
+        [SerializeField] private GameObject adding;
         
         public int MaxEnergy => maxEnergy;
         private int currentEnergy = 5;
         
         private DateTime nextEnergyTime;
         private DateTime lastEnergyTime;
+        private DateTime unlimitedEnergyEndTime;
         private bool isResoring = false;
 
 
@@ -40,6 +45,8 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         
         private string timeValue;
         public string TimeValue => timeValue;
+        
+        public bool IsUnlimitedEnergy => unlimitedEnergyEndTime >= DateTime.Now;
         private void OnEnable()
         {
             if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY))
@@ -58,6 +65,12 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         [ContextMenu("Use Energy")]
         public void UseEnergy()
         {
+            if (IsUnlimitedEnergy)
+            {
+                return;
+            }
+            
+            
             if (currentEnergy >= 1)
             {
                 currentEnergy--;
@@ -85,8 +98,16 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         private IEnumerator RestoreEnergy()
         {
-            UpdateEnergyTimer();
+           
             isResoring = true;
+
+            while (this.unlimitedEnergyEndTime > DateTime.Now)
+            {
+                UpdateEnergyTimer();
+               
+                yield return null;
+            }
+            UpdateEnergyTimer();
             while (currentEnergy < maxEnergy)
             {
                 DateTime currentDateTime = DateTime.Now;
@@ -134,6 +155,30 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         private void UpdateEnergyTimer()
         {
+            if (IsUnlimitedEnergy)
+            {
+                TimeSpan remainingTime = unlimitedEnergyEndTime - DateTime.Now;
+                if (remainingTime.TotalSeconds > 0)
+                {
+                    timeValue = String.Format("{0:D2}:{1:D2}:{2:D2}",remainingTime.Hours, remainingTime.Minutes, remainingTime.Seconds);
+                    timeText.text = timeValue;
+                    
+                }
+                infinityHealth.SetActive(true);
+                adding.SetActive(false);
+
+                return;
+
+            }
+            else
+            {
+                infinityHealth.SetActive(false);
+                adding.SetActive(true);
+            }
+            
+            
+            
+            
             if (currentEnergy >= maxEnergy)
             {
                 timeText.text = "FULL";
@@ -151,17 +196,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             energyText.text = currentEnergy.ToString();
         }
 
-        private DateTime StringToDate(string datetime)
-        {
-            if (String.IsNullOrEmpty(datetime))
-            {
-                return DateTime.Now;
-            }
-            else
-            {
-                return DateTime.Parse(datetime);
-            }
-        }
+
 
         private void Load()
         {
@@ -171,12 +206,16 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 PlayerPrefs.SetString(NEXT_TIME, DateTime.Now.ToString());
                 PlayerPrefs.SetString(LAST_TIME, DateTime.Now.ToString());
             }
+
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.UNLIMITED_TIME))
+            {
+                PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, DateTime.Now.ToString());
+            }
             
             
-            
-            
-            nextEnergyTime = StringToDate(PlayerPrefs.GetString(NEXT_TIME));
-            lastEnergyTime = StringToDate(PlayerPrefs.GetString(LAST_TIME));
+            unlimitedEnergyEndTime = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
+            nextEnergyTime =  Utills.StringToDate(PlayerPrefs.GetString(NEXT_TIME));
+            lastEnergyTime =  Utills.StringToDate(PlayerPrefs.GetString(LAST_TIME));
 
         }
 
@@ -186,6 +225,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
             PlayerPrefs.SetString(NEXT_TIME, nextEnergyTime.ToString());
             PlayerPrefs.SetString(LAST_TIME, lastEnergyTime.ToString());
+            
         }
 
 
@@ -196,6 +236,13 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             UpdateEnergy();
             UpdateEnergyTimer();
             
+        }
+
+        [ContextMenu("USE INFINITY HEALTH")]
+        public void UseInfinityHealth()
+        {
+            DateTime timeInfinity = DateTime.Now.AddSeconds(100);
+            PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, timeInfinity.ToString());
         }
     }
 }

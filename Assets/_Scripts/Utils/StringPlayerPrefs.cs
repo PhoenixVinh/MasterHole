@@ -35,5 +35,16 @@ namespace _Scripts.UI
         
         
         public static string BOOSTER_DATA = "BoosterData";
+        
+        
+        
+        public static string UNLIMITED_TIME = "UnlimitedTime";
+        
+        
+        public static string STARTER_DEAL_PACK = "StarterDealPackage";
+        public static string REMOVED_ADS_PACK = "RemovedAdsPackage";
+        public static string REMOVED_ADS_VIP = "RemovedAdsVIP";
+        
+        
     }
 }
