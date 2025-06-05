@@ -1,5 +1,6 @@
 using System.Collections;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
@@ -35,7 +36,7 @@ namespace _Scripts.UI.WinLossUI
         public CoinRewardAnim coinRewardAnim;
         public override void OnEnable()
         {
-
+            
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
             particle.Play();
             base.OnEnable();
@@ -77,6 +78,7 @@ namespace _Scripts.UI.WinLossUI
         private void ShowNextlevel()
         {
             
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
             if (collection.CanShowContent(level))
             {

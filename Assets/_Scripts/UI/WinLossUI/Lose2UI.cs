@@ -45,6 +45,8 @@ namespace _Scripts.UI.WinLossUI
 
         private void goHome()
         {
+            
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
             this.gameObject.SetActive(false);
             
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());

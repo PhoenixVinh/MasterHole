@@ -30,4 +30,19 @@ namespace _Scripts.Firebase
         retry,
         next
     }
+
+    public enum LevelResult
+    {
+        win,
+        lose,
+        quit,
+        exitgame
+    }
+
+    public enum LoseBy
+    {
+        Null, 
+        OutOfTime, 
+        OutOfObjDeath
+    }
 }

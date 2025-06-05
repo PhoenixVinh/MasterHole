@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.ObjectPooling;
@@ -74,22 +75,29 @@ namespace _Scripts.UI.WinLossUI
 
         private void OnClickContinueBtn()
         {
+            
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
             this.gameObject.SetActive(false);
             this.loseUI2.SetActive(true);
-            
+
         }
 
         private void OnClickRetryBtn()
         {
            
-            AddTimeGamePlay();
-            this.gameObject.SetActive(false);   
+            
+            MaxAdsManager.Instance?.ShowRewardedAd(() =>
+            {
+                AddTimeGamePlay();
+                this.gameObject.SetActive(false);   
+            });
+           
             
         }
 
         private void OnClickPlayOnBtn()
         {
-            // Check if have enough gold then minus it and Add Time to the Game play 
+            // Check if have enough gold then minus it and Add Time to the Game play T
             
            
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);

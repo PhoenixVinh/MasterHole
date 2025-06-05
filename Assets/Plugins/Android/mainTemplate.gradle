@@ -19,6 +19,8 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'com.applovin.mediation:google-adapter:[24.3.0.1]' // Packages/com.applovin.mediation.adapters.google.android/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:unityads-adapter:4.15.0.1' // Packages/com.applovin.mediation.adapters.unityads.android/Editor/Dependencies.xml:4
     implementation 'com.applovin:applovin-sdk:13.3.0' // Packages/com.applovin.mediation.ads/AppLovin/Editor/Dependencies.xml:4
     implementation 'com.google.android.gms:play-services-base:18.3.0' // Assets/Firebase/Editor/AppDependencies.xml:17
     implementation 'com.google.firebase:firebase-analytics:21.5.1' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:15

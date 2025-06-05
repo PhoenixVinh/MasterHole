@@ -1,14 +1,19 @@
 using System;
+using System.Collections;
 using _Scripts.Booster;
+using _Scripts.ManagerScene;
 using _Scripts.UI;
+using _Scripts.UI.MissionUI;
 using Firebase.Analytics;
 using UnityEngine;
+using UnityEngine.Diagnostics;
+using UnityEngine.SceneManagement;
 
 namespace _Scripts.Firebase
 {
     public class ManagerFirebase : MonoBehaviour
     {
-        [SerializeField]private FirebaseInitial firebaseInitial;
+        [SerializeField]public FirebaseInitial firebaseInitial;
         public static ManagerFirebase Instance;
         public void Awake()
         {
@@ -23,6 +28,34 @@ namespace _Scripts.Firebase
             }
         }
 
+        private void Start()
+        {
+            StartCoroutine(LogDataLevelEnd());
+        }
+
+        private IEnumerator LogDataLevelEnd()
+        {
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.IS_LOG_EVENT_PLAYER_END))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.IS_LOG_EVENT_PLAYER_END, 0);
+            }
+            int Islog = PlayerPrefs.GetInt(StringPlayerPrefs.IS_LOG_EVENT_PLAYER_END);
+            if (Islog == 0)
+            {
+                
+            }
+            else if (Islog == 1 && GetNetworkStatus() != InternetStatus.offline)
+            {
+                
+                
+                yield return new WaitUntil(() => firebaseInitial.firebaseInitialized);
+                LevelEndData levelEndData = JsonUtility.FromJson<LevelEndData>(PlayerPrefs.GetString(StringPlayerPrefs.LEVEL_END_PLAYER));
+                LogFirebaseDataLevelEnd(levelEndData);
+                PlayerPrefs.SetInt(StringPlayerPrefs.IS_LOG_EVENT_PLAYER_END, 0);
+
+            }
+        }
+
 
         public void LogEventWithString(string eventName)
         {
@@ -30,23 +63,7 @@ namespace _Scripts.Firebase
                 FirebaseAnalytics.LogEvent(eventName);
         }
         
-        public void LogLvelStart() // MẪu, sau làm các khác dựa vào hàm này
-        {
-            if (firebaseInitial.firebaseInitialized)
-            {
-                return;
-            }
-            //
-            // FirebaseAnalytics.LogEvent(
-            //     "level_start",
-            //     new Parameter("level", _playinglevel),
-            //     new Parameter("play_type", currentPlayType),
-            //     new Parameter("total_duration_start", total_duration_start),
-            //     new Parameter("play_index", _playingIndexOfLevel),
-            //     new Parameter("lose_index", lose_streak)
-            // );
-        }
-
+       
 
         public void LogLevelStart(int playerLevel, PlayType playType, int msec, int play_index, int lose_index )
         {
@@ -65,18 +82,94 @@ namespace _Scripts.Firebase
                 new Parameter("lose_index", lose_index)
                 
             );
-           
-            FirebaseAnalytics.LogEvent(
-                "home"
-                );
-        }
-
-        public void LogLevelEnd()
-        {
-            
         }
         
-       
+        
+        public void LogLevelEnd(LevelResult levelResult, LoseBy loseBy )
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != EnumScene.PlayScene.ToString()) return;
+            LevelEndData levelEndData = GetLevelEndData(levelResult.ToString(), loseBy.ToString());
+            LogFirebaseDataLevelEnd(levelEndData);
+        }
+
+
+        private void LogFirebaseDataLevelEnd( LevelEndData levelEndData)
+        {
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.level_end.ToString(),
+                new Parameter("level", levelEndData.PlayerLevel),
+                new Parameter("play_type", levelEndData.PlayerType),
+                new Parameter("total_duration_start", levelEndData.TimeStart),
+                new Parameter("total_duration_end", levelEndData.TimeEnd),
+                new Parameter("remain_duration",levelEndData.RemainDuration),
+                new Parameter("time_duration", levelEndData.TimeDuration),
+                new Parameter("play_index", levelEndData.PlayIndex),
+                new Parameter("lose_index", levelEndData.LoseIndex),
+                new Parameter("total_food", levelEndData.TotalFood),
+                new Parameter("cleared_food", levelEndData.ClearedFood),
+                new Parameter("level_result", levelEndData.LevelResult),
+                new Parameter("lose_by", levelEndData.LoseBy)
+                
+            );
+            
+            Debug.Log("Log Event Success");
+        }
+
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+           
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != EnumScene.PlayScene.ToString()) return;
+            
+            if (pauseStatus)
+            {
+                string jsonData =
+                    JsonUtility.ToJson(GetLevelEndData(LevelResult.exitgame.ToString(), LoseBy.Null.ToString()));
+               PlayerPrefs.SetString(StringPlayerPrefs.LEVEL_END_PLAYER, jsonData);
+               PlayerPrefs.SetInt(StringPlayerPrefs.IS_LOG_EVENT_PLAYER_END, 1);
+               
+            }
+            else
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.IS_LOG_EVENT_PLAYER_END, 0);
+            }
+        }
+
+        private LevelEndData GetLevelEndData(string LevelResult, string LoseBy)
+        {
+            
+            int getCurrentBoosterTime = PlayerPrefs.GetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE);
+            LevelEndData levelEndData = new LevelEndData
+            {
+                PlayerLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL),
+                PlayerType = PlayerPrefs.GetString(StringPlayerPrefs.PLAYER_TYPE),
+                TimeStart = (int)ManagerLevelGamePlay.Instance?.level.timeToComplete*1000,
+                TimeEnd =  (int)ManagerLevelGamePlay.Instance?.level.timeToComplete*1000 + getCurrentBoosterTime*12*1000,
+                RemainDuration = (int)(ColdownTime.Instance.RemainTime*1000),
+                PlayIndex =  PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX),
+                LoseIndex = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX),
+                TotalFood = ManagerMission.Instance.AmountMissionItem,
+                ClearedFood = ManagerMission.Instance.GetClearFood(),
+                LevelResult = LevelResult,
+                LoseBy =  LoseBy
+                
+
+            };
+            return levelEndData;
+        }
+
+        
+        
+        
+        
+        
         
         
         
@@ -86,9 +179,8 @@ namespace _Scripts.Firebase
 
         public void SetPlayerProperties()
         {
-            if (firebaseInitial.firebaseInitialized)
+            if (!firebaseInitial.firebaseInitialized)
             {
-          
                 return;
             }
                
@@ -99,17 +191,33 @@ namespace _Scripts.Firebase
             int currentCoin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 1);
             
             var boosterDataS0 = JsonUtility.FromJson<BoosterDatas>(PlayerPrefs.GetString(StringPlayerPrefs.BOOSTER_DATA));
+
+
+            int is_heart_infinity = 0;
+            DateTime infinity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
+            is_heart_infinity = infinity > DateTime.Now ? 1 : 0;
+
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.IAP_COUNT))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.IAP_COUNT, 0);
+            }
+            int iapCount = PlayerPrefs.GetInt(StringPlayerPrefs.IAP_COUNT, 0);
             
             
             // Bắn Properties
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.CurrentLevel, currentLevel.ToString());
-            FirebaseAnalytics.SetUserProperty(StringParamFirebase.Internet_Status, status.ToString());// thay 0 thành số tiền
+            FirebaseAnalytics.SetUserProperty(StringParamFirebase.Internet_Status, status.ToString());
+            FirebaseAnalytics.SetUserProperty(StringParamFirebase.IAP_COUNT, iapCount.ToString());
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.Balance_Heart, currentEnergy.ToString());
+            FirebaseAnalytics.SetUserProperty(StringParamFirebase.Is_Heart_Infinity, is_heart_infinity.ToString());
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.Balance_Coin, currentCoin.ToString());
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.Balance_Scale_Booster, boosterDataS0.Boosters[0].Amount.ToString());
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.Balance_Magnet_Booster, boosterDataS0.Boosters[1].Amount.ToString());
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.Balance_Location_Booster, boosterDataS0.Boosters[2].Amount.ToString());
             FirebaseAnalytics.SetUserProperty(StringParamFirebase.Balance_Ice_Booster, boosterDataS0.Boosters[3].Amount.ToString());
+            
+            
+            
         }
         
         

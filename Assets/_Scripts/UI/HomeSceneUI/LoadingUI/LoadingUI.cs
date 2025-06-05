@@ -16,6 +16,7 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
         {
             loadingBar.fillAmount = 0;
             StartCoroutine(LoadingBarCoroutine());
+           
 
         }
 
@@ -25,6 +26,7 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
             while (loadingBar.fillAmount < 1)
             {
                 loadingBar.fillAmount += Time.deltaTime;
+                
                 yield return null;
             }
             
@@ -34,6 +36,8 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
         public void OnDisable()
         {
             StopAllCoroutines();
+            
+           
         }
     }
 }

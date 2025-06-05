@@ -1,4 +1,5 @@
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.UI.HomeSceneUI.ResourcesUI;
@@ -29,7 +30,11 @@ namespace _Scripts.UI.PauseGameUI
             
             
             
-            ResourceEvent.OnUpdateResource?.Invoke();
+            //ResourceEvent.OnUpdateResource?.Invoke();
+            
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            
+            ManagerFirebase.Instance.LogLevelEnd(LevelResult.quit, LoseBy.Null);
             //Resource.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             ManagerHomeScene.Instance?.MinusHealth();

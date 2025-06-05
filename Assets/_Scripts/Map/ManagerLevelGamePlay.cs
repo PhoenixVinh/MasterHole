@@ -1,4 +1,5 @@
 
+using System;
 using System.Threading.Tasks;
 using _Scripts.Booster;
 using _Scripts.Event;
@@ -14,12 +15,16 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
+
 public class ManagerLevelGamePlay : MonoBehaviour
 {
     public static ManagerLevelGamePlay Instance;
 
     public LevelGamePlaySO level;
     public int currentLevel = 1;
+
+
+    private bool isShowBanner = false;
 
     private void Awake()
     {
@@ -36,8 +41,8 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     private void Start()
     {
-       
-        
+
+        isShowBanner = currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Banner;
         LoadLevelSO();
         if (!PlayerPrefs.HasKey(StringPlayerPrefs.LOSE_INDEX))
         {
@@ -48,11 +53,12 @@ public class ManagerLevelGamePlay : MonoBehaviour
         ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.home, (int)level.timeToComplete*1000, currentLose_Index,currentLose_Index);
         SpawnLevel();
         ManagerTutorial.Instance.ShowTutorials(currentLevel);
-        
+        PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
+        PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.home.ToString());
        
        
     }
-
+        
     public void ChangeLevel(int level)
     {
         currentLevel = level;
@@ -70,6 +76,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         }
         
         level = Resources.Load<LevelGamePlaySO>($"DataLevelSO/DataLevel_{loadLevel}");
+        
         if (level == null)
         {
             Debug.LogError($"No DataLevelSO found in Resources at path: {Application.dataPath}");
@@ -80,10 +87,10 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public async  Task<bool>  SpawnLevel()
     {
+
         
-        
-        
-        
+        PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
+        MaxAdsManager.Instance?.HideBannerAd();
         if(ManagerHomeScene.Instance != null)
             ManagerHomeScene.Instance.ShowLoadingUI();
         if (ManagerSound.Instance != null)
@@ -91,7 +98,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
             ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
             ManagerSound.Instance.StopAllSoundSFX();
         }
-           
+        
         
         
         MissionPooling.Instance.DisactiveAllItem();
@@ -115,7 +122,12 @@ public class ManagerLevelGamePlay : MonoBehaviour
         {
             ManagerHomeScene.Instance.HideLoadingUI();
         }
-            
+
+        if (isShowBanner)
+        {
+            MaxAdsManager.Instance?.ShowBannerAd();
+        }
+        
         return true;
 
     }
@@ -133,14 +145,16 @@ public class ManagerLevelGamePlay : MonoBehaviour
       
         if (LoadLevelSO())
         {
+            
             ManagerTutorial.Instance.ShowTutorials(currentLevel);
            
             SpawnLevel();
             
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
         
+            PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.next.ToString());
             ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.next, (int)level.timeToComplete*1000, 0,0);
-
+            
             
             
         }
@@ -157,8 +171,13 @@ public class ManagerLevelGamePlay : MonoBehaviour
         int currentLose_Index = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX, 0);
       
         
-        
+        PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.retry.ToString());
         ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.retry, (int)level.timeToComplete*1000, currentLose_Index,currentLose_Index);
 
+    }
+
+    public void OnDestroy()
+    {
+        MaxAdsManager.Instance.HideBannerAd();
     }
 }

@@ -26,10 +26,20 @@ namespace _Scripts.UI.ProfileUI
         public void OnEnable()
         {
             ProfileEvent.OnAvateSlected += TurnOff;
+         
             int CurrentProfile = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_INDEX_PROFILE);
+          
             if (CurrentProfile == index)
             {
-                ChangeStatus(true);
+                image.sprite = isSelectedImage;
+                check.SetActive(true);
+                isSelected = true;
+            }
+            else
+            {
+                image.sprite = normalImage;
+                check.SetActive(false);
+                isSelected = false;
             }
         }
 

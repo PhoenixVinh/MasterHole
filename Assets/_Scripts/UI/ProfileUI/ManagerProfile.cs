@@ -28,7 +28,7 @@ namespace _Scripts.UI.ProfileUI
 
         private void OnEnable()
         {
-            if (PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_INDEX_PROFILE))
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_INDEX_PROFILE))
             {
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_INDEX_PROFILE, 0);
             }
