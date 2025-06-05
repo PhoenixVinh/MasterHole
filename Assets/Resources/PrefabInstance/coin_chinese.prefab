@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4837982357536784}
-  - component: {fileID: 5506721522862550530}
+  - component: {fileID: 3432605199927349033}
   m_Layer: 7
   m_Name: Collider
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4837982357536784
 Transform:
   m_ObjectHideFlags: 0
@@ -32,8 +32,8 @@ Transform:
   m_Father: {fileID: 4996587239328555}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5506721522862550530
-CapsuleCollider:
+--- !u!64 &3432605199927349033
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -42,10 +42,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 2c1e6adc2de6161418fec45de2b8c58a, type: 2}
 --- !u!1 &1047741851453117
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 4911770682619421}
   - component: {fileID: 33367302139706129}
   - component: {fileID: 23076155968676026}
+  - component: {fileID: 8415377441013330169}
   m_Layer: 0
   m_Name: Chinese_Gold_01
   m_TagString: Untagged
@@ -245,6 +246,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8415377441013330169
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494623204079600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 2c1e6adc2de6161418fec45de2b8c58a, type: 2}
 --- !u!1 &1543830902402463
 GameObject:
   m_ObjectHideFlags: 0
