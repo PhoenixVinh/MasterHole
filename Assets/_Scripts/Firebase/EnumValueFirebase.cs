@@ -45,4 +45,59 @@ namespace _Scripts.Firebase
         OutOfTime, 
         OutOfObjDeath
     }
+
+    public enum PositionFirebase
+    {
+        home, 
+        ingame,
+        shop_home_byAddCoin,
+        popup_ingame_byAddHeart, 
+        complete_popup_next, 
+        complete_popup_home, 
+        lose_popup_next,
+        lose_popup_retry,
+        shop_home, 
+        skin_shop,
+        collection_home, 
+        booster_popup_ingame, 
+        quit_popuppause_ingame,
+        refill_popup_heart,
+        morelift_popup_heart,
+        setting_home,
+        setting_ingame,
+        win_level,
+        lose_level,
+        none
+    }
+    
+    public enum ResourceType {
+        currency,
+        booster,
+        item,
+        pack
+    }
+
+    public enum ResourceName
+    {
+        Coin,
+        PlusTime,
+        Ice, 
+        Exp,
+        Location, 
+        Scale,
+        Magnet,
+        Heart,
+    }
+
+    public enum Reson
+    {
+        reward,
+        purchase,
+        video,
+        exchange,
+        winlevel,
+        use
+    }
+    
+    
 }

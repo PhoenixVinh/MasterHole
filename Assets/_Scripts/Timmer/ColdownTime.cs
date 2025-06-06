@@ -105,8 +105,11 @@ public class ColdownTime : MonoBehaviour, IPrecent
         imgDisplayTime.fillAmount = Precent();
 
     }
-    
-    
+
+    public void LoseLevel()
+    {
+        WinLossEvent.OnLoss?.Invoke();
+    }
     void ScaleItem()
     {
         // Khởi tạo một Sequence mới

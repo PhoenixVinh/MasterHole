@@ -6,6 +6,7 @@ using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
 using _Scripts.UI.AnimationUI;
 using _Scripts.UI.PauseGameUI;
+using _Scripts.UI.WinLossUI.SkinCollectionUI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,6 +28,7 @@ namespace _Scripts.UI.WinLossUI
         
         public ParticleSystem particle;
         public CollectionFeatureUI collectionFeatureUI;
+        public SkinProcess skinProcess;
         private int coinGet = 75;
         public Button homeBtn;
 
@@ -44,6 +46,8 @@ namespace _Scripts.UI.WinLossUI
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
             coin += coinGet;
             text.text = $"{coin}";
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.currency, ResourceName.Coin.ToString(),
+                coin.ToString(), Reson.winlevel);
             coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
         
@@ -93,12 +97,20 @@ namespace _Scripts.UI.WinLossUI
                 this.gameObject.SetActive(false);
                 collection.ShowContent(level);
             }
+            
             else
             {
                 this.gameObject.SetActive(false);
-                // Change Data Level 
-
-                ManagerLevelGamePlay.Instance.LoadNextLevel();
+                // Change Data Level    
+                if (skinProcess.GetTarget(level) != -1)
+                {
+                    skinProcess.gameObject.SetActive(true);
+                }
+                else
+                {
+                    ManagerLevelGamePlay.Instance.LoadNextLevel();
+                }
+                
             }
             
            

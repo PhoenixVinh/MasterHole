@@ -9,6 +9,7 @@ using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using _Scripts.UI.PopupUI;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Scripts.ManagerScene.HomeScene
 {
@@ -28,6 +29,12 @@ namespace _Scripts.ManagerScene.HomeScene
                 DontDestroyOnLoad (this);
             } else {
                 Destroy (gameObject);
+            }
+
+            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+            if (currentLevel == 1)
+            {
+                SceneManager.LoadScene(EnumScene.PlayScene.ToString());
             }
             //ShowLoseGame.SetActive(false);
         }
@@ -123,6 +130,7 @@ namespace _Scripts.ManagerScene.HomeScene
                 PlayerPrefs.SetInt(StringPlayerPrefs.TUTORIAL_SKIN_4, 1);
                 
             }
+            
             
            
             

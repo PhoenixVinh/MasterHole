@@ -15,6 +15,9 @@ namespace _Scripts.Firebase
     {
         [SerializeField]public FirebaseInitial firebaseInitial;
         public static ManagerFirebase Instance;
+        
+        public PositionFirebase positionFirebase;
+        public PositionFirebase positionPopup;
         public void Awake()
         {
             if (Instance == null)
@@ -31,7 +34,13 @@ namespace _Scripts.Firebase
         private void Start()
         {
             StartCoroutine(LogDataLevelEnd());
+            positionFirebase = PositionFirebase.home;
+            positionPopup = PositionFirebase.none;
         }
+        
+        
+        
+        
 
         private IEnumerator LogDataLevelEnd()
         {
@@ -121,6 +130,29 @@ namespace _Scripts.Firebase
             Debug.Log("Log Event Success");
         }
 
+
+        public void LogEarnResource(ResourceType resourceType, string resourceName, string resouceAmount, Reson reson)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+
+            string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
+            
+            
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.earn_resources.ToString(),
+                new Parameter("resource_type", resourceType.ToString()),
+                new Parameter("resource_name", resourceName),
+                new Parameter("resource_amount", resouceAmount),
+                new Parameter("reason", reson.ToString()),
+                new Parameter("position", pos)
+                
+            );
+        }
 
         private void OnApplicationPause(bool pauseStatus)
         {

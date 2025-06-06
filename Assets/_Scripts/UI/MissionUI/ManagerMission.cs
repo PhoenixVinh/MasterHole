@@ -83,6 +83,11 @@ namespace _Scripts.UI.MissionUI
             }
         }
 
+        public void PassLevel()
+        {
+            WinLossEvent.OnWin?.Invoke();
+        }
+        
         public void SetIndex()
         {
             int index = 0;

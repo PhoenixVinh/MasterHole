@@ -42,7 +42,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
     private void Start()
     {
 
-        isShowBanner = currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Banner;
+        isShowBanner = currentLevel >= ManagerFirebase.Instance?.firebaseInitial.Level_Show_Banner;
         LoadLevelSO();
         if (!PlayerPrefs.HasKey(StringPlayerPrefs.LOSE_INDEX))
         {
@@ -176,6 +176,6 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public void OnDestroy()
     {
-        MaxAdsManager.Instance.HideBannerAd();
+        MaxAdsManager.Instance?.HideBannerAd();
     }
 }

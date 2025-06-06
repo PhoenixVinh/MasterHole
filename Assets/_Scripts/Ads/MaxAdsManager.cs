@@ -38,6 +38,8 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration config) =>
         {
             Debug.Log("AppLovin SDK Initialized");
+            
+            MinMaxCurvePropertyDrawe
             InitializeBannerAds();
             InitializeInterstitialAds();
             InitializeRewardedAds();
