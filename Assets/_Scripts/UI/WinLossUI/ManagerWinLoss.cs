@@ -63,8 +63,7 @@ public class ManagerWinLoss : MonoBehaviour
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
         WinUI.GetComponent<WinUI>().SetData(75);
-        int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
-        PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
+        
        
     }
     private async void ShowUILoss()

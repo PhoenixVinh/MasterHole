@@ -48,9 +48,14 @@ namespace _Scripts.UI.PopupUI
         {
             if(!canBuy) return;
             
-            currentEnergy++;
-                
-            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
+            MaxAdsManager.Instance.ShowRewardedAd(() =>
+            {
+                ResourceEvent.OnUpdateResource?.Invoke();
+                Resource.Instance?.PlusHealth();
+                    
+                UpdateUI();
+            });
+         
                 
             
         }

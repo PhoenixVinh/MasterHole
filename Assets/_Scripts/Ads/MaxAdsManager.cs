@@ -51,7 +51,7 @@ public class MaxAdsManager : MonoBehaviour
     {
         // Tạo quảng cáo biểu ngữ
         MaxSdk.CreateBanner(bannerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
-        MaxSdk.SetBannerBackgroundColor(bannerAdUnitId, Color.black);
+        //MaxSdk.SetBannerBackgroundColor(bannerAdUnitId, Color.black);
 
         // Xử lý sự kiện tải quảng cáo
         MaxSdkCallbacks.Banner.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>

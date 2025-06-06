@@ -46,12 +46,17 @@ namespace _Scripts.UI.WinLossUI
             text.text = $"{coin}";
             coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
-            continueButton.onClick.AddListener(ShowNextlevel);
+        
             
 
             StartCoroutine(DelayAppearButton());
             homeBtn.onClick.AddListener(ChangeHomeScene);
-            collectionFeatureUI.SetData(PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1) + 1);
+            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+          
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel+1);
+            collectionFeatureUI.SetData(currentLevel + 1);
+        
+            continueButton.onClick.AddListener(ShowNextlevel);
         }
         
         private void ChangeHomeScene()
@@ -79,14 +84,14 @@ namespace _Scripts.UI.WinLossUI
         {
             
             MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            
             if (collection.CanShowContent(level))
             {
                
                 this.gameObject.SetActive(false);
                 collection.ShowContent(level);
-                
-                
             }
             else
             {

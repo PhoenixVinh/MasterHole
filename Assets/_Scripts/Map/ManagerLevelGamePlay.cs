@@ -55,8 +55,6 @@ public class ManagerLevelGamePlay : MonoBehaviour
         ManagerTutorial.Instance.ShowTutorials(currentLevel);
         PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
         PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.home.ToString());
-       
-       
     }
         
     public void ChangeLevel(int level)
@@ -138,8 +136,8 @@ public class ManagerLevelGamePlay : MonoBehaviour
         
         
         //currentLevel  = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
-        currentLevel += 1;
-        PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel);
+        currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+        Debug.Log(currentLevel);
      
 
       
