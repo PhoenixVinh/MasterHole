@@ -35,9 +35,13 @@ namespace _Scripts.ManagerScene.HomeScene
             if (currentLevel == 1)
             {
                 SceneManager.LoadScene(EnumScene.PlayScene.ToString());
+                
             }
             //ShowLoseGame.SetActive(false);
         }
+
+        
+
 
         private async void OnEnable()
         {
@@ -150,7 +154,7 @@ namespace _Scripts.ManagerScene.HomeScene
 
         private IEnumerator HideLoadingUICoroutine()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f);
             LoadingUI.gameObject.SetActive(false);
         }
 

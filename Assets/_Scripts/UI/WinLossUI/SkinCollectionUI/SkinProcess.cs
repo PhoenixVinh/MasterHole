@@ -16,16 +16,20 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         public List<FillImage> items;
 
         public Button Continue;
+        public SkinMains skinMains;
+        private bool isSkinMainsActive = false;
+        int currentLevel = 0;
+        int targetSkin = 0;
         public void OnEnable()
         {
-            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
-            int targetSkin = GetTarget(currentLevel);
+            currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            targetSkin = GetTarget(currentLevel);
             TurnOffAllSkin();
-            
-            
+
+
             items[targetSkin - 1].gameObject.SetActive(true);
             int targetLevel = skin.skins[targetSkin].levelUnlock;
-            
+
             StartCoroutine((UpdatePercentage(currentLevel, targetLevel, items[targetSkin - 1].image)));
             Continue.onClick.AddListener(ChangeNextGame);
         }
@@ -38,7 +42,16 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         private void ChangeNextGame()
         {
             this.gameObject.SetActive(false);
-            ManagerLevelGamePlay.Instance.LoadNextLevel();
+            if (isSkinMainsActive)
+            {
+                skinMains.SetData(targetSkin);
+            }
+            else
+            {
+                ManagerLevelGamePlay.Instance.LoadNextLevel();
+            }
+            
+           
         }
 
 
@@ -72,13 +85,20 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
             float elapsedTime = 0f;
             float startPercentage = 0f;
             float endPercentage = (float)currentLevel / target * 100f; // Tính phần trăm
-
+            if (endPercentage > 99f)
+            {
+                isSkinMainsActive = true;
+            }
+            else
+            {
+                isSkinMainsActive = false;
+            }
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.unscaledDeltaTime;
                 float percentage = Mathf.Lerp(startPercentage, endPercentage, elapsedTime / duration);
                 text.text = $"{Mathf.RoundToInt(percentage)}%"; // Cập nhật text với giá trị làm tròn
-                image.fillAmount = percentage/100;
+                image.fillAmount = percentage / 100;
                 yield return null; // Chờ frame tiếp theo
             }
 

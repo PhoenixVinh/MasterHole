@@ -88,7 +88,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
         
         PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
-        MaxAdsManager.Instance?.HideBannerAd();
+        
         if(ManagerHomeScene.Instance != null)
             ManagerHomeScene.Instance.ShowLoadingUI();
         if (ManagerSound.Instance != null)
@@ -96,6 +96,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
             ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
             ManagerSound.Instance.StopAllSoundSFX();
         }
+        
         
         
         

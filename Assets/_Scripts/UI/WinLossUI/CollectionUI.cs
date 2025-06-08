@@ -18,7 +18,7 @@ namespace _Scripts.UI.WinLossUI
     public class CollectionUI : PauseGame
     {
         public CollectionSO collection;
-        public SkinSO skin;
+      
 
         public Image image;
 
@@ -49,55 +49,26 @@ namespace _Scripts.UI.WinLossUI
                 }
             }
 
-            foreach (var i in skin.skins)
-            {
-                if (level == i.levelUnlock)
-                {
-                    image.sprite = i.image;
-                    return true;
-                }
-            }
+            
             
 
             return false;
         }
 
-        public async void ShowContent(int level)
+        public void ShowContent(int level)
         {   
             
             
-            
-            
+    
+        
             this.content.SetActive(true);
             
 
-            if (level == 4)
-            {
-                this.homeBtn.gameObject.SetActive(false);
-                
-                this.continueButton.onClick.RemoveAllListeners();
-                this.continueButton.onClick.AddListener(ShowTutorialSkin);
-                //SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-            }
-            else
-            {
-                this.continueButton.gameObject.SetActive(true);
-                this.homeBtn.gameObject.SetActive(true);
-            }
-        }
-
-        public void FixedUpdate()
-        {
             
         }
 
-        private void ShowTutorialSkin()
-        {
-            SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-            this.content.SetActive(false);
-            ManagerHomeScene.Instance?.LoadTutorial();
-        }
 
+    
         private void ChangeHomeScene()
         {
             

@@ -10,7 +10,7 @@ namespace _Scripts.Hole.Skin
         public List<GameObject> skins;
 
 
-        public void Start()
+        public void OnEnable()
         {
             TurnOffAllSkins();
             TurnOnSkin();

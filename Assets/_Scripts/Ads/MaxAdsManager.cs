@@ -15,6 +15,7 @@ public class MaxAdsManager : MonoBehaviour
     private bool isBannerLoaded = false;
 
     public static MaxAdsManager Instance;
+    private bool isShowbanner = false;
 
     private void Awake()
     {
@@ -23,8 +24,9 @@ public class MaxAdsManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
-           
-        else {
+
+        else
+        {
             Destroy(this);
         }
     }
@@ -39,7 +41,8 @@ public class MaxAdsManager : MonoBehaviour
         {
             Debug.Log("AppLovin SDK Initialized");
             
-            MinMaxCurvePropertyDrawe
+            MaxSdk.SetCreativeDebuggerEnabled(true);
+            MaxSdk.ShowCreativeDebugger();
             InitializeBannerAds();
             InitializeInterstitialAds();
             InitializeRewardedAds();
@@ -77,11 +80,17 @@ public class MaxAdsManager : MonoBehaviour
     public void ShowBannerAd()
     {
         MaxSdk.ShowBanner(bannerAdUnitId);
+        isShowbanner = true;
     }
 
     public void HideBannerAd()
     {
-        MaxSdk.HideBanner(bannerAdUnitId);
+        if (isShowbanner)
+        {
+            MaxSdk.HideBanner(bannerAdUnitId);
+            isShowbanner = false;
+        }
+            
     }
     private void InitializeInterstitialAds()
     {

@@ -22,13 +22,14 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
 
         private IEnumerator LoadingBarCoroutine()
         {
-            
+
             while (loadingBar.fillAmount < 1)
             {
                 loadingBar.fillAmount += Time.deltaTime;
-                
+
                 yield return null;
             }
+            //this.gameObject.SetActive(false);
             
         }
 
