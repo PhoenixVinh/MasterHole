@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using _Scripts.UI;
 using UnityEngine;
 
 public class FirebaseInitial : MonoBehaviour
@@ -20,12 +21,19 @@ public class FirebaseInitial : MonoBehaviour
 
     public int CoinStart = 100;
     public string VersionTest = "";
-   
 
+    public int Level_Show_Inter = 0;
+    public int Inter_Distance_Level = 0;
+    public int CapingTime_Inter = 0;
+    public int Level_Show_Banner = 0;
     
     private void Awake()
     {
         CoinStart = PlayerPrefs.GetInt("CoinStart", 100);
+        Level_Show_Inter = PlayerPrefs.GetInt(StringPlayerPrefs.LEVEL_SHOW_INTER, 20);
+        Inter_Distance_Level = PlayerPrefs.GetInt(StringPlayerPrefs.INTER_DISTANCE_LEVEL, 2);
+        CapingTime_Inter = PlayerPrefs.GetInt(StringPlayerPrefs.CAPINGTIME_INTER, 120);
+        Level_Show_Banner = PlayerPrefs.GetInt(StringPlayerPrefs.LEVEL_SHOW_BANNER, 15);
 
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
@@ -65,7 +73,8 @@ public class FirebaseInitial : MonoBehaviour
         // Set default session duration values.
         //FirebaseAnalytics.SetMinimumSessionDuration(new TimeSpan(0, 0, 10));
         FirebaseAnalytics.SetSessionTimeoutDuration(new TimeSpan(0, 30, 0));
-        firebaseInitialized = true; 
+        firebaseInitialized = true;
+        Debug.Log("Initate success firebase");
 
     }
     public void FetchFireBase()
@@ -113,6 +122,17 @@ public class FirebaseInitial : MonoBehaviour
                     //Debug.Log(String.Format("Remote data loaded and ready (last fetch time {0}).",info.FetchTime));
                    
                     //CoinStart = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CoinStart").LongValue;
+                    
+                    Level_Show_Inter = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("level_show_inter").LongValue;
+                    Inter_Distance_Level = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("level_distance_level").LongValue;
+                    CapingTime_Inter = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("capingtime_inter").LongValue;
+                    Level_Show_Banner = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("level_show_banner").LongValue;
+                    
+                    
+                    PlayerPrefs.SetInt(StringPlayerPrefs.LEVEL_SHOW_INTER, Level_Show_Inter);
+                    PlayerPrefs.SetInt(StringPlayerPrefs.INTER_DISTANCE_LEVEL, Inter_Distance_Level);
+                    PlayerPrefs.SetInt(StringPlayerPrefs.CAPINGTIME_INTER, CapingTime_Inter);
+                    PlayerPrefs.SetInt(StringPlayerPrefs.LEVEL_SHOW_BANNER, Level_Show_Banner);
                 });
                 break;
             case Firebase.RemoteConfig.LastFetchStatus.Failure:

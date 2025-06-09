@@ -37,6 +37,7 @@ namespace _Scripts.UI.PauseGameUI
         }
         public void ChangeStatusVibration()
         {
+            ManagerVibration.Instance?.UseVibrationLight();
             canVibration = !canVibration;
             if (ManagerVibration.Instance != null)
             {

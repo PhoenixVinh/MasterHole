@@ -12,7 +12,6 @@ namespace _Scripts.UI.PopupUI
     public class PopupFreeItem : MonoBehaviour
     {
         public RawImage icon;
-        public TMP_Text title;
         public TMP_Text description;
         public Button continueButton;
         
@@ -20,6 +19,9 @@ namespace _Scripts.UI.PopupUI
         
         int indexSpecialSkill;
         private string descriptionText;
+
+        public List<GameObject> Titles;
+        
         public void SetData(int indexSpecialSkill)
         {
         
@@ -33,26 +35,28 @@ namespace _Scripts.UI.PopupUI
             this.icon.texture = listSprites[indexSpecialSkill].texture;
             if (indexSpecialSkill == 0)
             {
-                descriptionText = "<color=#4CAF50>Increase the hole</color> <color=#4A4A7B>size over 15 seconds</color>";
-                this.title.text = "Booster Scale";
+                descriptionText = "Increase the hole size over 15 seconds";
+               
             }
             else if (indexSpecialSkill == 1)
             {
-                descriptionText = "<color=#4CAF50>Pull in distant</color> <color=#4A4A7B>items using the hole for 12 seconds</color>";
-                this.title.text = "Booster Magnet";
+                descriptionText = "Pull in distant items using the hole for 12 seconds";
+                
             }
             else if (indexSpecialSkill == 2)
             {
-                descriptionText = "<color=#4CAF50>Reveal the locations</color> <color=#4A4A7B>of mission objects for 15 seconds</color>";
-                this.title.text = "Booster Location";
+                descriptionText = "Reveal the locations of mission objects for 15 seconds";
+               
             }
             else
             {
-                descriptionText = "<color=#4CAF50>Attract items</color> <color=#4A4A7B>freeze for 12 seconds</color>";
-                this.title.text = "Booster Ice";
+                descriptionText = "Attract items freeze for 12 seconds";
+                
             }
             this.description.text = descriptionText;
-            
+            TurnOffAllTitle();
+            Titles[indexSpecialSkill].SetActive(true);
+
         }
 
         public void OnDisable()
@@ -60,6 +64,15 @@ namespace _Scripts.UI.PopupUI
             continueButton.onClick.RemoveAllListeners();
             PopupItemEvent.getITem?.Invoke(indexSpecialSkill);
            
+        }
+        
+        
+        public void TurnOffAllTitle()
+        {
+            foreach (var title in Titles)
+            {
+                title.SetActive(false);
+            }
         }
 
         private void AddBoosterItem()

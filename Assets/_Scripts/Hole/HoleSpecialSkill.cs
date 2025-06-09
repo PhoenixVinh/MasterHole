@@ -5,6 +5,7 @@ using System.Linq;
 using _Scripts.Event;
 using _Scripts.Map.MapSpawnItem;
 using _Scripts.Sound;
+using _Scripts.UI;
 using _Scripts.UI.MissionUI;
 using _Scripts.UI.SpecialSkillUI;
 using _Scripts.Vibration;
@@ -104,6 +105,11 @@ namespace _Scripts.Hole
 
         private IEnumerator FreezeTimeCoroutine()
         {
+
+
+            int currentUseBooster = PlayerPrefs.GetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE);
+            currentUseBooster++;
+            PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, currentUseBooster);
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.Ice);
             TimeEvent.OnFreezeTime?.Invoke(timeSkill04);
             IsProcessSkill[3] = true;

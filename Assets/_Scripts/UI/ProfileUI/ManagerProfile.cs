@@ -24,10 +24,22 @@ namespace _Scripts.UI.ProfileUI
         public TMP_InputField inputText;
         
         public ProfileHomeScene profileHomeScene;
+
+
+        private void OnEnable()
+        {
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_INDEX_PROFILE))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_INDEX_PROFILE, 0);
+            }
+            indexSelected = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_INDEX_PROFILE, 0);
+            imageAvatar.sprite = avatarIcons[indexSelected];
+        }
+
         private void Start()
         {
           
-            indexSelected = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_INDEX_PROFILE, 0);
+            
             SetData();
             saveButton.onClick.AddListener(SaveProfile);
             avatarBtns[indexSelected].gameObject.GetComponent<AvatarBtn>().ChangeStatus(true);

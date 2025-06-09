@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.Sound;
 using _Scripts.UI;
 using _Scripts.UI.WinLossUI;
@@ -54,6 +55,7 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
+        ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
         await Task.Delay(1000);
         ManagerSound.Instance?.StopAllSoundSFX();
         
@@ -61,13 +63,13 @@ public class ManagerWinLoss : MonoBehaviour
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
         WinUI.GetComponent<WinUI>().SetData(75);
-        int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
-        PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
+        
        
     }
     private async void ShowUILoss()
     {
    
+        
         ManagerSound.Instance?.StopAllSoundSFX();
         if (isLevelCoint)
         {

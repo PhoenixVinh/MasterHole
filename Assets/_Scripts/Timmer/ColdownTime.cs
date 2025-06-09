@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.Sound;
 using _Scripts.UI;
 using DG.Tweening;
@@ -19,8 +20,8 @@ public class ColdownTime : MonoBehaviour, IPrecent
     [SerializeField]private Image imgDisplayTime;
     public float ColdownTimeComplete = 300;
     private float _timeColdown = 0;
-    
-    
+
+    public float RemainTime => _timeColdown;
     
     private bool isStartColdown = false;
 
@@ -30,7 +31,12 @@ public class ColdownTime : MonoBehaviour, IPrecent
 
     private void Awake()
     {
-        Instance = this;
+        if(Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void Start()
     {
@@ -92,14 +98,18 @@ public class ColdownTime : MonoBehaviour, IPrecent
         {
             // Process when playe lose
             WinLossEvent.OnLoss?.Invoke();
+            ManagerFirebase.Instance?.LogLevelEnd(LevelResult.lose, LoseBy.OutOfTime);
             ManagerSound.Instance?.StopEffectSound(EnumEffectSound.TimeEnd);
         }
 
         imgDisplayTime.fillAmount = Precent();
 
     }
-    
-    
+
+    public void LoseLevel()
+    {
+        WinLossEvent.OnLoss?.Invoke();
+    }
     void ScaleItem()
     {
         // Khởi tạo một Sequence mới

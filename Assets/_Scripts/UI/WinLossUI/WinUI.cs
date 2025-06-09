@@ -1,10 +1,12 @@
 using System.Collections;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
 using _Scripts.UI.AnimationUI;
 using _Scripts.UI.PauseGameUI;
+using _Scripts.UI.WinLossUI.SkinCollectionUI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -26,6 +28,7 @@ namespace _Scripts.UI.WinLossUI
         
         public ParticleSystem particle;
         public CollectionFeatureUI collectionFeatureUI;
+        public SkinProcess skinProcess;
         private int coinGet = 75;
         public Button homeBtn;
 
@@ -35,7 +38,7 @@ namespace _Scripts.UI.WinLossUI
         public CoinRewardAnim coinRewardAnim;
         public override void OnEnable()
         {
-
+            
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
             particle.Play();
             base.OnEnable();
@@ -43,14 +46,21 @@ namespace _Scripts.UI.WinLossUI
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
             coin += coinGet;
             text.text = $"{coin}";
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.currency, ResourceName.Coin.ToString(),
+                coin.ToString(), Reson.winlevel);
             coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
-            continueButton.onClick.AddListener(ShowNextlevel);
+        
             
 
             StartCoroutine(DelayAppearButton());
             homeBtn.onClick.AddListener(ChangeHomeScene);
-            collectionFeatureUI.SetData(PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1) + 1);
+            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+          
+            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel+1);
+            collectionFeatureUI.SetData(currentLevel + 1);
+        
+            continueButton.onClick.AddListener(ShowNextlevel);
         }
         
         private void ChangeHomeScene()
@@ -77,21 +87,30 @@ namespace _Scripts.UI.WinLossUI
         private void ShowNextlevel()
         {
             
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            
             if (collection.CanShowContent(level))
             {
                
                 this.gameObject.SetActive(false);
                 collection.ShowContent(level);
-                
-                
             }
+            
             else
             {
                 this.gameObject.SetActive(false);
-                // Change Data Level 
-
-                ManagerLevelGamePlay.Instance.LoadNextLevel();
+                // Change Data Level    
+                if (skinProcess.GetTarget(level) != -1)
+                {
+                    skinProcess.gameObject.SetActive(true);
+                }
+                else
+                {
+                    ManagerLevelGamePlay.Instance.LoadNextLevel();
+                }
+                
             }
             
            

@@ -51,17 +51,26 @@ namespace _Scripts.UI.WinLossUI
         }
 
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)
-        {
-            
-            yield return new WaitForSecondsRealtime(0.2f);
+        { 
+            float start = collection.ItemCollectionData[currentIndex-1].LevelUnlock;
+            ItemStatusImage.fillAmount = start/collection.ItemCollectionData[currentIndex].LevelUnlock;
+            //yield return new WaitForSecondsRealtime(0.2f);
             levelDes.text = $"Lv {currentLevel}/{collection.ItemCollectionData[currentIndex].LevelUnlock}";
-            float start = 0;
-            while (start < currentLevel)
+           
+            float startValue = ItemStatusImage.fillAmount; // Current fill amount
+            float targetValue = (float)currentLevel/collection.ItemCollectionData[currentIndex].LevelUnlock; // Target fill amount
+            float elapsedTime = 0f;
+
+            while (elapsedTime < 0.5f)
             {
-                ItemStatusImage.fillAmount = start/collection.ItemCollectionData[currentIndex].LevelUnlock;
-                start += speed;
-                yield return new WaitForSecondsRealtime(0.02f);;
+                elapsedTime += Time.unscaledDeltaTime; // Use unscaled time for real-time updates
+                float lerpFactor = elapsedTime /0.5f; // Calculate interpolation factor (0 to 1)
+                ItemStatusImage.fillAmount = Mathf.Lerp(startValue, targetValue, lerpFactor); // Smoothly interpolate
+                yield return null; // Wait for the next frame
             }
+
+            // Ensure the fill amount reaches the exact target value at the end
+            ItemStatusImage.fillAmount = targetValue;
 
             if (currentLevel == collection.ItemCollectionData[currentIndex].LevelUnlock)
             {

@@ -46,5 +46,28 @@ namespace _Scripts.UI
         public static string REMOVED_ADS_VIP = "RemovedAdsVIP";
         
         
+        
+        // Firebase String 
+        public static string IAP_COUNT  = "IapCount";
+        
+        public static string LEVEL_END_PLAYER = "LevelEndPlayer";
+        public static string IS_LOG_EVENT_PLAYER_END = "IS_LOG_EVENT_PLAYER_END";
+        
+        
+        public static string PLAYER_TYPE = "PlayerType";
+        
+        
+        public static string LEVEL_SHOW_INTER = "LevelShow_Inter";
+        public static string INTER_DISTANCE_LEVEL = "INTER_DISTANCE_LEVEL";
+        public static string CAPINGTIME_INTER = "CapingTime_inter";
+        public static string LEVEL_SHOW_BANNER = "LevelShowBanner";
+        
+        
+        
+        
+        // Counting Booster Uses
+        public static string COUNT_USE_BOOSTER_ICE  = "UseBoosterIce";
+        
+        
     }
 }

@@ -64,6 +64,10 @@ namespace _Scripts.Vibration
             }
         }
 
+        public void UseVibrationLight()
+        {
+            HapticFeedback.LightFeedback();
+        }
         public void SetVibration(bool value)
         {
             canVibrate = value;

@@ -16,7 +16,8 @@ namespace _Scripts.UI.MissionUI
         
         // Misition For One Level => Get next level using Addressable
         public MissionSO MissionsSO;
-        
+
+        public int AmountMissionItem = 0;
         
         
         public Dictionary<string, Mission> TypeItems = new Dictionary<string, Mission>();
@@ -34,7 +35,7 @@ namespace _Scripts.UI.MissionUI
 
         private void CreateMissions()
         {
-
+            AmountMissionItem = 0;
             DOTween.KillAll();
 
             while (transform.childCount > 0)
@@ -50,6 +51,7 @@ namespace _Scripts.UI.MissionUI
                 mission.GetComponent<Mission>().SetData(missionSo, index);
                 TypeItems[missionSo.idItem] = mission.GetComponent<Mission>();
                 index++;
+                AmountMissionItem += missionSo.AmountItems;
             }
         }
 
@@ -81,6 +83,11 @@ namespace _Scripts.UI.MissionUI
             }
         }
 
+        public void PassLevel()
+        {
+            WinLossEvent.OnWin?.Invoke();
+        }
+        
         public void SetIndex()
         {
             int index = 0;
@@ -146,6 +153,16 @@ namespace _Scripts.UI.MissionUI
         public void OnDestroy()
         {
             DOTween.KillAll();
+        }
+
+        public int GetClearFood()
+        {
+            int result = AmountMissionItem;
+            foreach (var typeItem in TypeItems)
+            {
+                result -= typeItem.Value.GetAmountItem();
+            }
+            return result;
         }
     }
 }

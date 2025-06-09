@@ -179,7 +179,7 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
 
 
 
-        int removeAds = PlayerPrefs.GetInt(StringPlayerPrefs.STARTER_DEAL_PACK);
+        int removeAds = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_PACK);
         int startDeal = PlayerPrefs.GetInt(StringPlayerPrefs.STARTER_DEAL_PACK);
 
         if (startDeal == 1)
