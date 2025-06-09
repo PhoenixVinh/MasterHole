@@ -2,7 +2,9 @@ namespace _Scripts.Sound
 {
     public enum EnumBackgroundSound
     {
-        HomeMusic = 0
+        HomeMusic = 0,
+        InGameMusic = 1,
+        
     }
 
     public enum EnumEffectSound

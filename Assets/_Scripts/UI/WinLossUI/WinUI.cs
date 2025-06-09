@@ -66,6 +66,7 @@ namespace _Scripts.UI.WinLossUI
         private void ChangeHomeScene()
         {
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance.ShowRewardCoin(coinGet);
         }
 

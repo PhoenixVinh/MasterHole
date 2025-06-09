@@ -103,10 +103,13 @@ namespace _Scripts.UI.WinLossUI
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
             if (coin >= pricePlayOn)
             {
+                
                 AddTimeGamePlay();
                 coin -= pricePlayOn;
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
                 this.gameObject.SetActive(false);   
+                
+                
             }
             else
             {

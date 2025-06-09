@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.Booster;
+using _Scripts.Firebase;
+using _Scripts.UI;
 using _Scripts.UI.BoosterUI;
 using DG.Tweening;
 using UnityEngine;
@@ -28,10 +30,11 @@ namespace _Scripts.Tutorial
                 item.SetActive(false);
             }
         }
-
+        
         public virtual void FreeBooster()
         {
             ManagerBooster.Instance.ChangeAmountBooster(0,1);
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(0), "1", Reson.reward);
             this.gameObject.SetActive(false);
             boosterUI.UseSpecialSkill();
             

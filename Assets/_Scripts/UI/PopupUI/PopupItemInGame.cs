@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.Booster;
+using _Scripts.Firebase;
 using _Scripts.ObjectPooling;
 using _Scripts.UI.PauseGameUI;
 using TMPro;
@@ -27,6 +28,7 @@ namespace _Scripts.UI.PopupUI
         public void SetData(int indexSpecialSkill)
         {
             this.indexSpecialSkill = indexSpecialSkill;
+            Utills.ChangePositionBoosterFirebase(indexSpecialSkill);
             buyButton.onClick.AddListener(BuyItem);
             UpdateUI();
             
@@ -42,7 +44,10 @@ namespace _Scripts.UI.PopupUI
                 ManagerBooster.Instance.ChangeAmountBooster(indexSpecialSkill, 3);
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, getcurrentCoint);
                 PlayerPrefs.Save();
+               
+                ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.exchange);
                 this.gameObject.SetActive(false);
+                
                 // Buy Item
             }
             else
@@ -57,6 +62,7 @@ namespace _Scripts.UI.PopupUI
         {
             
             buyButton.onClick.RemoveAllListeners();
+            ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
             base.OnDisable();
             
         }

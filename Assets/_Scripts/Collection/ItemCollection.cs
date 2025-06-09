@@ -59,13 +59,14 @@ namespace _Scripts.Collection
                 {
                   
                     Check.SetActive(true);
+                   
                     Lock.SetActive(false);
                     ProcressBarMain.SetActive(false);
                 }
                 else
                 {
                     Check.SetActive(false);
-                    Lock.SetActive(false);
+                    Lock.SetActive(true);
                     
                     float present = (float)currentLevel / dataCollection.LevelUnlock;
                     ItemStatusImage.color = new Color(present, present, present, 1f);

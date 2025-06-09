@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.UI.PauseGameUI;
 using UnityEngine;
@@ -50,6 +51,7 @@ namespace _Scripts.UI.WinLossUI
             this.gameObject.SetActive(false);
             
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             
         }
 

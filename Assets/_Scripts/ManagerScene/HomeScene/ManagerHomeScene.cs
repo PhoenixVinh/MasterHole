@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using _Scripts.Event;
+using _Scripts.Firebase;
+using _Scripts.Sound;
 using _Scripts.Tutorial;
 using _Scripts.UI;
 using _Scripts.UI.AnimationUI;
@@ -35,6 +37,8 @@ namespace _Scripts.ManagerScene.HomeScene
             if (currentLevel == 1)
             {
                 SceneManager.LoadScene(EnumScene.PlayScene.ToString());
+                ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
+                //ManagerSound.Instance?.ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
                 
             }
             //ShowLoseGame.SetActive(false);
@@ -45,7 +49,7 @@ namespace _Scripts.ManagerScene.HomeScene
 
         private async void OnEnable()
         {
-            LoadTutorial();
+            //LoadTutorial();
         }
 
         public async void LoadTutorial()
@@ -58,7 +62,7 @@ namespace _Scripts.ManagerScene.HomeScene
             }
             if (CurrentLevel == 4)
             {
-                ShowTutorialSkin();
+                //ShowTutorialSkin();
 
             }
             if (CurrentLevel == 5)

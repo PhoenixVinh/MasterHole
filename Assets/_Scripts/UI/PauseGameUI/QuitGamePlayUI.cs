@@ -37,6 +37,7 @@ namespace _Scripts.UI.PauseGameUI
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);
             //Resource.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
+            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance?.MinusHealth();
             
             

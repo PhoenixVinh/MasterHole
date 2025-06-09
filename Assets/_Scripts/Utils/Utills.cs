@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using _Scripts.Firebase;
 
 namespace _Scripts.UI
 {
@@ -24,6 +25,32 @@ namespace _Scripts.UI
             else
             {
                 return DateTime.Parse(datetime);
+            }
+        }
+
+        public static string GetBoosterNameByIndex(int index)
+        {
+            string resourceName = Enum.GetName(typeof(ResourceName), index + 2);
+            return resourceName;
+        }
+
+
+        public static void ChangePositionBoosterFirebase(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    ManagerFirebase.Instance.positionPopup = PositionFirebase.sacle_popup_ingame;
+                    break;
+                case 1:
+                    ManagerFirebase.Instance.positionPopup = PositionFirebase.magnet_popup_ingame;
+                    break;
+                case 2:
+                    ManagerFirebase.Instance.positionPopup = PositionFirebase.location_popup_ingame;
+                    break;
+                case 3:
+                    ManagerFirebase.Instance.positionPopup = PositionFirebase.ice_popup_ingame;
+                    break;
             }
         }
     }

@@ -37,9 +37,12 @@ namespace _Scripts.Firebase
             positionFirebase = PositionFirebase.home;
             positionPopup = PositionFirebase.none;
         }
-        
-        
-        
+
+
+        public void ChangePositionFirebase(PositionFirebase position)
+        {
+            this.positionFirebase = position;
+        }
         
 
         private IEnumerator LogDataLevelEnd()

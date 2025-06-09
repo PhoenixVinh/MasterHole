@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Scripts.Booster;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.UI.PauseGameUI;
 using TMPro;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace _Scripts.UI.PopupUI
         public void SetData(int indexSpecialSkill)
         {
         
+            Utills.ChangePositionBoosterFirebase(indexSpecialSkill);
             this.indexSpecialSkill = indexSpecialSkill;
             continueButton.onClick.AddListener(AddBoosterItem);
             UpdateUI();
@@ -63,7 +65,7 @@ namespace _Scripts.UI.PopupUI
         {
             continueButton.onClick.RemoveAllListeners();
             PopupItemEvent.getITem?.Invoke(indexSpecialSkill);
-           
+            ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
         }
         
         
@@ -87,6 +89,7 @@ namespace _Scripts.UI.PopupUI
             //String convert = JsonUtility.ToJson(boosterDatas);
             //PlayerPrefs.SetString(StringPlayerPrefs.BOOSTER_DATA, convert);
             ManagerBooster.Instance?.ChangeAmountBooster(indexSpecialSkill,3);
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster,Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.reward);
             this.gameObject.SetActive(false);
             
         }

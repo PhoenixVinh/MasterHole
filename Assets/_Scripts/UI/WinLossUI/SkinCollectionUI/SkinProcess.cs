@@ -29,8 +29,11 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
 
             items[targetSkin - 1].gameObject.SetActive(true);
             int targetLevel = skin.skins[targetSkin].levelUnlock;
+            int baseLevel = skin.skins[targetSkin - 1].levelUnlock;
 
-            StartCoroutine((UpdatePercentage(currentLevel, targetLevel, items[targetSkin - 1].image)));
+          
+            
+            StartCoroutine((UpdatePercentage(currentLevel - baseLevel, targetLevel-baseLevel, items[targetSkin - 1].image)));
             Continue.onClick.AddListener(ChangeNextGame);
         }
 
@@ -69,7 +72,7 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
             int result = -1;
             for (int i = 0; i < skin.skins.Count; i++)
             {
-                if (currentLevel <= skin.skins[i].levelUnlock)
+                if (currentLevel <= skin.skins[i].levelUnlock+1)
                 {
                     result = i;
                     break;
@@ -84,7 +87,7 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         {
             float elapsedTime = 0f;
             float startPercentage = 0f;
-            float endPercentage = (float)currentLevel / target * 100f; // Tính phần trăm
+            float endPercentage = (float)(currentLevel - 1) / target * 100f; // Tính phần trăm
             if (endPercentage > 99f)
             {
                 isSkinMainsActive = true;

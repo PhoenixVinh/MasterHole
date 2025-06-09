@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Event;
+using _Scripts.Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,7 @@ namespace _Scripts.Tutorial
         public int _scoreEat;
         public void OnEnable()
         {
+            ManagerSound.Instance.SetValueLevelCoint(true);
             EnableEvent?.Invoke();
             _scoreEat = 0;
             textScore.text = $"{_scoreEat}";
@@ -38,6 +40,7 @@ namespace _Scripts.Tutorial
         {
             _scoreEat += score;
             textScore.text = $"{_scoreEat}";
+            ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.CollectionCoin);
         }
 
 
@@ -45,8 +48,10 @@ namespace _Scripts.Tutorial
         {
             LevelCointEvent.OnEndLevelCoin?.Invoke();
             DisableEvent?.Invoke();
+            ItemEvent.OnAddScore -= OnAddScore;
             LevelCointEvent.OnLevelCoinGet -= CoinGet;
             Booster.SetActive(true);
+            ManagerSound.Instance?.SetValueLevelCoint(false);
         }
     }
 }

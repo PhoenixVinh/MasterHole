@@ -42,7 +42,7 @@ public class MaxAdsManager : MonoBehaviour
             Debug.Log("AppLovin SDK Initialized");
             
             MaxSdk.SetCreativeDebuggerEnabled(true);
-            MaxSdk.ShowCreativeDebugger();
+            //MaxSdk.ShowCreativeDebugger();
             InitializeBannerAds();
             InitializeInterstitialAds();
             InitializeRewardedAds();

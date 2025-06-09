@@ -57,9 +57,12 @@ namespace _Scripts.Firebase
         lose_popup_next,
         lose_popup_retry,
         shop_home, 
-        skin_shop,
+        skin_home,
         collection_home, 
-        booster_popup_ingame, 
+        sacle_popup_ingame,
+        magnet_popup_ingame,
+        location_popup_ingame,
+        ice_popup_ingame,
         quit_popuppause_ingame,
         refill_popup_heart,
         morelift_popup_heart,
@@ -79,14 +82,14 @@ namespace _Scripts.Firebase
 
     public enum ResourceName
     {
-        Coin,
-        PlusTime,
-        Ice, 
-        Exp,
-        Location, 
-        Scale,
-        Magnet,
-        Heart,
+        Coin = 0,
+        PlusTime = 1,
+        Exp = 2,
+        Scale = 3,
+        Magnet = 4,
+        Location = 5, 
+        Ice = 6, 
+        Heart = 7,
     }
 
     public enum Reson

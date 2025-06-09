@@ -36,7 +36,11 @@ public class ManagerLevelGamePlay : MonoBehaviour
         level = ScriptableObject.CreateInstance<LevelGamePlaySO>();
         //ManagerHomeScene.Instance.HideLoadingUI();
     }
-   
+
+    public void OnEnable()
+    {
+        ManagerSound.Instance?.ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
+    }
 
 
     private void Start()

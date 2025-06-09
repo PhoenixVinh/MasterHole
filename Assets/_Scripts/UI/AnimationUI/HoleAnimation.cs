@@ -130,24 +130,28 @@ namespace Assets._Scripts.UI.AnimationUI
             // Create a sequence to track all fruit animations
             Sequence fruitSequence = DOTween.Sequence().SetUpdate(UpdateType.Normal, true);
 
+            float delay = 0;
             foreach (var fruit in fruits)
             {
                 if (fruit == null) continue;
 
                 Vector3 startPos = fruit.position;
-                // Randomize endPos around target.position with x ±1.5 and z ±1.5
+               
                 Vector3 endPos = target.position;
                 Vector3 midPoint = (startPos + endPos) / 2 + Vector3.up * 2f; // Curve upwards
 
                 fruit.DOComplete(); // Ensure no conflicting tweens
 
                 var tween = fruit.DOPath(
-                    new Vector3[] { startPos, midPoint, endPos },
-                    moveDuration,
-                    PathType.CatmullRom
-                )
-                .SetLookAt(0.01f) // Prevents unwanted rotation
-                .SetUpdate(true);
+                        new Vector3[] { startPos, midPoint, endPos },
+                        moveDuration,
+                        PathType.CatmullRom
+                    )
+                    .SetLookAt(0.01f) // Prevents unwanted rotation
+                    .SetUpdate(true)
+                    .SetDelay(delay);
+                
+                
 
                 float initialScale = 1f;
                 float targetScale = 0.5f;
@@ -172,6 +176,7 @@ namespace Assets._Scripts.UI.AnimationUI
                 });
 
                 fruitSequence.Join(tween);
+                delay += 0.03f;
             }
 
             // After all fruits complete their animation, move them to target02
@@ -198,10 +203,7 @@ namespace Assets._Scripts.UI.AnimationUI
                 {
                     script.MoveFruitsInCircleThenToTarget();
                 }
-                if (GUILayout.Button("Move Fruits To Target"))
-                {
-                    script.MoveFruitsToTarget();
-                }
+               
             }
         }
 #endif

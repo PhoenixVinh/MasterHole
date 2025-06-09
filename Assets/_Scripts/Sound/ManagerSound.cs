@@ -28,6 +28,9 @@ namespace _Scripts.Sound
 
         public bool canBgMusic = true;
         public bool canSfxMusic = true;
+
+
+        public bool isLevelCoin = false;
         private void Awake()
         {
             if (Instance == null)
@@ -78,7 +81,13 @@ namespace _Scripts.Sound
             DictBackgroundMusic[EnumBackgroundSound.HomeMusic].volume = volumeBg;
             if (canBgMusic)
             {
-                DictBackgroundMusic[EnumBackgroundSound.HomeMusic].Play();
+                int getcurrentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+                if (getcurrentLevel != 1)
+                {
+                    DictBackgroundMusic[EnumBackgroundSound.HomeMusic].Play();
+                }
+                
+                //DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Stop();
             }
            
         }
@@ -104,7 +113,12 @@ namespace _Scripts.Sound
         public void PlayEffectSound(EnumEffectSound effectSound)
         {
             if (!canSfxMusic) return;
-            //DictEffectMusic[effectSound].volume = volumeSfx;
+
+            if (effectSound == EnumEffectSound.EatItem && isLevelCoin)
+            {
+                return;
+            }
+            
             var musicSouce = DictEffectMusic[effectSound];
             musicSouce.volume = volumeSfx;
             musicSouce.Play();
@@ -146,6 +160,7 @@ namespace _Scripts.Sound
         public void TurnOffBGMusic()
         {
             DictBackgroundMusic[EnumBackgroundSound.HomeMusic].Stop();
+            DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Stop();
         }
 
         public void TurnOnBGMusic()
@@ -171,6 +186,11 @@ namespace _Scripts.Sound
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.USE_SFXSOUND, value ? 1 : 0);
             this.canSfxMusic = value;
+        }
+
+        public void SetValueLevelCoint(bool isLevelCoin)
+        {
+            this.isLevelCoin = isLevelCoin;
         }
     }
 }

@@ -68,7 +68,7 @@ namespace _Scripts.UI.HoleSkinUI
         private void SetUI()
         {
             int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
-            if (currentLevel < levelUnlock)
+            if (currentLevel < levelUnlock+1)
             {
                 SetLockUI();
             }

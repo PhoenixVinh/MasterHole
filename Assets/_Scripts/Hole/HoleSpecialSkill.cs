@@ -76,6 +76,7 @@ namespace _Scripts.Hole
         {
             
             Debug.Log("Use Finding");
+            IsProcessSkill[2] = true;
             Dictionary<string, int> result = ManagerMission.Instance.GetSuggestItems(amountFinding);
             foreach (var item in result)
             {
@@ -93,7 +94,7 @@ namespace _Scripts.Hole
             
             
             yield return new WaitForSeconds(this.timeSkill03);
-
+            IsProcessSkill[2] = false;
 
             foreach (var item in itemsSuggest)
             {

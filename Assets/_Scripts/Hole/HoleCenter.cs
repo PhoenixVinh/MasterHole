@@ -27,7 +27,7 @@ public class HoleCenter : MonoBehaviour
             {
                 rb = other.GetComponent<Rigidbody>();
             }
-            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            //rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             rb.isKinematic = false;
             other.transform.parent.Translate(Vector3.down*0.0001f);
             other.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());

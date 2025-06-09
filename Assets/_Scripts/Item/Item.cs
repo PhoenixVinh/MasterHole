@@ -23,7 +23,9 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        
+        
+        
         if (!other.CompareTag("HoleBottom")) return;
         
         if (ManagerSound.Instance != null)

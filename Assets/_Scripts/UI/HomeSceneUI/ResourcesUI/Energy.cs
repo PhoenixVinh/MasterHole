@@ -46,7 +46,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         private string timeValue;
         public string TimeValue => timeValue;
         
-        public bool IsUnlimitedEnergy => unlimitedEnergyEndTime >= DateTime.Now;
+        public bool IsUnlimitedEnergy => unlimitedEnergyEndTime > DateTime.Now;
         private void OnEnable()
         {
             if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY))
@@ -69,9 +69,9 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             {
                 return;
             }
+            UpdateEnergy();
             
-            
-            if (currentEnergy >= 1)
+            if (currentEnergy >= 0)
             {
                 currentEnergy--;
                 UpdateEnergy();

@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Firebase;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
 using _Scripts.Vibration;
@@ -14,7 +15,7 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
         
         public override void ChangeScene()
         {
-            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);
+            ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.ButtonClick);
             ManagerVibration.Instance?.UseVibration(EnumVibration.Light);
 
 
@@ -24,11 +25,12 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
                 int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 0);
                 if (currentEnergy == 0) return;
             }
-          
+            
+            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
             ManagerHomeScene.Instance.ShowLoadingUI();
             base.ChangeScene();
             
-        
+            
           
         }
         
