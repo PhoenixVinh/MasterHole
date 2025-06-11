@@ -84,7 +84,9 @@ namespace _Scripts.UI.WinLossUI
             {
                 AddTimeGamePlay();
                 this.gameObject.SetActive(false);   
+                ManagerFirebase.Instance?.LogEarnResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.video);
             });
+            
            
             
         }
@@ -100,6 +102,7 @@ namespace _Scripts.UI.WinLossUI
                 
                 AddTimeGamePlay();
                 coin -= pricePlayOn;
+                ManagerFirebase.Instance.LogSpendResource(ResourceType.currency, ResourceName.Coin.ToString(), pricePlayOn.ToString(), Reson.use);
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
                 this.gameObject.SetActive(false);   
                 

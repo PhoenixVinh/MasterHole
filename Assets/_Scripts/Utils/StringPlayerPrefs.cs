@@ -62,7 +62,9 @@ namespace _Scripts.UI
         public static string CAPINGTIME_INTER = "CapingTime_inter";
         public static string LEVEL_SHOW_BANNER = "LevelShowBanner";
         
-        
+        public static string FIRST_OPEN_GAME_BANNER = "FirstOpenGame_Banner";
+        public static string FIRST_OPEN_LEVEL_INTER = "FirstOpenLevel_Inter";
+        public static string FIRST_OPEN_LEVEL_REWARDS = "FirstOpenLevel_REWARDS";
         
         
         // Counting Booster Uses

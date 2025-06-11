@@ -48,6 +48,7 @@ namespace _Scripts.UI.PopupUI
                 ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.exchange);
                 this.gameObject.SetActive(false);
                 
+                ManagerFirebase.Instance?.LogSpendResource(ResourceType.currency,Utills.GetBoosterNameByIndex(this.indexSpecialSkill), price.ToString(), Reson.exchange );
                 // Buy Item
             }
             else

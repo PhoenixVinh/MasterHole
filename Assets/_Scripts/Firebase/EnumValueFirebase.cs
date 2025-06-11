@@ -91,6 +91,8 @@ namespace _Scripts.Firebase
         Ice = 6, 
         Heart = 7,
     }
+    
+    
 
     public enum Reson
     {
@@ -100,6 +102,14 @@ namespace _Scripts.Firebase
         exchange,
         winlevel,
         use
+    }
+
+    public enum AdFormat
+    {
+        interstitial,
+        video_rewarded,
+        banner,
+        native
     }
     
     

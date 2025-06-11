@@ -7,6 +7,7 @@
         _GradientAxis("Gradient Axis", Vector) = (0,1,0,0)
         _GradientSpread("Gradient Spread", Float) = 1.0
         _GradientOffset("Gradient Offset", Float) = 0.0
+        _ScaleFactor("ScaleFactor", Float) = 1.0
     }
 
         SubShader
@@ -37,6 +38,7 @@
             float3 _GradientAxis;
             float _GradientSpread;
             float _GradientOffset;
+            float _ScaleFactor;
 
             v2f vert(appdata v)
             {
@@ -51,7 +53,7 @@
                 float axisPos = dot(i.localPos, normalize(_GradientAxis));
 
             // Apply offset here
-            float gradientValue = saturate((axisPos - _GradientOffset + (_GradientSpread * 0.5)) / _GradientSpread);
+            float gradientValue = saturate((axisPos - _GradientOffset + (_GradientSpread * _ScaleFactor)) / _GradientSpread);
 
             return lerp(_ColorA, _ColorB, gradientValue);
         }

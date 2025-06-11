@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.ObjectPooling;
 using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using TMPro;
@@ -53,9 +54,11 @@ namespace _Scripts.UI.PopupUI
             {
                 ResourceEvent.OnUpdateResource?.Invoke();
                 Resource.Instance?.PlusHealth();
-                    
+                ManagerFirebase.Instance?.LogEarnResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.video);
                 UpdateUI();
             });
+            
+            
          
                 
             
@@ -68,7 +71,7 @@ namespace _Scripts.UI.PopupUI
             {
                 ResourceEvent.OnUpdateResource?.Invoke();
                 Resource.Instance?.PlusHealth();
-                    
+                ManagerFirebase.Instance?.LogSpendResource(ResourceType.item, ResourceName.Heart.ToString(), price.ToString(), Reson.exchange);
                 UpdateUI();
             }
             else

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _Scripts.Booster;
+using _Scripts.Firebase;
 using _Scripts.UI.PopupUI;
 using TMPro;
 using Unity.VisualScripting;
@@ -92,13 +93,14 @@ namespace _Scripts.UI.BoosterUI
             {
                 StartCoroutine(ShowFillAmount());
                 HoleController.Instance.ProcessSkill(this.indexSpecialSkill);
-
+                
                 if (indexSpecialSkill == 3)
                 {
                     effectSnow.SetActive(true);
                 }
                 amount--;
                 ManagerBooster.Instance.ChangeAmountBooster(indexSpecialSkill, -1);
+                ManagerFirebase.Instance?.LogSpendResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "1", Reson.use);
                 UpdateUI();
             }
             

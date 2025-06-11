@@ -63,7 +63,9 @@ public class SkinMains : MonoBehaviour
         
         PlayerPrefs.SetInt(StringPlayerPrefs.HOLESKININDEX, currentSkinIndex);
         PlayerPrefs.Save();
-        this.EquipButton.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+        ManagerLevelGamePlay.Instance.LoadNextLevel();
+        //this.EquipButton.gameObject.SetActive(false);
        
     }
     public void ContinueGame()

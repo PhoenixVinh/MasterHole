@@ -103,9 +103,10 @@ GameObject:
   - component: {fileID: 4661579947072671}
   - component: {fileID: 33423139455329983}
   - component: {fileID: 23019464174540826}
-  - component: {fileID: 64166456860829137}
   - component: {fileID: 7394511386271810641}
   - component: {fileID: 5798272265620940748}
+  - component: {fileID: 8907583752696943837}
+  - component: {fileID: 7459296572903651286}
   m_Layer: 7
   m_Name: burger_001
   m_TagString: Item
@@ -178,28 +179,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64166456860829137
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775210647544908}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 0
-  m_Mesh: {fileID: 4300000, guid: 0a6969fccd094eb4eaf0d95dd282e1bc, type: 2}
 --- !u!114 &7394511386271810641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,3 +2736,47 @@ MonoBehaviour:
   m_bUseCurvature: 1
   m_bProtectTexture: 1
   m_bLockBorder: 1
+--- !u!136 &8907583752696943837
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775210647544908}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.069881774
+  m_Height: 0.08944239
+  m_Direction: 1
+  m_Center: {x: -0.0010564736, y: 0.044787228, z: -0.0024081988}
+--- !u!65 &7459296572903651286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775210647544908}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.08921961, y: 0.017841315, z: 0.098748654}
+  m_Center: {x: 0.0007795112, y: 0.008986674, z: -0.0030635914}

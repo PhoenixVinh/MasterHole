@@ -5,6 +5,7 @@ using _Scripts.ManagerScene;
 using _Scripts.UI;
 using _Scripts.UI.MissionUI;
 using Firebase.Analytics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.SceneManagement;
@@ -156,6 +157,61 @@ namespace _Scripts.Firebase
                 
             );
         }
+
+        public void LogSpendResource(ResourceType resourceType, string resourceName, string resourceAmount, Reson reson)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+
+            string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
+            
+            
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.spend_resources.ToString(),
+                new Parameter("resource_type", resourceType.ToString()),
+                new Parameter("resource_name", resourceName),
+                new Parameter("resource_amount", resourceAmount),
+                new Parameter("reason", reson.ToString()),
+                new Parameter("position", pos)
+                
+            );
+        }
+
+        public void LogIAA(AdFormat adformat, string ad_platform, string ad_network, bool isload, float time)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+
+
+            string placement = "";
+            
+        }
+
+
+        public string placement(string key)
+        {
+            string result = "";
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.LEVEL_SHOW_BANNER))
+            {
+                result = "open_game";
+            }
+            else
+            {
+                PlayerPrefs.SetString(StringPlayerPrefs.LEVEL_SHOW_BANNER, "Yes");
+                result = "auto_reload";
+            }
+            return result;
+         
+        }
+ 
 
         private void OnApplicationPause(bool pauseStatus)
         {

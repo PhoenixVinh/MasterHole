@@ -62,15 +62,15 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Banner.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             Debug.Log("Banner Ad Loaded");
-            isBannerLoaded = true; // Đánh dấu quảng cáo đã tải
-            //MaxSdk.ShowBanner(bannerAdUnitId); // Hiển thị ngay khi tải xong
+            isBannerLoaded = true;
+            
         };
         MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
             Debug.Log("Banner Ad Failed to Load: " + errorInfo.Message);
             isBannerLoaded = false;
             // Thử tải lại sau một khoảng thời gian
-            Invoke("LoadBannerAd", 5f);
+            //Invoke("LoadBannerAd", 5f);
         };
         
     }

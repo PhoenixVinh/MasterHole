@@ -31,7 +31,7 @@ namespace _Scripts.UI.PauseGameUI
 
             CloseUI();
             //ResourceEvent.OnUpdateResource?.Invoke();
-            ManagerPopup.Instance.TurnOffPopup();
+            ManagerPopup.Instance?.TurnOffPopup();
             MaxAdsManager.Instance?.ShowInterAdsByLevel();
             
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);

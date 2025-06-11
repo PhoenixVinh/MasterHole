@@ -23,33 +23,33 @@ public enum SpecialSkill
 public class HoleController : MonoBehaviour
 {
     public static HoleController Instance;
-    
-    [Header("Variables")]
-    public float _speedMovement;
- 
+
+    [Header("Variables")] public float _speedMovement;
+
     [Header("Effects")] public HoleScaleEffect holeScaleEffect;
 
-    
-    
+
+
     private HoleMovement _holeMovement;
     public HoleMovement HoleMovement => _holeMovement;
 
     //public BlackHole _blackHole;
-   // public List<GameObject> bottomHoles;
+    // public List<GameObject> bottomHoles;
 
     private HoleLevel _holeLevel;
     public HoleLevel HoleLevel => _holeLevel;
 
 
     private HoleSpecialSkill _holeSpecialSkill;
-  
+
     [SerializeField] private LevelManager _levelManager;
 
+    public MeshRenderer meshRenderer;
+    public float scaleFactor;
 
 
 
-    
-   
+
     private void Awake()
     {
         Instance = this;
@@ -59,11 +59,11 @@ public class HoleController : MonoBehaviour
         _holeLevel = GetComponent<HoleLevel>();
         _holeSpecialSkill = GetComponent<HoleSpecialSkill>();
         SetData();
-        
+
 
     }
 
-    
+
 
     private void SetData()
     {
@@ -81,32 +81,36 @@ public class HoleController : MonoBehaviour
         // Update Scale of Hole 
         if (isAnim)
         {
-            
+
             //transform.localScale = newScale;
             DOTween.Sequence()
                 .SetId("HoleUpScale")
-                .Append(transform.DOScale(new Vector3(radius * 1.3f, localScale.y, radius*1.3f), 0.1f))
+                .Append(transform.DOScale(new Vector3(radius * 1.3f, localScale.y, radius * 1.3f), 0.1f))
                 .Append(transform.DOScale(newScale, 0.2f));
-                
+
             CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
         }
         else
         {
             transform.localScale = newScale;
         }
+
         HoleEvent.OnUpdateFade?.Invoke(radius);
         // if (indexSkin != 1)
         // {
         //     HoleSkins.transform.localScale = new Vector3(1, 1, radius);
         // }
-        
-        
 
-        
-       
-        
+
+
+
+
+
         this._holeLevel.SetData(amountExp);
     }
+
+   
+   
 
     public async void Upscale(float time)
     {
