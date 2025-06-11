@@ -52,7 +52,7 @@ namespace _Scripts.UI.PopupUI
             }
             else
             {
-                MessagePooling.Instance.SpawnMessage(buyButton.transform.position);
+                MessagePooling.Instance.SpawnMessage(buyButton.transform.position, Utills.NOT_ENOUGH_COIN);
                 return;
             }
             

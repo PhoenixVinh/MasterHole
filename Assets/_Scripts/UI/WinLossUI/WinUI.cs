@@ -47,7 +47,7 @@ namespace _Scripts.UI.WinLossUI
             coin += coinGet;
             text.text = $"{coin}";
             ManagerFirebase.Instance?.LogEarnResource(ResourceType.currency, ResourceName.Coin.ToString(),
-                coin.ToString(), Reson.winlevel);
+                coinGet.ToString(), Reson.winlevel);
             coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
         

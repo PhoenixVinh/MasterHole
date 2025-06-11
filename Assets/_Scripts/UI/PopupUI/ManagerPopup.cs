@@ -38,5 +38,11 @@ namespace _Scripts.UI.PopupUI
         {
             popupBuyEnergy.gameObject.SetActive(true);
         }
+
+        public void TurnOffPopup()
+        {
+            popupBuyItemInGame.gameObject.SetActive(false);
+            popupFreeItem.gameObject.SetActive(false);
+        }
     }
 }

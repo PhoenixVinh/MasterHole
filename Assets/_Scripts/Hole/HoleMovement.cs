@@ -88,7 +88,7 @@ namespace _Scripts.Hole
             
             //
             // int numberOfPoints = 8;
-            float radius = HoleController.Instance.GetCurrentRadius()/2f;
+            float radius = HoleController.Instance.GetCurrentRadius()/1.5f;
             
             
             

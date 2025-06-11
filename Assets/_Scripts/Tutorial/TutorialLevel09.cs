@@ -8,10 +8,14 @@ namespace _Scripts.Tutorial
     {
         public override void FreeBooster()
         {
+            
             ManagerBooster.Instance.ChangeAmountBooster(3,1);
             ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(3), "1", Reson.reward);
             this.gameObject.SetActive(false);
             boosterUI.UseSpecialSkill();
+           
+            
+            
         }
     }
     

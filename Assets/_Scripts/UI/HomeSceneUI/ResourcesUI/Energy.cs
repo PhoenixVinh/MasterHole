@@ -12,8 +12,18 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
+         
             
+            Load();
+            Save();
         }
         
         
@@ -47,6 +57,8 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         public string TimeValue => timeValue;
         
         public bool IsUnlimitedEnergy => unlimitedEnergyEndTime > DateTime.Now;
+        
+        
         private void OnEnable()
         {
             if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY))
@@ -57,6 +69,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             }
             else
             {
+               
                 Load();
                 StartCoroutine(RestoreEnergy());
             }
@@ -65,31 +78,40 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         [ContextMenu("Use Energy")]
         public void UseEnergy()
         {
+           
+            //currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
+    
             if (IsUnlimitedEnergy)
             {
                 return;
             }
             UpdateEnergy();
             
+            Debug.Log($"Current energy: {currentEnergy}");
+          
             if (currentEnergy >= 0)
             {
                 currentEnergy--;
+                
+                
                 UpdateEnergy();
-                if (isResoring == false)
+               
+                if (currentEnergy < maxEnergy)
                 {
-                    if (currentEnergy + 1 == maxEnergy)
-                    {
-                        nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
-                    }
-
-                    StartCoroutine(RestoreEnergy());
+                    nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
                 }
+
+                StartCoroutine(RestoreEnergy());
+                
             }
+            
+            
         }
 
         public void AddEnergy()
         {
             currentEnergy++;
+          
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
             UpdateEnergy();
             UpdateEnergyTimer();
@@ -200,10 +222,17 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         private void Load()
         {
-            currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
+            
+            if(!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY)){
+                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, 5);
+            }
+            
+            currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 5);
+            
             if (!PlayerPrefs.HasKey(NEXT_TIME))
             {
                 PlayerPrefs.SetString(NEXT_TIME, DateTime.Now.ToString());
+                
                 PlayerPrefs.SetString(LAST_TIME, DateTime.Now.ToString());
             }
 

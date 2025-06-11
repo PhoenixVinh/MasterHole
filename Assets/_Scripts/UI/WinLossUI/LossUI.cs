@@ -43,13 +43,7 @@ namespace _Scripts.UI.WinLossUI
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, currentLoseIndex);
             
             
-            DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
-            if (inifity < DateTime.Now)
-            {
-                int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
-                currentEnergy--;
-                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
-            }
+            
             
             
 
@@ -58,7 +52,7 @@ namespace _Scripts.UI.WinLossUI
         private IEnumerator DelayAppearButton()
         {
             continueBtn.gameObject.SetActive(false);
-            yield return new WaitForSecondsRealtime (3f);
+            yield return new WaitForSecondsRealtime (0f);
             continueBtn.gameObject.SetActive(true);
         }
         
@@ -113,7 +107,7 @@ namespace _Scripts.UI.WinLossUI
             }
             else
             {
-                MessagePooling.Instance.SpawnMessage(this.playOnBtn.transform.position);
+                MessagePooling.Instance.SpawnMessage(this.playOnBtn.transform.position, Utills.NOT_ENOUGH_COIN);
             }
             
             

@@ -51,7 +51,7 @@ public class SkinMains : MonoBehaviour
     private IEnumerator ShowSkinMains()
     {
 
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(5.5f);
         RenderTextureImage.gameObject.SetActive(false);
         
         SkinMain.SetActive(true);

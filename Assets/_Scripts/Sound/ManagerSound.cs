@@ -165,7 +165,7 @@ namespace _Scripts.Sound
 
         public void TurnOnBGMusic()
         {
-            DictBackgroundMusic[EnumBackgroundSound.HomeMusic].Play();
+            DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Play();
         }
 
         public void SetBGMusic(bool value)

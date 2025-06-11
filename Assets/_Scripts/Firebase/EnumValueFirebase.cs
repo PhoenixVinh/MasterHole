@@ -59,7 +59,7 @@ namespace _Scripts.Firebase
         shop_home, 
         skin_home,
         collection_home, 
-        sacle_popup_ingame,
+        scale_popup_ingame,
         magnet_popup_ingame,
         location_popup_ingame,
         ice_popup_ingame,

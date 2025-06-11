@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 311707683232147467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.00105, z: 0}
-  m_LocalScale: {x: 0.93169, y: 1, z: 0.92526}
+  m_LocalPosition: {x: -0.00011932, y: 0.00105, z: 0.0000184}
+  m_LocalScale: {x: 0.894675, y: 1, z: 0.8702332}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4366185537116819156}
@@ -677,7 +677,6 @@ GameObject:
   - component: {fileID: 9148796308949365403}
   - component: {fileID: 6046177490922937796}
   - component: {fileID: 1116731311959345050}
-  - component: {fileID: 1116731311959345051}
   m_Layer: 11
   m_Name: Wall
   m_TagString: Untagged
@@ -772,18 +771,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8733429697405204941, guid: 5600e6504aa7398439d21c6f3bc0387e, type: 3}
---- !u!114 &1116731311959345051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6770523762524345158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2cea5914fe145cf9619a8968adc015d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7691290116931907244
 GameObject:
   m_ObjectHideFlags: 0

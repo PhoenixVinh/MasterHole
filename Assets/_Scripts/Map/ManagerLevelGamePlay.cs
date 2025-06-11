@@ -32,6 +32,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         else  Destroy(gameObject);
   
         
+        
         currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         level = ScriptableObject.CreateInstance<LevelGamePlaySO>();
         //ManagerHomeScene.Instance.HideLoadingUI();

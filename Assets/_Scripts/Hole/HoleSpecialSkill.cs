@@ -107,16 +107,16 @@ namespace _Scripts.Hole
         private IEnumerator FreezeTimeCoroutine()
         {
 
-
+            IsProcessSkill[3] = true;
             int currentUseBooster = PlayerPrefs.GetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE);
             currentUseBooster++;
             PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, currentUseBooster);
-            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.Ice);
+            ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Ice);
             TimeEvent.OnFreezeTime?.Invoke(timeSkill04);
-            IsProcessSkill[3] = true;
+            
             yield return new WaitForSeconds(timeSkill04);
             IsProcessSkill[3] = false;
-            ManagerSound.Instance.StopEffectSound(EnumEffectSound.Ice);
+            ManagerSound.Instance?.StopEffectSound(EnumEffectSound.Ice);
         }
 
         private IEnumerator UseMagnetCoroutine()

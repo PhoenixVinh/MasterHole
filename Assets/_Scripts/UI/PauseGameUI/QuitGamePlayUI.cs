@@ -2,7 +2,7 @@ using _Scripts.Event;
 using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
-
+using _Scripts.UI.PopupUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,13 +25,13 @@ namespace _Scripts.UI.PauseGameUI
 
         private void QuitGame()
         {
-            
-            
-            
-            
-            
+
+
+
+
+            CloseUI();
             //ResourceEvent.OnUpdateResource?.Invoke();
-            
+            ManagerPopup.Instance.TurnOffPopup();
             MaxAdsManager.Instance?.ShowInterAdsByLevel();
             
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);
@@ -44,7 +44,7 @@ namespace _Scripts.UI.PauseGameUI
             int currentLoseIndex = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX);
             currentLoseIndex++;
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, currentLoseIndex);
-            this.OnDisable();
+            
             // Show popup minus health 
 
         }

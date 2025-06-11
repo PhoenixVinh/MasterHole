@@ -28,7 +28,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
 
     private bool isPlaySound = false;
 
-
+    private bool iceTime = false;
     private void Awake()
     {
         if(Instance == null)
@@ -45,6 +45,8 @@ public class ColdownTime : MonoBehaviour, IPrecent
        
 
     }
+    
+    
 
 
     public void OnEnable()
@@ -59,15 +61,16 @@ public class ColdownTime : MonoBehaviour, IPrecent
 
     private async void FreezeTime(float time)
     {
-        isStartColdown = false;
+        iceTime = true;
         await Task.Delay((int)time * 1000);
-        isStartColdown = true;
+      
+        iceTime = false;
     }
 
     private void FixedUpdate()
     {
         if(!isStartColdown) return;
-       
+        if (iceTime) return;
         CalucalteTime();
         
     }

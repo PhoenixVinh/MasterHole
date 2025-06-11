@@ -40,7 +40,7 @@ namespace _Scripts.UI
             switch (index)
             {
                 case 0:
-                    ManagerFirebase.Instance.positionPopup = PositionFirebase.sacle_popup_ingame;
+                    ManagerFirebase.Instance.positionPopup = PositionFirebase.scale_popup_ingame;
                     break;
                 case 1:
                     ManagerFirebase.Instance.positionPopup = PositionFirebase.magnet_popup_ingame;
@@ -53,5 +53,8 @@ namespace _Scripts.UI
                     break;
             }
         }
+
+        public static string NOT_ENOUGH_COIN = "coins is currently not enough";
+        public static string NOT_ENOUGH_ENERGY = "energy is currently not enough";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Scripts.Event;
 using _Scripts.ObjectPooling;
 using _Scripts.UI.HomeSceneUI.ResourcesUI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +74,7 @@ namespace _Scripts.UI.PopupUI
             else
             {
                 GameObject messageuUI =  Instantiate(message, refillBtn.transform.position, Quaternion.identity);
+                messageuUI.GetComponent<TMP_Text>().text = Utills.NOT_ENOUGH_COIN;
                 messageuUI.transform.SetParent(transform);
                 
             }
