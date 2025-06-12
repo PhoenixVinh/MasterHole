@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Diagnostics;
 using _Scripts.Booster;
 using _Scripts.ManagerScene;
 using _Scripts.UI;
@@ -9,6 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 namespace _Scripts.Firebase
 {
@@ -181,7 +183,7 @@ namespace _Scripts.Firebase
             );
         }
 
-        public void LogIAA(AdFormat adformat, string ad_platform, string ad_network, bool isload, float time)
+        public void LogIAA_AdRequest(AdFormat adformat, string ad_platform,string ad_network, bool isLoad, float time)
         {
             if (!firebaseInitial.firebaseInitialized)
             {
@@ -193,10 +195,87 @@ namespace _Scripts.Firebase
 
             string placement = "";
             
+           
+            switch (adformat)
+            {
+                case AdFormat.interstitial:
+                    placement = GetPlacement(StringPlayerPrefs.FIRST_OPEN_LEVEL_INTER);
+                    break;
+                case AdFormat.video_rewarded:
+                    placement = GetPlacement(StringPlayerPrefs.FIRST_OPEN_LEVEL_REWARDS);
+                    break;
+            }
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.ad_request.ToString(),
+                new Parameter("ad_format", adformat.ToString()),
+                new Parameter("ad_platform", ad_platform),
+                new Parameter("ad_network", ad_network),
+                new Parameter("placement", placement),
+                new Parameter("is_show", isLoad ? "0" : "1"),
+                new Parameter("time", time)
+                
+            );
+            
         }
 
+        public void LogIAA_AdShow(AdFormat adformat, string ad_platform, string ad_network, bool isShow, double value,
+            string currency)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+            string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
+            
+            
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.ad_show.ToString(),
+                new Parameter("ad_format", adformat.ToString()),
+                new Parameter("ad_platform", ad_platform),
+                new Parameter("ad_network", ad_network),
+                new Parameter("placement", pos),
+                new Parameter("is_show", isShow ? 0 : 1),
+                new Parameter("value", value),
+                new Parameter("currency", currency)
+                
+                
+            );
 
-        public string placement(string key)
+            
+        }
+        
+
+        public void LogIAA_ADComplete(AdFormat adformat, string ad_platform, string ad_network, string end_type,
+            double ad_duration)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+            string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
+            
+            
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.ad_complete.ToString(),
+                new Parameter("ad_format", adformat.ToString()),
+                new Parameter("ad_platform", ad_platform),
+                new Parameter("ad_network", ad_network),
+                new Parameter("end_type", end_type),
+                new Parameter("ad_duration", ad_duration),
+                new Parameter("placement", pos)
+              
+                
+                
+            );
+
+        }
+        
+
+        public string GetPlacement(string key)
         {
             string result = "";
             if (!PlayerPrefs.HasKey(StringPlayerPrefs.LEVEL_SHOW_BANNER))
@@ -211,7 +290,7 @@ namespace _Scripts.Firebase
             return result;
          
         }
- 
+        
 
         private void OnApplicationPause(bool pauseStatus)
         {

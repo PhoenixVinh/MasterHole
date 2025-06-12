@@ -12,8 +12,8 @@ namespace _Scripts.UI.PauseGameUI
         public ChangeStatusBtnSettingsUI BgMusicBtn;
         public ChangeStatusBtnSettingsUI sfxSoundBtn;
         public ChangeStatusBtnSettingsUI vibrationBtn;
-
-
+        
+        
 
         private bool canBgMusic = true;
         private bool canSfxSound = true;

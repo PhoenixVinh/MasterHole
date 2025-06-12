@@ -54,6 +54,20 @@ namespace _Scripts.UI
             }
         }
 
+        public static long GetMinusTime(DateTime timeNeedMinus)
+        {
+            DateTime first = DateTime.Now; // Hoặc một DateTime khác
+
+
+            TimeSpan difference = first - timeNeedMinus;
+
+            long milliseconds = (long)difference.TotalMilliseconds;
+
+        
+            return milliseconds;
+        }
+        
+        
         public static string NOT_ENOUGH_COIN = "coins is currently not enough";
         public static string NOT_ENOUGH_ENERGY = "energy is currently not enough";
     }

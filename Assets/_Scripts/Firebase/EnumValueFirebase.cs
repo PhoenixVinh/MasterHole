@@ -111,6 +111,17 @@ namespace _Scripts.Firebase
         banner,
         native
     }
+
+    public enum AdPlatform
+    {
+        MaxApplovin
+    }
+
+    public enum EndType
+    {
+        quit,
+        done
+    }
     
     
 }

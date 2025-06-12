@@ -14,7 +14,7 @@ public class ManagerWinLoss : MonoBehaviour
 
     private bool isLevelCoint = false;
 
-
+    public GameObject settings;
    
     public void OnEnable()
     {
@@ -56,7 +56,7 @@ public class ManagerWinLoss : MonoBehaviour
     private async void ShowUIWin()
     {
         ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
-        
+        settings.SetActive(false);
         await Task.Delay(1000);
         ManagerSound.Instance?.StopAllSoundSFX();
         
@@ -72,6 +72,7 @@ public class ManagerWinLoss : MonoBehaviour
    
         
         ManagerSound.Instance?.StopAllSoundSFX();
+        settings.SetActive(false);
         if (isLevelCoint)
         {
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();

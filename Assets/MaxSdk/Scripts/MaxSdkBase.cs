@@ -506,6 +506,7 @@ public abstract class MaxSdkBase
         public string AdLoadFailureInfo { get; private set; }
         public WaterfallInfo WaterfallInfo { get; private set; }
         public long LatencyMillis { get; private set; }
+       
 
         public ErrorInfo(IDictionary<string, object> errorInfoDictionary)
         {

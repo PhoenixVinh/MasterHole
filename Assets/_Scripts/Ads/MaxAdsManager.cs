@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using _Scripts.Firebase;
 using _Scripts.UI;
 using UnityEngine;
@@ -17,6 +18,10 @@ public class MaxAdsManager : MonoBehaviour
     public static MaxAdsManager Instance;
     private bool isShowbanner = false;
 
+
+    private DateTime timeLoadInter;
+    private DateTime timeLoadRewarded;
+    public bool isDoneBanner;
     private void Awake()
     {
         if (Instance == null)
@@ -62,24 +67,31 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Banner.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             Debug.Log("Banner Ad Loaded");
-            isBannerLoaded = true;
-            
+            isDoneBanner = true;
+            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, adInfo.Revenue, "USD");
         };
         MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
             Debug.Log("Banner Ad Failed to Load: " + errorInfo.Message);
             isBannerLoaded = false;
+            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), "", true,0, "USD");
             // Thử tải lại sau một khoảng thời gian
             //Invoke("LoadBannerAd", 5f);
         };
+        
         
     }
 
 
 
-    public void ShowBannerAd()
+    public async void ShowBannerAd()
     {
+        isDoneBanner = false;
         MaxSdk.ShowBanner(bannerAdUnitId);
+        Utills.DelayUntil(() =>
+            isDoneBanner = true
+        );
+        
         isShowbanner = true;
     }
 
@@ -97,28 +109,45 @@ public class MaxAdsManager : MonoBehaviour
         // Tải quảng cáo xen kẽ
         MaxSdk.LoadInterstitial(interstitialAdUnitId);
 
+        
         // Xử lý sự kiện
         MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             
+            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadInter));
             
         };
         MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
-            Debug.Log("Interstitial Ad Failed to Load: " + errorInfo.Message);
+            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadInter));
         };
         MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            Debug.Log("Interstitial Ad Displayed");
+            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,true, adInfo.Revenue, "USD");
         };
-    }
+        
+        
+        MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo) =>
+        {
+            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,false, 0, "USD");
+        };
 
+        MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
+        {
+            ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadInter));   
+        };
+
+
+    }
+    
     public void ShowInterstitialAd(Action callback = null)
     {
+        
         if (MaxSdk.IsInterstitialReady(interstitialAdUnitId))
         {
+            timeLoadInter = DateTime.Now;
             MaxSdk.ShowInterstitial(interstitialAdUnitId);
-          
+            
         }
     }
     private void InitializeRewardedAds()
@@ -129,21 +158,39 @@ public class MaxAdsManager : MonoBehaviour
         // Xử lý sự kiện
         MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            Debug.Log("Rewarded Ad Loaded");
+            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadRewarded));
         };
         MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
-            Debug.Log("Rewarded Ad Failed to Load: " + errorInfo.Message);
+            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadRewarded));
         };
         MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += (string adUnitId, MaxSdkBase.Reward reward, MaxSdkBase.AdInfo adInfo) =>
         {
-            Debug.Log("Rewarded Ad Reward: " + reward.Label + " - " + reward.Amount);
+            ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
+                adInfo.NetworkName, EndType.done.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
             
+        };
+        MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
+        {
+            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,true, adInfo.Revenue, "USD");
+        };
+        MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent +=
+            (string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo) =>
+            {
+                ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
+                    adInfo.NetworkName, false, 0, "USD");
+            };
+        MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
+        {
+            ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
+                adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
+
         };
     }
 
     public void ShowRewardedAd(Action callback = null)
     {
+        timeLoadRewarded = DateTime.Now;
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {
             

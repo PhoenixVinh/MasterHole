@@ -22,7 +22,7 @@ public class ZoomOutBtn : MonoBehaviour
             .SetUpdate(true)
             .Append(transform.DOScale(targetLocalScale * 1.1f, time))
             .Append(transform.DOScale(targetLocalScale, 0.1f));
-
+            
 
 
 

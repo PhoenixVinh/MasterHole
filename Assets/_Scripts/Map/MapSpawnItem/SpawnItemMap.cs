@@ -150,12 +150,12 @@ namespace _Scripts.Map.MapSpawnItem
                     itemSpawn.transform.localScale = dataspawn.s.ToVector3();
                     
                     Rigidbody rb = itemSpawn.GetComponent<Rigidbody>();
-                    rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+                    rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
                     if (dataspawn.kinematic)
                     {
                         itemSpawn.GetComponent<Rigidbody>().isKinematic = true;
                     }
-
+    
                     Item itemType =  itemSpawn.AddComponent<Item>();
                     itemType.SetData(itemSpawn.name, scoreItem);
                     if (!mapObjects.ContainsKey(nameItem))
