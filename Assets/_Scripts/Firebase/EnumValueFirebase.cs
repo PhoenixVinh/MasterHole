@@ -54,7 +54,7 @@ namespace _Scripts.Firebase
         popup_ingame_byAddHeart, 
         complete_popup_next, 
         complete_popup_home, 
-        lose_popup_next,
+        lose_popup_playon,
         lose_popup_retry,
         shop_home, 
         skin_home,

@@ -78,8 +78,8 @@ public class ManagerWinLoss : MonoBehaviour
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();
             WinUI.GetComponent<WinUI>().SetData(coinGet);
             //LevelCoinUI.SetActive(true);
-            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
-            PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
+            //int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            //PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
             return;
 
         }

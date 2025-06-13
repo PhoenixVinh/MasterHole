@@ -227,11 +227,11 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, 5);
             }
             
-            currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 5);
+            currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
             
             if (!PlayerPrefs.HasKey(NEXT_TIME))
             {
-                PlayerPrefs.SetString(NEXT_TIME, DateTime.Now.ToString());
+                PlayerPrefs.SetString(NEXT_TIME, AddDuration(DateTime.Now, restoreDuration).ToString());
                 
                 PlayerPrefs.SetString(LAST_TIME, DateTime.Now.ToString());
             }

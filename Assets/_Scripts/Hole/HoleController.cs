@@ -77,6 +77,7 @@ public class HoleController : MonoBehaviour
     public void LoadLevel(int amountExp, float radius, bool isAnim)
     {
         Vector3 localScale = transform.localScale;
+       
         Vector3 newScale = new Vector3(radius, localScale.y, radius);
         // Update Scale of Hole 
         if (isAnim)
@@ -94,7 +95,7 @@ public class HoleController : MonoBehaviour
         {
             transform.localScale = newScale;
         }
-
+        _holeMovement.SetSpeedMovement(_speedMovement + (transform.localScale.x));
         HoleEvent.OnUpdateFade?.Invoke(radius);
         // if (indexSkin != 1)
         // {

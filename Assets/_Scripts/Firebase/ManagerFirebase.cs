@@ -391,7 +391,18 @@ namespace _Scripts.Firebase
         }
         
         
-        
+        public void LogEventNormal(PositionFirebase pos)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+            FirebaseAnalytics.LogEvent(
+                pos.ToString()
+                );
+        }
         
         
         public InternetStatus GetNetworkStatus()
@@ -416,7 +427,8 @@ namespace _Scripts.Firebase
             // Gửi sự kiện lên Firebase Analytics
             return status;
         }
-        
 
+
+       
     }
 }
