@@ -5,6 +5,7 @@ using _Scripts.Firebase;
 using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.ObjectPooling;
+using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using _Scripts.UI.PauseGameUI;
 using TMPro;
 using UnityEngine;
@@ -31,19 +32,21 @@ namespace _Scripts.UI.WinLossUI
             playAgainBtn.onClick.AddListener(PlayAgain);
             ManagerFirebase.Instance?.LogSpendResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.use);
             homeBtn.onClick.AddListener(goHome);
-            DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
-            if (inifity <= DateTime.Now)
-            {
-                if(!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY)){
-                    PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, 5);
-                }
-                int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
-                currentEnergy--;
-                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
-                PlayerPrefs.Save();
-                
-            }
-            
+            // DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
+            // if (inifity <= DateTime.Now)
+            // {
+            //     if(!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_ENERGY)){
+            //         PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, 5);
+            //     }
+            //     int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
+            //     currentEnergy--;
+            //     PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
+            //     PlayerPrefs.Save();
+            //     
+            // }
+
+            Energy.Instance?.UseEnergy();
+
         }
         public override void OnDisable()
         {
@@ -57,10 +60,10 @@ namespace _Scripts.UI.WinLossUI
         {
             
             DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
-            if (inifity <= DateTime.Now)
+            if (Energy.Instance?.IsUnlimitedEnergy == false)
             {
-                int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
-                if (currentEnergy != 0)
+               
+                if (Energy.Instance?.CurrentEnergy >=1)
                 {
                     this.gameObject.SetActive(false);
                     ManagerLevelGamePlay.Instance.LoadLevelAgain();

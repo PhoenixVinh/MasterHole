@@ -11,7 +11,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         
         [SerializeField] private TMP_Text coin;
         [SerializeField] private TMP_Text heart;
-        public Energy Energy;
+        //public Energy Energy;
         private int amountCoin = 0;
         
         public static Resource Instance;
@@ -52,17 +52,17 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         public void MinusHealth()
         {
-            this.Energy.UseEnergy();
+            Energy.Instance.UseEnergy();
         }
 
         public void PlusHealth()
         {
-            this.Energy.AddEnergy();
+            Energy.Instance.AddEnergy();
         }
 
         public void AddMaxHealth()
         {
-            this.Energy.AddMaxEnergy();
+            Energy.Instance.AddMaxEnergy();
             
         }
 

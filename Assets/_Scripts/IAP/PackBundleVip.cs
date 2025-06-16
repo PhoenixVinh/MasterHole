@@ -1,5 +1,6 @@
 using System;
 using _Scripts.UI;
+using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using UnityEngine;
 
 namespace _Scripts.IAP
@@ -21,6 +22,7 @@ namespace _Scripts.IAP
             infi = infi.AddSeconds(timeInfinity);
             
             PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, infi.ToString());
+            Energy.Instance?.LoadInfinity();
         }
     }
 }

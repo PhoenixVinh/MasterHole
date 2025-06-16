@@ -15,6 +15,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(this.gameObject);
             }
             else
             {
@@ -29,19 +30,20 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         
         
 
-        [SerializeField] TMP_Text energyText;
-        [SerializeField] TMP_Text timeText;
+        // [SerializeField] TMP_Text energyText;
+        // [SerializeField] TMP_Text timeText;
 
         [SerializeField]private int restoreDuration = 5;
         [SerializeField]private int maxEnergy = 25;
         
         
-        [Header("InFinityHealth")]
-        [SerializeField] private GameObject infinityHealth;
-        [SerializeField] private GameObject adding;
-        
+        // [Header("InFinityHealth")]
+        // [SerializeField] private GameObject infinityHealth;
+        // [SerializeField] private GameObject adding;
+        //
         public int MaxEnergy => maxEnergy;
         private int currentEnergy = 5;
+        public int CurrentEnergy => currentEnergy;
         
         private DateTime nextEnergyTime;
         private DateTime lastEnergyTime;
@@ -54,10 +56,14 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         
         
         private string timeValue;
+        
+       
         public string TimeValue => timeValue;
         
         public bool IsUnlimitedEnergy => unlimitedEnergyEndTime > DateTime.Now;
         
+        
+        public bool IsFullEnergy => currentEnergy >= maxEnergy;
         
         private void OnEnable()
         {
@@ -76,16 +82,16 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         }
 
         [ContextMenu("Use Energy")]
-        public void UseEnergy()
+        public bool UseEnergy()
         {
            
             //currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY);
     
             if (IsUnlimitedEnergy)
             {
-                return;
+                return true;
             }
-            UpdateEnergy();
+            
             
             Debug.Log($"Current energy: {currentEnergy}");
           
@@ -94,16 +100,19 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 currentEnergy--;
                 
                 
-                UpdateEnergy();
+                
                
                 if (currentEnergy < maxEnergy)
                 {
                     nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
                 }
-
+                
+                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
                 StartCoroutine(RestoreEnergy());
                 
+                return true;
             }
+            return false;
             
             
         }
@@ -113,7 +122,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             currentEnergy++;
           
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
-            UpdateEnergy();
+            
             UpdateEnergyTimer();
             
         }
@@ -142,7 +151,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                     {
                         isEnergyAdding = true;
                         currentEnergy++;
-                        UpdateEnergy();
+                        //UpdateEnergy();
                         DateTime timeToAdd = lastEnergyTime > nextDateTime ? lastEnergyTime : nextDateTime;
                         nextDateTime = AddDuration(timeToAdd, restoreDuration);
                     }
@@ -159,7 +168,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 }
 
                 UpdateEnergyTimer();
-                UpdateEnergy();
+                //UpdateEnergy();
                 Save();
                 yield return null;
                 
@@ -183,19 +192,19 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 if (remainingTime.TotalSeconds > 0)
                 {
                     timeValue = String.Format("{0:D2}:{1:D2}:{2:D2}",remainingTime.Hours, remainingTime.Minutes, remainingTime.Seconds);
-                    timeText.text = timeValue;
+                    //timeText.text = timeValue;
                     
                 }
-                infinityHealth.SetActive(true);
-                adding.SetActive(false);
+                //infinityHealth.SetActive(true);
+                //adding.SetActive(false);
 
                 return;
 
             }
             else
             {
-                infinityHealth.SetActive(false);
-                adding.SetActive(true);
+                //infinityHealth.SetActive(false);
+                //adding.SetActive(true);
             }
             
             
@@ -203,22 +212,25 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             
             if (currentEnergy >= maxEnergy)
             {
-                timeText.text = "FULL";
+                //timeText.text = "FULL";
                 return;
             }
 
             TimeSpan time = nextEnergyTime - DateTime.Now;
 
             timeValue = String.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
-            timeText.text = timeValue;
+            //timeText.text = timeValue;
         }
 
-        private void UpdateEnergy()
+
+
+        public void LoadInfinity()
         {
-            energyText.text = currentEnergy.ToString();
+            unlimitedEnergyEndTime = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
+            StopAllCoroutines();
+            StartCoroutine(RestoreEnergy());
+            
         }
-
-
 
         private void Load()
         {
@@ -262,7 +274,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         {
             this.currentEnergy = maxEnergy;
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_ENERGY, currentEnergy);
-            UpdateEnergy();
+            //UpdateEnergy();
             UpdateEnergyTimer();
             
         }
@@ -273,5 +285,8 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
             DateTime timeInfinity = DateTime.Now.AddSeconds(100);
             PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, timeInfinity.ToString());
         }
+        
+        
+        
     }
 }

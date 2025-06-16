@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using _Scripts.Booster;
 using _Scripts.Event;
 using _Scripts.Firebase;
+using _Scripts.Hole;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Map.MapSpawnItem;
 using _Scripts.ObjectPooling;
@@ -101,6 +102,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
             ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
             ManagerSound.Instance.StopAllSoundSFX();
         }
+        CleanGradeManager.Instance?.CleanQueue();
         
         
         

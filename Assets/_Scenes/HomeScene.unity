@@ -2883,7 +2883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e4947d070cf41eb87bc6a9968c32a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Location: 0.9948938
+  m_Location: 0.9567003
   m_Width: 0.25
   m_Softness: 1
   m_Brightness: 1
@@ -4928,6 +4928,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130852594}
   m_CullTransparentMesh: 1
+--- !u!1 &131226100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131226102}
+  - component: {fileID: 131226101}
+  m_Layer: 0
+  m_Name: EnergyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &131226101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131226100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33691444fa0c4fe09c1bc0f7e57b3399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restoreDuration: 300
+  maxEnergy: 5
+--- !u!4 &131226102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131226100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &131336761
 GameObject:
   m_ObjectHideFlags: 0
@@ -50746,8 +50792,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1403092064}
-  - component: {fileID: 1403092065}
   - component: {fileID: 1403092066}
+  - component: {fileID: 1403092067}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -50780,24 +50826,6 @@ RectTransform:
   m_AnchoredPosition: {x: 108, y: -97}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1403092065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403092063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33691444fa0c4fe09c1bc0f7e57b3399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyText: {fileID: 483803497}
-  timeText: {fileID: 1948749591}
-  restoreDuration: 300
-  maxEnergy: 5
-  infinityHealth: {fileID: 948596529}
-  adding: {fileID: 1163553052}
 --- !u!114 &1403092066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50842,6 +50870,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1403092067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403092063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c032a593abf4d2e9da938a8122b9351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyText: {fileID: 483803497}
+  timeText: {fileID: 1948749591}
+  infinityHealth: {fileID: 948596529}
+  adding: {fileID: 1163553052}
 --- !u!1 &1412950166
 GameObject:
   m_ObjectHideFlags: 0
@@ -61855,7 +61899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e4947d070cf41eb87bc6a9968c32a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Location: 0.9948938
+  m_Location: 0.9567003
   m_Width: 0.25
   m_Softness: 1
   m_Brightness: 1
@@ -66516,7 +66560,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coin: {fileID: 633742179}
   heart: {fileID: 483803497}
-  Energy: {fileID: 1403092065}
   energyBtn: {fileID: 1403092066}
 --- !u!114 &1887540504
 MonoBehaviour:
@@ -75119,3 +75162,4 @@ SceneRoots:
   - {fileID: 380784490}
   - {fileID: 447214540}
   - {fileID: 870592295}
+  - {fileID: 131226102}

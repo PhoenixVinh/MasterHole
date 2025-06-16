@@ -23,28 +23,28 @@ namespace _Scripts.Hole
         }
 
         
-        private void OnTriggerEnter(Collider other)
-        {
-        
-            if (other.CompareTag("Item") && !Items.Contains(other.gameObject))
-            {
-                
-                //Debug.Log(other.transform.parent.name);
-               
-
-              
-                
-                
-               
-            }
-            
-        }
-
-       
-
-        public void OnDestroy()
-        {
-            StopAllCoroutines();
-        }
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //
+        //     if (other.CompareTag("Item"))
+        //     {
+        //         
+        //         //Debug.Log(other.transform.parent.name);
+        //        
+        //
+        //       
+        //         
+        //         
+        //        
+        //     }
+        //     
+        // }
+        //
+        //
+        //
+        // public void OnDestroy()
+        // {
+        //     StopAllCoroutines();
+        // }
     }
 }

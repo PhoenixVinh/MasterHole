@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _Scripts.Event;
+using _Scripts.Hole;
 using _Scripts.Map.MapSpawnItem;
 using _Scripts.ObjectPooling;
 using _Scripts.Sound;
@@ -14,13 +15,16 @@ public class Item : MonoBehaviour
     public int score  = 1;
     public string type = "food";
     private Rigidbody rb;
-
+    private bool isGetScore = false;
     public void SetData(string foodName, int score)
     {
         this.score = score;
         this.type = foodName;
         rb = GetComponent<Rigidbody>();
+        isGetScore = false;
     }
+    
+   
     
     
     
@@ -32,7 +36,7 @@ public class Item : MonoBehaviour
         
         
         
-        if (!other.CompareTag("HoleBottom")) return;
+        if (!other.CompareTag("HoleBottom") || isGetScore) return;
         
         if (ManagerSound.Instance != null)
         {
@@ -46,14 +50,14 @@ public class Item : MonoBehaviour
     
        
                  
-               
+        isGetScore = true;      
         ItemEvent.OnAddScore?.Invoke(score);
         SpawnItemMap.Instance.RemoveItem(gameObject);
         TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
         ManagerMission.Instance.CheckMinusItems(gameObject.name);
-       
-       
+        
+        
         StartCoroutine(DestroyCoroutine());
     
     
@@ -63,10 +67,12 @@ public class Item : MonoBehaviour
     private IEnumerator DestroyCoroutine()
     {
         yield return new WaitForSeconds(0.5f);
-    
         if (gameObject != null){
-            Destroy(gameObject);
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            CleanGradeManager.Instance?.AddObject(gameObject);
         }
+        
                
     }
 
