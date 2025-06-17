@@ -15,6 +15,7 @@ public class ManagerWinLoss : MonoBehaviour
     private bool isLevelCoint = false;
 
     public GameObject settings;
+    public GameObject shop;
    
     public void OnEnable()
     {
@@ -62,9 +63,11 @@ public class ManagerWinLoss : MonoBehaviour
         
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
+        ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
         WinUI.GetComponent<WinUI>().SetData(75);
         settings.SetActive(false);
+        shop.SetActive(false);
         
        
     }
@@ -95,6 +98,7 @@ public class ManagerWinLoss : MonoBehaviour
         
         LoseUI.SetActive(true);
         settings.SetActive(false);
+        shop.SetActive(false);
     }
 
    

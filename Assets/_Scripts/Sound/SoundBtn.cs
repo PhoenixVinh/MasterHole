@@ -12,10 +12,14 @@ namespace _Scripts.Sound
         public void Start()
         {
             btn = GetComponent<Button>();
+            if (btn == null)
+            {
+                Debug.LogWarning("SoundBtn is missing Button: " + gameObject.name);
+            }
             btn.onClick.AddListener(PlaySound);
         }
 
-        private void PlaySound()
+        public virtual void PlaySound()
         {
             if(ManagerSound.Instance != null)
                 ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);

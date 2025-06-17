@@ -103,9 +103,13 @@ namespace _Scripts.Booster
 
         public void SaveBoosterData()
         {
+            
             String convert = JsonUtility.ToJson(boosterDatas);
             PlayerPrefs.SetString(StringPlayerPrefs.BOOSTER_DATA, convert);
         }
+        
+        
+        
         public void OnApplicationQuit()
         {
           

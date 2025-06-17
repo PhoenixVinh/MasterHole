@@ -18,6 +18,9 @@ namespace _Scripts.Sound
         LevelComplete = 6,
         Magnet = 7, 
         TimeEnd = 8,
-        Ice = 9
+        Ice = 9,
+        Victory = 10,
+        BoosterClick = 11,
+        BoosterReward = 12,
     }
 }

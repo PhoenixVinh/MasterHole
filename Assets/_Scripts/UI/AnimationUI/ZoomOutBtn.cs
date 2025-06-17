@@ -8,7 +8,7 @@ public class ZoomOutBtn : MonoBehaviour
     
     
 
-    private void Start()
+    private void OnEnable()
     {
         AnimationGameObjectZoomOut();
     }

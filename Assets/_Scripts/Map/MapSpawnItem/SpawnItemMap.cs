@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Scripts.UI;
+using _Scripts.UI.MissionUI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -100,6 +101,9 @@ namespace _Scripts.Map.MapSpawnItem
                 map.transform.localScale = mapScale;
                 
             }
+
+            List<string> MissionItemNames = ManagerMission.Instance?.GetNameMission();
+            List<GameObject> MissionItems = new List<GameObject>();
             foreach(var item in levelSpawnData.listItemSpawns)
             {
                 string nameItem = item.id;
@@ -158,19 +162,27 @@ namespace _Scripts.Map.MapSpawnItem
     
                     Item itemType =  itemSpawn.AddComponent<Item>();
                     itemType.SetData(itemSpawn.name, scoreItem);
-                    if (!mapObjects.ContainsKey(nameItem))
+
+                    if (MissionItemNames.Contains(nameItem))
                     {
-                        mapObjects.Add(nameItem, new List<GameObject>());
-                        mapObjects[nameItem].Add(itemSpawn);
+                        MissionItems.Add(itemSpawn);
                     }
-                    else
-                    {
-                        mapObjects[nameItem].Add(itemSpawn);
-                    }
+                    
+                    // if (!mapObjects.ContainsKey(nameItem))
+                    // {
+                    //     mapObjects.Add(nameItem, new List<GameObject>());
+                    //     mapObjects[nameItem].Add(itemSpawn);
+                    // }
+                    // else
+                    // {
+                    //     mapObjects[nameItem].Add(itemSpawn);
+                    // }
                 }
-                
-                
-                
+
+                ManagerMission.Instance?.SetITemMissions(MissionItems);
+
+
+
             }
 
             levelSpawnData = null;

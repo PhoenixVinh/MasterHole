@@ -38,7 +38,7 @@ namespace _Scripts.UI.WinLossUI
         public CoinRewardAnim coinRewardAnim;
         public override void OnEnable()
         {
-            
+            ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
             particle.Play();
             base.OnEnable();

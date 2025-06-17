@@ -53,7 +53,10 @@ namespace _Scripts.UI.PopupUI
             }
             else
             {
-                MessagePooling.Instance.SpawnMessage(buyButton.transform.position, Utills.NOT_ENOUGH_COIN);
+                //ManagerWinLoss
+                this.gameObject.SetActive(false);
+                UIManager.Instance.ShowShop();
+                //MessagePooling.Instance.SpawnMessage(buyButton.transform.position, Utills.NOT_ENOUGH_COIN);
                 return;
             }
             

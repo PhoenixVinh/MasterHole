@@ -77,13 +77,13 @@ namespace _Scripts.Hole
             
             Debug.Log("Use Finding");
             IsProcessSkill[2] = true;
-            Dictionary<string, int> result = ManagerMission.Instance.GetSuggestItems(amountFinding);
-            foreach (var item in result)
-            {
-                Debug.Log("Key : " + item.Key + " Value : " + item.Value);
-            }
-
-            List<GameObject> itemsSuggest = SpawnItemMap.Instance.GetMappingObject(result);
+            List<GameObject> itemsSuggest = ManagerMission.Instance.GetSuggestItems(amountFinding);
+            // foreach (var item in result)
+            // {
+            //     Debug.Log("Key : " + item.Key + " Value : " + item.Value);
+            // }
+            //
+            // List<GameObject> itemsSuggest = SpawnItemMap.Instance.GetMappingObject(result);
 
             foreach (var item in itemsSuggest)
             {

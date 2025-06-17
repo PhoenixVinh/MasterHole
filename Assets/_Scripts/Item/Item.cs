@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Hole;
 using _Scripts.Map.MapSpawnItem;
@@ -16,6 +17,8 @@ public class Item : MonoBehaviour
     public string type = "food";
     private Rigidbody rb;
     private bool isGetScore = false;
+    
+    public bool isPhysic = false;
     public void SetData(string foodName, int score)
     {
         this.score = score;
@@ -23,8 +26,34 @@ public class Item : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         isGetScore = false;
     }
+
+
+    public void SetPhysic()
+    {
+        rb.isKinematic = false;
+        //rb.velocity = new Vector3(0, -0.1f, 0);
+        // if (isPhysic) return;
+        // StartCoroutine(FallSmoothly());
+    }
+
+    // private IEnumerator FallSmoothly()
+    // {
+    //     while (!isPhysic)
+    //     {
+    //         // Di chuyển mượt mà dựa trên thời gian thực
+    //         transform.position -= new Vector3(0, 10* Time.deltaTime, 0);
+    //
+    //         // Kiểm tra vị trí Y
+    //         if (transform.position.y <= 0.1)
+    //         {
+    //             isPhysic = true;
+    //             rb.isKinematic = false; // Tắt kinematic khi chạm ngưỡng
+    //         }
+    //
+    //         yield return null; // Chờ đến khung hình tiếp theo
+    //     }
+    // }
     
-   
     
     
     
@@ -52,10 +81,10 @@ public class Item : MonoBehaviour
                  
         isGetScore = true;      
         ItemEvent.OnAddScore?.Invoke(score);
-        SpawnItemMap.Instance.RemoveItem(gameObject);
+        //SpawnItemMap.Instance.RemoveItem(gameObject);
         TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
-        ManagerMission.Instance.CheckMinusItems(gameObject.name);
+        ManagerMission.Instance.CheckMinusItems(gameObject.name, gameObject);
         
         
         StartCoroutine(DestroyCoroutine());
