@@ -22,5 +22,6 @@ namespace _Scripts.Sound
         Victory = 10,
         BoosterClick = 11,
         BoosterReward = 12,
+        CompleteHole = 13
     }
 }

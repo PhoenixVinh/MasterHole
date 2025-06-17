@@ -32,7 +32,7 @@ public class HoleCenter : MonoBehaviour
             var Item = other.GetComponentInParent<Item>();
             //ItemQueue.Enqueue(Item);
          
-            //other.transform.parent.Translate(Vector3.down*0.0001f);
+            other.transform.parent.Translate(Vector3.down*0.0001f);
             other.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
             other.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
             Item.SetPhysic();

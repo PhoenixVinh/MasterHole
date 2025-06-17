@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.Sound;
 using _Scripts.UI.HoleSkinUI;
 using TMPro;
 using UnityEngine;
@@ -120,6 +121,11 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
                 text.text = $"{Mathf.RoundToInt(percentage)}%"; // Cập nhật text với giá trị làm tròn
                 image.fillAmount = percentage / 100;
                 yield return null; // Chờ frame tiếp theo
+            }
+
+            if (endPercentage > 99f)
+            {
+                ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.CompleteHole);
             }
 
             // Đảm bảo giá trị cuối cùng chính xác

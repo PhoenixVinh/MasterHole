@@ -68,7 +68,7 @@ namespace _Scripts.UI
         }
         
         
-        public static string NOT_ENOUGH_COIN = "coins is currently not enough";
-        public static string NOT_ENOUGH_ENERGY = "energy is currently not enough";
+        public static string NOT_ENOUGH_COIN = "Coins is currently not enough";
+        public static string NOT_ENOUGH_ENERGY = "Energy is currently not enough";
     }
 }

@@ -89,6 +89,11 @@ namespace _Scripts.Sound
                 
                 //DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Stop();
             }
+            else
+            {
+                TurnOffBGMusic();
+            }
+                
            
         }
 
@@ -101,11 +106,12 @@ namespace _Scripts.Sound
 
         public void ChangeBackgroundMusic(EnumBackgroundSound backgroundSound)
         {
-            if (!canBgMusic) return;
             foreach (var audioSource in DictBackgroundMusic)
             {
                 audioSource.Value.Stop();
             }
+            if (!canBgMusic) return;
+            
             DictBackgroundMusic[backgroundSound].volume = volumeBg;
             DictBackgroundMusic[backgroundSound].Play();
         }
@@ -186,6 +192,10 @@ namespace _Scripts.Sound
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.USE_SFXSOUND, value ? 1 : 0);
             this.canSfxMusic = value;
+            if (value == false)
+            {
+                StopAllSoundSFX();
+            }
         }
 
         public void SetValueLevelCoint(bool isLevelCoin)
