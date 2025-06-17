@@ -40,16 +40,16 @@ namespace _Scripts.UI
             switch (index)
             {
                 case 0:
-                    ManagerFirebase.Instance.positionPopup = PositionFirebase.scale_popup_ingame;
+                 //   ManagerFirebase.Instance.positionPopup = PositionFirebase.scale_popup_ingame;
                     break;
                 case 1:
-                    ManagerFirebase.Instance.positionPopup = PositionFirebase.magnet_popup_ingame;
+                 //   ManagerFirebase.Instance.positionPopup = PositionFirebase.magnet_popup_ingame;
                     break;
                 case 2:
-                    ManagerFirebase.Instance.positionPopup = PositionFirebase.location_popup_ingame;
+                //    ManagerFirebase.Instance.positionPopup = PositionFirebase.location_popup_ingame;
                     break;
                 case 3:
-                    ManagerFirebase.Instance.positionPopup = PositionFirebase.ice_popup_ingame;
+                  //  ManagerFirebase.Instance.positionPopup = PositionFirebase.ice_popup_ingame;
                     break;
             }
         }

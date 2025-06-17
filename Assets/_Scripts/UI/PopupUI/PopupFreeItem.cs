@@ -65,7 +65,7 @@ namespace _Scripts.UI.PopupUI
         {
             continueButton.onClick.RemoveAllListeners();
             PopupItemEvent.getITem?.Invoke(indexSpecialSkill);
-            ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
+            //ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
         }
         
         
@@ -89,7 +89,7 @@ namespace _Scripts.UI.PopupUI
             //String convert = JsonUtility.ToJson(boosterDatas);
             //PlayerPrefs.SetString(StringPlayerPrefs.BOOSTER_DATA, convert);
             ManagerBooster.Instance?.ChangeAmountBooster(indexSpecialSkill,3);
-            ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster,Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.reward);
+           // ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster,Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.reward);
             this.gameObject.SetActive(false);
             
         }

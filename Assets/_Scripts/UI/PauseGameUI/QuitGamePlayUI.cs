@@ -34,10 +34,10 @@ namespace _Scripts.UI.PauseGameUI
             ManagerPopup.Instance?.TurnOffPopup();
             MaxAdsManager.Instance?.ShowInterAdsByLevel();
             
-            ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);
+           // ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);
             //Resource.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
+          //  ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance?.MinusHealth();
             
             

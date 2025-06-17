@@ -1,6 +1,6 @@
 using System;
 using _Scripts.UI;
-using CandyCoded.HapticFeedback;
+//using CandyCoded.HapticFeedback;
 using UnityEngine;
 
 namespace _Scripts.Vibration
@@ -50,23 +50,23 @@ namespace _Scripts.Vibration
         public void UseVibration(EnumVibration typeVibration)
         {
             if (!canVibrate) return;
-            if (typeVibration == EnumVibration.Light)
-            {
-                HapticFeedback.LightFeedback();
-            }
-            else if (typeVibration == EnumVibration.Medium)
-            {
-                HapticFeedback.MediumFeedback();
-            }
-            else if (typeVibration == EnumVibration.Heavy)
-            {
-                HapticFeedback.HeavyFeedback();
-            }
+            //if (typeVibration == EnumVibration.Light)
+            //{
+            //    HapticFeedback.LightFeedback();
+            //}
+            //else if (typeVibration == EnumVibration.Medium)
+            //{
+            //    HapticFeedback.MediumFeedback();
+            //}
+            //else if (typeVibration == EnumVibration.Heavy)
+            //{
+            //    HapticFeedback.HeavyFeedback();
+            //}
         }
 
         public void UseVibrationLight()
         {
-            HapticFeedback.LightFeedback();
+            //HapticFeedback.LightFeedback();
         }
         public void SetVibration(bool value)
         {

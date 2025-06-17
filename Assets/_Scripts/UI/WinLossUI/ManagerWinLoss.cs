@@ -55,7 +55,7 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
-        ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
+       // ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
         settings.SetActive(false);
         await Task.Delay(1000);
         ManagerSound.Instance?.StopAllSoundSFX();

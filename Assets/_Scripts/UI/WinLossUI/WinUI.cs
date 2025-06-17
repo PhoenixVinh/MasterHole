@@ -46,8 +46,8 @@ namespace _Scripts.UI.WinLossUI
             int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
             coin += coinGet;
             text.text = $"{coin}";
-            ManagerFirebase.Instance?.LogEarnResource(ResourceType.currency, ResourceName.Coin.ToString(),
-                coinGet.ToString(), Reson.winlevel);
+           // ManagerFirebase.Instance?.LogEarnResource(ResourceType.currency, ResourceName.Coin.ToString(),
+              //  coinGet.ToString(), Reson.winlevel);
             coinRewardAnim.CountCoins(coin - coinGet, coin);
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, coin);
         
@@ -66,7 +66,7 @@ namespace _Scripts.UI.WinLossUI
         private void ChangeHomeScene()
         {
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
+           // ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance.ShowRewardCoin(coinGet);
         }
 
