@@ -101,7 +101,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         {
             // Process when playe lose
             WinLossEvent.OnLoss?.Invoke();
-            ManagerFirebase.Instance?.LogLevelEnd(LevelResult.lose, LoseBy.OutOfTime);
+          //  ManagerFirebase.Instance?.LogLevelEnd(LevelResult.lose, LoseBy.OutOfTime);
             ManagerSound.Instance?.StopEffectSound(EnumEffectSound.TimeEnd);
         }
 

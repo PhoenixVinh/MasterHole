@@ -37,7 +37,7 @@ namespace _Scripts.ManagerScene.HomeScene
             if (currentLevel == 1)
             {
                 SceneManager.LoadScene(EnumScene.PlayScene.ToString());
-                ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
+           //     ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
                 //ManagerSound.Instance?.ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
                 
             }

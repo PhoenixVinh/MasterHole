@@ -33,7 +33,7 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
                 }
             }
             
-            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
+           // ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
             ManagerHomeScene.Instance.ShowLoadingUI();
             base.ChangeScene();
             

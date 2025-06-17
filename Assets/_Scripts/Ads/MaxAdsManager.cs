@@ -68,13 +68,13 @@ public class MaxAdsManager : MonoBehaviour
         {
             Debug.Log("Banner Ad Loaded");
             isDoneBanner = true;
-            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, adInfo.Revenue, "USD");
+           // ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, adInfo.Revenue, "USD");
         };
         MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
             Debug.Log("Banner Ad Failed to Load: " + errorInfo.Message);
             isBannerLoaded = false;
-            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), "", true,0, "USD");
+           // ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), "", true,0, "USD");
             // Thử tải lại sau một khoảng thời gian
             //Invoke("LoadBannerAd", 5f);
         };
@@ -114,27 +114,27 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             
-            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadInter));
+           // ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadInter));
             
         };
         MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadInter));
+           // ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadInter));
         };
         MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,true, adInfo.Revenue, "USD");
+           // ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,true, adInfo.Revenue, "USD");
         };
         
         
         MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,false, 0, "USD");
+           // ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,false, 0, "USD");
         };
 
         MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadInter));   
+          //  ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadInter));   
         };
 
 
@@ -158,32 +158,32 @@ public class MaxAdsManager : MonoBehaviour
         // Xử lý sự kiện
         MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadRewarded));
+           // ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadRewarded));
         };
         MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadRewarded));
+           // ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadRewarded));
         };
         MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += (string adUnitId, MaxSdkBase.Reward reward, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
-                adInfo.NetworkName, EndType.done.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
+            //ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
+             //   adInfo.NetworkName, EndType.done.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
             
         };
         MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,true, adInfo.Revenue, "USD");
+            //ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,true, adInfo.Revenue, "USD");
         };
         MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent +=
             (string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo) =>
             {
-                ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
-                    adInfo.NetworkName, false, 0, "USD");
+              //  ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
+                  //  adInfo.NetworkName, false, 0, "USD");
             };
         MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
-            ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
-                adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
+           // ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
+              //  adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
 
         };
     }
@@ -241,13 +241,13 @@ public class MaxAdsManager : MonoBehaviour
         
         
         
-        Debug.Log(ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter + "???" + ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level);
-        if (currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter &&
-            (currentLevel - ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter) %
-            ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level == 0)
-        {
-            MaxSdk.ShowInterstitial(interstitialAdUnitId);
-        }
+        //Debug.Log(ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter + "???" + ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level);
+        //if (currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter &&
+        //    (currentLevel - ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter) %
+        //    ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level == 0)
+        //{
+        //    MaxSdk.ShowInterstitial(interstitialAdUnitId);
+        //}
        
     }
 }
