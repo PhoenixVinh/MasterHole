@@ -30,7 +30,7 @@ namespace _Scripts.UI.WinLossUI
             base.OnEnable();
             StartCoroutine(DelayAppearButton());
             playAgainBtn.onClick.AddListener(PlayAgain);
-           // ManagerFirebase.Instance?.LogSpendResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.use);
+            ManagerFirebase.Instance?.LogSpendResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.use);
             homeBtn.onClick.AddListener(goHome);
             // DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
             // if (inifity <= DateTime.Now)
@@ -89,7 +89,7 @@ namespace _Scripts.UI.WinLossUI
            
             //ManagerHomeScene.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
-            //ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
+            ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             
             
         }

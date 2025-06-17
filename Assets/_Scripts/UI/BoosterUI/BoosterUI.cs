@@ -100,7 +100,7 @@ namespace _Scripts.UI.BoosterUI
                 }
                 amount--;
                 ManagerBooster.Instance.ChangeAmountBooster(indexSpecialSkill, -1);
-               // ManagerFirebase.Instance?.LogSpendResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "1", Reson.use);
+                ManagerFirebase.Instance?.LogSpendResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "1", Reson.use);
                 UpdateUI();
             }
             

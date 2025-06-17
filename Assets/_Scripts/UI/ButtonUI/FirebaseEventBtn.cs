@@ -20,7 +20,7 @@ namespace _Scripts.UI.ButtonUI
 
         private void LogFirebaseEvent()
         {
-           // ManagerFirebase.Instance?.LogEventNormal(pos);
+            ManagerFirebase.Instance?.LogEventNormal(pos);
         }
     }
 }

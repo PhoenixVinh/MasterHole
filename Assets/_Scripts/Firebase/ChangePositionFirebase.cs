@@ -10,25 +10,25 @@ namespace _Scripts.Firebase
 
         public void OnEnable()
         {
-           // if (ManagerFirebase.Instance == null) return;
+            if (ManagerFirebase.Instance == null) return;
             if (isPopupPosition)
             {
-               // ManagerFirebase.Instance.positionPopup = typePosition;
+                ManagerFirebase.Instance.positionPopup = typePosition;
             }
             else
             {
-               // ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
-               // ManagerFirebase.Instance.positionFirebase = typePosition;
+                ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
+                ManagerFirebase.Instance.positionFirebase = typePosition;
             }
             
         }
 
         public void OnDisable()
         {
-           // if (ManagerFirebase.Instance == null) return;
+            if (ManagerFirebase.Instance == null) return;
             if (isPopupPosition)
             {
-              //  ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
+                ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
             }
         }
     }
