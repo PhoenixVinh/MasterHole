@@ -57,7 +57,7 @@ namespace _Scripts.UI.PauseGameUI
             canSound = !canSound;
             if (ManagerSound.Instance != null)
             {
-                ManagerSound.Instance.SetSound(canSound);   
+                ManagerSound.Instance.SetSound(canSound, false);   
             }
             SetUI();
         }

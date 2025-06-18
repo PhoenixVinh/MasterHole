@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.Firebase;
 using _Scripts.UI;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -148,13 +149,13 @@ namespace _Scripts.Sound
             musicSouce.Stop();
         }
 
-        public void SetSound(bool value)
+        public void SetSound(bool value, bool isHome)
         {
             //canSound = value;
             //PlayerPrefs.SetInt(StringPlayerPrefs.USE_SOUND, value? 1 : 0);
             if (value)
             {
-                TurnOnBGMusic();
+                TurnOnBGMusic(isHome);
             }
             else
             {
@@ -169,18 +170,28 @@ namespace _Scripts.Sound
             DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Stop();
         }
 
-        public void TurnOnBGMusic()
+        public void TurnOnBGMusic(bool isHome)
         {
-            DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Play();
+
+            if (isHome)
+            {
+                ChangeBackgroundMusic(EnumBackgroundSound.HomeMusic);
+            }
+            else
+            {
+                ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
+            }
+            
+            //DictBackgroundMusic[EnumBackgroundSound.InGameMusic].Play();
         }
 
-        public void SetBGMusic(bool value)
+        public void SetBGMusic(bool value, bool isHome)
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.USE_BGMUSIC, value ? 1 : 0);
             this.canBgMusic = value;
             if (canBgMusic)
             {
-                TurnOnBGMusic();
+                TurnOnBGMusic(isHome);
             }
             else
             {

@@ -30,12 +30,42 @@ public class Item : MonoBehaviour
 
     public void SetPhysic()
     {
-        rb.isKinematic = false;
+        //transform.Translate(Vector3.down*0.0001f);
+        if (!isPhysic)
+        {
+            rb.isKinematic = false;
+            isPhysic = true;
+           
+          
+          
+            // for (int i = 0; i < transform.childCount; i++)
+            // {
+            //     transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
+            // }
+            // transform.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
+            //other.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
+            
+        }
+        gameObject.layer = LayerMask.NameToLayer("NoCollision");
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("NoCollision");
+        }
+        rb.WakeUp();
+
+        
+        
+            
         //rb.velocity = new Vector3(0, -0.1f, 0);
         // if (isPhysic) return;
         // StartCoroutine(FallSmoothly());
     }
 
+
+    public void SetWakeUpPhysic()
+    {
+        rb.WakeUp();
+    }
     // private IEnumerator FallSmoothly()
     // {
     //     while (!isPhysic)
@@ -58,38 +88,33 @@ public class Item : MonoBehaviour
     
     
 
-    private void OnTriggerEnter(Collider other)
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //
+    //     
+    //     Debug.Log(other.transform.parent.name);
+    //     
+    //     
+    //     if (!other.CompareTag("HoleBottom") || isGetScore) return;
+    //     
+    //     
+    //
+    //
+    // }
+
+    public void DestroyObject()
     {
-    
-        
-        
-        
-        
-        if (!other.CompareTag("HoleBottom") || isGetScore) return;
-        
-        if (ManagerSound.Instance != null)
-        {
-            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.EatItem);
-        }
-    
-        if (ManagerVibration.Instance != null)
-        {
-            ManagerVibration.Instance.UseVibration(EnumVibration.Light);
-        }
-    
-       
-                 
         isGetScore = true;      
         ItemEvent.OnAddScore?.Invoke(score);
         //SpawnItemMap.Instance.RemoveItem(gameObject);
-        TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
+        //TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
         ManagerMission.Instance.CheckMinusItems(gameObject.name, gameObject);
         
-        
-        StartCoroutine(DestroyCoroutine());
-    
-    
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        this.gameObject.SetActive(false);
+        //StartCoroutine(DestroyCoroutine());
     }
 
     

@@ -26,7 +26,6 @@ namespace _Scripts.Hole
             
         }
 
-
         public void FixedUpdate()
         {
             if (objectsToDestroy.Count > 0 && timeDelay >= 1)
@@ -42,7 +41,7 @@ namespace _Scripts.Hole
                         timeDelay = 0;
                     }
                 }
-                Debug.Log(objectsToDestroy.Count);
+            
             }
             else
             {

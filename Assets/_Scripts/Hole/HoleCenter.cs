@@ -6,22 +6,19 @@ using UnityEngine;
 
 
 
-public enum LayerMaskVariable
-{
-    Collision,
-    NoCollision,
-}
 
 
 public class HoleCenter : MonoBehaviour
 {
   
-    private Queue<Item> ItemQueue = new Queue<Item>(); // Hàng đợi lưu Rigidbody 
-    private float timer = 0.02f;
+    private Dictionary<GameObject, Item> ListObjects = new Dictionary<GameObject, Item>(); // Hàng đợi lưu Rigidbody 
+ 
     
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Item"))
+
+        other.transform.parent.transform.Translate(Vector3.down*0.0001f);
+        if (other.CompareTag("Item") && !ListObjects.ContainsKey(other.transform.parent.gameObject))
         {
             // var rb = other.transform.parent.GetComponent<Rigidbody>();
             // if (rb == null)
@@ -30,49 +27,19 @@ public class HoleCenter : MonoBehaviour
             // }
             //rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             var Item = other.GetComponentInParent<Item>();
-            //ItemQueue.Enqueue(Item);
-         
-            other.transform.parent.Translate(Vector3.down*0.0001f);
-            other.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
-            other.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
+            ListObjects.Add(other.transform.parent.gameObject, Item);
             Item.SetPhysic();
             //rb.isKinematic = false;
             //StartCoroutine(ProcessQueue());
           
         }
+
+        ListObjects[other.transform.parent.gameObject].SetWakeUpPhysic();
     }
 
-    private void FixedUpdate()
-    {
-        if (ItemQueue.Count > 0 && timer > 0.02)
-        {
-
-            for (int i = 0; i <= 5; i++)
-            {
-                if (ItemQueue.Count > 0)
-                {
-                    var rb = ItemQueue.Dequeue();
-                    if (rb != null)
-                    {
-                        rb.SetPhysic();
-                    }
-                }
-
-                break;
-                // Tối ưu hóa Rigidbody
-
-            }
-                
-          
-            timer = 0;
-
-        }
-        else
-        {
-            timer += Time.fixedDeltaTime;
-        }
+ 
         
-    }
+  
 
 
     // IEnumerator ProcessQueue()
@@ -83,10 +50,11 @@ public class HoleCenter : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Item") && ListObjects.ContainsKey(other.transform.parent.gameObject))
         {
-            other.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.Collision.ToString());
-            other.transform.parent.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.Collision.ToString());
+            other.gameObject.layer = LayerMask.NameToLayer("Collision");
+            other.transform.parent.gameObject.layer = LayerMask.NameToLayer("Collision");
+            ListObjects.Remove(other.transform.parent.gameObject);
         }
     }
 }
