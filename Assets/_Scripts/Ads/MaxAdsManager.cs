@@ -45,8 +45,9 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration config) =>
         {
             Debug.Log("AppLovin SDK Initialized");
-            
-            MaxSdk.SetCreativeDebuggerEnabled(true);
+            int IsTest = PlayerPrefs.GetInt(StringPlayerPrefs.ISTESTGAME, 0);
+            if(IsTest == 1)
+                MaxSdk.SetCreativeDebuggerEnabled(true);
             //MaxSdk.ShowCreativeDebugger();
             InitializeBannerAds();
             InitializeInterstitialAds();
