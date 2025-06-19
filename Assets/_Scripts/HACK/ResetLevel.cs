@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Booster;
 using _Scripts.Event;
 using _Scripts.Sound;
 using _Scripts.UI;
@@ -22,6 +23,15 @@ namespace _Scripts.HACK
             PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, DateTime.Now.ToString());
             PlayerPrefs.SetInt(StringPlayerPrefs.REMOVED_ADS_PACK, 0);
             PlayerPrefs.SetInt(StringPlayerPrefs.STARTER_DEAL_PACK, 0);
+            var boosterDatas = JsonUtility.FromJson<BoosterDatas>(PlayerPrefs.GetString(StringPlayerPrefs.BOOSTER_DATA));
+            foreach (var item in boosterDatas.Boosters)
+            {
+                item.Amount = 0;
+            }
+            String convert = JsonUtility.ToJson(boosterDatas);
+            PlayerPrefs.SetString(StringPlayerPrefs.BOOSTER_DATA, convert);
+            
+            
             Resource.Instance.AddMaxHealth();
             Resource.Instance.AddMaxCoin();
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);

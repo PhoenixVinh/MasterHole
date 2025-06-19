@@ -15,6 +15,7 @@ public class ManagerWinLoss : MonoBehaviour
     private bool isLevelCoint = false;
 
     public GameObject settings;
+    public GameObject shop;
    
     public void OnEnable()
     {
@@ -55,28 +56,33 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
-       // ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
-        settings.SetActive(false);
+        if (LoseUI.activeSelf) return;
+        ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
+        
         await Task.Delay(1000);
         ManagerSound.Instance?.StopAllSoundSFX();
         
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
+        ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
         WinUI.GetComponent<WinUI>().SetData(75);
+        settings.SetActive(false);
+        shop.SetActive(false);
         
        
     }
     private async void ShowUILoss()
     {
    
-        
+        await Task.Delay(1000);
         ManagerSound.Instance?.StopAllSoundSFX();
-        settings.SetActive(false);
+        
         if (isLevelCoint)
         {
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();
             WinUI.GetComponent<WinUI>().SetData(coinGet);
+            settings.SetActive(false);
             //LevelCoinUI.SetActive(true);
             //int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
             //PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
@@ -92,6 +98,8 @@ public class ManagerWinLoss : MonoBehaviour
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.FailedLevel);
         
         LoseUI.SetActive(true);
+        settings.SetActive(false);
+        shop.SetActive(false);
     }
 
    

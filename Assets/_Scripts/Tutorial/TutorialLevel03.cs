@@ -34,7 +34,7 @@ namespace _Scripts.Tutorial
         public virtual void FreeBooster()
         {
             ManagerBooster.Instance.ChangeAmountBooster(0,1);
-            //ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(0), "1", Reson.reward);
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(0), "1", Reson.reward);
             this.gameObject.SetActive(false);
             boosterUI.UseSpecialSkill();
             

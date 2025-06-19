@@ -105,8 +105,19 @@ namespace Coffee.UIExtensions
 		{
 			graphic.material = effectMaterial;
 			base.OnEnable();
+			//StartCoroutine(PlayEffectCoroutine());
 			InvokeRepeating(nameof(Play),3f,3f);
 			//Play();
+		}
+
+		private IEnumerator PlayEffectCoroutine()
+		{
+			while (true)
+			{
+				yield return new  WaitForSecondsRealtime(2f);
+				Play(-1);
+			}
+			
 		}
 
 		/// <summary>
@@ -116,6 +127,7 @@ namespace Coffee.UIExtensions
 		{
 			graphic.material = null;
 			base.OnDisable();
+			CancelInvoke();
 		}
 
 #if UNITY_EDITOR

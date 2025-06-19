@@ -37,7 +37,7 @@ namespace _Scripts.Hole
         private void FixedUpdate()
         {
             
-            CheckCanMove();
+            //CheckCanMove();
             if (canMove)
             {
                Vector3 newPos  = transform.position +  new  Vector3(_movementDirection.x, 0, _movementDirection.y) * _speedMovement*Time.deltaTime;
@@ -135,21 +135,21 @@ namespace _Scripts.Hole
         }
 
       
-
-        public void OnDrawGizmosSelected()
-        {
-            Vector3 directionNormalized = new Vector3(_movementDirection.x, 0, _movementDirection.y).normalized;
-           
-            
-            // Calculate Max Position Can reach 
-            Vector3 newCircleCenter = new Vector3(transform.position.x, 0, transform.position.z) +directionNormalized;
-            
-            newCircleCenter.y = 0;
-            // Vector3 checkpointPosition = newCircleCenter + directionNormalized*HoleController.Instance.GetCurrentRadius();
-            // checkpointPosition.y = 0;
-            
-            
-            Gizmos.DrawSphere(newCircleCenter, 2f);
-        }
+        //
+        // public void OnDrawGizmosSelected()
+        // {
+        //     Vector3 directionNormalized = new Vector3(_movementDirection.x, 0, _movementDirection.y).normalized;
+        //    
+        //     
+        //     // Calculate Max Position Can reach 
+        //     Vector3 newCircleCenter = new Vector3(transform.position.x, 0, transform.position.z) +directionNormalized;
+        //     
+        //     newCircleCenter.y = 0;
+        //     // Vector3 checkpointPosition = newCircleCenter + directionNormalized*HoleController.Instance.GetCurrentRadius();
+        //     // checkpointPosition.y = 0;
+        //     
+        //     
+        //     Gizmos.DrawSphere(newCircleCenter, 2f);
+        // }
     }
 }

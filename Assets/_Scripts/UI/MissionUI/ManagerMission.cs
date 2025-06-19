@@ -22,11 +22,17 @@ namespace _Scripts.UI.MissionUI
         
         public Dictionary<string, Mission> TypeItems = new Dictionary<string, Mission>();
 
+        
+        private List<GameObject> MissionItems = new List<GameObject>();
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
             }
          
 
@@ -56,16 +62,20 @@ namespace _Scripts.UI.MissionUI
         }
 
 
-        public void CheckMinusItems(string itemType)
+        public void CheckMinusItems(string itemType, GameObject item)
         {
 
            
-            
             if (!TypeItems.ContainsKey(itemType))
             {
                
                 return;
             }
+            if (MissionItems.Contains(item))
+            {
+                MissionItems.Remove(item);
+            }
+            
             TypeItems[itemType].MinusItem();
             
             if (TypeItems[itemType].IsDone())
@@ -104,7 +114,10 @@ namespace _Scripts.UI.MissionUI
         }
         
         
-        public Dictionary<string, int> GetSuggestItems(int amount)
+        
+        
+        
+        public List<GameObject> GetSuggestItems(int amount)
         {
             Dictionary<string, int > results = new Dictionary<string, int >();
             
@@ -140,12 +153,39 @@ namespace _Scripts.UI.MissionUI
                     }
                 }
             }
-            return results;
+            
+            
+            List<GameObject> resultGameObjects = new List<GameObject>();
+            foreach (var item in results)
+            {
+                HashSet<int> postions = new HashSet<int>();
+                for (int i = 0; i < item.Value; i++)
+                {
+                    int indexRandom2 = Random.Range(0, MissionItems.Count);
+                    while (postions.Contains(indexRandom))
+                    {
+                        indexRandom = Random.Range(0, MissionItems.Count);
+                    }
+                    postions.Add(indexRandom);
+                    
+                   
+                    
+                }
+
+                foreach (var postion in postions)
+                {
+                    resultGameObjects.Add(MissionItems[postion]);
+                }
+            }
+            
+            return resultGameObjects;
+            
         }
 
         public void SetData(MissionSO  mission)
         {
             this.MissionsSO = mission;
+            
             CreateMissions();
         }
 
@@ -164,5 +204,25 @@ namespace _Scripts.UI.MissionUI
             }
             return result;
         }
+
+        public List<string> GetNameMission()
+        {
+            List<string> result = new List<string>();
+            foreach (var typeItem in TypeItems)
+            {
+                result.Add(typeItem.Key);
+            }
+            return result;
+
+        }
+
+
+        public void SetITemMissions(List<GameObject> missionItems)
+        {
+            this.MissionItems = missionItems;
+        }
+        
+        
+        
     }
 }

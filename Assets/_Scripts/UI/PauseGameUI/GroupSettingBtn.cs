@@ -8,7 +8,7 @@ namespace _Scripts.UI.PauseGameUI
 {
     public class GroupSettingBtn : MonoBehaviour
     {
-        
+        public bool isHome = true;
         public ChangeStatusBtnSettingsUI BgMusicBtn;
         public ChangeStatusBtnSettingsUI sfxSoundBtn;
         public ChangeStatusBtnSettingsUI vibrationBtn;
@@ -52,7 +52,7 @@ namespace _Scripts.UI.PauseGameUI
             canBgMusic = !canBgMusic;
             if (ManagerSound.Instance != null)
             {
-                ManagerSound.Instance.SetBGMusic(canBgMusic);   
+                ManagerSound.Instance.SetBGMusic(canBgMusic, isHome);   
             }
             BgMusicBtn.SetActive(canBgMusic);
            

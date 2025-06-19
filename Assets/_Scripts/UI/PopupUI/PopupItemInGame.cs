@@ -45,15 +45,18 @@ namespace _Scripts.UI.PopupUI
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, getcurrentCoint);
                 PlayerPrefs.Save();
                
-               // ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.exchange);
+                ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(this.indexSpecialSkill), "3", Reson.exchange);
                 this.gameObject.SetActive(false);
                 
-               // ManagerFirebase.Instance?.LogSpendResource(ResourceType.currency,Utills.GetBoosterNameByIndex(this.indexSpecialSkill), price.ToString(), Reson.exchange );
+                ManagerFirebase.Instance?.LogSpendResource(ResourceType.currency,Utills.GetBoosterNameByIndex(this.indexSpecialSkill), price.ToString(), Reson.exchange );
                 // Buy Item
             }
             else
             {
-                MessagePooling.Instance.SpawnMessage(buyButton.transform.position, Utills.NOT_ENOUGH_COIN);
+                //ManagerWinLoss
+                this.gameObject.SetActive(false);
+                UIManager.Instance.ShowShop();
+                //MessagePooling.Instance.SpawnMessage(buyButton.transform.position, Utills.NOT_ENOUGH_COIN);
                 return;
             }
             
@@ -63,7 +66,7 @@ namespace _Scripts.UI.PopupUI
         {
             
             buyButton.onClick.RemoveAllListeners();
-           // ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
+            ManagerFirebase.Instance.positionPopup = PositionFirebase.none;
             base.OnDisable();
             
         }

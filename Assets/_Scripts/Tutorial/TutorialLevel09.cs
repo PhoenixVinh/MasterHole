@@ -10,7 +10,7 @@ namespace _Scripts.Tutorial
         {
             
             ManagerBooster.Instance.ChangeAmountBooster(3,1);
-          //  ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(3), "1", Reson.reward);
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.booster, Utills.GetBoosterNameByIndex(3), "1", Reson.reward);
             this.gameObject.SetActive(false);
             boosterUI.UseSpecialSkill();
            

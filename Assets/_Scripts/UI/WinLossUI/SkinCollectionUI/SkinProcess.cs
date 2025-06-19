@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.Sound;
 using _Scripts.UI.HoleSkinUI;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         public Button Continue;
         public SkinMains skinMains;
         private bool isSkinMainsActive = false;
+        public Button equipNow;
         int currentLevel = 0;
         int targetSkin = 0;
         public void OnEnable()
@@ -33,10 +35,23 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
 
           
             
-            StartCoroutine((UpdatePercentage(currentLevel - baseLevel, targetLevel-baseLevel, items[targetSkin - 1].image)));
+            StartCoroutine((UpdatePercentage(currentLevel, targetLevel, items[targetSkin - 1].image)));
             Continue.onClick.AddListener(ChangeNextGame);
+            equipNow.onClick.AddListener(EquipSkin); 
         }
 
+        
+        
+        public void EquipSkin()
+        {
+        
+            PlayerPrefs.SetInt(StringPlayerPrefs.HOLESKININDEX, targetSkin);
+            PlayerPrefs.Save();
+            this.gameObject.SetActive(false);
+            ManagerLevelGamePlay.Instance.LoadNextLevel();
+            //this.EquipButton.gameObject.SetActive(false);
+       
+        }
 
         public void OnDisable()
         {
@@ -86,15 +101,18 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         private IEnumerator UpdatePercentage(int currentLevel, int target, Image image)
         {
             float elapsedTime = 0f;
-            float startPercentage = 0f;
+            float startPercentage = (float)(currentLevel - 2) / target * 100f;
             float endPercentage = (float)(currentLevel - 1) / target * 100f; // Tính phần trăm
             if (endPercentage > 99f)
             {
                 isSkinMainsActive = true;
+                equipNow.gameObject.SetActive(true);
             }
             else
             {
                 isSkinMainsActive = false;
+                equipNow.gameObject.SetActive(false);
+                
             }
             while (elapsedTime < duration)
             {
@@ -103,6 +121,11 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
                 text.text = $"{Mathf.RoundToInt(percentage)}%"; // Cập nhật text với giá trị làm tròn
                 image.fillAmount = percentage / 100;
                 yield return null; // Chờ frame tiếp theo
+            }
+
+            if (endPercentage > 99f)
+            {
+                ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.CompleteHole);
             }
 
             // Đảm bảo giá trị cuối cùng chính xác
