@@ -14,10 +14,10 @@ public class HoleCenter : MonoBehaviour
     private Dictionary<GameObject, Item> ListObjects = new Dictionary<GameObject, Item>(); // Hàng đợi lưu Rigidbody 
  
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
 
-        other.transform.parent.transform.Translate(Vector3.down*0.0001f);
+        
         if (other.CompareTag("Item") && !ListObjects.ContainsKey(other.transform.parent.gameObject))
         {
             // var rb = other.transform.parent.GetComponent<Rigidbody>();
@@ -33,7 +33,7 @@ public class HoleCenter : MonoBehaviour
             //StartCoroutine(ProcessQueue());
           
         }
-
+        //other.transform.parent.transform.Translate(Vector3.down * 0.0001f);
         ListObjects[other.transform.parent.gameObject].SetWakeUpPhysic();
     }
 

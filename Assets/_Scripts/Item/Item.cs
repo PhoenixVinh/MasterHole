@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
 
     public void SetPhysic()
     {
-        //transform.Translate(Vector3.down*0.0001f);
+        
         if (!isPhysic)
         {
             rb.isKinematic = false;
@@ -64,6 +64,7 @@ public class Item : MonoBehaviour
 
     public void SetWakeUpPhysic()
     {
+        transform.Translate(Vector3.down*0.0001f);
         rb.WakeUp();
     }
     // private IEnumerator FallSmoothly()
@@ -107,7 +108,7 @@ public class Item : MonoBehaviour
         isGetScore = true;      
         ItemEvent.OnAddScore?.Invoke(score);
         //SpawnItemMap.Instance.RemoveItem(gameObject);
-        //TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
+        TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
         ManagerMission.Instance.CheckMinusItems(gameObject.name, gameObject);
         

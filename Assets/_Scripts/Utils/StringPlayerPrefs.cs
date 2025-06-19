@@ -69,7 +69,10 @@ namespace _Scripts.UI
         
         // Counting Booster Uses
         public static string COUNT_USE_BOOSTER_ICE  = "UseBoosterIce";
-        
+
+
+        // Hack Game 
+        public static string ISTESTGAME = "IsTestGame";
         
     }
 }

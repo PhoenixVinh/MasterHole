@@ -1,5 +1,19 @@
 <dependencies>
   <packages>
+    <package>androidx.recyclerview:recyclerview:1.2.1</package>
+    <package>com.android.support:customtabs:28.+</package>
+    <package>com.android.support:recyclerview-v7:28.+</package>
+    <package>com.applovin.mediation:bytedance-adapter:7.2.0.6.0</package>
+    <package>com.applovin.mediation:facebook-adapter:[6.20.0.0]</package>
+    <package>com.applovin.mediation:fyber-adapter:8.3.7.0</package>
+    <package>com.applovin.mediation:google-adapter:[24.4.0.0]</package>
+    <package>com.applovin.mediation:google-ad-manager-adapter:[24.4.0.0]</package>
+    <package>com.applovin.mediation:inmobi-adapter:10.8.3.1</package>
+    <package>com.applovin.mediation:ironsource-adapter:8.9.1.0.0</package>
+    <package>com.applovin.mediation:mintegral-adapter:16.9.71.0</package>
+    <package>com.applovin.mediation:moloco-adapter:3.10.0.0</package>
+    <package>com.applovin.mediation:mytarget-adapter:5.27.1.2</package>
+    <package>com.applovin.mediation:unityads-adapter:4.15.0.1</package>
     <package>com.applovin:applovin-sdk:13.0.1</package>
     <package>com.google.android.gms:play-services-base:18.3.0</package>
     <package>com.google.firebase:firebase-analytics:21.5.1</package>
@@ -10,6 +24,7 @@
     <package>com.google.firebase:firebase-config-unity:11.8.0</package>
     <package>com.google.firebase:firebase-crashlytics-ndk:18.6.2</package>
     <package>com.google.firebase:firebase-crashlytics-unity:11.8.0</package>
+    <package>com.squareup.picasso:picasso:2.71828</package>
   </packages>
   <files>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/11.8.0/firebase-analytics-unity-11.8.0.aar</file>
