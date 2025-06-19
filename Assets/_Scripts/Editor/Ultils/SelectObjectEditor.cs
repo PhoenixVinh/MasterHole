@@ -79,6 +79,7 @@ namespace _Scripts.Editor.Ultils
                                 $"Name: {child.id}\nPosition: {index}",
                                 "OK"
                             );
+                            //Application.
                         }
                         index++;
                        
