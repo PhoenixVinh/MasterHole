@@ -37,7 +37,7 @@ namespace _Scripts.Hole
         private void FixedUpdate()
         {
             
-            //CheckCanMove();
+            CheckCanMove();
             if (canMove)
             {
                Vector3 newPos  = transform.position +  new  Vector3(_movementDirection.x, 0, _movementDirection.y) * _speedMovement*Time.deltaTime;

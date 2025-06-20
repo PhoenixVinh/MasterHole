@@ -22,6 +22,9 @@ public class MaxAdsManager : MonoBehaviour
     private DateTime timeLoadInter;
     private DateTime timeLoadRewarded;
     public bool isDoneBanner;
+
+    public bool isRemoveInter = false;
+    public bool isRemoveAds = false;
     private void Awake()
     {
         if (Instance == null)
@@ -30,10 +33,14 @@ public class MaxAdsManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
 
+     
+
         else
         {
             Destroy(this);
         }
+        isRemoveInter = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_PACK, 0) == 1;
+        isRemoveAds = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_VIP, 0) == 1;
     }
         
 
@@ -87,6 +94,8 @@ public class MaxAdsManager : MonoBehaviour
 
     public async void ShowBannerAd()
     {
+        if (isRemoveAds) return;
+        
         isDoneBanner = false;
         MaxSdk.ShowBanner(bannerAdUnitId);
         Utills.DelayUntil(() =>
@@ -143,7 +152,7 @@ public class MaxAdsManager : MonoBehaviour
     
     public void ShowInterstitialAd(Action callback = null)
     {
-        
+        if (isRemoveAds || isRemoveInter) return;
         if (MaxSdk.IsInterstitialReady(interstitialAdUnitId))
         {
             timeLoadInter = DateTime.Now;
@@ -191,6 +200,7 @@ public class MaxAdsManager : MonoBehaviour
 
     public void ShowRewardedAd(Action callback = null)
     {
+        if (isRemoveAds) return;
         timeLoadRewarded = DateTime.Now;
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {

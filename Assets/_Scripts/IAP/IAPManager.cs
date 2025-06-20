@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.Event;
+using _Scripts.Firebase;
 using _Scripts.IAP;
 using _Scripts.UI;
+using _Scripts.UI.HomeSceneUI.ShopUI.TreasureUI;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
@@ -9,13 +12,30 @@ using UnityEngine.Purchasing.Security;
 
 public class IAPManager : MonoBehaviour, IDetailedStoreListener
 {
-  
+    
+    
+    
     IStoreController m_StoreController; // The Unity Purchasing system.
 
     public List<PackGold> packs;
     //Your products IDs. They should match the ids of your products in your store.
+    public RewardManager rewardManager;
 
-    
+    public void OnEnable()
+    {
+        UIEvent.OnRewardedSuccess += PlayAnim;
+    }
+
+    public void OnDisable()
+    {
+        UIEvent.OnRewardedSuccess -= PlayAnim;
+    }
+    private void PlayAnim(List<DataReward> datas)
+    {
+        rewardManager.SetData(datas);
+    }
+
+
     void Start()
     {
         InitializePurchasing();
@@ -60,6 +80,8 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     {
         Debug.Log("In-App Purchasing successfully initialized");
         m_StoreController = controller;
+        
+        
     }
 
     public void OnInitializeFailed(InitializationFailureReason error)
@@ -83,6 +105,11 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     {
         //Retrieve the purchased product
         var product = args.purchasedProduct;
+        
+        
+        ManagerFirebase.Instance?.LogIAP_Purchase(ShowType.shop, product.definition.id,
+            (double)args.purchasedProduct.metadata.localizedPrice,
+            args.purchasedProduct.metadata.isoCurrencyCode);
 
         //Add the purchased product to the players inventory
         if (product.definition.id == StringKeyIAP.STARTER_DEAL)
@@ -181,13 +208,13 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
 
         int removeAds = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_PACK);
         int startDeal = PlayerPrefs.GetInt(StringPlayerPrefs.STARTER_DEAL_PACK);
-
+        int removeAdsVip = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_VIP);
         if (startDeal == 1)
         {
             packs[0].gameObject.SetActive(false);
         }
 
-        if (removeAds == 1)
+        if (removeAds == 1 || removeAdsVip == 1)
         {
             packs[packs.Count - 1].gameObject.SetActive(false);
         }
@@ -199,66 +226,82 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     public void BuyStartDeal()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.STARTER_DEAL);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.STARTER_DEAL);
     }
 
     public void BuyCommonPack()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COMMON_PACK);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COMMON_PACK);
     }
 
     public void BuyNormalPack()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.NORMAL_PACK);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.NORMAL_PACK);
     }
 
     public void BuyRarePack()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.RARE_PACK);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.RARE_PACK);
+            
     }
 
     public void BuyEpicPack()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.EPIC_PACK);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.EPIC_PACK);
     }
 
     public void BuyLegendaryPack()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.LEGENDARY_PACK);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.LEGENDARY_PACK);
     }
 
     public void BuyCoinFew()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COIN_FEW);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COIN_FEW);
     }
 
     public void BuyCoinBag()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COIN_BAG);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COIN_BAG);
     }
 
     public void BuyCoinPile()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COIN_PILE);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COIN_PILE);
+            
     }
 
     public void BuyCoinBox()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COIN_BOX);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COIN_BOX);
+        
     }
 
     public void BuyCoinChest()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COIN_CHEST);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COIN_CHEST);
     }
 
     public void BuyCoinVault()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.COIN_VAULT);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.COIN_VAULT);
     }
 
     public void BuyRemoveAds()
     {
         m_StoreController.InitiatePurchase(StringKeyIAP.REMOVE_ADS);
+        ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.REMOVE_ADS);
     }
     
     

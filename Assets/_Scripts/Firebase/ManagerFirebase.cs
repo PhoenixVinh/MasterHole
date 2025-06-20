@@ -255,7 +255,7 @@ namespace _Scripts.Firebase
                 Debug.Log("Log Event Fail");
                 return;
             }
-            Debug.Log("Log Event Success");
+      
             string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
             
             
@@ -273,7 +273,56 @@ namespace _Scripts.Firebase
             );
 
         }
-        
+
+
+        public void LogIAP_Click(ShowType showtype, string packname)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+            string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
+            
+            
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.iap_click.ToString(),
+                new Parameter("placement", pos),
+                new Parameter("show_type", showtype.ToString()),
+                new Parameter("pack_name", packname)
+                
+              
+              
+                
+                
+            );
+        }
+
+        public void LogIAP_Purchase(ShowType showtype,string packname, double price, string currency)
+        {
+            if (!firebaseInitial.firebaseInitialized)
+            {
+                Debug.Log("Log Event Fail");
+                return;
+            }
+            Debug.Log("Log Event Success");
+            string pos = positionPopup != PositionFirebase.none ? positionPopup.ToString() : positionFirebase.ToString();
+            
+            
+            FirebaseAnalytics.LogEvent(
+                EnumValueFirebase.iap_purchase.ToString(),
+                new Parameter("placement", pos),
+                new Parameter("show_type", showtype.ToString()),
+                new Parameter("pack_name", packname),
+                new Parameter("price", price),
+                new Parameter("currency", currency)
+              
+              
+                
+                
+            );
+        }
 
         public string GetPlacement(string key)
         {

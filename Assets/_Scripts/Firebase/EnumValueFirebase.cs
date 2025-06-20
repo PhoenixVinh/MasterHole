@@ -122,6 +122,12 @@ namespace _Scripts.Firebase
         quit,
         done
     }
+
+    public enum ShowType
+    {
+        shop,
+        pack
+    }
     
     
 }

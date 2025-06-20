@@ -93,7 +93,7 @@ namespace _Scripts.Map.MapSpawnItem
             else
             {
                 int mapIndex = (PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1)/15) %3 + 1;
-                Debug.Log(mapIndex);
+              
                 GameObject loadMap = Resources.Load<GameObject>($"Map/Prefab/Map_0{mapIndex}");
                 
                 map = Instantiate(loadMap, this.mapPosition, Quaternion.identity);
