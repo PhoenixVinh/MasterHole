@@ -124,7 +124,7 @@ public class Item : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (gameObject != null){
             rb.isKinematic = true;
-            rb.useGravity = false;
+            //rb.useGravity = false;
             CleanGradeManager.Instance?.AddObject(gameObject);
         }
         

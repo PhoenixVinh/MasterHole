@@ -158,6 +158,7 @@ namespace _Scripts.Map.MapSpawnItem
                     if (dataspawn.kinematic)
                     {
                         itemSpawn.GetComponent<Rigidbody>().isKinematic = true;
+                        //itemSpawn.GetComponent<Rigidbody>().useGravity = false;
                     }
     
                     Item itemType =  itemSpawn.AddComponent<Item>();

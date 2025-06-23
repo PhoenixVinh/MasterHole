@@ -25,7 +25,7 @@ namespace _Scripts.Hole
         
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.transform.parent.name);
+          
         
             if (other.CompareTag("Item") && !Items.Contains(other.transform.parent.gameObject))
             {
