@@ -12,41 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2161d8b5e8741a2a4416a9e99e36ad4, type: 3}
   m_Name: DataLevel_32
   m_EditorClassIdentifier: 
-  levelSpawnData: {fileID: 11400000, guid: 72b098c79f225a141a27788d9576c5a7, type: 2}
+  levelSpawnData: {fileID: 11400000, guid: 1416bdcdfb009f3468d8d29f93f383aa, type: 2}
   missionData: {fileID: 11400000, guid: 79a9d43daae5632448378cdb79b61cfe, type: 2}
   timeToComplete: 200
   ScoreDatas:
-  - itemName: food_15
-    score: 3
-  - itemName: food_215
+  - itemName: food_4
+    score: 1
+  - itemName: food_9
+    score: 1
+  - itemName: food_10
     score: 2
+  - itemName: food_14
+    score: 1
+  - itemName: food_15
+    score: 1
+  - itemName: food_16
+    score: 2
+  - itemName: food_17
+    score: 2
+  - itemName: food_122
+    score: 1
+  - itemName: food_136
+    score: 1
+  - itemName: food_187
+    score: 1
+  - itemName: food_215
+    score: 1
+  - itemName: food_216
+    score: 1
+  - itemName: food_219
+    score: 2
+  - itemName: food_199
+    score: 3
+  - itemName: food_466
+    score: 1
+  - itemName: food_484
+    score: 1
+  - itemName: food_486
+    score: 1
+  - itemName: food_487
+    score: 1
+  - itemName: food_501
+    score: 1
+  - itemName: food_515
+    score: 1
+  - itemName: food_221
+    score: 1
   - itemName: food_546
     score: 1
-  - itemName: food_184
+  - itemName: food_548
     score: 1
-  - itemName: food_132
+  - itemName: food_13
+    score: 1
+  - itemName: food_50
     score: 3
-  - itemName: food_553
-    score: 2
-  - itemName: food_541
-    score: 2
-  - itemName: food_9
-    score: 3
-  - itemName: food_487
-    score: 5
-  - itemName: food_10
-    score: 3
-  - itemName: food_195
-    score: 5
-  - itemName: food_187
-    score: 5
-  - itemName: food_17
-    score: 4
-  - itemName: food_212
-    score: 2
-  - itemName: food_197
-    score: 4
-  - itemName: food_207
-    score: 5
-  mapPosition: {x: 0, y: -11, z: 13.52}
-  mapScale: {x: 11000, y: 10000, z: 11000}
+  - itemName: food_51
+    score: 1
+  - itemName: food_52
+    score: 1
+  mapPosition: {x: -0.7, y: -11, z: 25.4}
+  mapScale: {x: 12000, y: 10000, z: 12000}
