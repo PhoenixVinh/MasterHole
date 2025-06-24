@@ -24,18 +24,20 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         int targetSkin = 0;
         public void OnEnable()
         {
-            currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL,1);
             targetSkin = GetTarget(currentLevel);
             TurnOffAllSkin();
-
-
+            
+            targetSkin = targetSkin >= 1 ? targetSkin : 1; // Ensure targetSkin is at least 1
+    
+    
             items[targetSkin - 1].gameObject.SetActive(true);
             int targetLevel = skin.skins[targetSkin].levelUnlock;
             int baseLevel = skin.skins[targetSkin - 1].levelUnlock;
 
           
             
-            StartCoroutine((UpdatePercentage(currentLevel, targetLevel, items[targetSkin - 1].image)));
+            StartCoroutine((UpdatePercentage(baseLevel,currentLevel, targetLevel, items[targetSkin - 1].image)));
             Continue.onClick.AddListener(ChangeNextGame);
             equipNow.onClick.AddListener(EquipSkin); 
         }
@@ -98,11 +100,12 @@ namespace _Scripts.UI.WinLossUI.SkinCollectionUI
         }
         
         
-        private IEnumerator UpdatePercentage(int currentLevel, int target, Image image)
+        private IEnumerator UpdatePercentage(int baseLevel, int currentLevel, int target, Image image)
         {
+            image.fillAmount = 0;
             float elapsedTime = 0f;
-            float startPercentage = (float)(currentLevel - 2) / target * 100f;
-            float endPercentage = (float)(currentLevel - 1) / target * 100f; // Tính phần trăm
+            float startPercentage = (float)( currentLevel - 2 - baseLevel) / (target-baseLevel) * 100f;
+            float endPercentage = (float)(currentLevel - 1 - baseLevel) / (target-baseLevel) * 100f; // Tính phần trăm
             if (endPercentage > 99f)
             {
                 isSkinMainsActive = true;

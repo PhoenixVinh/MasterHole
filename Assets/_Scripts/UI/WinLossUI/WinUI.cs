@@ -43,7 +43,7 @@ namespace _Scripts.UI.WinLossUI
             particle.Play();
             base.OnEnable();
             coinText.text = $"{coinGet}";
-            int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
+            int coin = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN,900);
             coin += coinGet;
             text.text = $"{coin}";
             ManagerFirebase.Instance?.LogEarnResource(ResourceType.currency, ResourceName.Coin.ToString(),
@@ -55,6 +55,12 @@ namespace _Scripts.UI.WinLossUI
 
             StartCoroutine(DelayAppearButton());
             homeBtn.onClick.AddListener(ChangeHomeScene);
+
+
+            if (!PlayerPrefs.HasKey(StringPlayerPrefs.CURRENT_LEVEL))
+            {
+                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+            }
             int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
           
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel+1);

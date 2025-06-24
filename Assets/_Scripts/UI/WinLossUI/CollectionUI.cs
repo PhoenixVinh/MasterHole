@@ -36,7 +36,7 @@ namespace _Scripts.UI.WinLossUI
             homeBtn.onClick.AddListener(ChangeHomeScene);
         }
 
-
+        
         public bool CanShowContent(int level)
         {
 
@@ -79,7 +79,7 @@ namespace _Scripts.UI.WinLossUI
         private void ShowNextlevel()
         {
 
-            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
+            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
             
             this.content.SetActive(false);
             if (SkinProcess.GetTarget(currentLevel) != -1)
@@ -88,7 +88,7 @@ namespace _Scripts.UI.WinLossUI
             }
             else
             {
-                ManagerLevelGamePlay.Instance.LoadNextLevel();
+                ManagerLevelGamePlay.Instance?.LoadNextLevel();
             }
            
            

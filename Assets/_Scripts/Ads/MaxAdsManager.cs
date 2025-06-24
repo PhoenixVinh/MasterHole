@@ -48,7 +48,14 @@ public class MaxAdsManager : MonoBehaviour
 
     void Start()
     {
-        // Khởi tạo AppLovin SDK
+        
+      
+        
+    }
+
+
+    public void InitAds()
+    {
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration config) =>
         {
             Debug.Log("AppLovin SDK Initialized");

@@ -18,6 +18,8 @@ public class HoleCenter : MonoBehaviour
     {
 
         
+        //Debug.Log(other.gameObject.parent.name);
+        
         if (other.CompareTag("Item") && !ListObjects.ContainsKey(other.transform.parent.gameObject))
         {
             // var rb = other.transform.parent.GetComponent<Rigidbody>();
@@ -33,8 +35,9 @@ public class HoleCenter : MonoBehaviour
             //StartCoroutine(ProcessQueue());
           
         }
+        if(ListObjects.ContainsKey(other.transform.parent.gameObject))
         //other.transform.parent.transform.Translate(Vector3.down * 0.0001f);
-        ListObjects[other.transform.parent.gameObject].SetWakeUpPhysic();
+            ListObjects[other.transform.parent.gameObject].SetWakeUpPhysic();
     }
 
  
