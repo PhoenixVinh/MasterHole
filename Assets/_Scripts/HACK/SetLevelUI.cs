@@ -9,7 +9,7 @@ namespace _Scripts.HACK
     public class SetLevelUI : MonoBehaviour
     {
         public TMP_InputField inputField;
-        public Button setButton;
+     
 
 
         public void OnEnable()
@@ -19,12 +19,14 @@ namespace _Scripts.HACK
                 PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
             }
             inputField.text = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1).ToString();
-            setButton.onClick.AddListener(SetLevelPlayer);
+          
         }
 
-        private void SetLevelPlayer()
+        public void SetLevelPlayer()
         {
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, int.Parse(inputField.text));
         }
+
+        
     }
 }

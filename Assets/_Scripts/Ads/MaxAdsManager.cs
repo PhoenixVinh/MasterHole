@@ -25,6 +25,9 @@ public class MaxAdsManager : MonoBehaviour
 
     public bool isRemoveInter = false;
     public bool isRemoveAds = false;
+
+
+    private bool isInitMax = false;
     private void Awake()
     {
         if (Instance == null)
@@ -49,13 +52,13 @@ public class MaxAdsManager : MonoBehaviour
     void Start()
     {
         
-      
-        
     }
 
 
     public void InitAds()
     {
+        if (isInitMax) return;
+        
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration config) =>
         {
             Debug.Log("AppLovin SDK Initialized");
@@ -70,6 +73,7 @@ public class MaxAdsManager : MonoBehaviour
 
         MaxSdk.SetSdkKey(SDK_KEY);
         MaxSdk.InitializeSdk();
+        isInitMax = true;
     }
     
     private void InitializeBannerAds()

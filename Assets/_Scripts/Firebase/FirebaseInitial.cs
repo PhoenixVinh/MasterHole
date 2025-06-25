@@ -27,6 +27,10 @@ public class FirebaseInitial : MonoBehaviour
     public int CapingTime_Inter = 0;
     public int Level_Show_Banner = 0;
     
+    
+    public int cmp_begin = 15;
+    public int cmp_distance = 5;
+    
     private void Awake()
     {
         CoinStart = PlayerPrefs.GetInt("CoinStart", 100);
@@ -127,7 +131,8 @@ public class FirebaseInitial : MonoBehaviour
                     Inter_Distance_Level = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("level_distance_level").LongValue;
                     CapingTime_Inter = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("capingtime_inter").LongValue;
                     Level_Show_Banner = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("level_show_banner").LongValue;
-                    
+                    cmp_begin = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("cmp_begin").LongValue;
+                    cmp_distance = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("cmp_distance").LongValue;
                     
                     PlayerPrefs.SetInt(StringPlayerPrefs.LEVEL_SHOW_INTER, Level_Show_Inter);
                     PlayerPrefs.SetInt(StringPlayerPrefs.INTER_DISTANCE_LEVEL, Inter_Distance_Level);

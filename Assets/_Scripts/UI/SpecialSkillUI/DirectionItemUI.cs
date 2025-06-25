@@ -17,7 +17,16 @@ namespace _Scripts.UI.SpecialSkillUI
         {
             SpawnObjectTracking();
         }
-        
+
+
+        public void OnDestroy()
+        {
+            
+            hightlight.SetActive(false);
+            arrow.SetActive(false);
+            
+        }
+
 
         private void Awake()
         {

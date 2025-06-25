@@ -12,5 +12,13 @@ namespace _Scripts.ObjectPooling
             return newObj;
         }
 
+        public void SetOffUI()
+        {
+            foreach(var item in poolObjects)
+            {
+                item.SetActive(false);
+            }
+        }
+
     }
 }

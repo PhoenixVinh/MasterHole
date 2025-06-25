@@ -74,5 +74,9 @@ namespace _Scripts.UI
         // Hack Game 
         public static string ISTESTGAME = "IsTestGame";
         
+        
+        
+        // Init Data
+        public static string INIT_DATA = "InitData";
     }
 }

@@ -52,7 +52,7 @@ namespace _Scripts.UI.WinLossUI
 
         private IEnumerator ChangeFill(int currentLevel, int currentIndex)
         { 
-            float start = collection.ItemCollectionData[currentIndex-1].LevelUnlock;
+            float start = currentLevel - 1;
             ItemStatusImage.fillAmount = start/collection.ItemCollectionData[currentIndex].LevelUnlock;
             //yield return new WaitForSecondsRealtime(0.2f);
             levelDes.text = $"Lv {currentLevel}/{collection.ItemCollectionData[currentIndex].LevelUnlock}";

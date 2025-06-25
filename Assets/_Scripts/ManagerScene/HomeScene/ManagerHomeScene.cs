@@ -24,10 +24,13 @@ namespace _Scripts.ManagerScene.HomeScene
 
 
         public GameObject LoadingUI;
+        
+        public InitData initData;
         private void Awake()
         {
             if (Instance == null) {
                 Instance = this;
+                initData.InItData();
                 DontDestroyOnLoad (this);
             } else {
                 Destroy (gameObject);

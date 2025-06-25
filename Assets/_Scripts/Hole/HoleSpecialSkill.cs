@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Event;
 using _Scripts.Map.MapSpawnItem;
+using _Scripts.ObjectPooling;
 using _Scripts.Sound;
 using _Scripts.UI;
 using _Scripts.UI.MissionUI;
@@ -77,6 +78,7 @@ namespace _Scripts.Hole
             
             Debug.Log("Use Finding");
             IsProcessSkill[2] = true;
+            
             List<GameObject> itemsSuggest = ManagerMission.Instance.GetSuggestItems(amountFinding);
             // foreach (var item in result)
             // {
@@ -91,17 +93,21 @@ namespace _Scripts.Hole
                 DirectionItemUI UI = item.AddComponent<DirectionItemUI>();
                 UI.SetData(HoleController.Instance.transform, ManagerMission.Instance.GetSprite(item.name));
             }
+            yield return new WaitForSecondsRealtime(this.timeSkill03);
             
-            
-            yield return new WaitForSeconds(this.timeSkill03);
-            IsProcessSkill[2] = false;
-
             foreach (var item in itemsSuggest)
             {
                 if(item == null) continue;
                 DirectionItemUI UI = item.GetComponent<DirectionItemUI>();
-                Destroy(UI);
+                DestroyImmediate(UI);
+               
             }
+           
+            
+            
+            IsProcessSkill[2] = false;
+
+           
         }
 
         private IEnumerator FreezeTimeCoroutine()
@@ -152,9 +158,11 @@ namespace _Scripts.Hole
             IsProcessSkill[0] = true;
             float scaleIncrease = HoleController.Instance.GetCurrentRadius() *1.5f;
             var sequence = DOTween.Sequence();
+            
             float y = transform.localScale.y;
             //transform.localScale = new Vector3(scaleIncrease, y, scaleIncrease);
             transform.DOScale(new Vector3(scaleIncrease, y, scaleIncrease), 1f);
+            
             
             //DOTween.Kill(sequence);
             //this.transform.localScale = new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease);
@@ -162,6 +170,7 @@ namespace _Scripts.Hole
             float _timeSkill01 = timeSkill01;
             while (_timeSkill01 > 0)
             {
+                
                 _timeSkill01 -= Time.deltaTime;
                 
                 if (scaleIncrease < HoleController.Instance.GetCurrentRadius() * 1.5f)
@@ -171,6 +180,7 @@ namespace _Scripts.Hole
                     sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
                     
                 }
+                HoleEvent.OnUpdateFade?.Invoke(HoleController.Instance.GetCurrentScale());
                 yield return null;
             }
             // yield return new WaitForSeconds(timeSkill01);
@@ -182,6 +192,7 @@ namespace _Scripts.Hole
             
             transform.DOScale(new Vector3(scaleDecrease, y, scaleDecrease), 1f);
             //
+            HoleEvent.OnUpdateFade?.Invoke(HoleController.Instance.GetCurrentScale());
             IsProcessSkill[0] = false;
         }
 

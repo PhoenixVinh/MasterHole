@@ -85,6 +85,9 @@ namespace _Scripts.Booster
 
         public void SetData()
         {
+            
+            
+            boosterDatas = JsonUtility.FromJson<BoosterDatas>(PlayerPrefs.GetString(StringPlayerPrefs.BOOSTER_DATA));
             for (int i = 0; i < boosterDatas.Boosters.Count; i++)
             {
                 BoostersUI[i].SetData(this.boosterDatas.Boosters[i], i);
@@ -94,9 +97,10 @@ namespace _Scripts.Booster
         public void ChangeAmountBooster(int indexSpecialSkill, int i)
         {
             boosterDatas.Boosters[indexSpecialSkill].Amount += i;
+            SaveBoosterData();
             //this.boosterDataS0.Boosters[indexSpecialSkill].Amount += i;
             SetData();
-            SaveBoosterData();
+            
             
             
         }
