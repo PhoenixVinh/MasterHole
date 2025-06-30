@@ -35,6 +35,14 @@ public class MaxAdsManager : MonoBehaviour
     private float _timeShowInter = 90f;
 
     private float _timeDoneReward = 15f;
+    
+    
+    
+    
+    
+    private int retryRewardAttempt = 0; // Số lần thử lại tải quảng cáo
+    private int retryInterAttempt = 0; // Số lần thử lại tải quảng cáo xen kẽ
+    private float maxRetryDelay = 64f; // Thời gian delay tối đa (giây)
     private void Awake()
     {
         if (Instance == null)
@@ -96,7 +104,7 @@ public class MaxAdsManager : MonoBehaviour
             isBannerLoaded = false;
             ManagerFirebase.Instance?.LogIAA_AdShow(AdFormat.banner, AdPlatform.MaxApplovin.ToString(), "", true,0, "USD");
             // Thử tải lại sau một khoảng thời gian
-            //Invoke("LoadBannerAd", 5f);
+            Invoke("LoadBannerAd", 5f);
         };
         
         
@@ -137,11 +145,14 @@ public class MaxAdsManager : MonoBehaviour
         {
             
             ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadInter));
-            
+            retryInterAttempt = 0;
         };
         MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
             ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadInter));
+            retryInterAttempt++;
+            float retryDelay = Mathf.Pow(2, Mathf.Min(6, retryInterAttempt)); // Tăng delay, tối đa 64 giây
+            Invoke("LoadInterstitialAd", retryDelay);
         };
         MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
@@ -157,7 +168,7 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadInter));   
-            
+            LoadInterstitialAd();
         };
 
 
@@ -186,10 +197,15 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName, true, Utills.GetMinusTime(this.timeLoadRewarded));
+            retryRewardAttempt = 0; // Reset số lần thử lại
         };
         MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += (string adUnitId, MaxSdkBase.ErrorInfo errorInfo) =>
         {
             ManagerFirebase.Instance?.LogIAA_AdRequest(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(), "", true, Utills.GetMinusTime(this.timeLoadRewarded));
+            retryRewardAttempt++;
+            float retryDelay = Mathf.Pow(2, Mathf.Min(6, retryRewardAttempt)); // Tăng delay, tối đa 64 giây
+            Invoke("LoadRewardedAd", retryDelay);
+         
         };
         MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += (string adUnitId, MaxSdkBase.Reward reward, MaxSdkBase.AdInfo adInfo) =>
         {
@@ -209,6 +225,7 @@ public class MaxAdsManager : MonoBehaviour
             };
         MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
+            LoadRewardedAd();
             ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
                 adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
             _timeDoneReward = 15f; // Reset thời gian chờ sau khi quảng cáo hoàn thành
@@ -228,6 +245,8 @@ public class MaxAdsManager : MonoBehaviour
             {
                 
                 callback?.Invoke();
+                LoadRewardedAd();
+                //MaxSdk.
             };
 
             // Hiển thị quảng cáo
@@ -235,6 +254,7 @@ public class MaxAdsManager : MonoBehaviour
         }
         else
         {
+            LoadRewardedAd();
             Debug.Log("Rewarded ad is not ready");
         }
     }
@@ -261,6 +281,17 @@ public class MaxAdsManager : MonoBehaviour
     {
         MaxSdk.CreateBanner(bannerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
     }
+    
+    private void LoadInterstitialAd()
+    {
+        MaxSdk.LoadInterstitial(interstitialAdUnitId);
+        timeLoadInter = DateTime.Now;
+    }
+    private void LoadRewardedAd()
+    {
+        MaxSdk.LoadRewardedAd(rewardedAdUnitId);
+        timeLoadRewarded = DateTime.Now;
+    }
 
 
     private void Update()
@@ -283,6 +314,7 @@ public class MaxAdsManager : MonoBehaviour
         if (_timeShowInter <= 0)
         {
             MaxSdk.ShowInterstitial(interstitialAdUnitId);
+            LoadInterstitialAd();
             _timeShowInter = timeShowInter;
             
             return;
@@ -293,6 +325,7 @@ public class MaxAdsManager : MonoBehaviour
             ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level == 0)
         {
             MaxSdk.ShowInterstitial(interstitialAdUnitId);
+            LoadInterstitialAd();
         }
        
     }

@@ -25,7 +25,8 @@ namespace _Scripts.Editor.Map
             "Drink",
             "hoa qua",
             "Junk food",
-            "other utensils"
+            "other utensils",
+            "GameObject"
         };
 
         public Dictionary<string, int> itemDatas;
@@ -36,6 +37,7 @@ namespace _Scripts.Editor.Map
       
         public string parentFolderPath = "Assets/TextureObjectCapture";
         public string parentFolderPathOther = "Assets/Model/Texture2D";
+        public string prefabFolderPathOther2 = "Assets/Data_Item_New_01/Sprite";
 
         [MenuItem("Tools/DataLevel/Mission")]
         public static void ShowWindow(LevelGamePlaySO data)
@@ -272,7 +274,7 @@ namespace _Scripts.Editor.Map
                 }
             }
 
-            if (pathFinding == null)
+            if (pathFinding == "")
             {
                 Debug.LogError($"Could not find Images in folder {parentFolderPath}");
                 return null;
@@ -283,13 +285,14 @@ namespace _Scripts.Editor.Map
                 return sprite;
             }
             
+            
         }
 
 
 
         public string findingOtherFolder(string searchName)
         {
-            string[] imageExtensions = { ".png"};
+           
             string[] allFiles =
                 Directory.GetFiles(parentFolderPathOther, "*.png"); // Tìm kiếm trong cả thư mục con
          
@@ -306,6 +309,22 @@ namespace _Scripts.Editor.Map
                 }
                
             }
+          
+            string[] allFiles2 =
+                Directory.GetFiles(prefabFolderPathOther2, "*.asset"); // Tìm kiếm trong cả thư mục con
+            var foundImages2 = allFiles2
+                .Where(file =>
+                    Path.GetFileName(file).ToLower() == $"{searchName.ToLower()}.asset");
+            if (foundImages2 != null)
+            {
+                foreach (string path in foundImages2)
+                {
+                    return path;
+                }
+            }
+            
+            
+            
             return "";
             
         }

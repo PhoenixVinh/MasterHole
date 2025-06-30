@@ -11,6 +11,9 @@ using _Scripts.Vibration;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+
+
 public class Item : MonoBehaviour
 {
     public int score  = 1;

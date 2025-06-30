@@ -186,6 +186,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
     {
         this._timeColdown += timeAdd;
         this.ColdownTimeComplete = _timeColdown;
+        this.isStartColdown = true;
         DOTween.KillAll();
         isPlaySound = false;
         this._txtDisplayTime.transform.localScale = Vector3.one;
