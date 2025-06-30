@@ -28,6 +28,13 @@ public class MaxAdsManager : MonoBehaviour
 
 
     private bool isInitMax = false;
+
+
+    public float timeShowInter = 120;
+
+    private float _timeShowInter = 90f;
+
+    private float _timeDoneReward = 15f;
     private void Awake()
     {
         if (Instance == null)
@@ -45,15 +52,9 @@ public class MaxAdsManager : MonoBehaviour
         isRemoveInter = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_PACK, 0) == 1;
         isRemoveAds = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_VIP, 0) == 1;
     }
-        
 
 
-
-    void Start()
-    {
-        
-    }
-
+   
 
     public void InitAds()
     {
@@ -156,13 +157,18 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.interstitial, AdPlatform.MaxApplovin.ToString(), adInfo.NetworkName,EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadInter));   
+            
         };
 
 
     }
     
+    
+    
+    
     public void ShowInterstitialAd(Action callback = null)
     {
+        
         if (isRemoveAds || isRemoveInter) return;
         if (MaxSdk.IsInterstitialReady(interstitialAdUnitId))
         {
@@ -205,7 +211,8 @@ public class MaxAdsManager : MonoBehaviour
         {
             ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
                 adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
-
+            _timeDoneReward = 15f; // Reset thời gian chờ sau khi quảng cáo hoàn thành
+            
         };
     }
 
@@ -256,6 +263,13 @@ public class MaxAdsManager : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        _timeShowInter -= Time.deltaTime;
+        _timeDoneReward -= Time.deltaTime;
+    }
+
+
     public void ShowInterAdsByLevel(Action callback = null)
     {
         Debug.Log("ShowInterAdsByLevel");
@@ -264,6 +278,16 @@ public class MaxAdsManager : MonoBehaviour
         
         
         Debug.Log(ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter + "???" + ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level);
+
+        if (_timeDoneReward >= 0) return;
+        if (_timeShowInter <= 0)
+        {
+            MaxSdk.ShowInterstitial(interstitialAdUnitId);
+            _timeShowInter = timeShowInter;
+            
+            return;
+            
+        }
         if (currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter &&
             (currentLevel - ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter) %
             ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level == 0)

@@ -28,7 +28,10 @@ namespace _Scripts.UI.AnimationUI
         public void OnDisable()
         {
             //RewardCoinEvent.OnRewardCoin -= CountCoins;
+            
             DOTween.KillAll();
+            StopAllCoroutines();
+            Reset();
         }
 
         void Awake()
@@ -185,9 +188,12 @@ namespace _Scripts.UI.AnimationUI
 
         private void OnDestroy()
         {
-            
-            DOTween.KillAll();
             Reset();
+            DOTween.KillAll();
+           
+            
+            
+            
         }
     }
 }

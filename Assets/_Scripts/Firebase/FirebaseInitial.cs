@@ -28,6 +28,9 @@ public class FirebaseInitial : MonoBehaviour
     public int Level_Show_Banner = 0;
     
     
+    
+    
+    public float capingtime_inter = 90f;
     public int cmp_begin = 15;
     public int cmp_distance = 5;
     
@@ -133,6 +136,8 @@ public class FirebaseInitial : MonoBehaviour
                     Level_Show_Banner = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("level_show_banner").LongValue;
                     cmp_begin = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("cmp_begin").LongValue;
                     cmp_distance = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("cmp_distance").LongValue;
+                    capingtime_inter = (float)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("capingtime_inter").DoubleValue;
+                    MaxAdsManager.Instance.timeShowInter = capingtime_inter;
                     
                     PlayerPrefs.SetInt(StringPlayerPrefs.LEVEL_SHOW_INTER, Level_Show_Inter);
                     PlayerPrefs.SetInt(StringPlayerPrefs.INTER_DISTANCE_LEVEL, Inter_Distance_Level);

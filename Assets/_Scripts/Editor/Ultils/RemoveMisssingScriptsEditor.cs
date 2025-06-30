@@ -40,9 +40,17 @@ public class RemoveMissingScriptsFromPrefabEditor : EditorWindow
         try
         {
             
-            GameObject[] prefabs = Resources.LoadAll<GameObject>(resourcesSubfolder);
+            //GameObject[] prefabs = Resources.LoadAll<GameObject>(resourcesSubfolder);
+            string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { resourcesSubfolder });
+            GameObject[] prefabs = new GameObject[guids.Length];
 
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                prefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+            }
 
+            Debug.Log(prefabs.Length);
             foreach (var prefab in prefabs)
             {
                 int missingScriptsRemoved = RemoveMissingScriptsFromPrefab(prefab);

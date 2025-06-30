@@ -116,5 +116,10 @@ namespace _Scripts.UI.WinLossUI
             
            
         }
+
+        public void OnDisable()
+        {
+            StopAllCoroutines();
+        }
     }
 }

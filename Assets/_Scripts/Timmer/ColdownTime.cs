@@ -103,6 +103,8 @@ public class ColdownTime : MonoBehaviour, IPrecent
             WinLossEvent.OnLoss?.Invoke();
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.lose, LoseBy.OutOfTime);
             ManagerSound.Instance?.StopEffectSound(EnumEffectSound.TimeEnd);
+            //_timeColdown = 0.02f;
+            isStartColdown = false;
         }
 
         imgDisplayTime.fillAmount = Precent();

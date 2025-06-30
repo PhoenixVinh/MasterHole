@@ -112,10 +112,10 @@ public class Item : MonoBehaviour
                 
         ManagerMission.Instance.CheckMinusItems(gameObject.name, gameObject);
         
-        rb.isKinematic = true;
-        rb.useGravity = false;
-        this.gameObject.SetActive(false);
-        //StartCoroutine(DestroyCoroutine());
+        // rb.isKinematic = true;
+        // rb.useGravity = false;
+        //this.gameObject.SetActive(false);
+        StartCoroutine(DestroyCoroutine());
     }
 
     
@@ -124,8 +124,9 @@ public class Item : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (gameObject != null){
             rb.isKinematic = true;
-            //rb.useGravity = false;
-            CleanGradeManager.Instance?.AddObject(gameObject);
+            rb.useGravity = false;
+            DestroyObject(gameObject);
+            //CleanGradeManager.Instance?.AddObject(gameObject);
         }
         
                

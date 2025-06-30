@@ -58,7 +58,7 @@ namespace _Scripts.UI.WinLossUI
         
         private async void PlayAgain()
         {
-            
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
             DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
             if (Energy.Instance?.IsUnlimitedEnergy == false)
             {
@@ -84,8 +84,9 @@ namespace _Scripts.UI.WinLossUI
 
         private void goHome()
         {
-            this.gameObject.SetActive(false);
             MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            this.gameObject.SetActive(false);
+            //MaxAdsManager.Instance?.ShowInterAdsByLevel();
            
             //ManagerHomeScene.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());

@@ -66,6 +66,8 @@ namespace _Scripts.IAP
             });
         
             UIEvent.OnRewardedSuccess?.Invoke(data);
+            MaxAdsManager.Instance.isRemoveAds = true;
+            
         }
     }
     

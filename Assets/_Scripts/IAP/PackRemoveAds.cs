@@ -46,6 +46,7 @@ namespace _Scripts.IAP
                 amound = "Ads Removed",
             });
             UIEvent.OnRewardedSuccess?.Invoke(data);
+            MaxAdsManager.Instance.isRemoveInter = true;
         }
     }
 }

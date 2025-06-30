@@ -21,6 +21,9 @@ namespace _Scripts.Firebase
         
         public PositionFirebase positionFirebase;
         public PositionFirebase positionPopup;
+        
+        
+        
         public void Awake()
         {
             if (Instance == null)

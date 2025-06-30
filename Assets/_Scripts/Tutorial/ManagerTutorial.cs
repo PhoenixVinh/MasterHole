@@ -101,7 +101,8 @@ namespace _Scripts.Tutorial
 
         }
 
-        public async void SetTutorialFreeIcon(string keyTutorial, int indexFree, int indexTutorial)
+        public async void SetTutorialFreeIcon(string keyTutorial, int
+            indexFree, int indexTutorial)
         {
             
             

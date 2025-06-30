@@ -17,6 +17,7 @@ public class ManagerWinLoss : MonoBehaviour
     public GameObject settings;
     public GameObject shop;
    
+    public bool isWin = false;
     public void OnEnable()
     {
         WinLossEvent.OnWin += ShowUIWin;
@@ -56,6 +57,8 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
+        
+        
         if (LoseUI.activeSelf) return;
         ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
         
@@ -67,39 +70,49 @@ public class ManagerWinLoss : MonoBehaviour
         ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
         WinUI.GetComponent<WinUI>().SetData(75);
+        this.WinUI.SetActive(true);
         settings.SetActive(false);
         shop.SetActive(false);
-        
-       
+        isWin = false;
+
     }
     private async void ShowUILoss()
     {
-   
-        await Task.Delay(1000);
+
+       
+       
+      
         ManagerSound.Instance?.StopAllSoundSFX();
-        
+        if (WinUI.activeSelf) return;
+        await Task.Delay(1000);
         if (isLevelCoint)
         {
+            ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
+            ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
             int coinGet = LevelCointEvent.OnLevelCoinGet.Invoke();
             WinUI.GetComponent<WinUI>().SetData(coinGet);
             settings.SetActive(false);
-            //LevelCoinUI.SetActive(true);
-            //int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
-            //PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel + 1);
-            return;
+            shop.SetActive(false);
+            this.WinUI.SetActive(true);
+            SetNoLevelCoin();
 
+        }
+        else
+        {
+            Debug.Log("ShowUILoss ????????????????");
+            if(ManagerSound.Instance != null)
+                ManagerSound.Instance.PlayEffectSound(EnumEffectSound.FailedLevel);
+        
+            LoseUI.SetActive(true);
+            settings.SetActive(false);
+            shop.SetActive(false);
         }
         
         
-        if (WinUI.activeSelf) return;
+       
         
         
-        if(ManagerSound.Instance != null)
-            ManagerSound.Instance.PlayEffectSound(EnumEffectSound.FailedLevel);
-        
-        LoseUI.SetActive(true);
-        settings.SetActive(false);
-        shop.SetActive(false);
+       
     }
 
    

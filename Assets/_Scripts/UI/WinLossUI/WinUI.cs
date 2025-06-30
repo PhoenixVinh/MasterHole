@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Firebase;
 using _Scripts.ManagerScene;
@@ -36,6 +38,14 @@ namespace _Scripts.UI.WinLossUI
         public CollectionUI collection;
 
         public CoinRewardAnim coinRewardAnim;
+
+        public void Awake()
+        {
+            
+        }
+
+       
+
         public override void OnEnable()
         {
             ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
@@ -65,12 +75,13 @@ namespace _Scripts.UI.WinLossUI
           
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_LEVEL, currentLevel+1);
             collectionFeatureUI.SetData(currentLevel + 1);
-        
             continueButton.onClick.AddListener(ShowNextlevel);
+           
         }
         
         private void ChangeHomeScene()
         {
+            MaxAdsManager.Instance?.ShowInterAdsByLevel();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance.ShowRewardCoin(coinGet);
@@ -79,7 +90,7 @@ namespace _Scripts.UI.WinLossUI
         public void SetData(int coinGet)
         {
             this.coinGet = coinGet;
-            this.gameObject.SetActive(true);
+         
         }
 
        
@@ -91,8 +102,9 @@ namespace _Scripts.UI.WinLossUI
            
         }
 
-        private void ShowNextlevel()
+        private  void ShowNextlevel()
         {
+            
             
             MaxAdsManager.Instance?.ShowInterAdsByLevel();
             
@@ -107,14 +119,16 @@ namespace _Scripts.UI.WinLossUI
             
             else
             {
-                this.gameObject.SetActive(false);
+                //this.gameObject.SetActive(false);
                 // Change Data Level    
                 if (skinProcess.GetTarget(level) != -1)
                 {
+                    this.gameObject.SetActive(false);
                     skinProcess.gameObject.SetActive(true);
                 }
                 else
                 {
+                    this.gameObject.SetActive(false);
                     ManagerLevelGamePlay.Instance.LoadNextLevel();
                 }
                 
