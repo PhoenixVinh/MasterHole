@@ -1,18 +1,24 @@
+using System;
 using UnityEngine;
 
 
 public class ItemIgnore : MonoBehaviour
 {
-    
-    
-    public int layerID = 7; // Default layer ID for items
+
+
+    private Collider _collider;
     public void Awake()
     {
-        SetIgnoreLayer();
+        _collider = GetComponent<Collider>();   
     }
 
-    private void SetIgnoreLayer()
+   
+
+    public void OnCollisionEnter(Collision other)
     {
-        Physics.IgnoreLayerCollision(layerID, layerID, true);
+        if (other.gameObject.name == this.gameObject.name)
+        {
+            Physics.IgnoreCollision(other.collider,_collider ,true);
+        }
     }
 }
