@@ -1903,6 +1903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4186648732146303}
   - component: {fileID: 54144755336189892}
+  - component: {fileID: -2909449098504950733}
   m_Layer: 7
   m_Name: food_552
   m_TagString: Item
@@ -1955,6 +1956,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2909449098504950733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265641766912718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f7e04e37604d7d9deb32b1ef9bde9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 1
+  type: food
+  isPhysic: 0
 --- !u!1 &1271907858157332
 GameObject:
   m_ObjectHideFlags: 0

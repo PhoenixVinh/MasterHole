@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_305
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: MelonPan_Melon
+    AmountItems: 124
+    image: {fileID: 0}
+  - idItem: Biscuits_2
+    AmountItems: 120
+    image: {fileID: 21300000, guid: 2a1c0b042826150448a0533eafd7fdf4, type: 2}
+  - idItem: Icecream_4
+    AmountItems: 18
+    image: {fileID: 21300000, guid: 295cb1841b5e20747878508372b76626, type: 2}
+  - idItem: Donut_7
+    AmountItems: 8
+    image: {fileID: 21300000, guid: 87d3c312b4a985c4b8306c3a812e86a4, type: 2}
+  - idItem: Macaron_1
+    AmountItems: 18
+    image: {fileID: 21300000, guid: 08fff9cbaf333c247946b8d371da86c6, type: 2}
+  - idItem: Flour_Open1
+    AmountItems: 16
+    image: {fileID: 21300000, guid: 1906fc6c15dbcd54783012672e6ea387, type: 2}

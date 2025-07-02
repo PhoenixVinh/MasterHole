@@ -5,9 +5,9 @@ namespace _Scripts.HACK
 {
     public class CheckWall: MonoBehaviour
     {
-        public void OnCollisionEnter(Collision other)
-        {
-            Debug.Log(other.gameObject.name);
-        }
+        // public void OnCollisionEnter(Collision other)
+        // {
+        //     Debug.Log(other.gameObject.name);
+        // }
     }
 }

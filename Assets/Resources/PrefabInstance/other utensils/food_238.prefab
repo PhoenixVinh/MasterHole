@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4511714409535209}
   - component: {fileID: 54076644006453298}
-  m_Layer: 7
+  - component: {fileID: -4349569668037447994}
+  m_Layer: 15
   m_Name: food_238
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -61,6 +62,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4349569668037447994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377746122665501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f7e04e37604d7d9deb32b1ef9bde9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 1
+  type: food
+  nameLayerOn: NoCollisionSpecial
+  nameLayerOff: CollisionSpecial
 --- !u!1 &1494491277997732
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +89,7 @@ GameObject:
   - component: {fileID: 4482500112605020}
   - component: {fileID: 65033153783957459}
   - component: {fileID: 1453460508694895092}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Cube
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -138,7 +155,7 @@ GameObject:
   - component: {fileID: 4400505499331880}
   - component: {fileID: 33673588198864236}
   - component: {fileID: 23509734482831540}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Cube_Blue
   m_TagString: Item
   m_Icon: {fileID: 0}

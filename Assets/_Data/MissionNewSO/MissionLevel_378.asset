@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_378
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: 460_Unicorn
+    AmountItems: 2
+    image: {fileID: 21300000, guid: e641ca8e07c242e40a6ad0a4beec37de, type: 2}
+  - idItem: 630_Gundam
+    AmountItems: 2
+    image: {fileID: 21300000, guid: 58d8b8037f1164f428f5fb1abea90dea, type: 2}
+  - idItem: 945_Elephant
+    AmountItems: 7
+    image: {fileID: 21300000, guid: 650106a15e8c3a340aa0ffb88c920291, type: 2}

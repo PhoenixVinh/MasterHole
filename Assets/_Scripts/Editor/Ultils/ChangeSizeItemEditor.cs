@@ -23,7 +23,8 @@ namespace _Scripts.Editor.Ultils
             "Drink",
             "hoa qua",
             "Junk food",
-            "other utensils"
+            "other utensils",
+            "GameObject"
         };
         
         

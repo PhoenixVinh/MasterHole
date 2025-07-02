@@ -55,8 +55,7 @@ public class HoleCenter : MonoBehaviour
     {
         if (other.CompareTag("Item") && ListObjects.ContainsKey(other.transform.parent.gameObject))
         {
-            other.gameObject.layer = LayerMask.NameToLayer("Collision");
-            other.transform.parent.gameObject.layer = LayerMask.NameToLayer("Collision");
+            ListObjects[other.transform.parent.gameObject].SetLayerOff();
             ListObjects.Remove(other.transform.parent.gameObject);
         }
     }

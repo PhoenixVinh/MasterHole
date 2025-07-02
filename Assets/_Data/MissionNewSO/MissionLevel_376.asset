@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_376
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Dragonfruit
+    AmountItems: 49
+    image: {fileID: 21300000, guid: ea31bb2c3d90f3140b1a7e2525fe1cb3, type: 2}
+  - idItem: Apple_Whole_3
+    AmountItems: 20
+    image: {fileID: 21300000, guid: aad781f4d35a3854983ea7492192e287, type: 2}
+  - idItem: Pie_03
+    AmountItems: 2
+    image: {fileID: 21300000, guid: 29bed22b68a86f44a98094df235f6eec, type: 2}

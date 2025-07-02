@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_116
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Banana_5
+    AmountItems: 3
+    image: {fileID: 21300000, guid: 5608fd8247b586242914f71087638ee4, type: 2}
+  - idItem: Peach_White
+    AmountItems: 8
+    image: {fileID: 21300000, guid: cc81b7a6acda34c4c96a9a27fb20ae03, type: 2}
+  - idItem: Watermelon_Slice_1
+    AmountItems: 56
+    image: {fileID: 21300000, guid: 02ecdd583ae2a51419e83782214bc090, type: 2}

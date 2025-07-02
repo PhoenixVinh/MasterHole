@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_370
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Cupcake_Chocolate
+    AmountItems: 4
+    image: {fileID: 21300000, guid: 1b5cc3bbce8842b4f9025d6e4fefe81b, type: 2}
+  - idItem: Specialty_Bundt_1
+    AmountItems: 30
+    image: {fileID: 21300000, guid: 73886024dda8f6b49a567efb74549202, type: 2}
+  - idItem: Roll_Matcha_Whole
+    AmountItems: 58
+    image: {fileID: 21300000, guid: 9532b207ce86db347bb5085afe5497cd, type: 2}
+  - idItem: 1193_pinkcake
+    AmountItems: 19
+    image: {fileID: 21300000, guid: 00fa6027cc212fc4abc5044c8c13c51e, type: 2}
+  - idItem: Orange_Whole
+    AmountItems: 3
+    image: {fileID: 21300000, guid: 319bf90fba97b1c4788cbdb6c8cdd5e3, type: 2}
+  - idItem: 1166_eclair_02
+    AmountItems: 12
+    image: {fileID: 21300000, guid: 30577df788eff0d4e8984788e538ba18, type: 2}

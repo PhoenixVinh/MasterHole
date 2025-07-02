@@ -15,7 +15,7 @@ namespace _Scripts.Map.MapSpawnItem
        
         
         public LevelSpawnData levelSpawnData;
-        public string prefabPath = "PrefabInstance/";
+        public string prefabPath = "PrefabInstance";
         public List<string> subfolderLoad;
         public List<ItemScoreData> itemScores;
 
@@ -106,7 +106,7 @@ namespace _Scripts.Map.MapSpawnItem
             List<GameObject> MissionItems = new List<GameObject>();
             foreach(var item in levelSpawnData.listItemSpawns)
             {
-                string nameItem = item.id;
+                string nameItem = item.id.Trim();
                 
                 GameObject prefabInstance = null;
                 if (!spawnedObjects.ContainsKey(nameItem))
@@ -160,8 +160,8 @@ namespace _Scripts.Map.MapSpawnItem
                         itemSpawn.GetComponent<Rigidbody>().isKinematic = true;
                         //itemSpawn.GetComponent<Rigidbody>().useGravity = false;
                     }
-    
-                    Item itemType =  itemSpawn.AddComponent<Item>();
+
+                    Item itemType = itemSpawn.GetComponent<Item>();
                     itemType.SetData(itemSpawn.name, scoreItem);
 
                     if (MissionItemNames.Contains(nameItem))
@@ -237,6 +237,7 @@ namespace _Scripts.Map.MapSpawnItem
 
             foreach (var name in subfolderLoad)
             {
+        
                 prefab = Resources.Load<GameObject>($"{searchPath}{name}/{prefabName}");
                 if(prefab != null) return prefab;
             }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_299
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Waffle_Slice_2
+    AmountItems: 27
+    image: {fileID: 21300000, guid: ebd63d222aae7f24b8a9f24d48b38f30, type: 2}
+  - idItem: Biscuits_11
+    AmountItems: 64
+    image: {fileID: 21300000, guid: 8ff76b6353196364dba9e32fe24c13e9, type: 2}
+  - idItem: Donut_7
+    AmountItems: 19
+    image: {fileID: 21300000, guid: 87d3c312b4a985c4b8306c3a812e86a4, type: 2}

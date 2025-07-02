@@ -41,7 +41,7 @@ namespace _Scripts.Ads
                 return;
             }
 
-            if (getcurrentLevel == 3)
+            if (getcurrentLevel == 1)
             {
 
 
@@ -63,6 +63,11 @@ namespace _Scripts.Ads
         
         void StarCMP()
         {
+            
+            
+            
+            
+            
             if (IsCMPConsent())
             {
                 SetConsent(true);
@@ -90,6 +95,10 @@ namespace _Scripts.Ads
             ConsentRequestParameters request = new ConsentRequestParameters
             {
                 TagForUnderAgeOfConsent = false,
+                
+                
+                // For testing purposes, set the debug geography to EEA.
+              
             };
           
       
@@ -98,8 +107,8 @@ namespace _Scripts.Ads
         }
         
         
-            void OnConsentInfoUpdated(FormError consentError)
-    {
+        void OnConsentInfoUpdated(FormError consentError)
+        {
         if (consentError != null)//Loi
         {
             // Handle the error.
@@ -156,8 +165,8 @@ namespace _Scripts.Ads
                     MaxAdsManager.Instance?.InitAds();
                 }
             });
-        });
-    }
+            }); 
+        }
         
 
         void Display_CMP(FormError consentError)
@@ -288,11 +297,17 @@ namespace _Scripts.Ads
             string vendorConsent = "";
             string vendorLI = "";
             string purposeLI = "";
-
-            purposeConsent = GetString(PURPOSE_CONSENT_KEY, "");
-            vendorConsent = GetString(VENDOR_CONSENT_KEY, "");
-            vendorLI = GetString(VENDOR_LI_KEY, "");
-            purposeLI = GetString(PURPOSE_LI_KEY, "");
+#if UNITY_IPHONE
+        purposeConsent = PlayerPrefs.GetString(PURPOSE_CONSENT_KEY, "");
+        vendorConsent = PlayerPrefs.GetString(VENDOR_CONSENT_KEY, "");
+        vendorLI = PlayerPrefs.GetString(VENDOR_LI_KEY, "");
+        purposeLI = PlayerPrefs.GetString(PURPOSE_LI_KEY, "");
+#elif UNITY_ANDROID
+            purposeConsent = GT.Utils.PlayerPrefsNative.GetString(PURPOSE_CONSENT_KEY, "");
+            vendorConsent = GT.Utils.PlayerPrefsNative.GetString(VENDOR_CONSENT_KEY, "");
+            vendorLI = GT.Utils.PlayerPrefsNative.GetString(VENDOR_LI_KEY, "");
+            purposeLI = GT.Utils.PlayerPrefsNative.GetString(PURPOSE_LI_KEY, "");
+#endif
 
             int googleId = 755;
             bool hasGoogleVendorConsent = HasAttribute(vendorConsent, googleId);
@@ -300,8 +315,8 @@ namespace _Scripts.Ads
 
             // Minimum required for at least non-personalized ads
             return HasConsentFor(new List<int> { 1 }, purposeConsent, hasGoogleVendorConsent)
-                   && HasConsentOrLegitimateInterestFor(new List<int> { 2, 7, 9, 10 }, purposeConsent, purposeLI,
-                       hasGoogleVendorConsent, hasGoogleVendorLI);
+                   && HasConsentOrLegitimateInterestFor(new List<int> { 2, 7, 9, 10 }, purposeConsent, purposeLI, hasGoogleVendorConsent, hasGoogleVendorLI);
+
         }
 
         // Check if personalized ads can be shown
@@ -312,19 +327,27 @@ namespace _Scripts.Ads
             string vendorLI = "";
             string purposeLI = "";
 
-            purposeConsent = GetString(PURPOSE_CONSENT_KEY, "");
-            vendorConsent = GetString(VENDOR_CONSENT_KEY, "");
-            vendorLI = GetString(VENDOR_LI_KEY, "");
-            purposeLI = GetString(PURPOSE_LI_KEY, "");
-
+#if UNITY_IPHONE
+        purposeConsent = PlayerPrefs.GetString(PURPOSE_CONSENT_KEY, "");
+        vendorConsent = PlayerPrefs.GetString(VENDOR_CONSENT_KEY, "");
+        vendorLI = PlayerPrefs.GetString(VENDOR_LI_KEY, "");
+        purposeLI = PlayerPrefs.GetString(PURPOSE_LI_KEY, "");
+#elif UNITY_ANDROID
+            purposeConsent = PlayerPrefs.GetString(PURPOSE_CONSENT_KEY, "");
+            vendorConsent = PlayerPrefs.GetString(VENDOR_CONSENT_KEY, "");
+            vendorLI = PlayerPrefs.GetString(VENDOR_LI_KEY, "");
+            purposeLI = PlayerPrefs.GetString(PURPOSE_LI_KEY, "");
+#endif
             int googleId = 755;
             bool hasGoogleVendorConsent = HasAttribute(vendorConsent, googleId);
             bool hasGoogleVendorLI = HasAttribute(vendorLI, googleId);
 
             return HasConsentFor(new List<int> { 1, 3, 4 }, purposeConsent, hasGoogleVendorConsent)
-                   && HasConsentOrLegitimateInterestFor(new List<int> { 2, 7, 9, 10 }, purposeConsent, purposeLI,
-                       hasGoogleVendorConsent, hasGoogleVendorLI);
+                   && HasConsentOrLegitimateInterestFor(new List<int> { 2, 7, 9, 10 }, purposeConsent, purposeLI, hasGoogleVendorConsent, hasGoogleVendorLI);
         }
+
+
+        
 
         // Check if a binary string has a "1" at position "index" (1-based)
         bool HasAttribute(string input, int index)

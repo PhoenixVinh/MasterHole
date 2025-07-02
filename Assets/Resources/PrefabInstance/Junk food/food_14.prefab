@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 4925261236287491}
   - component: {fileID: 54442340032384822}
   - component: {fileID: 3438605002140394994}
+  - component: {fileID: -6436437723625949772}
   m_Layer: 7
   m_Name: food_14
   m_TagString: Item
@@ -425,3 +426,18 @@ MonoBehaviour:
   m_bLockBorder: 1
   m_bDataDirty: 0
   m_bExcludedFromTree: 0
+--- !u!114 &-6436437723625949772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967864182902125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f7e04e37604d7d9deb32b1ef9bde9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 1
+  type: food
+  isPhysic: 0

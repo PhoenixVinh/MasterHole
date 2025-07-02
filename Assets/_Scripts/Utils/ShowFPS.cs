@@ -14,7 +14,7 @@ namespace _Scripts.UI
             {
                 Instance = this;
                
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(gameObject);
             }
             else
             {

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_402
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: v_book_red
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 9a12a987434f0ca45b31190a56032f79, type: 2}
+  - idItem: v_book_yellow
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 61bf0abb721a9be4d9cc6694c72f8131, type: 2}
+  - idItem: Pop_Bottle_Glass_1
+    AmountItems: 6
+    image: {fileID: 21300000, guid: 9daa4778374df0a488c0daba37d1661e, type: 2}

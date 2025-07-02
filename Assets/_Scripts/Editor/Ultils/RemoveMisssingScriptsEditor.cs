@@ -89,6 +89,16 @@ public class RemoveMissingScriptsFromPrefabEditor : EditorWindow
                 GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefab);
             }
         }
+        
+        if(prefab.transform.childCount > 0)
+        {
+            foreach (Transform child in prefab.transform)
+            {
+                RemoveMissingScriptsFromPrefab(child.gameObject);
+            }
+        }
+        
+        
 
         return 1;
     }

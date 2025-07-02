@@ -37,7 +37,7 @@ namespace _Scripts.Editor.Map
       
         public string parentFolderPath = "Assets/TextureObjectCapture";
         public string parentFolderPathOther = "Assets/Model/Texture2D";
-        public string prefabFolderPathOther2 = "Assets/Data_Item_New_01/Sprite";
+        public string prefabFolderPathOther2 = "Assets/DataModelNew_01/Sprite";
 
         [MenuItem("Tools/DataLevel/Mission")]
         public static void ShowWindow(LevelGamePlaySO data)
@@ -121,7 +121,7 @@ namespace _Scripts.Editor.Map
             mission.name = $"MissionLevel_{dataLevel.name.Substring(lastIndex + 1)}";
             
           
-            string assetPath = "Assets/_Data/MissionSO/" + $"{mission.name}.asset";
+            string assetPath = "Assets/_Data/MissionNewSO/" + $"{mission.name}.asset";
             
             
             

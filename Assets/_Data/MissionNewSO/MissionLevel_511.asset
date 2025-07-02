@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_511
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Avocado_V1_1
+    AmountItems: 14
+    image: {fileID: 21300000, guid: 1928eac7534ee734f95bdeafd42f620a, type: 2}
+  - idItem: Pear_V1
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 01f6583f213a7194681854b62aa8292b, type: 2}
+  - idItem: Cauliflower_V1
+    AmountItems: 1
+    image: {fileID: 21300000, guid: d7b872c0d99091c4f92bd50ed80ea408, type: 2}
+  - idItem: Grapes_Green_6
+    AmountItems: 5
+    image: {fileID: 21300000, guid: 9fd7b002a0bdbc245bb5e99f1d512264, type: 2}

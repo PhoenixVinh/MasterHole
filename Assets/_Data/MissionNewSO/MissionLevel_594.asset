@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_594
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Cheesecake_Mini_Berry
+    AmountItems: 56
+    image: {fileID: 21300000, guid: b3880e2890a53804489a5f9ec7025f5a, type: 2}
+  - idItem: Donut_5
+    AmountItems: 16
+    image: {fileID: 21300000, guid: 640e9a2927f2b6949b9946e068aaf31c, type: 2}
+  - idItem: Concha__3
+    AmountItems: 18
+    image: {fileID: 21300000, guid: 1b690fb00630eb44497efc2487d37383, type: 2}

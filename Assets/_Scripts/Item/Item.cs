@@ -21,7 +21,11 @@ public class Item : MonoBehaviour
     private Rigidbody rb;
     private bool isGetScore = false;
     
-    public bool isPhysic = false;
+    private bool isPhysic = false;
+    
+    
+    [SerializeField]private string nameLayerOn = "NoCollision";
+    [SerializeField]private string nameLayerOff = "Collision";
     public void SetData(string foodName, int score)
     {
         this.score = score;
@@ -39,21 +43,12 @@ public class Item : MonoBehaviour
             rb.isKinematic = false;
             isPhysic = true;
            
+            SetLayerOn();
           
-          
-            // for (int i = 0; i < transform.childCount; i++)
-            // {
-            //     transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
-            // }
-            // transform.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
-            //other.gameObject.layer = LayerMask.NameToLayer(LayerMaskVariable.NoCollision.ToString());
+        
             
         }
-        gameObject.layer = LayerMask.NameToLayer("NoCollision");
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("NoCollision");
-        }
+        SetLayerOn();
         rb.WakeUp();
 
         
@@ -70,41 +65,13 @@ public class Item : MonoBehaviour
         transform.Translate(Vector3.down*0.0001f);
         rb.WakeUp();
     }
-    // private IEnumerator FallSmoothly()
-    // {
-    //     while (!isPhysic)
-    //     {
-    //         // Di chuyển mượt mà dựa trên thời gian thực
-    //         transform.position -= new Vector3(0, 10* Time.deltaTime, 0);
-    //
-    //         // Kiểm tra vị trí Y
-    //         if (transform.position.y <= 0.1)
-    //         {
-    //             isPhysic = true;
-    //             rb.isKinematic = false; // Tắt kinematic khi chạm ngưỡng
-    //         }
-    //
-    //         yield return null; // Chờ đến khung hình tiếp theo
-    //     }
-    // }
+    
     
     
     
     
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //
-    //     
-    //     Debug.Log(other.transform.parent.name);
-    //     
-    //     
-    //     if (!other.CompareTag("HoleBottom") || isGetScore) return;
-    //     
-    //     
-    //
-    //
-    // }
+
 
     public void DestroyObject()
     {
@@ -129,10 +96,28 @@ public class Item : MonoBehaviour
             rb.isKinematic = true;
             rb.useGravity = false;
             DestroyObject(gameObject);
-            //CleanGradeManager.Instance?.AddObject(gameObject);
         }
         
                
+    }
+
+    public void SetLayerOn()
+    {
+   
+        gameObject.layer = LayerMask.NameToLayer(nameLayerOn);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(nameLayerOn);
+        }
+    }
+
+    public void SetLayerOff()
+    {
+        gameObject.layer = LayerMask.NameToLayer(nameLayerOff);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(nameLayerOff);
+        }
     }
 
     

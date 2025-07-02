@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_53
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Cake_cheese
+    AmountItems: 4
+    image: {fileID: 21300000, guid: 7cc0efa032dbaf740b01e7a6b98a86fd, type: 2}
+  - idItem: Pancake_2
+    AmountItems: 3
+    image: {fileID: 21300000, guid: f0823c64b53ec9845bd9c46c266e9f1b, type: 2}
+  - idItem: Flour_Open1
+    AmountItems: 6
+    image: {fileID: 21300000, guid: 1906fc6c15dbcd54783012672e6ea387, type: 2}
+  - idItem: Wreath2
+    AmountItems: 2
+    image: {fileID: 21300000, guid: 6eaf3972602a11540a04bf76ffd62b20, type: 2}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_452
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: v_pen_green
+    AmountItems: 56
+    image: {fileID: 21300000, guid: d56381455999c8a4284a3caac00a5c37, type: 2}
+  - idItem: Peach_White_Half
+    AmountItems: 6
+    image: {fileID: 21300000, guid: 8c8d55dcd2deeab4ab6d8957fb45f031, type: 2}
+  - idItem: 661_notepencil
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 31e3efcdd2a652d4ebaac886942ecf94, type: 2}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_186
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Loaf_Chocolate_Slice
+    AmountItems: 5
+    image: {fileID: 21300000, guid: a45b86e84c0068e4aa9e1a32d1548e62, type: 2}
+  - idItem: Teapot_Lid_6
+    AmountItems: 6
+    image: {fileID: 21300000, guid: 952461b51e26c9e49a6034da667401bf, type: 2}
+  - idItem: Loaf_Slice2
+    AmountItems: 18
+    image: {fileID: 21300000, guid: 09c8a31c11cc8814da3e1d89677a5839, type: 2}

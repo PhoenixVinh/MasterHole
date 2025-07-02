@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_13
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Apple_Quarter_4
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 23c1f8e3e6a4fc04297b3cc63201b97b, type: 2}
+  - idItem: Dragonfruit
+    AmountItems: 21
+    image: {fileID: 21300000, guid: ea31bb2c3d90f3140b1a7e2525fe1cb3, type: 2}
+  - idItem: Mandarin_Slice
+    AmountItems: 34
+    image: {fileID: 21300000, guid: bf7a02d00c83f0645bf7ec5a669e80e2, type: 2}
+  - idItem: Pear_1
+    AmountItems: 2
+    image: {fileID: 21300000, guid: 8d5cdc16024d4e04ab3d43a38d9efc7a, type: 2}

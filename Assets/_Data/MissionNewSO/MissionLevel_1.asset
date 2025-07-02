@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_1
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: 932_Honeybottle
+    AmountItems: 28
+    image: {fileID: 21300000, guid: c5145509542f6014ea07033fb86ecafa, type: 2}
+  - idItem: 841_HiveHoney
+    AmountItems: 18
+    image: {fileID: 21300000, guid: 2fa3d6bc252b168438d77ec0a0cf3e72, type: 2}
+  - idItem: Honey_Lid_Big_4
+    AmountItems: 11
+    image: {fileID: 21300000, guid: 2be4ac640f6f8064cb1c0e267b4ec94a, type: 2}

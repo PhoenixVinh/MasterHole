@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_515
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Cloudberry
+    AmountItems: 128
+    image: {fileID: 0}
+  - idItem: Biscuits_9
+    AmountItems: 44
+    image: {fileID: 21300000, guid: 0f4a82ab6bd20e448a00965db3d38ab3, type: 2}
+  - idItem: Starfruit
+    AmountItems: 16
+    image: {fileID: 21300000, guid: 632ed52effef89c4ea44acf1dda9ae16, type: 2}
+  - idItem: Cherry_Red
+    AmountItems: 117
+    image: {fileID: 21300000, guid: 399979792aaf5534886a2cd94181bef6, type: 2}

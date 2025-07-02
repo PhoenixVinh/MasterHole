@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_143
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: FrenchPress_Press_2
+    AmountItems: 8
+    image: {fileID: 21300000, guid: 233bf2c63b65c8b49b23261a2870eba4, type: 2}
+  - idItem: 1185_mallblitz_bottle
+    AmountItems: 4
+    image: {fileID: 21300000, guid: 813a30ba0e1a2544385dfa0da1d6dee3, type: 2}
+  - idItem: SugarTongs
+    AmountItems: 2
+    image: {fileID: 21300000, guid: 97d728533160468459a7b109fa00a49a, type: 2}

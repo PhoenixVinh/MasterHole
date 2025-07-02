@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_237
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Iced_Coffee_3
+    AmountItems: 81
+    image: {fileID: 21300000, guid: 3f9e0dca1d353cd409c49ccfe8b36604, type: 2}
+  - idItem: 743_SetofBrushes
+    AmountItems: 5
+    image: {fileID: 21300000, guid: aaad1683c3a5a7543ba1a20ce70f20b5, type: 2}
+  - idItem: v_cup_variant_orange
+    AmountItems: 3
+    image: {fileID: 21300000, guid: f25ffabe26581994dbb744778ef54ca7, type: 2}

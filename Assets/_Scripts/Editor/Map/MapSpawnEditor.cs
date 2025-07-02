@@ -26,7 +26,8 @@ namespace _Scripts.Editor.Map
             "Drink",
             "hoa qua",
             "Junk food",
-            "other utensils"
+            "other utensils",
+            "GameObject"
         };
         
         

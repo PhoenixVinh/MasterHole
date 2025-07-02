@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_578
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: MelonPan_Melon
+    AmountItems: 107
+    image: {fileID: 0}
+  - idItem: Roll_Strawberry_Whole
+    AmountItems: 47
+    image: {fileID: 21300000, guid: 3c6f862772e7c2b4eba46d8805066bbb, type: 2}
+  - idItem: Cake_Shortcake_Slice
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 0bd42d9d54a88b148a19dc190b5d0d37, type: 2}

@@ -28,7 +28,7 @@ namespace _Scripts.Tutorial
 
 
 
-        private int amountItemCollect = 16;
+        private int amountItemCollect = 11;
         
         
         private void Start()
@@ -36,7 +36,7 @@ namespace _Scripts.Tutorial
             //this.holeController.HoleMovement.SetColliderArea(this.limitCollider);
             // ShowPanel
             isShowMoveMessage = false;
-            amountItemCollect = 16;
+            amountItemCollect = 11;
             panels.SetActive(false);
             moveMessage.SetActive(false);
             collectMessage.SetActive(false);

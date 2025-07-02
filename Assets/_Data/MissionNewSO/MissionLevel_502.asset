@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_502
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Papaya_Green_Half
+    AmountItems: 25
+    image: {fileID: 21300000, guid: 71ecee9abc909634aa8ed648130e609b, type: 2}
+  - idItem: Avocado_V1_1
+    AmountItems: 22
+    image: {fileID: 21300000, guid: 1928eac7534ee734f95bdeafd42f620a, type: 2}
+  - idItem: Starfruit
+    AmountItems: 12
+    image: {fileID: 21300000, guid: 632ed52effef89c4ea44acf1dda9ae16, type: 2}
+  - idItem: Tomatoes_Slice_V1_1
+    AmountItems: 26
+    image: {fileID: 21300000, guid: 47c0ffeafce8a9a46b9a23f384bb6220, type: 2}

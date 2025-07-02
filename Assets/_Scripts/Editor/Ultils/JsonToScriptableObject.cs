@@ -8,7 +8,7 @@ public class JsonToScriptableObjectConverter : EditorWindow {
     private string outputFolderPath = "Assets/SO_Output"; 
     private TextAsset jsonFile; // File JSON (.txt hoặc .json) để chuyển đổi
     //private string outputAssetName = "NewItemSpawnListAsset"; // Tên mặc định cho asset ScriptableObject mới
-    private string outputPath = "Assets/_Data/DataItemMap/DataMap/"; // Đường dẫn mặc định để lưu asset ScriptableObject
+    private string outputPath = "Assets/_Data/DataItemMap/DataMap2/"; // Đường dẫn mặc định để lưu asset ScriptableObject
 
     [MenuItem("Tools/JSON to ScriptableObject Converter")]
     public static void ShowWindow() {
@@ -55,10 +55,14 @@ public class JsonToScriptableObjectConverter : EditorWindow {
         string[] jsonFiles = Directory.GetFiles(inputFolderPath, "*.json", SearchOption.AllDirectories);
         List<string> processedFiles = new List<string>();
         int count = 1;
+        
         foreach (string jsonFile in jsonFiles)
         {
             // Đọc nội dung JSON
             string jsonStringS = File.ReadAllText(jsonFile);
+            string name = jsonFile.Substring(jsonFile.LastIndexOf("_") + 1,
+                jsonFile.LastIndexOf(".") - jsonFile.LastIndexOf("_") - 1);
+          
             LevelSpawnDataS1 newItemSpawnListSO = JsonUtility.FromJson<LevelSpawnDataS1>(jsonStringS);
 
             //Debug.Log(newItemSpawnListSO.Count);
@@ -71,7 +75,7 @@ public class JsonToScriptableObjectConverter : EditorWindow {
             //
             //
             // // Tạo đường dẫn đầy đủ cho asset mới
-            string fullPath = Path.Combine(outputPath, "Data_" + count + ".asset");
+            string fullPath = Path.Combine(outputPath, "DataNew_" + name + ".asset");
 
             // Tạo asset trong Project database
             AssetDatabase.CreateAsset(dataSO, fullPath);

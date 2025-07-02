@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_492
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Mashroom_V1_00
+    AmountItems: 13
+    image: {fileID: 21300000, guid: a96e3eb6ef4da4a41b42753fa0c9371c, type: 2}
+  - idItem: Banana_1
+    AmountItems: 17
+    image: {fileID: 21300000, guid: d0cde158f4a891e4cb4c9b72719358b5, type: 2}

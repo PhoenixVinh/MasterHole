@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fc113a68264276be701ffdf857fe40, type: 3}
+  m_Name: MissionLevel_539
+  m_EditorClassIdentifier: 
+  misstionsData:
+  - idItem: Pepper_2
+    AmountItems: 28
+    image: {fileID: 21300000, guid: 93d9a2b7e1bad9540be10e79a3570dca, type: 2}
+  - idItem: Avocado_V1_1
+    AmountItems: 32
+    image: {fileID: 21300000, guid: 1928eac7534ee734f95bdeafd42f620a, type: 2}
+  - idItem: CoffeePot_Drip_1
+    AmountItems: 1
+    image: {fileID: 21300000, guid: 9a624cb4fdc258844ae081964c598e22, type: 2}

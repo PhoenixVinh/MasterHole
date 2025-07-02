@@ -14,7 +14,7 @@ public class LevelGamePlaySO : ScriptableObject
 
 
 
-    public Vector3 mapPosition = new Vector3(0f,-10.6f,0f);
+    public Vector3 mapPosition = new Vector3(0f,-11f,0f);
     public Vector3 mapScale = new Vector3(10000f,10000f,10000f);
     [ContextMenu("Update Score Data")]
     public void UpdateData()
