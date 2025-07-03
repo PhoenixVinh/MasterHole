@@ -36,7 +36,7 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     }
 
 
-    void Start()
+    void Awake()
     {
         InitializePurchasing();
         UpdateUI();

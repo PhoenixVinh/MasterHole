@@ -103,6 +103,9 @@ namespace _Scripts.Editor.Map
                     ShowItemAgain();
                     this.levelGamePlaySO.mapPosition = mapPosition;
                     this.levelGamePlaySO.mapScale = mapSize;
+                    //EditorUtility.SetDirty(this.levelGamePlaySO);
+                    AssetDatabase.SaveAssets();
+                    
                 }
                
 
@@ -116,6 +119,7 @@ namespace _Scripts.Editor.Map
                
                 EditorUtility.SetDirty(levelGamePlaySO);
                 AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
                 itemDatas.Clear();
                 while (parentSpawn.childCount > 0)
                 {

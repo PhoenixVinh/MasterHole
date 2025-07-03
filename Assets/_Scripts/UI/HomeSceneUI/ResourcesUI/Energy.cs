@@ -191,7 +191,14 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
                 TimeSpan remainingTime = unlimitedEnergyEndTime - DateTime.Now;
                 if (remainingTime.TotalSeconds > 0)
                 {
-                    timeValue = String.Format("{0:D2}:{1:D2}:{2:D2}",remainingTime.Hours, remainingTime.Minutes, remainingTime.Seconds);
+                    if (remainingTime.TotalHours < 24)
+                    {
+                        timeValue = String.Format("{0:D2}:{1:D2}:{2:D2}",remainingTime.Hours, remainingTime.Minutes, remainingTime.Seconds);
+                    }
+                    else
+                    {
+                        timeValue = String.Format("{0}d:{1:D2}h", remainingTime.Days, remainingTime.Hours);
+                    }
                     //timeText.text = timeValue;
                     
                 }

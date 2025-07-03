@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4603900209657098}
   - {fileID: 4064128621631668}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
@@ -107,8 +108,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.3736471, z: 0}
   m_LocalScale: {x: 3.2999997, y: 3.2999997, z: 3.2999997}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4603900209657098}
+  m_Children: []
   m_Father: {fileID: 4695123272502970}
   m_LocalEulerAnglesHint: {x: -90, y: -0, z: -90}
 --- !u!33 &33767739930282613
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 136457560117987838}
   m_Layer: 7
   m_Name: Rotated Capsule Collider
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,12 +186,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414927472700132}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2328854, y: -0.1316674, z: -0.8387742, w: 0.47422135}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.3333333}
+  m_LocalRotation: {x: 0.3645528, y: -0.6058888, z: -0.000000014901161, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.3736471, z: 0}
+  m_LocalScale: {x: 1.0999999, y: 1.1, z: 1.0999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4064128621631668}
+  m_Father: {fileID: 4695123272502970}
   m_LocalEulerAnglesHint: {x: 27.273619, y: -15.41435, z: 117.27362}
 --- !u!136 &136457560117987838
 CapsuleCollider:

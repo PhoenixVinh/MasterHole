@@ -88,14 +88,14 @@ namespace _Scripts.Tutorial
             }
             
 
-            if (index % 20 == 0 && index >= 20 )
-            {
-                LevelCoin.SetActive(true);
-            }
-            else
-            {
-                LevelCoin.SetActive(false);
-            }
+            // if (index % 20 == 0 && index >= 20 )
+            // {
+            //     LevelCoin.SetActive(true);
+            // }
+            // else
+            // {
+            //     LevelCoin.SetActive(false);
+            // }
 
             return false;
 

@@ -58,7 +58,9 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
+        if (isLoss) return;
         isWin = true;
+        
         
         if (LoseUI.activeSelf) return;
         ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
@@ -79,7 +81,8 @@ public class ManagerWinLoss : MonoBehaviour
     }
     private async void ShowUILoss()
     {
-
+        if (isWin) return;
+        isLoss = true;
        
        
        
@@ -108,6 +111,7 @@ public class ManagerWinLoss : MonoBehaviour
             settings.SetActive(false);
             shop.SetActive(false);
         }
+        isLoss = false;
         
         
        

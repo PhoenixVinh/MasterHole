@@ -110,7 +110,8 @@ namespace _Scripts.UI.WinLossUI
             }
             else
             {
-                MessagePooling.Instance.SpawnMessage(this.playOnBtn.transform.position, Utills.NOT_ENOUGH_COIN);
+                UIManager.Instance?.ShowShop();
+                //MessagePooling.Instance.SpawnMessage(this.playOnBtn.transform.position, Utills.NOT_ENOUGH_COIN);
             }
             
             
