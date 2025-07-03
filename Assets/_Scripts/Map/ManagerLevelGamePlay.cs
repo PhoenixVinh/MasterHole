@@ -79,7 +79,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
             loadLevel = 80 + currentLevel%20;
         }
         
-        level = Resources.Load<LevelGamePlaySO>($"DataLevelNewSO/Data_Level_{loadLevel}");
+        level = Resources.Load<LevelGamePlaySO>($"DataLevelNewFixSO/Data_Level_{loadLevel}");
         
         if (level == null)
         {
