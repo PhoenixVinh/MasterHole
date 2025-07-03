@@ -6,15 +6,33 @@ using _Scripts.UI;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 
 namespace _Scripts.Ads
 {
     public class CMPController : MonoBehaviour
     {
         private bool isInitAds = false;
+        public static CMPController Instance;
+        
+        public bool needShowcmp = true;
+
+
+        public bool IsShowCMP = false; 
 
         void Awake()
         {
+           
+            if(Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
             isInitAds = true;
             MobileAds.SetiOSAppPauseOnBackground(true);
             MobileAds.RaiseAdEventsOnUnityMainThread = true;
@@ -23,55 +41,22 @@ namespace _Scripts.Ads
 #endif
         }
 
-
-        private void OnEnable()
+        private  void Start()
         {
-
-
-            int startCMP = ManagerFirebase.Instance.firebaseInitial.cmp_begin;
-            int distanceCMP = ManagerFirebase.Instance.firebaseInitial.cmp_distance;
-            //Display_CMP();
-            //StarCMP_Admod();
-            
-            int getcurrentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
-            if (IsCMPConsent())
-            {
-                //StarCMP();
-                MaxAdsManager.Instance?.InitAds();
-                return;
-            }
-
-            if (getcurrentLevel == 1)
-            {
-
-
-                StarCMP();
-
-            }
-            else if ((getcurrentLevel - startCMP) >= 0 && (getcurrentLevel - startCMP) % distanceCMP == 0)
-            {
-
-                StarCMP();
-            }
-            else
-            {
-                MaxAdsManager.Instance?.InitAds();
-            }
-
-
+           
+            //StarCMP();
+           
         }
-        
-        void StarCMP()
+
+
+        public void StarCMP()
         {
-            
-            
-            
-            
-            
+            IsShowCMP = false;
             if (IsCMPConsent())
             {
                 SetConsent(true);
                 MaxAdsManager.Instance?.InitAds();
+                IsShowCMP = true;
             }
             else
             {
@@ -87,6 +72,15 @@ namespace _Scripts.Ads
         }
     
         
+        public void ResetCMP_Admod()
+        {
+            ConsentInformation.Reset();
+            ConsentRequestParameters request = new ConsentRequestParameters
+            {
+                TagForUnderAgeOfConsent = false,
+            };
+            ConsentInformation.Update(request, OnConsentInfoUpdated);
+        }
 
 
         void ShowReplyCMP()
@@ -97,7 +91,7 @@ namespace _Scripts.Ads
                 TagForUnderAgeOfConsent = false,
                 
                 
-                // For testing purposes, set the debug geography to EEA.
+                
               
             };
           
@@ -109,95 +103,70 @@ namespace _Scripts.Ads
         
         void OnConsentInfoUpdated(FormError consentError)
         {
-        if (consentError != null)//Loi
-        {
-            // Handle the error.
-          
-
-            Debug.LogError("CMP: Update: " + consentError);
-            MaxAdsManager.Instance?.InitAds();
-            return;
-        }
-
-        ConsentForm.Load((ConsentForm consentForm, FormError formError) =>
-        {
-           
-            if (formError != null)//Loi
+            IsShowCMP = false;
+            if (consentError != null)//Loi
             {
+                // Handle the error.
+              
+
+                Debug.LogError("CMP: Update: " + consentError);
                 MaxAdsManager.Instance?.InitAds();
+                IsShowCMP = true;
                 return;
             }
 
-            //Continue to show CMP
-          
-         
-            consentForm.Show((FormError formError) =>
+            ConsentForm.Load((ConsentForm consentForm, FormError formError) =>
             {
-                
-                if (formError != null)
-                {
-                    // Consent gathering failed.
                
-                    //SetConsent(false);
+                if (formError != null)//Loi
+                {
                     MaxAdsManager.Instance?.InitAds();
+                    //IsShowCMP = true;
                     return;
                 }
 
-                // Consent has been gathered.
-                if (ConsentInformation.CanRequestAds())
+                //Continue to show CMP
+              
+             
+                consentForm.Show((FormError formError) =>
                 {
-                    if (IsCMPConsent())
+                    
+                    if (formError != null)
                     {
-                        //Request an ad.
-                     
-                        SetConsent(true);
+                        // Consent gathering failed.
+                   
+                        //SetConsent(false);
                         MaxAdsManager.Instance?.InitAds();
+                        return;
+                    }
+
+                    // Consent has been gathered.
+                    if (ConsentInformation.CanRequestAds())
+                    {
+                        if (IsCMPConsent())
+                        {
+                            //Request an ad.
+                         
+                            SetConsent(true);
+                            MaxAdsManager.Instance?.InitAds();
+                        }
+                        else
+                        {
+                            SetConsent(false);
+                            MaxAdsManager.Instance?.InitAds();
+                        }
                     }
                     else
                     {
                         SetConsent(false);
                         MaxAdsManager.Instance?.InitAds();
+                        
                     }
-                }
-                else
-                {
-                    SetConsent(false);
-                    MaxAdsManager.Instance?.InitAds();
-                }
-            });
+                    IsShowCMP = true;
+                });
             }); 
         }
         
-
-        void Display_CMP(FormError consentError)
-        {
-
-
-
-            ConsentForm.LoadAndShowConsentFormIfRequired((FormError loadAndShowError) =>
-            {
-                if (loadAndShowError != null)
-                {
-                    // Xử lý lỗi khi hiển thị form
-                    Debug.LogError("Error loading or showing consent form: " + loadAndShowError.Message);
-                }
-
-                // Khi form đã được xử lý (người dùng đã chọn)
-                if (ConsentInformation.ConsentStatus == ConsentStatus.Obtained)
-                {
-                    // Người dùng đã đồng ý, khởi tạo Mobile Ads SDK
-                    MaxSdk.SetHasUserConsent(true);
-                    MaxAdsManager.Instance?.InitAds();
-                    //InitializeAdMob();
-                }
-                else
-                {
-                    MaxSdk.SetHasUserConsent(false);
-                    MaxAdsManager.Instance?.InitAds();
-                }
-            });
-            MaxAdsManager.Instance?.InitAds();
-        }
 
 
 
@@ -257,7 +226,7 @@ namespace _Scripts.Ads
         /// <summary>
         /// Check if user accepted consent
         /// </summary>
-        bool IsCMPConsent()
+        public bool IsCMPConsent()
         {
             //DebugCustom.LogError(() => "isCMPConsent CanShowAds: " + CanShowAds() + " ----- CanShowPersonalizedAds: " + CanShowPersonalizedAds());
             if (CanShowAds() || CanShowPersonalizedAds())

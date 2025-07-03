@@ -11,7 +11,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
 
         public void OnEnable()
         {
-            
+            goldText.text = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN, 1).ToString();
             UpdateUI();
             ResourceEvent.OnUpdateResource += UpdateUI;
         }

@@ -32,9 +32,9 @@ public class MaxAdsManager : MonoBehaviour
 
     public float timeShowInter = 120;
 
-    private float _timeShowInter = 90f;
+    private DateTime _timeShowInter ;
 
-    private float _timeDoneReward = 15f;
+    private DateTime _timeDoneReward;
     
     
     
@@ -45,6 +45,8 @@ public class MaxAdsManager : MonoBehaviour
     private float maxRetryDelay = 64f; // Thời gian delay tối đa (giây)
     private void Awake()
     {
+        _timeShowInter = DateTime.Now;
+        _timeDoneReward = DateTime.Now;
         if (Instance == null)
         {
             Instance = this;
@@ -228,7 +230,7 @@ public class MaxAdsManager : MonoBehaviour
             LoadRewardedAd();
             ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
                 adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
-            _timeDoneReward = 15f; // Reset thời gian chờ sau khi quảng cáo hoàn thành
+            _timeDoneReward = DateTime.Now; // Reset thời gian chờ sau khi quảng cáo hoàn thành
             
         };
     }
@@ -294,10 +296,12 @@ public class MaxAdsManager : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _timeShowInter -= Time.deltaTime;
-        _timeDoneReward -= Time.deltaTime;
+       
+        
+        
+        //Debug.Log(Mathf.CeilToInt(_timeShowInter));
     }
 
 
@@ -310,12 +314,16 @@ public class MaxAdsManager : MonoBehaviour
         
         Debug.Log(ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter + "???" + ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level);
 
-        if (_timeDoneReward >= 0) return;
-        if (_timeShowInter <= 0)
+        if (Utills.GetMinusTime(_timeDoneReward) / 1000f < 15f) return;
+        
+            
+        
+        float value = Utills.GetMinusTime(_timeShowInter)/1000f;
+        if (value >= timeShowInter )
         {
             MaxSdk.ShowInterstitial(interstitialAdUnitId);
             LoadInterstitialAd();
-            _timeShowInter = timeShowInter;
+            _timeShowInter = DateTime.Now;
             
             return;
             

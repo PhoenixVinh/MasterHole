@@ -7,6 +7,7 @@ using _Scripts.Sound;
 using _Scripts.Tutorial;
 using _Scripts.UI;
 using _Scripts.UI.AnimationUI;
+using _Scripts.UI.HomeSceneUI.LoadingUI;
 using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using _Scripts.UI.PopupUI;
 using Unity.VisualScripting;
@@ -23,7 +24,7 @@ namespace _Scripts.ManagerScene.HomeScene
         public GameObject ShowLoseGame;
 
 
-        public GameObject LoadingUI;
+        public LoadingUI loadingUI;
         
         public InitData initData;
         private void Awake()
@@ -150,7 +151,7 @@ namespace _Scripts.ManagerScene.HomeScene
 
         public void ShowLoadingUI()
         {
-            LoadingUI.gameObject.SetActive(true);
+            loadingUI.gameObject.SetActive(true);
         }
 
         public void HideLoadingUI()
@@ -162,7 +163,11 @@ namespace _Scripts.ManagerScene.HomeScene
         private IEnumerator HideLoadingUICoroutine()
         {
             yield return new WaitForSecondsRealtime(1f);
-            LoadingUI.gameObject.SetActive(false);
+            while (loadingUI.IsLoading)
+            {
+                yield return null;
+            }
+            loadingUI.gameObject.SetActive(false);
         }
 
         public async void MinusHealth()

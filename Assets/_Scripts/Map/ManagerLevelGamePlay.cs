@@ -1,6 +1,7 @@
 
 using System;
 using System.Threading.Tasks;
+using _Scripts.Ads;
 using _Scripts.Booster;
 using _Scripts.Event;
 using _Scripts.Firebase;
@@ -13,6 +14,7 @@ using _Scripts.Tutorial;
 using _Scripts.UI;
 using _Scripts.UI.MissionUI;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.Rendering;
 
 
@@ -125,8 +127,14 @@ public class ManagerLevelGamePlay : MonoBehaviour
         CameraFOVEvent.OnStarLevelEvent?.Invoke();
         HoleEvent.OnTurnOffSkillUI?.Invoke();
         //100
+        
+        
+        
+        
+        
         if (ManagerHomeScene.Instance != null)
         {
+            
             ManagerHomeScene.Instance.HideLoadingUI();
         }
 

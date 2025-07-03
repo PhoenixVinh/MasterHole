@@ -18,6 +18,7 @@ public class ManagerWinLoss : MonoBehaviour
     public GameObject shop;
    
     public bool isWin = false;
+    public bool isLoss = false;
     public void OnEnable()
     {
         WinLossEvent.OnWin += ShowUIWin;
@@ -57,7 +58,7 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
-        
+        isWin = true;
         
         if (LoseUI.activeSelf) return;
         ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
@@ -81,7 +82,7 @@ public class ManagerWinLoss : MonoBehaviour
 
        
        
-      
+       
         ManagerSound.Instance?.StopAllSoundSFX();
         if (WinUI.activeSelf) return;
         await Task.Delay(1000);
