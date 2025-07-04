@@ -27,7 +27,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
     public int currentLevel = 1;
 
 
-    private bool isShowBanner = false;
+    [HideInInspector]public bool isShowBanner = false;
 
     private void Awake()
     {

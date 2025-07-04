@@ -13,7 +13,9 @@ namespace _Scripts.UI.AdsUI
 
         public void OnDisable()
         {
-            MaxAdsManager.Instance?.ShowBannerAd();
+            if(ManagerLevelGamePlay.Instance.isShowBanner)
+                
+                MaxAdsManager.Instance?.ShowBannerAd();
         }
     }
 }

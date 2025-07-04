@@ -12,14 +12,17 @@ namespace _Scripts.IAP
     {
         public override void OnBuySuccess()
         {
-            base.OnBuySuccess();
+            
             int getRemoveAds = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_PACK);
             int getRemovesAdsVip = PlayerPrefs.GetInt(StringPlayerPrefs.REMOVED_ADS_VIP);
             if (getRemoveAds == 1 || getRemovesAdsVip == 1)
             {
-                int currentCoint = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
-                currentCoint += 1500;
-                PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, currentCoint);
+                // int currentCoint = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_COIN);
+                // currentCoint += 1500;
+                // PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, currentCoint);
+                gold = 50000 + 1500;
+                
+              
             }
             else
             {
@@ -30,6 +33,8 @@ namespace _Scripts.IAP
             {
                 ManagerBooster.Instance?.SetData();
             }
+            
+            base.OnBuySuccess();
         }
         
         public override void PlayAnim()

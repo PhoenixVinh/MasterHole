@@ -227,7 +227,7 @@ public class MaxAdsManager : MonoBehaviour
 
     public void ShowRewardedAd(Action callback = null)
     {
-        if (isRemoveAds) return;
+       
         timeLoadRewarded = DateTime.Now;
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {
@@ -286,13 +286,6 @@ public class MaxAdsManager : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
-    {
-       
-        
-        
-        //Debug.Log(Mathf.CeilToInt(_timeShowInter));
-    }
 
 
     public void ShowInterAdsByLevel(Action callback = null)
@@ -300,7 +293,7 @@ public class MaxAdsManager : MonoBehaviour
         
         
         if(isRemoveAds || isRemoveInter) return;
-        Debug.Log("ShowInterAdsByLevel");
+        
         int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
         
         
