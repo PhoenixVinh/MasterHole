@@ -18,12 +18,12 @@ namespace _Scripts.IAP
             PlayerPrefs.SetInt(StringPlayerPrefs.CURRENT_COIN, currentGold);
             ResourceEvent.OnUpdateResource?.Invoke();
 
-            PlayAnim();
+            PlayAnimMain();
             LogFirebase();
         }
 
 
-        public virtual void PlayAnim()
+        public virtual void PlayAnimMain()
         {
             UIEvent.OnRewardedSuccess?.Invoke(new List<DataReward>
             {

@@ -21,7 +21,7 @@ namespace _Scripts.IAP
         
         public override void OnBuySuccess()
         {
-            
+            base.OnBuySuccess();
             var BoosterDatas = JsonUtility.FromJson<BoosterDatas>(PlayerPrefs.GetString(StringPlayerPrefs.BOOSTER_DATA));
             BoosterDatas.Boosters[0].Amount += amount_BScale;
             BoosterDatas.Boosters[1].Amount += amount_BMagnet;
@@ -31,11 +31,20 @@ namespace _Scripts.IAP
             string convert = JsonUtility.ToJson(BoosterDatas);
             PlayerPrefs.SetString(StringPlayerPrefs.BOOSTER_DATA, convert);
             ResourceEvent.OnUpdateResource?.Invoke();
-            ManagerBooster.Instance?.SetData();
-            base.OnBuySuccess();
+            if(ManagerBooster.Instance != null)
+            {
+                ManagerBooster.Instance?.SetData();
+            }
+
+            PlayAnim();
         }
         
-        public override void PlayAnim()
+        public override void PlayAnimMain()
+        {
+            
+        }
+        
+        public  void PlayAnim()
         {
             List<DataReward> data = new List<DataReward>();
             data.Add(new DataReward

@@ -10,5 +10,10 @@ namespace _Scripts.UI.AdsUI
             MaxAdsManager.Instance?.HideBannerAd();
             //Destroy(gameObject);
         }
+
+        public void OnDisable()
+        {
+            MaxAdsManager.Instance?.ShowBannerAd();
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace _Scripts.IAP
         public override void OnBuySuccess()
         {
            
-            
+            base.OnBuySuccess();
             
             DateTime infi = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
             if (infi < DateTime.Now)
@@ -28,10 +28,13 @@ namespace _Scripts.IAP
             PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, infi.ToString());
             Energy.Instance?.LoadInfinity();
             ManagerBooster.Instance?.SetData();
-            base.OnBuySuccess();
+            PlayAnim();
         }
-        
-        public override void PlayAnim()
+        public override void PlayAnimMain()
+        {
+            
+        }
+        public  void PlayAnim()
         {
             TimeSpan t = TimeSpan.FromSeconds(timeInfinity);
             string formatted = t.ToString(@"hh\:mm\:ss");

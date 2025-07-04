@@ -121,7 +121,7 @@ namespace _Scripts.Ads
                 if (formError != null)//Loi
                 {
                     MaxAdsManager.Instance?.InitAds();
-                    //IsShowCMP = true;
+                    IsShowCMP = true;
                     return;
                 }
 
