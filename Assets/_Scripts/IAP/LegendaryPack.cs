@@ -26,7 +26,10 @@ namespace _Scripts.IAP
                 PlayerPrefs.SetInt(StringPlayerPrefs.REMOVED_ADS_VIP, 1);
             }
 
-            ManagerBooster.Instance?.SetData();
+            if(ManagerBooster.Instance != null)
+            {
+                ManagerBooster.Instance?.SetData();
+            }
         }
         
         public override void PlayAnim()

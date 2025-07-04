@@ -21,6 +21,8 @@ public class InitData : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey(StringPlayerPrefs.INIT_DATA))
         {
+            
+            PlayerPrefs.DeleteAll();
             PlayerPrefs.SetInt(StringPlayerPrefs.INIT_DATA, 1);
             
             // set data default

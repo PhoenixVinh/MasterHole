@@ -17,7 +17,7 @@ namespace _Scripts.IAP
         }
         
         
-        public  void PlayAnim()
+        public override  void PlayAnim()
         {
             List<DataReward> data = new List<DataReward>();
             data.Add(new DataReward

@@ -179,17 +179,7 @@ public class MaxAdsManager : MonoBehaviour
     
     
     
-    public void ShowInterstitialAd(Action callback = null)
-    {
-        
-        if (isRemoveAds || isRemoveInter) return;
-        if (MaxSdk.IsInterstitialReady(interstitialAdUnitId))
-        {
-            timeLoadInter = DateTime.Now;
-            MaxSdk.ShowInterstitial(interstitialAdUnitId);
-            
-        }
-    }
+   
     private void InitializeRewardedAds()
     {
         // Tải quảng cáo có tặng thưởng
@@ -307,6 +297,9 @@ public class MaxAdsManager : MonoBehaviour
 
     public void ShowInterAdsByLevel(Action callback = null)
     {
+        
+        
+        if(isRemoveAds || isRemoveInter) return;
         Debug.Log("ShowInterAdsByLevel");
         int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
         
@@ -328,13 +321,13 @@ public class MaxAdsManager : MonoBehaviour
             return;
             
         }
-        if (currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter &&
-            (currentLevel - ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter) %
-            ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level == 0)
-        {
-            MaxSdk.ShowInterstitial(interstitialAdUnitId);
-            LoadInterstitialAd();
-        }
+        // if (currentLevel >= ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter &&
+        //     (currentLevel - ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter) %
+        //     ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level == 0)
+        // {
+        //     MaxSdk.ShowInterstitial(interstitialAdUnitId);
+        //     LoadInterstitialAd();
+        // }
        
     }
 }

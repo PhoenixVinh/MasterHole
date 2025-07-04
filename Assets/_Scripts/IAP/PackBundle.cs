@@ -36,15 +36,11 @@ namespace _Scripts.IAP
                 ManagerBooster.Instance?.SetData();
             }
 
-            PlayAnim();
+            //PlayAnim();
         }
         
-        public override void PlayAnimMain()
-        {
-            
-        }
-        
-        public  void PlayAnim()
+       
+        public override  void PlayAnim()
         {
             List<DataReward> data = new List<DataReward>();
             data.Add(new DataReward

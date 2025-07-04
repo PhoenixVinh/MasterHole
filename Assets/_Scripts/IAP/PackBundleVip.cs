@@ -27,14 +27,15 @@ namespace _Scripts.IAP
             
             PlayerPrefs.SetString(StringPlayerPrefs.UNLIMITED_TIME, infi.ToString());
             Energy.Instance?.LoadInfinity();
-            ManagerBooster.Instance?.SetData();
+            if(ManagerBooster.Instance != null)
+            {
+                ManagerBooster.Instance?.SetData();
+            }
+            
             PlayAnim();
         }
-        public override void PlayAnimMain()
-        {
-            
-        }
-        public  void PlayAnim()
+      
+        public override void PlayAnim()
         {
             TimeSpan t = TimeSpan.FromSeconds(timeInfinity);
             string formatted = t.ToString(@"hh\:mm\:ss");

@@ -10,7 +10,10 @@ namespace _Scripts.IAP
         {
             
             PlayerPrefs.SetInt(StringPlayerPrefs.STARTER_DEAL_PACK, 1);
-            ManagerBooster.Instance?.SetData();
+            if(ManagerBooster.Instance != null)
+            {
+                ManagerBooster.Instance?.SetData();
+            }
             base.OnBuySuccess();
         }
     }
