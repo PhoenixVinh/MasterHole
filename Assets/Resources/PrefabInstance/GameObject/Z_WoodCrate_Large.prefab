@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 65116054945558599}
   m_Layer: 7
   m_Name: Rotated Box Collider
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039545317343043}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.929065, z: -0, w: 0.36991662}
+  m_LocalRotation: {x: -0, y: 0.9999051, z: -0, w: -0.013779372}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15384613, y: 0.15384614, z: 0.15384613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4358364765917535}
+  m_Father: {fileID: 4489915140104168}
   m_LocalEulerAnglesHint: {x: -180, y: -43.420948, z: 180}
 --- !u!65 &65116054945558599
 BoxCollider:
@@ -84,6 +84,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4768344340342826}
+  - {fileID: 4846517338666546}
+  - {fileID: 4860318610573016}
+  - {fileID: 4303170202564192}
+  - {fileID: 4345019966585597}
   - {fileID: 4358364765917535}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
@@ -142,7 +147,7 @@ GameObject:
   - component: {fileID: 65890500406955280}
   m_Layer: 7
   m_Name: Rotated Box Collider
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,12 +160,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152268628095294}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6532815, y: -0.27059802, z: 0.27059802, w: 0.6532815}
+  m_LocalRotation: {x: 0.7071068, y: 0.000000014901163, z: -0.000000014901163, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15384614, y: 0.15384614, z: 0.15384616}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4358364765917535}
+  m_Father: {fileID: 4489915140104168}
   m_LocalEulerAnglesHint: {x: 90, y: 44.999996, z: 0}
 --- !u!65 &65890500406955280
 BoxCollider:
@@ -213,12 +218,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.000000095096674, z: 0}
   m_LocalScale: {x: 6.5, y: 6.5, z: 6.5}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4345019966585597}
-  - {fileID: 4303170202564192}
-  - {fileID: 4860318610573016}
-  - {fileID: 4846517338666546}
-  - {fileID: 4768344340342826}
+  m_Children: []
   m_Father: {fileID: 4489915140104168}
   m_LocalEulerAnglesHint: {x: 0, y: -44.999996, z: -0}
 --- !u!33 &33158613450811598
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 65685944446645479}
   m_Layer: 7
   m_Name: Rotated Box Collider
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,12 +296,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503377915625190}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.65638924, y: -0.26296622, z: -0.26297113, w: 0.6563903}
+  m_LocalRotation: {x: -0.7070593, y: 0.008240565, z: 0.008235633, w: 0.7070583}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15384614, y: 0.15384614, z: 0.15384613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4358364765917535}
+  m_Father: {fileID: 4489915140104168}
   m_LocalEulerAnglesHint: {x: -89.99968, y: 43.664925, z: 0.00055599294}
 --- !u!65 &65685944446645479
 BoxCollider:
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 65371668134578536}
   m_Layer: 7
   m_Name: Rotated Box Collider
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,12 +349,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546226754893103}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6493494, y: 0.27990255, z: 0.2799026, w: 0.64934933}
+  m_LocalRotation: {x: -0.49280655, y: 0.50709146, z: 0.5070915, w: 0.4928065}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15384616, y: 0.15384614, z: 0.15384613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4358364765917535}
+  m_Father: {fileID: 4489915140104168}
   m_LocalEulerAnglesHint: {x: -90, y: -46.636993, z: -0.0000036751007}
 --- !u!65 &65371668134578536
 BoxCollider:
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 65983834156432545}
   m_Layer: 7
   m_Name: Rotated Box Collider
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -402,12 +402,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607642492947739}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.39356297, y: 0.00000004576316, z: 0.9192977, w: -0.0000000013730883}
+  m_LocalRotation: {x: 0.71540475, y: 0.00000004175419, z: 0.6987103, w: -0.00000001878137}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15384614, y: 0.15384611, z: 0.15384614}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4358364765917535}
+  m_Father: {fileID: 4489915140104168}
   m_LocalEulerAnglesHint: {x: 0.0000068948484, y: 46.35276, z: -180}
 --- !u!65 &65983834156432545
 BoxCollider:
