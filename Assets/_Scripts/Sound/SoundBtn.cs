@@ -9,7 +9,7 @@ namespace _Scripts.Sound
     {
         private Button btn;
 
-        public void Start()
+        public void OnEnable()
         {
             btn = GetComponent<Button>();
             if (btn == null)
@@ -24,6 +24,11 @@ namespace _Scripts.Sound
             if(ManagerSound.Instance != null)
                 ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ButtonClick);
             ManagerVibration.Instance?.UseVibration(EnumVibration.Light);
+        }
+
+        public void OnDisable()
+        {
+            btn.onClick.RemoveListener(PlaySound);
         }
     }
 }

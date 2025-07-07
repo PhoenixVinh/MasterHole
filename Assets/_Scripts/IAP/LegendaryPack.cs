@@ -67,11 +67,15 @@ namespace _Scripts.IAP
                 id = 4,
                 amound = formatted
             });
-            data.Add(new DataReward()
+            if (gold != 51500)
             {
-                id = 5,
-                amound = "Ads Removed",
-            });
+                data.Add(new DataReward()
+                {
+                    id = 5,
+                    amound = "Ads Removed",
+                });
+            }
+          
         
             UIEvent.OnRewardedSuccess?.Invoke(data);
             MaxAdsManager.Instance.isRemoveAds = true;

@@ -52,7 +52,7 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
         builder.AddProduct(StringKeyIAP.NORMAL_PACK, ProductType.Consumable);
         builder.AddProduct(StringKeyIAP.RARE_PACK, ProductType.Consumable);
         builder.AddProduct(StringKeyIAP.EPIC_PACK, ProductType.Consumable);
-        builder.AddProduct(StringKeyIAP.LEGENDARY_PACK, ProductType.NonConsumable);
+        builder.AddProduct(StringKeyIAP.LEGENDARY_PACK, ProductType.Consumable);
         builder.AddProduct(StringKeyIAP.COIN_FEW, ProductType.Consumable);
         builder.AddProduct(StringKeyIAP.COIN_BAG, ProductType.Consumable);
         builder.AddProduct(StringKeyIAP.COIN_PILE, ProductType.Consumable);
@@ -61,8 +61,11 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
         builder.AddProduct(StringKeyIAP.COIN_VAULT, ProductType.Consumable);
         builder.AddProduct(StringKeyIAP.REMOVE_ADS, ProductType.NonConsumable);
 
-
+        
         UnityPurchasing.Initialize(this, builder);
+            
+        Debug.Log("IAP Initialized successfully");
+        UpdateUI();
     }
 
 
@@ -300,6 +303,7 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
 
     public void BuyRemoveAds()
     {
+        Debug.Log("Remove Ads");
         m_StoreController.InitiatePurchase(StringKeyIAP.REMOVE_ADS);
         ManagerFirebase.Instance?.LogIAP_Click(ShowType.shop, StringKeyIAP.REMOVE_ADS);
     }

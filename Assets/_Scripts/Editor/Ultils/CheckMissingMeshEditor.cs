@@ -7,10 +7,10 @@ public class CheckFile
     public static void CheckMissingMeshEditor()
     {
         string folderPath = "Assets/Resources/PrefabInstance/GameObject/"; // Đường dẫn đến thư mục chứa prefab
-        
-        
-        string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
 
+
+        string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
+        string result = "";
         foreach (string guid in guids)
         {
             string assetPath = AssetDatabase.GUIDToAssetPath(guid);
@@ -38,9 +38,12 @@ public class CheckFile
             }
             if (hasMissingMesh)
             {
-                Debug.Log($"Missing mesh in prefab: {prefab.name}");
+                //Debug.Log($"Missing mesh in prefab: {prefab.name}");
+                result += $"{prefab.name},";
             }
+
         }
+        Debug.Log(result);
     }
 
 }

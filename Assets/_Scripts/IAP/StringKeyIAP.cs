@@ -16,7 +16,7 @@ namespace _Scripts.IAP
         public const string COIN_BOX = "com.holemaster.coin.box";
         public const string COIN_CHEST = "com.holemaster.coin.chest";
         public const string COIN_VAULT = "com.holemaster.coin.vault";
-        public const string REMOVE_ADS = "com.holemaster.remove_ads";
+        public const string REMOVE_ADS = "com.holemaster.pack.remove_ads";
         
         
         
