@@ -50,18 +50,21 @@ namespace _Scripts.UI.PopupUI
         {
             if(!canBuy) return;
             
-            MaxAdsManager.Instance.ShowRewardedAd(() =>
-            {
-                ResourceEvent.OnUpdateResource?.Invoke();
-                Resource.Instance?.PlusHealth();
-                ManagerFirebase.Instance?.LogEarnResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.video);
-                UpdateUI();
-            });
+            MaxAdsManager.Instance?.ShowRewardedAd(RewardAds);
             
             
          
                 
             
+        }
+
+        public void RewardAds()
+        {
+            ResourceEvent.OnUpdateResource?.Invoke();
+            Resource.Instance?.PlusHealth();
+            ManagerFirebase.Instance?.LogEarnResource(ResourceType.item, ResourceName.Heart.ToString(), "1", Reson.video);
+            UpdateUI();
+           
         }
 
         private void BuyEnergyByCoin()

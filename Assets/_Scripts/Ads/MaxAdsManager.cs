@@ -43,6 +43,12 @@ public class MaxAdsManager : MonoBehaviour
     private int retryRewardAttempt = 0; // Số lần thử lại tải quảng cáo
     private int retryInterAttempt = 0; // Số lần thử lại tải quảng cáo xen kẽ
     private float maxRetryDelay = 64f; // Thời gian delay tối đa (giây)
+    
+    
+    
+    
+    // timeBetween Rewarded vs Interstitial
+    public float timeBetweenRewardedAndInterstitial = 15f; // Thời gian tối thiểu giữa quảng cáo có thưởng và quảng cáo xen kẽ
     private void Awake()
     {
         _timeShowInter = DateTime.Now;
@@ -73,9 +79,10 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration config) =>
         {
             Debug.Log("AppLovin SDK Initialized");
-            int IsTest = PlayerPrefs.GetInt(StringPlayerPrefs.ISTESTGAME, 0);
-            if(IsTest == 1)
-                MaxSdk.SetCreativeDebuggerEnabled(true);
+            // int IsTest = PlayerPrefs.GetInt(StringPlayerPrefs.ISTESTGAME, 0);
+            // if(IsTest == 1)
+            MaxSdk.SetCreativeDebuggerEnabled(true);
+            MaxSdk.ShowMediationDebugger();
             //MaxSdk.ShowCreativeDebugger();
             InitializeBannerAds();
             InitializeInterstitialAds();
@@ -231,17 +238,17 @@ public class MaxAdsManager : MonoBehaviour
         timeLoadRewarded = DateTime.Now;
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {
-            
-            // Đăng ký sự kiện để xử lý khi quảng cáo hoàn thành
-            MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += (string adUnitId, MaxSdkBase.Reward reward, MaxSdkBase.AdInfo adInfo) =>
+            // Create a local handler
+            Action<string, MaxSdkBase.Reward, MaxSdkBase.AdInfo> handler = null;
+            handler = (string adUnitId, MaxSdkBase.Reward reward, MaxSdkBase.AdInfo adInfo) =>
             {
-                
                 callback?.Invoke();
                 LoadRewardedAd();
-                //MaxSdk.
+                // Unsubscribe after called
+                MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent -= handler;
             };
+            MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += handler;
 
-            // Hiển thị quảng cáo
             MaxSdk.ShowRewardedAd(rewardedAdUnitId);
         }
         else
@@ -250,6 +257,8 @@ public class MaxAdsManager : MonoBehaviour
             Debug.Log("Rewarded ad is not ready");
         }
     }
+    
+
     
     // // Hàm hiển thị Banner Ad
     // public void ShowBannerAd()
@@ -300,7 +309,7 @@ public class MaxAdsManager : MonoBehaviour
         
         Debug.Log(ManagerFirebase.Instance.firebaseInitial.Level_Show_Inter + "???" + ManagerFirebase.Instance.firebaseInitial.Inter_Distance_Level);
 
-        if (Utills.GetMinusTime(_timeDoneReward) / 1000f < 15f) return;
+        if (Utills.GetMinusTime(_timeDoneReward) / 1000f < timeBetweenRewardedAndInterstitial) return;
         
             
         

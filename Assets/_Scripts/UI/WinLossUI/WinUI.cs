@@ -81,7 +81,7 @@ namespace _Scripts.UI.WinLossUI
         
         private void ChangeHomeScene()
         {
-            MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            //MaxAdsManager.Instance?.ShowInterAdsByLevel();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance.ShowRewardCoin(coinGet);
@@ -104,9 +104,9 @@ namespace _Scripts.UI.WinLossUI
 
         private  void ShowNextlevel()
         {
-            
-            
-            MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            if(ManagerFirebase.Instance != null)
+                if(ManagerFirebase.Instance.firebaseInitial.trigger_inter_continue_win)
+                    MaxAdsManager.Instance?.ShowInterAdsByLevel();
             
             int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
             

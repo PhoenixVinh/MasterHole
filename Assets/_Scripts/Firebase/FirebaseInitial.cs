@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using _Scripts.UI;
+using _Scripts.UI.HomeSceneUI.ResourcesUI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FirebaseInitial : MonoBehaviour
 {
@@ -19,7 +21,7 @@ public class FirebaseInitial : MonoBehaviour
 
     //Remote Var
 
-    public int CoinStart = 100;
+  
     public string VersionTest = "";
 
     public int Level_Show_Inter = 0;
@@ -27,16 +29,34 @@ public class FirebaseInitial : MonoBehaviour
     public int CapingTime_Inter = 0;
     public int Level_Show_Banner = 0;
     
-    
-    
-    
     public float capingtime_inter = 90f;
     public int cmp_begin = 15;
     public int cmp_distance = 5;
     
+    
+    
+    
+    // RateUs Data 
+    public int first_popup_rate = 3;
+    public int distance_popup_rate = 5;
+    
+    
+    //Trigger_inter 
+    public bool trigger_inter_btnQuit_popupSetting = true;
+    public bool trigger_inter_continue_win = true;
+    public bool trigger_inter_playAgain_fail = true;
+    
+    //Time_heart 
+    public int time_heart = 300;
+    
+    
+    // Ads remote config
+    public float timeBetweenRewardedAndInterstitial = 15f;
+    
+    
     private void Awake()
     {
-        CoinStart = PlayerPrefs.GetInt("CoinStart", 100);
+      
         Level_Show_Inter = PlayerPrefs.GetInt(StringPlayerPrefs.LEVEL_SHOW_INTER, 20);
         Inter_Distance_Level = PlayerPrefs.GetInt(StringPlayerPrefs.INTER_DISTANCE_LEVEL, 2);
         CapingTime_Inter = PlayerPrefs.GetInt(StringPlayerPrefs.CAPINGTIME_INTER, 120);
@@ -62,7 +82,7 @@ public class FirebaseInitial : MonoBehaviour
         System.Collections.Generic.Dictionary<string, object> defaults =
             new System.Collections.Generic.Dictionary<string, object>();
 
-        defaults.Add("CoinStart", CoinStart);
+        //defaults.Add("CoinStart", CoinStart);
         
 
         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults).ContinueWith(Task =>
@@ -137,8 +157,22 @@ public class FirebaseInitial : MonoBehaviour
                     cmp_begin = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("cmp_begin").LongValue;
                     cmp_distance = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("cmp_distance").LongValue;
                     capingtime_inter = (float)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("capingtime_inter").DoubleValue;
-                    MaxAdsManager.Instance.timeShowInter = capingtime_inter;
+                    first_popup_rate = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("first_popup_rate").LongValue;
+                    distance_popup_rate = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("distance_popup_rate").LongValue;
+                    trigger_inter_btnQuit_popupSetting = (bool)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("trigger_inter_btnQuit_popupSetting").BooleanValue;
+                    trigger_inter_continue_win = (bool)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("trigger_inter_continue_win").BooleanValue;
+                    trigger_inter_playAgain_fail = (bool)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("trigger_inter_playAgain_fail").BooleanValue;
+                    time_heart = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("time_heart").LongValue;
+                    timeBetweenRewardedAndInterstitial = (float)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("time_between_reward_inter").DoubleValue;
                     
+                    
+                    // Set Data
+                    MaxAdsManager.Instance.timeShowInter = capingtime_inter;
+                    MaxAdsManager.Instance.timeBetweenRewardedAndInterstitial = timeBetweenRewardedAndInterstitial;
+                    Energy.Instance.restoreDuration = time_heart;
+                    
+                    
+                    // Save to PlayerPrefs
                     PlayerPrefs.SetInt(StringPlayerPrefs.LEVEL_SHOW_INTER, Level_Show_Inter);
                     PlayerPrefs.SetInt(StringPlayerPrefs.INTER_DISTANCE_LEVEL, Inter_Distance_Level);
                     PlayerPrefs.SetInt(StringPlayerPrefs.CAPINGTIME_INTER, CapingTime_Inter);

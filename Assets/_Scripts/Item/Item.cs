@@ -26,9 +26,9 @@ public class Item : MonoBehaviour
     
     [SerializeField]private string nameLayerOn = "NoCollision";
     [SerializeField]private string nameLayerOff = "Collision";
-    public void SetData(string foodName, int score)
+    public void SetData(string foodName)
     {
-        this.score = score;
+      
         this.type = foodName;
         rb = GetComponent<Rigidbody>();
         isGetScore = false;

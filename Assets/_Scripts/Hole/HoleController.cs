@@ -63,6 +63,11 @@ public class HoleController : MonoBehaviour
 
     }
 
+    public void StopSpecialSkill()
+    {
+        this._holeSpecialSkill.StopEventSkill();
+    }
+
 
 
     private void SetData()
@@ -172,6 +177,8 @@ public class HoleController : MonoBehaviour
         //this._levelManager.ResetLevel();
         
     }
+    
+    
 
     public void Reset()
     {

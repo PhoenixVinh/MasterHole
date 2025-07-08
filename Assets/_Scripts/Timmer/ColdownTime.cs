@@ -141,6 +141,12 @@ public class ColdownTime : MonoBehaviour, IPrecent
         });
     }
 
+
+    [ContextMenu("Minus Timmer")]
+    public void MinusTime()
+    {
+        _timeColdown -= 30f;
+    }
     public float Precent()
     {
         return _timeColdown / ColdownTimeComplete;

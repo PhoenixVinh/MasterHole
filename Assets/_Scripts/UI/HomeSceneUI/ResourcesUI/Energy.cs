@@ -33,7 +33,7 @@ namespace _Scripts.UI.HomeSceneUI.ResourcesUI
         // [SerializeField] TMP_Text energyText;
         // [SerializeField] TMP_Text timeText;
 
-        [SerializeField]private int restoreDuration = 5;
+        public int restoreDuration = 5;
         [SerializeField]private int maxEnergy = 25;
         
         

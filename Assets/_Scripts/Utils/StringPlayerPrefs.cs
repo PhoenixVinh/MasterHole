@@ -78,5 +78,11 @@ namespace _Scripts.UI
         
         // Init Data
         public static string INIT_DATA = "InitData";
+        
+        
+        
+        // RateUs Data 
+        public static string IS_RATE_US = "IsRateUs";
+        
     }
 }

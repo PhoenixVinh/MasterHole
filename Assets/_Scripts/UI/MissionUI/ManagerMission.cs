@@ -92,6 +92,16 @@ namespace _Scripts.UI.MissionUI
                 WinLossEvent.OnWin?.Invoke();
             }
         }
+        public void CheckWin()
+        {
+            if (TypeItems.Count == 0)
+            {
+                Debug.Log("WIN ????");
+                WinLossEvent.OnWin?.Invoke();
+            }
+        }
+        
+        
 
         public void PassLevel()
         {

@@ -58,7 +58,10 @@ namespace _Scripts.UI.WinLossUI
         
         private async void PlayAgain()
         {
-            MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            
+            
+            if(ManagerFirebase.Instance.firebaseInitial.trigger_inter_playAgain_fail)
+                MaxAdsManager.Instance?.ShowInterAdsByLevel();
             DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
             if (Energy.Instance?.IsUnlimitedEnergy == false)
             {

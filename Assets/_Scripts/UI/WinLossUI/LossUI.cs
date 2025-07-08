@@ -5,6 +5,7 @@ using _Scripts.ManagerScene;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.ObjectPooling;
 using _Scripts.Sound;
+using _Scripts.UI.MissionUI;
 using _Scripts.UI.PauseGameUI;
 
 using UnityEngine;
@@ -124,6 +125,7 @@ namespace _Scripts.UI.WinLossUI
         public void AddTimeGamePlay()
         {
             ColdownTime.Instance.AddTime(timeAdd);
+            ManagerMission.Instance?.CheckWin();
         }
     }
 }

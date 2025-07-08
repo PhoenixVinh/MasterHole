@@ -32,6 +32,7 @@ namespace _Scripts.Hole
         {
           
             hits = new Collider[5];
+            
         }
 
         private void FixedUpdate()
@@ -40,8 +41,10 @@ namespace _Scripts.Hole
             CheckCanMove();
             if (canMove)
             {
+                // Chuyển đổi input 2D thành Vector3 cho 3D movement
+                
                Vector3 newPos  = transform.position +  new  Vector3(_movementDirection.x, 0, _movementDirection.y) * _speedMovement*Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, newPos, _speedMovement*Time.deltaTime);
+               transform.position = Vector3.Lerp(transform.position, newPos, _speedMovement*Time.deltaTime);
             //    transform.Translate(new Vector3(_movementDirection.x, 0, _movementDirection.y)*_speedMovement*Time.deltaTime);
             }
 

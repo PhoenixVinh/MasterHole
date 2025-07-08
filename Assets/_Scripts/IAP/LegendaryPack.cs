@@ -78,7 +78,8 @@ namespace _Scripts.IAP
           
         
             UIEvent.OnRewardedSuccess?.Invoke(data);
-            MaxAdsManager.Instance.isRemoveAds = true;
+            if( MaxAdsManager.Instance != null)
+                MaxAdsManager.Instance.isRemoveAds = true;
             
         }
     }

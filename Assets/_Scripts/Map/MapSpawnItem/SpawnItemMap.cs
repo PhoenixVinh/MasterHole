@@ -127,15 +127,15 @@ namespace _Scripts.Map.MapSpawnItem
                     prefabInstance = spawnedObjects[nameItem];
                 }
 
-                int scoreItem = 1;
-                foreach (var score in itemScores)
-                {
-                    if (score.itemName == nameItem)
-                    {
-                        scoreItem = score.score;
-                        break;
-                    }
-                }
+                // int scoreItem = 1;
+                // foreach (var score in itemScores)
+                // {
+                //     if (score.itemName == nameItem)
+                //     {
+                //         scoreItem = score.score;
+                //         break;
+                //     }
+                // }
                 
                 
                 
@@ -162,7 +162,7 @@ namespace _Scripts.Map.MapSpawnItem
                     }
 
                     Item itemType = itemSpawn.GetComponent<Item>();
-                    itemType.SetData(itemSpawn.name, scoreItem);
+                    itemType.SetData(itemSpawn.name);
 
                     if (MissionItemNames.Contains(nameItem))
                     {

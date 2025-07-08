@@ -43,6 +43,15 @@ namespace _Scripts.UI.SpecialSkillUI
             this.mainHole = mainHole;
             arrow.SetActive(true);
             arrow.GetComponent<DirectionItem>().SetContent(sprite);
+            
+            Vector3 screenPoint = UnityEngine.Camera.main.WorldToViewportPoint(this.transform.position);
+            Vector3 display = new Vector3(
+                Mathf.Clamp(screenPoint.x, 0.1f, 0.9f),
+                Mathf.Clamp(screenPoint.y, 0.2f, 0.9f),
+                0);
+            Debug.Log(screenPoint +": " + gameObject.name + ": " + display);
+            
+            
         }
 
 
@@ -77,29 +86,26 @@ namespace _Scripts.UI.SpecialSkillUI
         [ContextMenu("Show Arrow")]
         public void SpawnObjectTracking()
         {
+            var height = UnityEngine.Camera.main.pixelHeight;
+            var width = UnityEngine.Camera.main.pixelWidth;
             Vector3 screenPoint = UnityEngine.Camera.main.WorldToViewportPoint(this.transform.position);
-
-            if(screenPoint.x < 0 || screenPoint.x > 1 || screenPoint.y < 0 || screenPoint.y > 1)
+            
+            if(screenPoint.x < 0 || screenPoint.x >= 1 || screenPoint.y < 0 || screenPoint.y >= 1)
             {
                 arrow.gameObject.SetActive(true);
                 hightlight.SetActive(false);
-                Vector3 direction = transform.position - mainHole.position;
+                Vector3 direction = transform.position - HoleController.Instance.transform.position;
                 direction.Normalize();
                 float Angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-
+                
                 Vector3 display = new Vector3(
                     Mathf.Clamp(screenPoint.x, 0.1f, 0.9f),
                     Mathf.Clamp(screenPoint.y, 0.2f, 0.9f),
                     0);
-                arrow.gameObject.transform.position = new Vector3(display.x*Screen.width, display.y*Screen.height, 0);
-                if(screenPoint.x < 0)
-                {
-                    arrow.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Angle));
-                }
-                else
-                {
-                    arrow.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Angle));
-                }
+                arrow.gameObject.transform.position = new Vector3(display.x*width, display.y*height, 0);
+               
+                arrow.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Angle));
+               
                 
             }
             else

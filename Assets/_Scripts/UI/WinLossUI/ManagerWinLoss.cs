@@ -3,6 +3,7 @@ using _Scripts.Event;
 using _Scripts.Firebase;
 using _Scripts.Sound;
 using _Scripts.UI;
+using _Scripts.UI.PopupUI;
 using _Scripts.UI.WinLossUI;
 using UnityEngine;
 
@@ -58,11 +59,13 @@ public class ManagerWinLoss : MonoBehaviour
     
     private async void ShowUIWin()
     {
+     
+        //HoleController.Instance.StopSpecialSkill();
         if (isLoss) return;
         isWin = true;
-        
-        
-        if (LoseUI.activeSelf) return;
+        if(ManagerPopup.Instance != null)
+            ManagerPopup.Instance.ShowPopupRateUs();
+        //if (LoseUI.activeSelf) return;
         ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);
         
         await Task.Delay(1000);
@@ -70,8 +73,9 @@ public class ManagerWinLoss : MonoBehaviour
         
         if(ManagerSound.Instance != null)
             ManagerSound.Instance.PlayEffectSound(EnumEffectSound.LevelComplete);
-        ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
+            ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
+        
         WinUI.GetComponent<WinUI>().SetData(75);
         this.WinUI.SetActive(true);
         settings.SetActive(false);
@@ -87,7 +91,7 @@ public class ManagerWinLoss : MonoBehaviour
        
        
         ManagerSound.Instance?.StopAllSoundSFX();
-        if (WinUI.activeSelf) return;
+    
         await Task.Delay(1000);
         if (isLevelCoint)
         {
