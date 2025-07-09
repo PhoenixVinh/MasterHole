@@ -19,6 +19,8 @@ namespace _Scripts.Tutorial
 
         private IEnumerator ShowUI()
         {
+            GuideUI.SetActive(false);
+            yield return new WaitForSecondsRealtime(0.3f);
             GuideUI.transform.SetParent(holeController.transform.Find("Canvas"));
             GuideUI.SetActive(true);
             yield return new WaitUntil(
