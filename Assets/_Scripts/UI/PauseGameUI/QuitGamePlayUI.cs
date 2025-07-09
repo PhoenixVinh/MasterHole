@@ -32,8 +32,10 @@ namespace _Scripts.UI.PauseGameUI
             CloseUI();
             //ResourceEvent.OnUpdateResource?.Invoke();
             ManagerPopup.Instance?.TurnOffPopup();
-            if(ManagerFirebase.Instance.firebaseInitial.trigger_inter_btnQuit_popupSetting)
-                MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            
+            if(ManagerFirebase.Instance != null)
+                if(ManagerFirebase.Instance.firebaseInitial.trigger_inter_btnQuit_popupSetting)
+                    MaxAdsManager.Instance?.ShowInterAdsByLevel();
             
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);
             //Resource.Instance?.MinusHealth();
