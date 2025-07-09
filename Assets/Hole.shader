@@ -16,12 +16,11 @@
     
     SubShader
     {
-        Tags { "Queue" = "Geometry+1" }
+        Tags { "RenderType" = "Opaque" }
         Pass
         {
-            ZWrite On
-            ZTest Less
-            ColorMask 0
+            ZWrite Off
+            
         }
     }
 }
