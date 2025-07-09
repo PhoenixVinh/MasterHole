@@ -190,14 +190,19 @@ public class ColdownTime : MonoBehaviour, IPrecent
 
     public void AddTime(float timeAdd)
     {
-        this._timeColdown += timeAdd;
+        _timeColdown += timeAdd;
         this.ColdownTimeComplete = _timeColdown;
         this.isStartColdown = true;
         DOTween.KillAll();
         isPlaySound = false;
         this._txtDisplayTime.transform.localScale = Vector3.one;
-        this._txtDisplayTime.color = new Color(1,0.85f,0,1);
-        
+        this._txtDisplayTime.color = new Color(1, 0.85f, 0, 1);
+
+        if (iceTime)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
+            this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+        }
        
     }
 }

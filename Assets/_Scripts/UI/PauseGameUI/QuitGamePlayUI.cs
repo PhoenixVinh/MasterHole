@@ -22,6 +22,7 @@ namespace _Scripts.UI.PauseGameUI
             continueButton.onClick.AddListener(CloseUI);
        
         }
+    
 
         private void QuitGame()
         {
@@ -32,20 +33,23 @@ namespace _Scripts.UI.PauseGameUI
             CloseUI();
             //ResourceEvent.OnUpdateResource?.Invoke();
             ManagerPopup.Instance?.TurnOffPopup();
-            if(ManagerFirebase.Instance.firebaseInitial.trigger_inter_btnQuit_popupSetting)
-                MaxAdsManager.Instance?.ShowInterAdsByLevel();
-            
+
+            if (ManagerFirebase.Instance != null)
+                if (ManagerFirebase.Instance.firebaseInitial.trigger_inter_btnQuit_popupSetting)
+                    MaxAdsManager.Instance?.ShowInterAdsByLevel();
+
+
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.quit, LoseBy.Null);
             //Resource.Instance?.MinusHealth();
             SceneManager.LoadScene(EnumScene.HomeScene.ToString());
             ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.home);
             ManagerHomeScene.Instance?.MinusHealth();
-            
-            
+
+
             int currentLoseIndex = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX);
             currentLoseIndex++;
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, currentLoseIndex);
-            
+
             // Show popup minus health 
 
         }

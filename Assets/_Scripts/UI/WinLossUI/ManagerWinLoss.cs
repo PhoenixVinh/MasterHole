@@ -92,7 +92,7 @@ public class ManagerWinLoss : MonoBehaviour
        
         ManagerSound.Instance?.StopAllSoundSFX();
     
-        await Task.Delay(1000);
+       
         if (isLevelCoint)
         {
             ManagerFirebase.Instance?.LogLevelEnd(LevelResult.win, LoseBy.Null);

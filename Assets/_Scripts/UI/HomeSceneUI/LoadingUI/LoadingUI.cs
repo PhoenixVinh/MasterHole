@@ -53,7 +53,14 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
                 
                 yield return null;
             }
+            int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
+            if (currentLevel == 1)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+          
 
+            //int currentLevel = PlayerPrefs.GetInt(StringPla)
             IsLoading = false;
             //this.gameObject.SetActive(false);
 

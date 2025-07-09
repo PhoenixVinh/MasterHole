@@ -127,8 +127,8 @@ public class ManagerLevelGamePlay : MonoBehaviour
         CameraFOVEvent.OnStarLevelEvent?.Invoke();
         HoleEvent.OnTurnOffSkillUI?.Invoke();
         //100
-        
-        
+
+
         
         
         
