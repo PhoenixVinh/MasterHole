@@ -81,7 +81,10 @@ public class Item : MonoBehaviour
         TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
                 
         ManagerMission.Instance.CheckMinusItems(gameObject.name, gameObject);
-        
+        if(HoleController.Instance.isUseFindingSKill())
+        {
+            ItemEvent.OnItemMissionFinding?.Invoke(gameObject);
+        }
         // rb.isKinematic = true;
         // rb.useGravity = false;
         //this.gameObject.SetActive(false);

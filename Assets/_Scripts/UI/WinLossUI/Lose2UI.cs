@@ -60,13 +60,16 @@ namespace _Scripts.UI.WinLossUI
         {
             
             
-            if(ManagerFirebase.Instance.firebaseInitial.trigger_inter_playAgain_fail)
-                MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            if (ManagerFirebase.Instance != null)
+            {
+                if (ManagerFirebase.Instance.firebaseInitial.trigger_inter_playAgain_fail)
+                    MaxAdsManager.Instance?.ShowInterAdsByLevel();
+            }
             DateTime inifity = Utills.StringToDate(PlayerPrefs.GetString(StringPlayerPrefs.UNLIMITED_TIME));
             if (Energy.Instance?.IsUnlimitedEnergy == false)
             {
-               
-                if (Energy.Instance?.CurrentEnergy >=1)
+
+                if (Energy.Instance?.CurrentEnergy >= 1)
                 {
                     this.gameObject.SetActive(false);
                     ManagerLevelGamePlay.Instance.LoadLevelAgain();

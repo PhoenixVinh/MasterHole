@@ -49,8 +49,7 @@ namespace _Scripts.UI.SpecialSkillUI
                 Mathf.Clamp(screenPoint.x, 0.1f, 0.9f),
                 Mathf.Clamp(screenPoint.y, 0.2f, 0.9f),
                 0);
-            Debug.Log(screenPoint +": " + gameObject.name + ": " + display);
-            
+           
             
         }
 

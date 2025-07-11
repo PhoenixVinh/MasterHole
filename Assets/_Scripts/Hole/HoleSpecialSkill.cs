@@ -11,6 +11,7 @@ using _Scripts.UI.MissionUI;
 using _Scripts.UI.SpecialSkillUI;
 using _Scripts.Vibration;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -31,6 +32,9 @@ namespace _Scripts.Hole
         [Header("Variable Skill Use Finding")]
         public float timeSkill03 = 12f;
         public int amountFinding = 7;
+
+
+        private List<GameObject> _itemsSuggest = new List<GameObject>();
         
         
 
@@ -52,14 +56,27 @@ namespace _Scripts.Hole
             }
         }
 
+
+        private void OnEnable()
+        {
+            ItemEvent.OnItemMissionFinding += ChangeObjectMission;
+        }
+        private void OnDisable()
+        {
+            ItemEvent.OnItemMissionFinding -= ChangeObjectMission;
+            StopEventSkill();
+        }
+
+    
+
         public void ProcessSkill(SpecialSkill skill)
         {
             // Check is Skill is Action => Dont use 
-            if(IsProcessSkill[(int) skill]) return;
+            if (IsProcessSkill[(int)skill]) return;
             switch (skill)
             {
                 case SpecialSkill.IncreaseRange:
-                    StartCoroutine(IncreaseRangeCoroutine()) ;
+                    StartCoroutine(IncreaseRangeCoroutine());
                     break;
                 case SpecialSkill.Magnet:
                     StartCoroutine(UseMagnetCoroutine());
@@ -79,7 +96,7 @@ namespace _Scripts.Hole
             Debug.Log("Use Finding");
             IsProcessSkill[2] = true;
             
-            List<GameObject> itemsSuggest = ManagerMission.Instance.GetSuggestItems(amountFinding);
+            _itemsSuggest = ManagerMission.Instance.GetSuggestItems(amountFinding);
             // foreach (var item in result)
             // {
             //     Debug.Log("Key : " + item.Key + " Value : " + item.Value);
@@ -87,7 +104,7 @@ namespace _Scripts.Hole
             //
             // List<GameObject> itemsSuggest = SpawnItemMap.Instance.GetMappingObject(result);
 
-            foreach (var item in itemsSuggest)
+            foreach (var item in _itemsSuggest)
             {
                 if(item == null) continue;
                 DirectionItemUI UI = item.AddComponent<DirectionItemUI>();
@@ -95,7 +112,7 @@ namespace _Scripts.Hole
             }
             yield return new WaitForSecondsRealtime(this.timeSkill03);
             
-            foreach (var item in itemsSuggest)
+            foreach (var item in _itemsSuggest)
             {
                 if(item == null) continue;
                 DirectionItemUI UI = item.GetComponent<DirectionItemUI>();
@@ -218,6 +235,37 @@ namespace _Scripts.Hole
             
 
 
+        }
+
+
+
+
+        private void ChangeObjectMission(GameObject item)
+        {
+            if (IsProcessSkill[2] == false) return;
+
+
+            if (this._itemsSuggest.Contains(item))
+            {
+                //Debug.Log("Change Object Mission : " + item.name);
+                this._itemsSuggest.Remove(item);
+                DirectionItemUI UI = item.GetComponent<DirectionItemUI>();
+                Destroy(UI);
+
+
+
+                // Get An Other Suggest Item
+                GameObject newItem = ManagerMission.Instance.GetAnOtherSuggestItems(this._itemsSuggest);
+                if (newItem != null)
+                {
+                    DirectionItemUI newUI = newItem.AddComponent<DirectionItemUI>();
+                    newUI.SetData(HoleController.Instance.transform, ManagerMission.Instance.GetSprite(newItem.name));
+                    this._itemsSuggest.Add(newItem);
+                }
+                //  GetAnOtherSuggestItems(this._itemsSuggest);
+                ////GameObject newItem = 
+
+            }
         }
 
 

@@ -210,6 +210,12 @@ public class HoleController : MonoBehaviour
         holeScaleEffect.gameObject.SetActive(true);
         holeScaleEffect.PlayEffect(transform.localScale.x);
     }
+
+
+    public bool isUseFindingSKill()
+    {
+        return this._holeSpecialSkill.UsingSkill((int)SpecialSkill.Direction);
+    }
     public void OnDestroy()
     {
         DOTween.Kill("HoleUpScale");

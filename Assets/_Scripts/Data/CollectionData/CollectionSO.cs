@@ -21,7 +21,7 @@ namespace _Scripts.Data.CollectionData
                 }
                 result++;
             }
-            Debug.Log(result);
+      
         
             return result;
         }

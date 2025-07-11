@@ -25,27 +25,30 @@ namespace _Scripts.Hole
         
         private void OnTriggerEnter(Collider other)
         {
-          
-        
+
+
             if (other.CompareTag("Item") && !Items.Contains(other.transform.parent.gameObject))
             {
-                
+
                 //Debug.Log(other.transform.parent.name);
-               
+
                 if (ManagerSound.Instance != null)
                 {
                     ManagerSound.Instance.PlayEffectSound(EnumEffectSound.EatItem);
                 }
-        
+
                 if (ManagerVibration.Instance != null)
                 {
                     ManagerVibration.Instance.UseVibration(EnumVibration.Light);
                 }
-        
+               
+
+                var item = other.GetComponentInParent<Item>();
+                item.DestroyObject();
+                Items.Add(other.transform.parent.gameObject);
                 
-                 var item = other.GetComponentInParent<Item>();
-                 item.DestroyObject();
-                 Items.Add(other.transform.parent.gameObject);
+
+              
 
                 
 

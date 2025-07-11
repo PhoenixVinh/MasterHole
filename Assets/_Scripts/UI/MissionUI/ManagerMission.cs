@@ -10,19 +10,19 @@ namespace _Scripts.UI.MissionUI
     public class ManagerMission : MonoBehaviour
     {
         public static ManagerMission Instance;
-        
-        
+
+
         public GameObject Mission;
-        
+
         // Misition For One Level => Get next level using Addressable
         public MissionSO MissionsSO;
 
         public int AmountMissionItem = 0;
-        
-        
+
+
         public Dictionary<string, Mission> TypeItems = new Dictionary<string, Mission>();
 
-        
+
         private List<GameObject> MissionItems = new List<GameObject>();
         private void Awake()
         {
@@ -34,7 +34,7 @@ namespace _Scripts.UI.MissionUI
             {
                 Destroy(gameObject);
             }
-         
+
 
 
         }
@@ -65,26 +65,26 @@ namespace _Scripts.UI.MissionUI
         public void CheckMinusItems(string itemType, GameObject item)
         {
 
-           
+
             if (!TypeItems.ContainsKey(itemType))
             {
-               
+
                 return;
             }
             if (MissionItems.Contains(item))
             {
                 MissionItems.Remove(item);
             }
-            
+
             TypeItems[itemType].MinusItem();
-            
+
             if (TypeItems[itemType].IsDone())
             {
-               
+
                 //GameObject game = TypeItems[itemType].gameObject; 
                 TypeItems.Remove(itemType);
                 SetIndex();
-                
+
             }
 
             if (TypeItems.Count == 0)
@@ -100,16 +100,18 @@ namespace _Scripts.UI.MissionUI
                 WinLossEvent.OnWin?.Invoke();
             }
         }
-        
-        
+
+
 
         public void PassLevel()
         {
             WinLossEvent.OnWin?.Invoke();
         }
-        
+
         public void SetIndex()
         {
+
+            if (TypeItems.Count == 1) return;
             int index = 0;
             foreach (var value in TypeItems.Values)
             {
@@ -122,15 +124,15 @@ namespace _Scripts.UI.MissionUI
             if (!TypeItems.ContainsKey(itemType)) return null;
             return TypeItems[itemType].GetImage();
         }
-        
-        
-        
-        
-        
+
+
+
+
+
         public List<GameObject> GetSuggestItems(int amount)
         {
-            Dictionary<string, int > results = new Dictionary<string, int >();
-            
+            Dictionary<string, int> results = new Dictionary<string, int>();
+
             int amountTypeItem = Mathf.CeilToInt(TypeItems.Count / 2);
             amountTypeItem = amountTypeItem <= 3 ? amountTypeItem : 3;
             int indexRandom = -1;
@@ -139,7 +141,7 @@ namespace _Scripts.UI.MissionUI
             foreach (var item in TypeItems)
             {
                 typeItemString.Add(item.Key);
-                
+
             }
 
             for (int i = 0; i < amountTypeItem + 1; i++)
@@ -148,14 +150,14 @@ namespace _Scripts.UI.MissionUI
             }
 
             amount = amount <= amountSussgest ? amount : amountSussgest;
-            
+
             for (int i = 0; i < amount; i++)
             {
                 indexRandom = Random.Range(0, amountTypeItem + 1);
-                if(!results.ContainsKey(typeItemString[indexRandom]))
+                if (!results.ContainsKey(typeItemString[indexRandom]))
                 {
                     results[typeItemString[indexRandom]] = 1;
-                }else
+                } else
                 {
                     if (TypeItems[typeItemString[indexRandom]].amountItem > results[typeItemString[indexRandom]])
                     {
@@ -163,8 +165,8 @@ namespace _Scripts.UI.MissionUI
                     }
                 }
             }
-            
-            
+
+
             List<GameObject> resultGameObjects = new List<GameObject>();
             foreach (var item in results)
             {
@@ -177,9 +179,9 @@ namespace _Scripts.UI.MissionUI
                         indexRandom = Random.Range(0, MissionItems.Count);
                     }
                     postions.Add(indexRandom);
-                    
-                   
-                    
+
+
+
                 }
 
                 foreach (var postion in postions)
@@ -187,15 +189,36 @@ namespace _Scripts.UI.MissionUI
                     resultGameObjects.Add(MissionItems[postion]);
                 }
             }
-            
+
             return resultGameObjects;
-            
+
         }
 
-        public void SetData(MissionSO  mission)
+
+
+        public GameObject GetAnOtherSuggestItems(List<GameObject> items)
+        {
+           
+
+
+
+            foreach (var itemmission in MissionItems)
+            {
+                if (!items.Contains(itemmission))
+                {
+                    return itemmission;
+                }
+            }
+            return null;
+
+        }
+        
+        
+
+        public void SetData(MissionSO mission)
         {
             this.MissionsSO = mission;
-            
+
             CreateMissions();
         }
 
@@ -231,8 +254,8 @@ namespace _Scripts.UI.MissionUI
         {
             this.MissionItems = missionItems;
         }
-        
-        
-        
+
+
+
     }
 }

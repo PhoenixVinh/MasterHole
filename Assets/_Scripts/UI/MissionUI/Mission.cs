@@ -34,10 +34,16 @@ namespace _Scripts.UI.MissionUI
         
         private string IdDotween = "MissionDT";
 
+
+        // Check if the mission has been completed
+        [SerializeField] private GameObject checkMark;
+
         private HashSet<GameObject> itemSpawnMissions;
 
         public void SetData(MissionData missionData, int index)
         {
+            checkMark.SetActive(false);
+              this._text.gameObject.SetActive(true);
             itemSpawnMissions = new HashSet<GameObject>();
             particle.Stop();
             this.amountItem = missionData.AmountItems;
@@ -54,33 +60,33 @@ namespace _Scripts.UI.MissionUI
 
         private async void AddItem()
         {
-            
-            
+
+
             GameObject EffectMission = MissionPooling.Instance.spawnImage();
-            
+
             itemSpawnMissions.Add(EffectMission);
-            
+
             Vector3 screenPosition = UnityEngine.Camera.main.WorldToScreenPoint(HoleController.Instance.transform.position);
             EffectMission.GetComponent<RectTransform>().anchoredPosition = screenPosition;
 
             EffectMission.GetComponent<Image>().sprite = image.sprite;
             EffectMission.SetActive(true);
-            
-            
+
+
             // Using Dotween To move Object
             if (ManagerSound.Instance != null)
             {
                 ManagerSound.Instance.PlayEffectSound(EnumEffectSound.ItemMission);
             }
-            
-            
+
+
             //EffectMission.transform.localScale = new Vector3(1, 1, 1) * 1.2f;
-            
-          
+
+
             amountItem--;
             amountItem = amountItem >= 0 ? amountItem : 0;
-            StartCoroutine(MoveWithCurve(0.8f,screenPosition, this.transform.position, EffectMission));
-            
+            StartCoroutine(MoveWithCurve(0.8f, screenPosition, this.transform.position, EffectMission));
+
             EffectMission.transform.localScale = Vector3.zero;
             DOTween.Sequence()
                 .SetUpdate(true)
@@ -90,34 +96,75 @@ namespace _Scripts.UI.MissionUI
 
             if (amountItem == 0)
             {
-                DOTween.Sequence()
-                    .SetUpdate(true)
-                    .Append(
-                        transform.DORotate(
-                                new Vector3(0, 180*7, 0),
-                                1,
-                                RotateMode.FastBeyond360
-                            )
-                            .SetEase(Ease.Linear) // Smooth, consistent speed
-                    )
-                    .OnComplete(() =>
-                    {
-                        DOTween.Sequence()
-                            .SetUpdate(true)
-                            .Append(transform.DOScale(Vector3.one * 0.3f, 0.5f));
-                    });
+
+
+                // EffectMission.SetActive(false);
+               
+                await Task.Delay(800);
+                Debug.Log("Mission Completed: " + itemType);
+                checkMark.SetActive(true);
+                this._text.gameObject.SetActive(false);
+
+
+                //DOTween.Kill(transform);
+                //DOTween.KillAll();
+                StartCoroutine(RotateCoroutine());
+
+              
+
                 await Task.Delay(1500);
-                gameObject.SetActive(false);
+                StartCoroutine(DelayedAction());
+                    
+                    // Smooth, consistent speed
+                   
+                    
+                 
+                //gameObject.SetActive(false);
                 //Destroy(gameObject);
             }
 
+
+            
         }
-        
-        private IEnumerator MoveWithCurve(float moveDuration,Vector3 startPoint, Vector3 endPoint, GameObject effectMission)
+
+        private IEnumerator RotateCoroutine()
         {
+            float duration = 1.5f;
+            float elapsed = 0f;
+
+            Vector3 initialRotation = transform.rotation.eulerAngles;
+            Vector3 targetRotation = initialRotation + new Vector3(0, 180 * 7, 0);
+
+            while (elapsed < duration)
+            {
+                float t = elapsed / duration;
+                transform.rotation = Quaternion.Euler(Vector3.Lerp(initialRotation, targetRotation, t));
+                elapsed += Time.unscaledDeltaTime; // Use unscaled time for consistent rotation
+                yield return null; // Wait for the next frame
+            }
+
+            transform.rotation = Quaternion.Euler(targetRotation);
+        }
+
+        public IEnumerator DelayedAction()
+        {
+
+            yield return new WaitForSecondsRealtime(0.5f);
+            DOTween.Kill(transform);// Delay 0.5 giây trên unscaled time
+            transform.DOScale(Vector3.one * 0.3f, 0.5f).SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                    //Destroy(gameObject);
+                });
+        }
             
-         
-            
+       
+        private IEnumerator MoveWithCurve(float moveDuration, Vector3 startPoint, Vector3 endPoint, GameObject effectMission)
+        {
+
+
+
             float currentTime = 0f;
 
             while (currentTime < moveDuration)
@@ -126,11 +173,11 @@ namespace _Scripts.UI.MissionUI
                 float t = Mathf.Clamp01(currentTime / moveDuration); // Tỷ lệ thời gian (0 -> 1)
 
                 // Tính toán vị trí theo AnimationCurve
-                Vector3 newPosition = CalculateCurvePosition(t,startPoint, transform.position );
+                Vector3 newPosition = CalculateCurvePosition(t, startPoint, transform.position);
                 effectMission.transform.position = newPosition;
 
                 yield return null; // Chờ frame tiếp theo
-                
+
             }
 
             // Đảm bảo vị trí cuối cùng chính xác
@@ -143,7 +190,7 @@ namespace _Scripts.UI.MissionUI
                 .Append(transform.DOScale(Vector3.one * 1.4f, 0.2f))
                 .Append(transform.DOScale(Vector3.one, 0.1f))
                 .Join(IconMission.transform.DOShakeScale(0.3f, 0.3f))
-               
+
                 .OnComplete(
                     () =>
                     {
@@ -154,12 +201,12 @@ namespace _Scripts.UI.MissionUI
             {
                 _text.text = amountItem.ToString();
             }
-            
+
             if (particle != null)
             {
                 particle.Play();
             }
-            
+
         }
 
         private Vector3 CalculateCurvePosition(float t, Vector3 startPoint, Vector3 endPoint)
