@@ -4,6 +4,7 @@ using UnityEditor;
 using Map.TestGenerateMap;
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 
 [Serializable]
 public struct RuleTile
@@ -39,32 +40,21 @@ namespace Map.TestGenerateMap
         public float minZ;
 
 
-        public void Start()
-        {
-            if (levelSpawnData == null)
-            {
-                Debug.LogError("LevelSpawnData is not assigned.");
-                return;
-            }
 
-            GetMapPositions();
-            CreateMatrix();
-        }
 
-        private void CreateMatrix()
-        {
-
-            int width = 10;  // Set the desired width of the matrix
-            int height = 10; // Set the desired height of the matrix
-            matrix = new int[width, height];
-
-            // Populate the matrix with values based on mapPositions
-
-        }
 
         public void ClearMapPositions()
         {
             mapPositions.Clear();
+
+
+            while (transform.childCount > 0)
+            {
+                Transform child = transform.GetChild(0);
+                DestroyImmediate(child.gameObject);
+            }
+            transform.position = new Vector3(0, 0, 0);
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
         public void GetMapPositions()
@@ -100,18 +90,22 @@ namespace Map.TestGenerateMap
             this.minX = minX;
             this.minZ = minZ;
 
+
+            float distanceX = maxX - minX;
+            float distanceZ = maxZ - minZ;
+
             int width = Mathf.CeilToInt((maxX - minX) / 4f) * 4; // Ensure width is a multiple of 4
             int height = Mathf.CeilToInt((maxZ - minZ) / 4f) * 4; // Ensure height is a multiple of 4
 
             Debug.Log($"Creating matrix with dimensions: {width}x{height} based on positions from {minX},{minZ} to {maxX},{maxZ}");
 
-            matrix = new int[width + 2, height + 2];
+            matrix = new int[width, height];
             visited = new bool[width, height];
 
             // Initialize the matrix with zeros
-            for (int x = 0; x < width + 2; x++)
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < height + 2; y++)
+                for (int y = 0; y < height; y++)
                 {
                     matrix[x, y] = 0;
                 }
@@ -135,7 +129,8 @@ namespace Map.TestGenerateMap
 
 
 
-            bool ok = false;
+        
+
             // Perform BFS from the first position in the matrix
             for (int x = 0; x < width; x++)
             {
@@ -160,21 +155,180 @@ namespace Map.TestGenerateMap
                     }
                 }
             }
-            Debug.Log("Matrix contents:");
+
+
+
+
+
             for (int x = 0; x < width; x++)
             {
-                string row = "";
-                for (int y = 0; y < height; y++)
-                {
-                    row += matrix[x, y] + " ";
-                }
-                Debug.Log(row);
+                matrix[x, 0] = 0; // Set first row to 0
+                matrix[x, height - 1] = 0; // Set last row to 0
             }
-            SpawnMap(matrix);
-            Debug.Log("Map spawned successfully.");
 
+
+            for (int x = 0; x < height; x++)
+            {
+                matrix[0, x] = 0; // Set first column to 0
+                matrix[width - 1, x] = 0; // Set last column to 0
+            }
+
+
+            for (int i = 0; i < width; i++)
+            {
+
+                bool checkStart = false;
+                for (int j = 0; j < height; j++)
+                {
+
+                    if (matrix[i, j] == 1 && checkStart == false)
+                    {
+                        // Start of a new path
+                        checkStart = true;
+                        if (j % 2 == 0)
+                            matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                    }
+                    else if (matrix[i, j] == 0 && checkStart == true)
+                    {
+                        // End of a path
+                        checkStart = false;
+                        if (j % 2 == 0)
+                            matrix[i, j] = 1;
+
+                    }
+
+                }
+
+            }
+
+            for (int i = 0; i < height; i++)
+            {
+                bool checkStart = false;
+                for (int j = 0; j < width; j++)
+                {
+                    if (matrix[j, i] == 1 && checkStart == false)
+                    {
+                        // Start of a new path
+                        checkStart = true;
+                        if (j % 2 == 0)
+                            matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                    }
+                    else if (matrix[j, i] == 0 && checkStart == true)
+                    {
+                        // End of a path
+                        checkStart = false;
+                        if (j % 2 == 0)
+                            matrix[j, i] = 1;
+
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (matrix[j, i] == 1)
+                    {
+                        int count = 1;
+                        int index = j;
+                        while (index < width && matrix[index, i] == 1)
+                        {
+                            count++;
+                            index++;
+                        }
+                        if (count % 2 != 0)
+                        {
+                            matrix[j, i] = 1; // If the count is odd, set the first tile to 0
+                        }
+                        j = index; // Move the index to the end of the current path
+
+
+                    }
+                }
+
+
+
+            }
+
+
+
+
+            // Spawn the map based on the matrix
+            matrix = ExpandMatrix(matrix); // Expand the matrix to add borders
+            SpawnMap(matrix);
+
+            this.transform.localScale = new Vector3(1f, 1f, 1f) * 0.18f; // Adjust the scale to fit the map
+
+            //this.transform.localScale = new Vector3(1/ 128f, 1/128f, 1/ 128f) ; 
+            this.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            this.transform.position = new Vector3(width , 0, height / -1.5f);
+            
+        }
+            
+        
+
+
+        public  int[,] ExpandMatrix(int[,] original)
+        {
+            int originalRows = original.GetLength(0);
+            int originalCols = original.GetLength(1);
+            int newRows = originalRows + 16;
+            int newCols = originalCols + 16;
+
+            // Create new matrix with expanded dimensions
+            int[,] expanded = new int[newRows, newCols];
+
+            // Initialize all cells to 1
+            for (int i = 0; i < newRows; i++)
+            {
+                for (int j = 0; j < newCols; j++)
+                {
+                    expanded[i, j] = 0;
+                }
+            }
+
+            // Copy original data to the new matrix
+            for (int i = 0; i < originalRows; i++)
+            {
+                for (int j = 0; j < originalCols; j++)
+                {
+                    expanded[i + 8, j + 8] = original[i, j];
+                }
+            }
+
+            return expanded;
         }
 
+
+        private int[] GetRow(int[,] matrix, int row)
+        {
+            int columns = matrix.GetLength(1);
+            int[] rowArray = new int[columns];
+            for (int i = 0; i < columns; i++)
+            {
+                rowArray[i] = matrix[row, i];
+            }
+            return rowArray;
+        }
+
+        public int countConsecutive(int startindex, int[] array)
+        {
+            int count = 1;
+            for (int i = startindex + 1; i < array.Length; i++)
+            {
+                if (array[i] == 1)
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return count;
+        }
 
 
         public bool[,] BFS(Vector2 position, int[,] matrix)
@@ -244,21 +398,36 @@ namespace Map.TestGenerateMap
             int width = matrix.GetLength(0);
             int height = matrix.GetLength(1);
 
-            for (int x = 0; x < width; x+=2)
+
+
+            Dictionary<int, int > valueMaps = new Dictionary<int, int>();
+            valueMaps.Add(0, 2);
+            valueMaps.Add(1, 1);
+            for (int x = 0; x < width; x += 2)
             {
-               for(int y = 0; y < height; y+=2)
+                for (int y = 0; y < height; y += 2)
                 {
-                    foreach(var item in ruleTiles)
+                    foreach (var item in ruleTiles)
                     {
-                        if (matrix[x, y] == item.topleft - 1 && matrix[x + 1, y] == item.topRight - 1 &&
-                            matrix[x, y + 1] == item.bottomLeft - 1 && matrix[x + 1, y + 1] == item.bottomRight - 1)
+                        if (valueMaps[matrix[x, y]] == item.topleft && valueMaps[matrix[x + 1, y]] == item.topRight && valueMaps[matrix[x, y + 1]] == item.bottomLeft && valueMaps[matrix[x + 1, y + 1]] == item.bottomRight)
                         {
-                            Vector3 position = new Vector3(x + minX, 0, y + minZ);
-                            GameObject prefabInstance = Instantiate(item.prefab, position, Quaternion.identity);
-                            prefabInstance.transform.SetParent(transform); // Set the parent to this GameObject
+                            GameObject prefab = item.prefab;
+                            if (prefab != null)
+                            {
+                                Vector3 position = new Vector3(x * 8f, 0, -y * 8f);
+                                GameObject spawnedObject = Instantiate(prefab, transform);
+                                spawnedObject.transform.localPosition = position;
+
+                                spawnedObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                                spawnedObject.name = $"Tile_{x}_{y}";
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"Prefab for RuleTile not assigned: {item}");
+                            }
                         }
-                        
                     }
+
                 }
             }
         }

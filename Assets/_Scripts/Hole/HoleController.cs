@@ -30,9 +30,10 @@ public class HoleController : MonoBehaviour
 
 
 
-    private HoleMovement _holeMovement;
-    public HoleMovement HoleMovement => _holeMovement;
+    private HoleRefMovement _holeMovement;
 
+    public HoleRefMovement HoleMovement => _holeMovement;
+    
     //public BlackHole _blackHole;
     // public List<GameObject> bottomHoles;
 
@@ -44,8 +45,7 @@ public class HoleController : MonoBehaviour
 
     [SerializeField] private LevelManager _levelManager;
 
-    public MeshRenderer meshRenderer;
-    public float scaleFactor;
+    
 
 
 
@@ -54,7 +54,8 @@ public class HoleController : MonoBehaviour
     {
         Instance = this;
         holeScaleEffect.gameObject.SetActive(false);
-        _holeMovement = GetComponent<HoleMovement>();
+        _holeMovement = HoleRefMovement.Instance;
+        //_holeMovement = GetComponent<HoleMovement>();
         //_blackHole = GetComponent<BlackHole>();
         _holeLevel = GetComponent<HoleLevel>();
         _holeSpecialSkill = GetComponent<HoleSpecialSkill>();
@@ -72,7 +73,15 @@ public class HoleController : MonoBehaviour
 
     private void SetData()
     {
-        _holeMovement.SetSpeedMovement(_speedMovement);
+        _holeMovement.SetSpeed(_speedMovement);
+    }
+    
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        this.transform.position = _holeMovement.transform.position;
     }
 
 
@@ -82,7 +91,7 @@ public class HoleController : MonoBehaviour
     public void LoadLevel(int amountExp, float radius, bool isAnim)
     {
         Vector3 localScale = transform.localScale;
-       
+
         Vector3 newScale = new Vector3(radius, localScale.y, radius);
         // Update Scale of Hole 
         if (isAnim)
@@ -100,7 +109,8 @@ public class HoleController : MonoBehaviour
         {
             transform.localScale = newScale;
         }
-        _holeMovement.SetSpeedMovement(_speedMovement + (transform.localScale.x));
+        _holeMovement.SetSpeed(_speedMovement + (transform.localScale.x));
+        _holeMovement.SetScale(radius + 0.5f);
         HoleEvent.OnUpdateFade?.Invoke(radius);
         // if (indexSkin != 1)
         // {

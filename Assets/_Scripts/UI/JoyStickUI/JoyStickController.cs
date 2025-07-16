@@ -11,7 +11,7 @@ public class JoyStickController : MonoBehaviour
     public void Start()
     {
         variableJoystick = GetComponent<FloatingJoystick>();
-        targetMovement = HoleController.Instance.HoleMovement;
+        targetMovement = HoleRefMovement.Instance;
     }
 
     private void Update()
