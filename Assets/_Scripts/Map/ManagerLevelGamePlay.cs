@@ -13,6 +13,7 @@ using _Scripts.Sound;
 using _Scripts.Tutorial;
 using _Scripts.UI;
 using _Scripts.UI.MissionUI;
+using Map.TestGenerateMap;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.Rendering;
@@ -29,13 +30,15 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     [HideInInspector]public bool isShowBanner = false;
 
+    [SerializeField]private TestGenerateMap generateMap;
+
     private void Awake()
     {
-        if(Instance == null) Instance = this;
-        else  Destroy(gameObject);
-  
-        
-        
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
+
+
         currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         level = ScriptableObject.CreateInstance<LevelGamePlaySO>();
         //ManagerHomeScene.Instance.HideLoadingUI();
@@ -91,7 +94,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         return true;
     }
 
-    public async  Task<bool>  SpawnLevel()
+    public async Task<bool>  SpawnLevel()
     {
 
         
@@ -113,12 +116,20 @@ public class ManagerLevelGamePlay : MonoBehaviour
         HoleController.Instance.Reset();
         HoleController.Instance.SetPosition(Vector3.zero);
         HoleController.Instance.gameObject.SetActive(false);
-        
+
         //Task.Delay(200);
+        //generateMap.SpawnTileMapByMatrix(level.mapItem);
+        generateMap.SpawnTileMapByMatrix(level.mapItem);
+        //Debug.Log("HEIGHT: " +level.mapItem.height);
+        //Debug.Log(level.mapItem.positionMap);
+        //generateMap.transform.position = level.mapItem.positionMap;
+        //generateMap.transform.rotation = Quaternion.Euler(level.mapItem.rotationMap);
+        //generateMap.SpawnTileMapByMatrix();
         ManagerMission.Instance.SetData(level.missionData);
         SpawnItemMap.Instance.SetData(level.levelSpawnData, level.ScoreDatas, level.mapPosition, level.mapScale);
+
         
-        
+       
         //Task.Delay(100);
         ColdownTime.Instance.SetData(level.timeToComplete);
         ManagerBooster.Instance.SetData();

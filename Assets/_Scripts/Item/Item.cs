@@ -26,11 +26,17 @@ public class Item : MonoBehaviour
     
     [SerializeField]private string nameLayerOn = "NoCollision";
     [SerializeField]private string nameLayerOff = "Collision";
+    
+
+
+    private void Awake() {
+        rb = GetComponent<Rigidbody>();
+    }
     public void SetData(string foodName)
     {
-      
+
         this.type = foodName;
-        rb = GetComponent<Rigidbody>();
+
         isGetScore = false;
     }
 
@@ -63,7 +69,7 @@ public class Item : MonoBehaviour
     public void SetWakeUpPhysic()
     {
         transform.Translate(Vector3.down*0.0001f);
-        rb.WakeUp();
+//        rb.WakeUp();
     }
     
     

@@ -11,7 +11,7 @@ public class LevelGamePlaySO : ScriptableObject
     public float timeToComplete ;
     public List<ItemScoreData> ScoreDatas;
 
-
+    public MapSO mapItem;
 
 
     public Vector3 mapPosition = new Vector3(0f,-11f,0f);

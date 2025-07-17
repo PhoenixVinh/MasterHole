@@ -3,6 +3,9 @@ using UnityEngine;
 public class HoleRefMovement : MonoBehaviour, IMovement
 {
 
+
+    [SerializeField] private GameObject arrow;
+
     public static HoleRefMovement Instance { get; private set; }
     public Vector2 GetDirectionMovement() => _movementDirection;
 
@@ -14,8 +17,8 @@ public class HoleRefMovement : MonoBehaviour, IMovement
 
     private Rigidbody _rigidbody;
 
-
-    void Awake()
+    
+      void Awake()
     {
         if (Instance == null)
         {
@@ -43,6 +46,8 @@ public class HoleRefMovement : MonoBehaviour, IMovement
     {
         Vector3 targetVelocity = new Vector3(_movementDirection.x, 0, _movementDirection.y) * _speed;
         _rigidbody.velocity = Vector3.Lerp(_rigidbody.velocity, targetVelocity, Time.fixedDeltaTime * 10f);
+        ShowArrow();
+
     }
 
 
@@ -53,5 +58,20 @@ public class HoleRefMovement : MonoBehaviour, IMovement
     public void SetScale(float scale)
     {
         transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    public void ShowArrow()
+    {
+        if (_movementDirection != Vector2.zero)
+        {
+            arrow.SetActive(true);
+            
+            float angle = Mathf.Atan2(_movementDirection.y, _movementDirection.x) * Mathf.Rad2Deg;
+            arrow.transform.rotation = Quaternion.Euler(0f, -(angle+90), 0f);  
+        }
+        else
+        {
+            arrow.SetActive(false);
+        }
     }
 }

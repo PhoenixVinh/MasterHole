@@ -41,8 +41,8 @@ namespace _Scripts.Tutorial
             moveMessage.SetActive(false);
             collectMessage.SetActive(false);
             missionMessage.SetActive(false);
-            StartCoroutine(ShowMoveMessage());
-            StartCoroutine(ShowCollectMessage());
+            //StartCoroutine(ShowMoveMessage());
+            //StartCoroutine(ShowCollectMessage());
         }
 
         private IEnumerator ShowCollectMessage()

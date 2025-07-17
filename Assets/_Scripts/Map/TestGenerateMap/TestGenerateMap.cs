@@ -5,6 +5,7 @@ using Map.TestGenerateMap;
 using System;
 using System.Linq;
 using Unity.VisualScripting;
+using System.IO;
 
 [Serializable]
 public struct RuleTile
@@ -26,8 +27,11 @@ namespace Map.TestGenerateMap
         [Header("Level Spawn Data")]
         [Tooltip("Assign the LevelSpawnData asset that contains the spawn data for the map.")]
 
-        public LevelSpawnData levelSpawnData;
+        public LevelGamePlaySO levelGamePlay;
 
+
+
+        private LevelSpawnData levelSpawnData;
 
         public List<Vector3> mapPositions;
 
@@ -40,13 +44,80 @@ namespace Map.TestGenerateMap
         public float minZ;
 
 
+        public GameObject ParentItem;
 
+
+
+
+
+        public void SpawnTileMapByMatrix(MapSO map)
+        {
+
+
+
+
+            int width = map.width;
+            int height = map.height;
+
+            string[] value = map.mapData.Split(",");
+
+            int[,] matrixValue = new int[width, height];
+            int count = 0;
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+
+                    matrixValue[i, j] = int.Parse(value[count++].Trim());
+                }
+            }
+            Debug.Log("Count : " + count);
+            //Debug.Log("Matrix: " + value.Count() + ", width: " + width + ", height: " + height);
+
+            Dictionary<int, int> valueMaps = new Dictionary<int, int>();
+            valueMaps.Add(0, 2);
+            valueMaps.Add(1, 1);
+            for (int x = 0; x < width; x += 2)
+            {
+                for (int y = 0; y < height; y += 2)
+                {
+                    foreach (var item in ruleTiles)
+                    {
+                        if (valueMaps[matrixValue[x, y]] == item.topleft && valueMaps[matrixValue[x + 1, y]] == item.topRight && valueMaps[matrixValue[x, y + 1]] == item.bottomLeft && valueMaps[matrixValue[x + 1, y + 1]] == item.bottomRight)
+                        {
+                            GameObject prefab = item.prefab;
+                            if (prefab != null)
+                            {
+                                Vector3 position = new Vector3(x * 8f, 0, -y * 8f);
+                                GameObject spawnedObject = Instantiate(prefab, transform);
+                                spawnedObject.transform.localPosition = position;
+
+                                spawnedObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                                spawnedObject.name = $"Tile_{x}_{y}";
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"Prefab for RuleTile not assigned: {item}");
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            transform.position = map.positionMap;
+            transform.rotation = Quaternion.Euler(map.rotationMap);
+            transform.localScale = Vector3.one * 0.2f;
+
+
+
+        }
 
 
         public void ClearMapPositions()
         {
             mapPositions.Clear();
-
+            DestroyImmediate(ParentItem);
 
             while (transform.childCount > 0)
             {
@@ -55,11 +126,13 @@ namespace Map.TestGenerateMap
             }
             transform.position = new Vector3(0, 0, 0);
             transform.localScale = new Vector3(1f, 1f, 1f);
+
         }
 
         public void GetMapPositions()
         {
 
+            levelSpawnData = levelGamePlay.levelSpawnData;
             mapPositions.Clear();
             foreach (var item in levelSpawnData.listItemSpawns)
             {
@@ -70,7 +143,46 @@ namespace Map.TestGenerateMap
                 }
             }
             mapPositions.Add(new Vector3(0, 0, 0)); // Add a default position for testing
+
+            if (ParentItem == null)
+            {
+                ParentItem = new GameObject("ParentItem");
+                ParentItem.transform.position = Vector3.zero;
+
+            }
+            //SpawnItem();
+
             GetMatrix();
+        }
+
+        public void GetMapPositions(MapSO map)
+        {
+
+            ClearMapPositions();
+
+            levelSpawnData = levelGamePlay.levelSpawnData;
+            mapPositions.Clear();
+            foreach (var item in levelSpawnData.listItemSpawns)
+            {
+                foreach (var spawn in item.listSpawnDatas)
+                {
+                    Vector3 position = spawn.p.ToVector3();
+                    mapPositions.Add(position);
+                }
+            }
+            mapPositions.Add(new Vector3(0, 0, 0)); // Add a default position for testing
+
+            if (ParentItem == null)
+            {
+                ParentItem = new GameObject("ParentItem");
+                ParentItem.transform.position = Vector3.zero;
+
+            }
+            //SpawnItem();
+
+            GetMatrix();
+            transform.position = map.positionMap;
+            transform.rotation = Quaternion.Euler(map.rotationMap);
         }
 
 
@@ -129,7 +241,7 @@ namespace Map.TestGenerateMap
 
 
 
-        
+
 
             // Perform BFS from the first position in the matrix
             for (int x = 0; x < width; x++)
@@ -257,20 +369,25 @@ namespace Map.TestGenerateMap
 
             // Spawn the map based on the matrix
             matrix = ExpandMatrix(matrix); // Expand the matrix to add borders
+
+
+
+
+
             SpawnMap(matrix);
 
-            this.transform.localScale = new Vector3(1f, 1f, 1f) * 0.18f; // Adjust the scale to fit the map
+            this.transform.localScale = new Vector3(1f, 1f, 1f) * 0.2f; // Adjust the scale to fit the map
 
             //this.transform.localScale = new Vector3(1/ 128f, 1/128f, 1/ 128f) ; 
             this.transform.localRotation = Quaternion.Euler(0, 180, 0);
-            this.transform.position = new Vector3(width , 0, height / -1.5f);
-            
+            this.transform.position = new Vector3(width, 0, height / -1.5f);
+
         }
-            
-        
 
 
-        public  int[,] ExpandMatrix(int[,] original)
+
+
+        public int[,] ExpandMatrix(int[,] original)
         {
             int originalRows = original.GetLength(0);
             int originalCols = original.GetLength(1);
@@ -387,20 +504,17 @@ namespace Map.TestGenerateMap
             return result;
         }
 
-        public void SpawnMap(int[,] matrix)
+        public void SpawnMap(int[,] matrixValues)
         {
-            if (matrix == null || matrix.GetLength(0) == 0 || matrix.GetLength(1) == 0)
-            {
-                Debug.LogError("Matrix is empty or not initialized.");
-                return;
-            }
-
-            int width = matrix.GetLength(0);
-            int height = matrix.GetLength(1);
 
 
+            int width = matrixValues.GetLength(0);
+            int height = matrixValues.GetLength(1);
 
-            Dictionary<int, int > valueMaps = new Dictionary<int, int>();
+            Debug.Log("width: " + width+ ", height: " + height);
+
+            
+            Dictionary<int, int> valueMaps = new Dictionary<int, int>();
             valueMaps.Add(0, 2);
             valueMaps.Add(1, 1);
             for (int x = 0; x < width; x += 2)
@@ -409,7 +523,7 @@ namespace Map.TestGenerateMap
                 {
                     foreach (var item in ruleTiles)
                     {
-                        if (valueMaps[matrix[x, y]] == item.topleft && valueMaps[matrix[x + 1, y]] == item.topRight && valueMaps[matrix[x, y + 1]] == item.bottomLeft && valueMaps[matrix[x + 1, y + 1]] == item.bottomRight)
+                        if (valueMaps[matrixValues[x, y]] == item.topleft && valueMaps[matrixValues[x + 1, y]] == item.topRight && valueMaps[matrixValues[x, y + 1]] == item.bottomLeft && valueMaps[matrixValues[x + 1, y + 1]] == item.bottomRight)
                         {
                             GameObject prefab = item.prefab;
                             if (prefab != null)
@@ -432,113 +546,153 @@ namespace Map.TestGenerateMap
             }
         }
 
-
-
-
-
-}
-
-
-
-
-
-#if UNITY_EDITOR
-
-
-    [CustomEditor(typeof(TestGenerateMap))]
-    public class TestGenerateMapEditor : Editor
-    {
-        public override void OnInspectorGUI()
+        public void SaveData()
         {
-            DrawDefaultInspector();
+            MapSO mapSO = ScriptableObject.CreateInstance<MapSO>();
+            mapSO.width = matrix.GetLength(0);
+            mapSO.height = matrix.GetLength(1);
+            mapSO.mapData = string.Join(",", matrix.Cast<int>());
+            mapSO.positionMap = this.transform.position - new Vector3(0, 0.5f, 0);
+            mapSO.rotationMap = this.transform.rotation.eulerAngles;
+            string name = levelGamePlay.name.Substring(11);
+            string path = $"Assets/_Data/DataItemMap/TileMap/TileMap_{name}.asset";
 
-            TestGenerateMap script = (TestGenerateMap)target;
-            if (GUILayout.Button("Create Matrix"))
+            if (File.Exists(path))
             {
-                script.GetMapPositions();
-                // You can add additional logic here to display or process the matrix as needed
+                AssetDatabase.DeleteAsset(path);
             }
-            if (GUILayout.Button("Clear Map Positions"))
+
+            AssetDatabase.CreateAsset(mapSO, path);
+            AssetDatabase.SaveAssets();
+
+
+            // Finding nextLevel Data 
+            ClearMapPositions();
+            string nextName = (int.Parse(name) + 1).ToString();
+            LevelGamePlaySO nextLevelData = AssetDatabase.LoadAssetAtPath<LevelGamePlaySO>($"Assets/Resources/DataLevelNewFixSO/Data_Level_{nextName}.asset");
+            if (nextLevelData != null)
             {
-                script.ClearMapPositions();
+                this.levelGamePlay = nextLevelData;
+                GetMapPositions();
+
             }
-            if (GUILayout.Button("Get Matrix"))
+            if (nextLevelData == null)
             {
-                if (GUILayout.Button("Get Matrix"))
+                Debug.LogWarning($"Next level data not found: {nextName}");
+            }
+        }
+
+
+
+        private void SpawnItem()
+        {
+            foreach (var item in levelSpawnData.listItemSpawns)
+            {
+                foreach (var spawn in item.listSpawnDatas)
                 {
-                    script.GetMatrix();
-
-
-                }
-            }
-
-            // Optionally, display the matrix in the inspector
-
-
-            if (script.visited != null && script.visited.GetLength(0) > 0 && script.visited.GetLength(1) > 0)
-            {
-                EditorGUILayout.LabelField("Visited Matrix:");
-                int width = script.visited.GetLength(0);
-                int height = script.visited.GetLength(1);
-                for (int x = 0; x < width; x++)
-                {
-                    string row = "";
-                    for (int y = 0; y < height; y++)
+                    GameObject prefab = LoadPrefab(item.id, "PrefabInstance/GameObject/");
+                    if (prefab != null)
                     {
-                        row += (script.visited[x, y] ? "1" : "0") + " ";
+                        Vector3 position = spawn.p.ToVector3();
+                        GameObject spawnedObject = Instantiate(prefab, ParentItem.transform);
+                        spawnedObject.transform.localPosition = position;
+                        spawnedObject.transform.localRotation = Quaternion.Euler(spawn.r.ToVector3());
+
                     }
-                    EditorGUILayout.LabelField(row);
+                    else
+                    {
+                        Debug.LogWarning($"Prefab not found: {item.id}");
+                    }
                 }
             }
-
         }
 
-        // Draw squares at map positions in the Scene view
-        [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected)]
-        static void DrawMapPositionsGizmo(TestGenerateMap script, GizmoType gizmoType)
+        public GameObject LoadPrefab(string prefabName, string searchPath = "")
         {
-            if (script.mapPositions == null || script.mapPositions.Count == 0)
-                return;
+            // Construct the full path
 
 
-            if (script.matrix == null || script.matrix.GetLength(0) == 0 || script.matrix.GetLength(1) == 0)
+            // Try to load the prefab
+            string fullPath = searchPath + prefabName;
+            GameObject prefab = Resources.Load<GameObject>(fullPath);
+
+            if (prefab != null)
             {
-                return;
+                return prefab;
             }
-            Gizmos.color = Color.red;
-            int width = script.matrix.GetLength(0);
-            int height = script.matrix.GetLength(1);
+
+            // Find Assets in the all Subforlder
 
 
-            Vector3 offset = new Vector3(script.minX - 1.5f, 0, script.minZ - 1.5f);
 
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    Vector3 start = new Vector3(x, 0, y) + offset;
-                    Vector3 end = new Vector3(x + 1, 0, y) + offset;
-                    Gizmos.DrawLine(start, end);
-
-                    Vector3 start2 = new Vector3(x, 0, y) + offset;
-                    Vector3 end2 = new Vector3(x, 0, y + 1) + offset;
-                    Gizmos.DrawLine(start2, end2);
-                }
-            }
-            // Draw the last row and column lines to complete the grid
-            for (int x = 0; x < width; x++)
-            {
-                Vector3 start = new Vector3(x, 0, height) + offset;
-                Vector3 end = new Vector3(x + 1, 0, height) + offset;
-                Gizmos.DrawLine(start, end);
-            }
-            for (int y = 0; y < height; y++)
-            {
-                Vector3 start = new Vector3(width, 0, y) + offset;
-                Vector3 end = new Vector3(width, 0, y + 1) + offset;
-                Gizmos.DrawLine(start, end);
-            }
+            Debug.LogWarning($"Prefab '{prefabName}' not found in Resources");
+            return null;
         }
+
+
     }
+
 }
-#endif
+
+
+
+
+
+// #if UNITY_EDITOR
+
+
+//     [CustomEditor(typeof(TestGenerateMap))]
+//     public class TestGenerateMapEditor : Editor
+//     {
+//         public override void OnInspectorGUI()
+//         {
+//             DrawDefaultInspector();
+
+//             TestGenerateMap script = (TestGenerateMap)target;
+//             if (GUILayout.Button("Create Matrix"))
+//             {
+//                 script.GetMapPositions();
+//                 // You can add additional logic here to display or process the matrix as needed
+//             }
+//             if (GUILayout.Button("Clear Map Positions"))
+//             {
+//                 script.ClearMapPositions();
+//             }
+//             if (GUILayout.Button("Get Matrix"))
+//             {
+              
+//                 script.GetMatrix();
+
+
+//             }
+//             if (GUILayout.Button("Save Data"))
+//             {
+//                 script.SaveData();
+//             }
+
+//             // Optionally, display the matrix in the inspector
+
+
+//             if (script.visited != null && script.visited.GetLength(0) > 0 && script.visited.GetLength(1) > 0)
+//             {
+//                 EditorGUILayout.LabelField("Visited Matrix:");
+//                 int width = script.visited.GetLength(0);
+//                 int height = script.visited.GetLength(1);
+//                 for (int x = 0; x < width; x++)
+//                 {
+//                     string row = "";
+//                     for (int y = 0; y < height; y++)
+//                     {
+//                         row += (script.visited[x, y] ? "1" : "0") + " ";
+//                     }
+//                     EditorGUILayout.LabelField(row);
+//                 }
+//             }
+
+//         }
+
+       
+       
+//     }
+// }
+// #endif

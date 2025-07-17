@@ -30,7 +30,7 @@ public class HoleController : MonoBehaviour
 
 
 
-    private HoleRefMovement _holeMovement;
+    [SerializeField]private HoleRefMovement _holeMovement;
 
     public HoleRefMovement HoleMovement => _holeMovement;
     
@@ -54,7 +54,7 @@ public class HoleController : MonoBehaviour
     {
         Instance = this;
         holeScaleEffect.gameObject.SetActive(false);
-        _holeMovement = HoleRefMovement.Instance;
+        //_holeMovement = HoleRefMovement.Instance;
         //_holeMovement = GetComponent<HoleMovement>();
         //_blackHole = GetComponent<BlackHole>();
         _holeLevel = GetComponent<HoleLevel>();
