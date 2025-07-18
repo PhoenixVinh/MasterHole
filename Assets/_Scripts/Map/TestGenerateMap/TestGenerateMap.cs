@@ -54,6 +54,12 @@ namespace Map.TestGenerateMap
         {
 
 
+            // remove add Child
+            while (transform.childCount > 0)
+            {
+                DestroyImmediate(transform.GetChild(0).gameObject);
+            }
+
 
 
             int width = map.width;

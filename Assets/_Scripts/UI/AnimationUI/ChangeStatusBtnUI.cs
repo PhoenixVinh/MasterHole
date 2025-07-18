@@ -10,6 +10,9 @@ namespace _Scripts.UI.AnimationUI
         
         private Button btn;
 
+        public Image imgRef;
+
+        public bool isLeft;
 
         public void Start()
         {
@@ -19,12 +22,28 @@ namespace _Scripts.UI.AnimationUI
 
         private void ChangeStatus()
         {
-            btn.GetComponent<Image>().sprite = spriteEnd;
+            imgRef.sprite = spriteEnd;
+            // Roate 
+            if (isLeft)
+            {
+                imgRef.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                imgRef.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+           
         }
 
         public void SetBegin()
         {
-            btn.GetComponent<Image>().sprite = spriteStart;
+            imgRef.sprite = spriteStart;
+            if (isLeft)
+                imgRef.transform.rotation = Quaternion.Euler(0, 180, 0);
+            else
+            {
+                imgRef.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
     }
 }

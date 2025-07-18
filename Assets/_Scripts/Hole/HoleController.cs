@@ -183,6 +183,7 @@ public class HoleController : MonoBehaviour
     public void SetPosition(Vector3 position)
     {
         this.transform.position = position;
+        this._holeMovement.transform.position = position;
         this._holeSpecialSkill.StopEventSkill();
         //this._levelManager.ResetLevel();
         

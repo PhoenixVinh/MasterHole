@@ -52,6 +52,8 @@ namespace _Scripts.Tutorial
 
         public async Task<bool> ShowTutorials(int index)
         {
+
+            
             TurnOffTutorials();
             if (index <= 2)
             {
@@ -62,6 +64,7 @@ namespace _Scripts.Tutorial
 
             if (index == 3)
             {
+                Debug.Log("Show Tutorials");
                 SetTutorialFreeIcon(StringPlayerPrefs.TUTORIAL_LEVEL_3, 0, 2);
                 return true;
             }
