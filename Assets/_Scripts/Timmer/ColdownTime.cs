@@ -178,7 +178,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
         this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         int level = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
-        _txtLevel.text = level.ToString();
+        _txtLevel.text = "LEVEL " + level.ToString();
         DOTween.KillAll();
         this._txtDisplayTime.transform.localScale = Vector3.one;
         this._txtDisplayTime.color = new Color(1,0.85f,0,1);

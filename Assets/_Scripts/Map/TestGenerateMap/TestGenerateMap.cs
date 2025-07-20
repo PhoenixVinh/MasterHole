@@ -156,7 +156,7 @@ namespace Map.TestGenerateMap
                 ParentItem.transform.position = Vector3.zero;
 
             }
-            //SpawnItem();
+            SpawnItem();
 
             GetMatrix();
         }
@@ -212,8 +212,8 @@ namespace Map.TestGenerateMap
             float distanceX = maxX - minX;
             float distanceZ = maxZ - minZ;
 
-            int width = Mathf.CeilToInt((maxX - minX) / 4f) * 4; // Ensure width is a multiple of 4
-            int height = Mathf.CeilToInt((maxZ - minZ) / 4f) * 4; // Ensure height is a multiple of 4
+            int width = Mathf.CeilToInt((maxX - minX + 1) / 8f) * 8; // Ensure width is a multiple of 4
+            int height = Mathf.CeilToInt((maxZ - minZ + 1) / 8f) * 8; // Ensure height is a multiple of 4
 
             Debug.Log($"Creating matrix with dimensions: {width}x{height} based on positions from {minX},{minZ} to {maxX},{maxZ}");
 
@@ -278,20 +278,28 @@ namespace Map.TestGenerateMap
 
 
 
-            for (int x = 0; x < width; x++)
-            {
-                matrix[x, 0] = 0; // Set first row to 0
-                matrix[x, height - 1] = 0; // Set last row to 0
-            }
+            // for (int x = 0; x < width; x++)
+            // {
+            //     matrix[x, 0] = 0; // Set first row to 0
+            //     matrix[x, height - 1] = 0; // Set last row to 0
+            // }
 
 
-            for (int x = 0; x < height; x++)
-            {
-                matrix[0, x] = 0; // Set first column to 0
-                matrix[width - 1, x] = 0; // Set last column to 0
-            }
+            // for (int x = 0; x < height; x++)
+            // {
+            //     matrix[0, x] = 0; // Set first column to 0
+            //     matrix[width - 1, x] = 0; // Set last column to 0
+            // }
 
 
+            matrix = ContractMatrix(matrix); // Contract the matrix to reduce size
+            matrix = ContractMatrix(matrix); // Contract the matrix again to reduce size
+
+            Debug.Log($"Matrix contracted to dimensions: {matrix.GetLength(0)}x{matrix.GetLength(1)}");
+            
+            //matrix = ExpandMatrix(matrix); // Expand the matrix to add borders
+            width = matrix.GetLength(0);
+            height = matrix.GetLength(1);
             for (int i = 0; i < width; i++)
             {
 
@@ -299,19 +307,20 @@ namespace Map.TestGenerateMap
                 for (int j = 0; j < height; j++)
                 {
 
-                    if (matrix[i, j] == 1 && checkStart == false)
+                    if (matrix[i, j] == 1 && checkStart == false && j % 2 == 0 && j > 1)
                     {
                         // Start of a new path
                         checkStart = true;
-                        if (j % 2 == 0)
-                            matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                        matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                        // if (j % 2 == 0)
+                        //     matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
                     }
                     else if (matrix[i, j] == 0 && checkStart == true)
                     {
                         // End of a path
                         checkStart = false;
                         if (j % 2 == 0)
-                            matrix[i, j] = 1;
+                           matrix[i, j] = 1;
 
                     }
 
@@ -324,12 +333,13 @@ namespace Map.TestGenerateMap
                 bool checkStart = false;
                 for (int j = 0; j < width; j++)
                 {
-                    if (matrix[j, i] == 1 && checkStart == false)
+                    if (matrix[j, i] == 1 && checkStart == false && j % 2 == 0 && j > 1)
                     {
                         // Start of a new path
                         checkStart = true;
-                        if (j % 2 == 0)
-                            matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                        matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                        // if (j % 2 == 0)
+                        //     matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
                     }
                     else if (matrix[j, i] == 0 && checkStart == true)
                     {
@@ -343,54 +353,243 @@ namespace Map.TestGenerateMap
             }
 
 
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    if (matrix[j, i] == 1)
-                    {
-                        int count = 1;
-                        int index = j;
-                        while (index < width && matrix[index, i] == 1)
-                        {
-                            count++;
-                            index++;
-                        }
-                        if (count % 2 != 0)
-                        {
-                            matrix[j, i] = 1; // If the count is odd, set the first tile to 0
-                        }
-                        j = index; // Move the index to the end of the current path
-
-
-                    }
-                }
-
-
-
-            }
+            
 
 
 
 
             // Spawn the map based on the matrix
-            matrix = ExpandMatrix(matrix); // Expand the matrix to add borders
+            //matrix = ExpandMatrix(matrix); // Expand the matrix to add borders
 
 
+            matrix = ExpandMatrixOdd(matrix); // Expand the matrix to add borders
+            
+            width = matrix.GetLength(0);
+            height = matrix.GetLength(1);
 
 
+                        for (int i = 0; i < width; i++)
+            {
+
+                bool checkStart = false;
+                for (int j = 0; j < height; j++)
+                {
+
+                    if (matrix[i, j] == 1 && checkStart == false && j % 2 == 0 && j > 1)
+                    {
+                        // Start of a new path
+                        checkStart = true;
+                        matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                        // if (j % 2 == 0)
+                        //     matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                    }
+                    else if (matrix[i, j] == 0 && checkStart == true)
+                    {
+                        // End of a path
+                        checkStart = false;
+                        if (j % 2 == 0)
+                           matrix[i, j] = 1;
+
+                    }
+
+                }
+
+            }
+
+            for (int i = 0; i < height; i++)
+            {
+                bool checkStart = false;
+                for (int j = 0; j < width; j++)
+                {
+                    if (matrix[j, i] == 1 && checkStart == false && j % 2 == 0 && j > 1)
+                    {
+                        // Start of a new path
+                        checkStart = true;
+                        matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                        // if (j % 2 == 0)
+                        //     matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                    }
+                    else if (matrix[j, i] == 0 && checkStart == true)
+                    {
+                        // End of a path
+                        checkStart = false;
+                        if (j % 2 == 0)
+                            matrix[j, i] = 1;
+
+                    }
+                }
+            }
+            for (int x = 0; x < width; x++)
+            {
+                matrix[x, 0] = 0; // Set first row to 0
+                matrix[x, height - 1] = 0; // Set last row to 0
+            }
+
+
+            for (int x = 0; x < height; x++)
+            {
+                matrix[0, x] = 0; // Set first column to 0
+                matrix[width - 1, x] = 0; // Set last column to 0
+            }
+
+            for(int i = 0; i < width; i++)
+            {
+                for(int j = 0; j < height; j++)
+                {
+                    if (j + 2 < height && matrix[i, j] == 1 && matrix[i, j + 1] == 0 && matrix[i, j + 2] == 0)
+                    {
+                        matrix[i, j + 1] = 1;
+                        j = j + 2; // Skip the next cell to avoid double counting
+                    }
+                }
+            }
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (j + 2 < width && matrix[j, i] == 1 && matrix[j + 1, i] == 0 && matrix[j + 2, i] == 0)
+                    {
+                        matrix[j + 1, i] = 1;
+                        j = j + 2; // Skip the next cell to avoid double counting
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < width; i++)
+            {
+                int index = 0;
+                for (int j = 0; j < height; j++)
+                {
+                    if (matrix[i, j] == 1)
+                    {
+                        index++;
+                    }
+                    else
+                    {
+                        if (index % 2 != 0 )
+                        {
+
+                            matrix[i, j] = 1; // Ensure the end of the path is marked as 1 
+
+                        }
+                        index = 0;
+                    }
+                }
+            }
+            for (int i = 0; i < height; i++)
+            {
+                int index = 0;
+                for (int j = 0; j < width; j++)
+                {
+                    if (matrix[j, i] == 1)
+                    {
+                        index++;
+                    }
+                    else
+                    {
+                        if (index % 2 != 0 )
+                        {
+
+                            matrix[j , i] = 1; // Ensure the end of the path is marked as 1 
+
+                        }
+                        index = 0;
+                    }
+                }
+            }
+
+            // Debug.Log("Matrix dimensions: " + width + "x" + height);
+            // Spawn the map based on the matrix
+            for (int i = 0; i < width; i++)
+            {
+                string row = "";
+                for (int j = 0; j < height; j++)
+                {
+                    row += matrix[i, j] + " ";
+                }
+                Debug.Log(row);
+            }
+
+            
 
             SpawnMap(matrix);
 
-            this.transform.localScale = new Vector3(1f, 1f, 1f) * 0.2f; // Adjust the scale to fit the map
+            this.transform.localScale = new Vector3(1f, 1f, 1f); // Adjust the scale to fit the map
 
             //this.transform.localScale = new Vector3(1/ 128f, 1/128f, 1/ 128f) ; 
-            this.transform.localRotation = Quaternion.Euler(0, 180, 0);
-            this.transform.position = new Vector3(width, 0, height / -1.5f);
+            this.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            this.transform.position = new Vector3(width*4f, 0, height*-2f);
 
         }
 
+        public int[,] ContractMatrix(int[,] original)
+        {
+            int originalRows = original.GetLength(0);
+            int originalCols = original.GetLength(1);
+            int newRows = originalRows / 2;
+            int newCols = originalCols  / 2;
 
+            // Create new matrix with contracted dimensions
+            int[,] contracted = new int[newRows, newCols];
+
+            int index = 0;
+            // Copy original data to the new matrix
+            for(int i = 0; i < originalRows; i += 2)
+            {
+                for (int j = 0; j < originalCols; j += 2)
+                {
+                    // Calculate the average of the 2x2 block
+                    int sum = original[i, j] + original[i + 1, j] + original[i, j + 1] + original[i + 1, j + 1];
+                    contracted[index / newCols, index % newCols] = sum >= 1 ? 1 : 0;
+                    index++;
+                }
+            }
+
+            return contracted;
+        }
+
+
+        public int[,] ExpandMatrixOdd(int[,] original)
+        {
+            int originalRows = original.GetLength(0);
+            int originalCols = original.GetLength(1);
+            if ( originalRows % 2 == 0 && originalCols % 2 == 0 && originalRows > 2 && originalCols > 2)
+            {
+                //Debug.LogError("Matrix dimensions must be even for expansion.");
+                return original;
+            }
+
+            int targetRows = Mathf.CeilToInt(originalRows / 2f) * 2;
+            int targetCols = Mathf.CeilToInt(originalCols / 2f) * 2;
+
+            if (targetRows == 2)
+            {
+                targetRows = 4; // Ensure at least 4 rows
+            }
+            if (targetCols == 2)
+            {
+                targetCols = 4; // Ensure at least 4 columns
+            }
+            int[,] expanded = new int[targetRows, targetCols];
+            // Initialize all cells to 0    
+            for (int i = 0; i < targetRows; i++)
+            {
+                for (int j = 0; j < targetCols; j++)
+                {
+                    expanded[i, j] = 0;
+                }
+            }
+            for (int i = 0; i < originalRows; i++)
+            {
+                for (int j = 0; j < originalCols; j++)
+                {
+                    expanded[i + targetRows - originalRows, j + targetCols - targetCols] = original[i, j];
+                }
+            }
+            return expanded;
+            
+        }
 
 
         public int[,] ExpandMatrix(int[,] original)
@@ -523,18 +722,22 @@ namespace Map.TestGenerateMap
             Dictionary<int, int> valueMaps = new Dictionary<int, int>();
             valueMaps.Add(0, 2);
             valueMaps.Add(1, 1);
-            for (int x = 0; x < width; x += 2)
+        
+
+            for (int x = width - 1; x > 0; x -= 2)
             {
-                for (int y = 0; y < height; y += 2)
+                for (int y = height - 1; y > 0; y -= 2)
                 {
                     foreach (var item in ruleTiles)
                     {
-                        if (valueMaps[matrixValues[x, y]] == item.topleft && valueMaps[matrixValues[x + 1, y]] == item.topRight && valueMaps[matrixValues[x, y + 1]] == item.bottomLeft && valueMaps[matrixValues[x + 1, y + 1]] == item.bottomRight)
+                       
+                        if (valueMaps[matrixValues[x, y]] == item.topleft && valueMaps[matrixValues[x - 1, y]] == item.topRight && valueMaps[matrixValues[x, y - 1]] == item.bottomLeft && valueMaps[matrixValues[x - 1, y - 1]] == item.bottomRight)
                         {
+                            //Debug.Log($"Spawning tile at {x}, {y} with prefab {item.prefab.name}");   
                             GameObject prefab = item.prefab;
                             if (prefab != null)
                             {
-                                Vector3 position = new Vector3(x * 8f, 0, -y * 8f);
+                                Vector3 position = new Vector3(-x * 8f, 0, y * 8f);
                                 GameObject spawnedObject = Instantiate(prefab, transform);
                                 spawnedObject.transform.localPosition = position;
 
@@ -550,6 +753,35 @@ namespace Map.TestGenerateMap
 
                 }
             }
+
+
+            // for (int x = 0; x < width; x += 2)
+            // {
+            //     for (int y = 0; y < height; y += 2)
+            //     {
+            //         foreach (var item in ruleTiles)
+            //         {
+            //             if (valueMaps[matrixValues[x, y]] == item.topleft && valueMaps[matrixValues[x + 1, y]] == item.topRight && valueMaps[matrixValues[x, y + 1]] == item.bottomLeft && valueMaps[matrixValues[x + 1, y + 1]] == item.bottomRight)
+            //             {
+            //                 GameObject prefab = item.prefab;
+            //                 if (prefab != null)
+            //                 {
+            //                     Vector3 position = new Vector3(x * 8f, 0, -y * 8f);
+            //                     GameObject spawnedObject = Instantiate(prefab, transform);
+            //                     spawnedObject.transform.localPosition = position;
+
+            //                     spawnedObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            //                     spawnedObject.name = $"Tile_{x}_{y}";
+            //                 }
+            //                 else
+            //                 {
+            //                     Debug.LogWarning($"Prefab for RuleTile not assigned: {item}");
+            //                 }
+            //             }
+            //         }
+
+            //     }
+            // }
         }
 
         public void SaveData()
@@ -644,61 +876,60 @@ namespace Map.TestGenerateMap
 
 
 
-// #if UNITY_EDITOR
+#if UNITY_EDITOR
 
 
-//     [CustomEditor(typeof(TestGenerateMap))]
-//     public class TestGenerateMapEditor : Editor
-//     {
-//         public override void OnInspectorGUI()
-//         {
-//             DrawDefaultInspector();
+[CustomEditor(typeof(TestGenerateMap))]
+public class TestGenerateMapEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
 
-//             TestGenerateMap script = (TestGenerateMap)target;
-//             if (GUILayout.Button("Create Matrix"))
-//             {
-//                 script.GetMapPositions();
-//                 // You can add additional logic here to display or process the matrix as needed
-//             }
-//             if (GUILayout.Button("Clear Map Positions"))
-//             {
-//                 script.ClearMapPositions();
-//             }
-//             if (GUILayout.Button("Get Matrix"))
-//             {
-              
-//                 script.GetMatrix();
+        TestGenerateMap script = (TestGenerateMap)target;
+        if (GUILayout.Button("Create Matrix"))
+        {
+            script.GetMapPositions();
+            // You can add additional logic here to display or process the matrix as needed
+        }
+        if (GUILayout.Button("Clear Map Positions"))
+        {
+            script.ClearMapPositions();
+        }
+        if (GUILayout.Button("Get Matrix"))
+        {
 
-
-//             }
-//             if (GUILayout.Button("Save Data"))
-//             {
-//                 script.SaveData();
-//             }
-
-//             // Optionally, display the matrix in the inspector
+            script.GetMatrix();
 
 
-//             if (script.visited != null && script.visited.GetLength(0) > 0 && script.visited.GetLength(1) > 0)
-//             {
-//                 EditorGUILayout.LabelField("Visited Matrix:");
-//                 int width = script.visited.GetLength(0);
-//                 int height = script.visited.GetLength(1);
-//                 for (int x = 0; x < width; x++)
-//                 {
-//                     string row = "";
-//                     for (int y = 0; y < height; y++)
-//                     {
-//                         row += (script.visited[x, y] ? "1" : "0") + " ";
-//                     }
-//                     EditorGUILayout.LabelField(row);
-//                 }
-//             }
+        }
+        if (GUILayout.Button("Save Data"))
+        {
+            script.SaveData();
+        }
 
-//         }
+        // Optionally, display the matrix in the inspector
 
+
+        if (script.visited != null && script.visited.GetLength(0) > 0 && script.visited.GetLength(1) > 0)
+        {
+            EditorGUILayout.LabelField("Visited Matrix:");
+            int width = script.visited.GetLength(0);
+            int height = script.visited.GetLength(1);
+            for (int x = 0; x < width; x++)
+            {
+                string row = "";
+                for (int y = 0; y < height; y++)
+                {
+                    row += (script.visited[x, y] ? "1" : "0") + " ";
+                }
+                EditorGUILayout.LabelField(row);
+            }
+        }
+
+    }
+
+}
        
-       
-//     }
-// }
-// #endif
+  
+#endif

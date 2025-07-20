@@ -22,7 +22,7 @@ namespace _Scripts.UI.BoosterUI
         
         [Header("Booster UI")]
         public GameObject LockUI;
-        public TMP_Text levelCanUseText;
+        //public TMP_Text levelCanUseText;
         public GameObject buttonUse;
 
         [Header("Amount Item UI")] 
@@ -130,7 +130,7 @@ namespace _Scripts.UI.BoosterUI
             if (CurrentLevel < levelCanUse)
             {
                 this.LockUI.SetActive(true);
-                levelCanUseText.text = $"Lv.{levelCanUse}";
+                //levelCanUseText.text = $"Lv.{levelCanUse}";
                 this.buttonUse.SetActive(false);
             
                 

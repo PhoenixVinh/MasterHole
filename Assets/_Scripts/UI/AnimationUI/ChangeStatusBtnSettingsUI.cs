@@ -48,12 +48,19 @@ namespace _Scripts.UI.AnimationUI
         {
             _btn.image.sprite = BGOn;
             ImageDisplay.sprite = ImageOn;
+            ImageDisplay.GetComponent<RectTransform>().sizeDelta = new Vector2(ImageOn.rect.width, ImageOn.rect.height);
         }
 
         public void SetStatusOff()
         {
             _btn.image.sprite = BGOff;
             ImageDisplay.sprite = ImageOff;
+            ImageDisplay.GetComponent<RectTransform>().sizeDelta = new Vector2(ImageOff.rect.width, ImageOff.rect.height);
+
         }
+
+       
+        
+        
     }
 }
