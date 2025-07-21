@@ -80,40 +80,13 @@ namespace Map.TestGenerateMap
             Debug.Log("Count : " + count);
             //Debug.Log("Matrix: " + value.Count() + ", width: " + width + ", height: " + height);
 
-            Dictionary<int, int> valueMaps = new Dictionary<int, int>();
-            valueMaps.Add(0, 2);
-            valueMaps.Add(1, 1);
-            for (int x = 0; x < width; x += 2)
-            {
-                for (int y = 0; y < height; y += 2)
-                {
-                    foreach (var item in ruleTiles)
-                    {
-                        if (valueMaps[matrixValue[x, y]] == item.topleft && valueMaps[matrixValue[x + 1, y]] == item.topRight && valueMaps[matrixValue[x, y + 1]] == item.bottomLeft && valueMaps[matrixValue[x + 1, y + 1]] == item.bottomRight)
-                        {
-                            GameObject prefab = item.prefab;
-                            if (prefab != null)
-                            {
-                                Vector3 position = new Vector3(x * 8f, 0, -y * 8f);
-                                GameObject spawnedObject = Instantiate(prefab, transform);
-                                spawnedObject.transform.localPosition = position;
-
-                                spawnedObject.transform.localScale = new Vector3(1f, 1f, 1f);
-                                spawnedObject.name = $"Tile_{x}_{y}";
-                            }
-                            else
-                            {
-                                Debug.LogWarning($"Prefab for RuleTile not assigned: {item}");
-                            }
-                        }
-                    }
-
-                }
-            }
+            //matrixValue = ExpandMatrix(matrixValue);
+            SpawnMap(matrixValue);
+            
 
             transform.position = map.positionMap;
             transform.rotation = Quaternion.Euler(map.rotationMap);
-            transform.localScale = Vector3.one * 0.2f;
+            transform.localScale = Vector3.one;
 
 
 
@@ -510,7 +483,7 @@ namespace Map.TestGenerateMap
                 }
                 Debug.Log(row);
             }
-
+            matrix = ExpandMatrix(matrix);
             
 
             SpawnMap(matrix);
@@ -519,7 +492,7 @@ namespace Map.TestGenerateMap
 
             //this.transform.localScale = new Vector3(1/ 128f, 1/128f, 1/ 128f) ; 
             this.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            this.transform.position = new Vector3(width*4f, 0, height*-2f);
+            this.transform.position = new Vector3(width*4f + 64f, 0, height*-2f - 64f);
 
         }
 

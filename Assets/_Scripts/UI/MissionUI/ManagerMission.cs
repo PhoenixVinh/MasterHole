@@ -20,7 +20,7 @@ namespace _Scripts.UI.MissionUI
         public int AmountMissionItem = 0;
 
 
-        public Dictionary<string, Mission> TypeItems = new Dictionary<string, Mission>();
+        public Dictionary<string, MissionGamePlay> TypeItems = new Dictionary<string, MissionGamePlay>();
 
 
         private List<GameObject> MissionItems = new List<GameObject>();
@@ -50,12 +50,13 @@ namespace _Scripts.UI.MissionUI
             }
             TypeItems.Clear();
             int index = 0;
+            Debug.Log("Amount: " + MissionsSO.misstionsData.Count);
             foreach (var missionSo in MissionsSO.misstionsData)
             {
                 GameObject mission = Instantiate(Mission, transform);
                 mission.name = "Mission";
-                mission.GetComponent<Mission>().SetData(missionSo, index);
-                TypeItems[missionSo.idItem] = mission.GetComponent<Mission>();
+                mission.GetComponent<MissionGamePlay>().SetData(missionSo, index);
+                TypeItems[missionSo.idItem] = mission.GetComponent<MissionGamePlay>();
                 index++;
                 AmountMissionItem += missionSo.AmountItems;
             }
@@ -217,6 +218,8 @@ namespace _Scripts.UI.MissionUI
 
         public void SetData(MissionSO mission)
         {
+
+            Debug.Log("Mission Is Created ");
             this.MissionsSO = mission;
 
             CreateMissions();

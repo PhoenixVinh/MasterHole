@@ -5,6 +5,7 @@ namespace _Scripts.UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
+        public BoardGameUI boardGameUI;
 
         public GameObject Shop;
         public void Awake()

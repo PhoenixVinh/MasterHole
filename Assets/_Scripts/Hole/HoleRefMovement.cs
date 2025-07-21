@@ -57,7 +57,7 @@ public class HoleRefMovement : MonoBehaviour, IMovement
     }
     public void SetScale(float scale)
     {
-        transform.localScale = new Vector3(scale, scale, scale);
+        transform.localScale = new Vector3(scale, scale, scale) * 1.2f;
     }
 
     public void ShowArrow()

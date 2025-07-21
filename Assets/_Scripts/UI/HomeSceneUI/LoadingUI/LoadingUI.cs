@@ -18,39 +18,24 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
             loadingBar.fillAmount = 0;
             IsLoading = true;
 
-            StartCoroutine(CheckCMP());
+          
             StartCoroutine(LoadingBarCoroutine());
            
             
         }
 
-        private IEnumerator CheckCMP()
-        {
-           
-            
-            yield return new WaitForSeconds(0.2f);
-            
-            Time.timeScale = 0;
-            CMPController.Instance.StarCMP();
-            while (!CMPController.Instance.IsShowCMP)
-            {
-                yield return null;
-            }
-            
-            Time.timeScale = 1;
-        }
 
         private IEnumerator LoadingBarCoroutine()
         {
-           
+
 
             while (loadingBar.fillAmount < 1)
             {
-              
+
                 loadingBar.fillAmount += Time.deltaTime;
-               
-                
-                
+
+
+
                 yield return null;
             }
             int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
@@ -58,11 +43,14 @@ namespace _Scripts.UI.HomeSceneUI.LoadingUI
             {
                 yield return new WaitForSeconds(1f);
             }
-          
+
 
             //int currentLevel = PlayerPrefs.GetInt(StringPla)
             IsLoading = false;
-            //this.gameObject.SetActive(false);
+
+
+            yield return new WaitForSeconds(0.5f);
+            this.gameObject.SetActive(false);
 
         }
 

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI.MissionUI
 {
-    public class Mission : MonoBehaviour
+    public class MissionGamePlay : MonoBehaviour
     {
 
         [SerializeField] private GameObject IconMission;

@@ -120,7 +120,7 @@ namespace _Scripts.Tutorial
                     
                 PlayerPrefs.SetInt(keyTutorial, 1);
                 
-                await Task.Delay(1200);
+                await Task.Delay(3000);
                 ManagerPopup.Instance.ShowPopupFreeItem(indexFree);
                 
                 //SceneManager.LoadScene(EnumScene.HomeScene.ToString());

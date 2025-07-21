@@ -1,5 +1,7 @@
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using _Scripts.Ads;
 using _Scripts.Booster;
@@ -14,6 +16,7 @@ using _Scripts.Tutorial;
 using _Scripts.UI;
 using _Scripts.UI.MissionUI;
 using Map.TestGenerateMap;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.Rendering;
@@ -62,7 +65,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         int currentLose_Index = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX, 0);
         
         ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.home, (int)level.timeToComplete*1000, currentLose_Index,currentLose_Index);
-        SpawnLevel();
+        StartCoroutine(SpawnLevel(true));
         ManagerTutorial.Instance.ShowTutorials(currentLevel);
         PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
         PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.home.ToString());
@@ -94,20 +97,35 @@ public class ManagerLevelGamePlay : MonoBehaviour
         return true;
     }
 
-    public async Task<bool>  SpawnLevel()
+    public IEnumerator SpawnLevel(bool isHome)
     {
 
-        
+        if (ManagerHomeScene.Instance != null && isHome)
+        {
+           
+            while (ManagerHomeScene.Instance.loadingUI.IsLoading)
+            {
+                yield return null;
+            }
+            
+
+               
+        }
+
+
         PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
-        
-        if(ManagerHomeScene.Instance != null)
-            ManagerHomeScene.Instance.ShowLoadingUI();
+
+        if (UIManager.Instance != null)
+        {
+             UIManager.Instance.boardGameUI.SetData(level.missionData);
+        }
+           
         if (ManagerSound.Instance != null)
         {
             ManagerSound.Instance.StopEffectSound(EnumEffectSound.Magnet);
             ManagerSound.Instance.StopAllSoundSFX();
         }
-        CleanGradeManager.Instance?.CleanQueue();
+        //CleanGradeManager.Instance?.CleanQueue();
         
         
         
@@ -143,18 +161,16 @@ public class ManagerLevelGamePlay : MonoBehaviour
         
         
         
-        if (ManagerHomeScene.Instance != null)
-        {
-            
-            ManagerHomeScene.Instance.HideLoadingUI();
-        }
+        
+        UIManager.Instance?.boardGameUI.HideUI();
+        
 
         if (isShowBanner)
         {
             MaxAdsManager.Instance?.ShowBannerAd();
         }
         
-        return true;
+    
 
     }
 
@@ -172,10 +188,12 @@ public class ManagerLevelGamePlay : MonoBehaviour
         if (LoadLevelSO())
         {
             
-            ManagerTutorial.Instance.ShowTutorials(currentLevel);
-           
-            SpawnLevel();
+            ManagerTutorial.Instance?.ShowTutorials(currentLevel);
             
+            
+            
+            StartCoroutine(SpawnLevel(false));
+
             PlayerPrefs.SetInt(StringPlayerPrefs.LOSE_INDEX, 0);
         
             PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.next.ToString());
@@ -192,8 +210,8 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public void LoadLevelAgain()
     {
-        ManagerTutorial.Instance.ShowTutorials(currentLevel);
-        SpawnLevel();
+        ManagerTutorial.Instance?.ShowTutorials(currentLevel);
+        StartCoroutine(SpawnLevel(false));
         int currentLose_Index = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX, 0);
       
         

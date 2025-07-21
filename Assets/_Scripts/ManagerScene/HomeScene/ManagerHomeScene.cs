@@ -40,7 +40,9 @@ namespace _Scripts.ManagerScene.HomeScene
             int currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
             if (currentLevel == 1)
             {
+                ShowLoadingUI();
                 SceneManager.LoadScene(EnumScene.PlayScene.ToString());
+                
                 ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
                 //ManagerSound.Instance?.ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
                 
@@ -116,15 +118,7 @@ namespace _Scripts.ManagerScene.HomeScene
             
            
         }
-        public async void ShowLoseGameUI()
-        {
-            ShowLoseGame.SetActive(true);
-            await Task.Delay(3000);
-            ShowLoseGame.SetActive(false);
-            Resource.Instance.MinusHealth();
-            
-        }
-
+     
         public async void ShowTutorialSkin()
         {
 

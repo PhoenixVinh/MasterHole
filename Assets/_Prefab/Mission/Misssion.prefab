@@ -302,7 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 95337127459177255}
   - component: {fileID: 95337127459177248}
-  - component: {fileID: 8700816054596405871}
+  - component: {fileID: 6969799882361530437}
   m_Layer: 5
   m_Name: Misssion
   m_TagString: Untagged
@@ -343,7 +343,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95337127459177254}
   m_CullTransparentMesh: 1
---- !u!114 &8700816054596405871
+--- !u!114 &6969799882361530437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 95337127459177254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7ffcf774bad4954b4ba19a8f748830b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dac5515b375019408f931991744f8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IconMission: {fileID: 95337128282196327}
@@ -365,22 +365,31 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0019226074
-      value: -0.0078125
-      inSlope: 13.113907
-      outSlope: 13.113907
+      time: 0
+      value: 0
+      inSlope: 5.179351
+      outSlope: 5.179351
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.038276497
+      outWeight: 0.06091586
     - serializedVersion: 3
-      time: 1
-      value: -0.0143585205
-      inSlope: -12.278119
-      outSlope: -12.278119
+      time: 0.5
+      value: 1
+      inSlope: -0.04173216
+      outSlope: -0.04173216
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.025700808
+      inWeight: 0.20014423
+      outWeight: 0.20810986
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -4.1507626
+      outSlope: -4.1507626
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15093124
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

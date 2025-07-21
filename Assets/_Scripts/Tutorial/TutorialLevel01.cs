@@ -41,8 +41,8 @@ namespace _Scripts.Tutorial
             moveMessage.SetActive(false);
             collectMessage.SetActive(false);
             missionMessage.SetActive(false);
-            //StartCoroutine(ShowMoveMessage());
-            //StartCoroutine(ShowCollectMessage());
+            StartCoroutine(ShowMoveMessage());
+            StartCoroutine(ShowCollectMessage());
         }
 
         private IEnumerator ShowCollectMessage()
@@ -65,9 +65,8 @@ namespace _Scripts.Tutorial
 
         public IEnumerator  ShowMoveMessage()
         {
-            yield return new WaitUntil(
-                () => ManagerLevelGamePlay.Instance.SpawnLevel().Result
-            );
+            
+            
             wall.SetActive(true);
             moveMessage.SetActive(true);
             //moveMessage.transform.SetParent(this.HoleController.transform);
