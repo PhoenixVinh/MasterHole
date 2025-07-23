@@ -76,24 +76,24 @@ namespace _Scripts.UI.PopupUI
             this.icon.texture = listSprites[indexSpecialSkill].texture;
             if (indexSpecialSkill == 0)
             {
-                descriptionText = "<color=#4CAF50>Increase the hole</color> <color=#4A4A7B>size over 15 seconds</color>";
-                this.title.text = "SCALE";
+                descriptionText = "Increase the hole size over 15 seconds";
+                this.title.text = "Scale!";
             }
             else if (indexSpecialSkill == 1)
             {
                 
-                descriptionText = "<color=#4CAF50>Pull in distant</color> <color=#4A4A7B>items using the hole for 12 seconds</color>";
-                this.title.text = "MAGNET";
+                descriptionText = "Pull in distant items using the hole for 12 seconds";
+                this.title.text = "Magnet!";
             }
             else if (indexSpecialSkill == 2)
             {
-                descriptionText = "<color=#4CAF50>Reveal the locations</color> <color=#4A4A7B>of mission objects for 15 seconds</color>";
-                this.title.text = "LOCATION";
+                descriptionText = "Reveal the locations of mission objects for 15 seconds ";
+                this.title.text = "Location!";
             }
             else
             {
-                descriptionText = "<color=#4CAF50>Attract items</color> <color=#4A4A7B>freeze for 12 seconds</color>";
-                this.title.text = "ICE";
+                descriptionText = "Attract items freeze for 12 seconds";
+                this.title.text = "Ice!";
             }
 
             this.description.text = descriptionText;

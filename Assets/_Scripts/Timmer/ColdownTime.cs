@@ -29,9 +29,16 @@ public class ColdownTime : MonoBehaviour, IPrecent
     private bool isPlaySound = false;
 
     private bool iceTime = false;
+
+
+    [Header("Sprite Timmer")]
+    [SerializeField] private Sprite normalTime;
+    [SerializeField] private Sprite Dangerousime;
+
+    
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
         else
         {
@@ -93,8 +100,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
                     ScaleItem();
                 }
                 this._txtDisplayTime.color = Color.red;
+                imgDisplayTime.sprite = Dangerousime;
                 //this._txtDisplayTime.transform.DOScale(Vector3.one*1.2f, 2f);
-                
+
             }
         }
         else
@@ -182,6 +190,7 @@ public class ColdownTime : MonoBehaviour, IPrecent
         DOTween.KillAll();
         this._txtDisplayTime.transform.localScale = Vector3.one;
         this._txtDisplayTime.color = new Color(1,0.85f,0,1);
+         this.imgDisplayTime.sprite = normalTime;
         imgDisplayTime.fillAmount = Precent();
         StartColdown();
         
@@ -197,11 +206,12 @@ public class ColdownTime : MonoBehaviour, IPrecent
         isPlaySound = false;
         this._txtDisplayTime.transform.localScale = Vector3.one;
         this._txtDisplayTime.color = new Color(1, 0.85f, 0, 1);
+        this.imgDisplayTime.sprite = normalTime;
 
         if (iceTime)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
-            this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+            this._txtDisplayTime.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         }
        
     }

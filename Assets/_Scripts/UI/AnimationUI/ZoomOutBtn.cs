@@ -5,13 +5,40 @@ using UnityEngine;
 
 public class ZoomOutBtn : MonoBehaviour
 {
-    public float time = 0.5f;
-    
-    
+ 
+
+
 
     private void OnEnable()
     {
-        StartCoroutine(ZoomOutButtonCoroutine());
+        //StartCoroutine(ZoomOutButtonCoroutine());
+
+        ShowAnim();
+    }
+
+    private void ShowAnim()
+    {
+        // for (int i = 0; i < 2; i++)
+        // {
+        //     ZoomOutButtonCoroutine(Vector3.one, Vector3.one * 0.8f, 0.1f);
+        //     ZoomOutButtonCoroutine(Vector3.one * 0.8f, Vector3.one, 0.1f);
+        // }
+
+        transform.localScale = Vector3.one * 0.9f;
+        var sequence = DOTween.Sequence()
+            .SetId("AnimationZoomOutButton")
+            .SetUpdate(true);
+
+
+        sequence.Append(transform.DOScale(Vector3.one * 1.1f, 0.1f))
+                .Append(transform.DOScale(Vector3.one * 0.95f, 0.2f))
+                .Append(transform.DOScale(Vector3.one, 0.1f));
+              
+                
+
+
+        
+       
     }
 
     // private void ZoomOutButtonCoroutine()
@@ -28,12 +55,12 @@ public class ZoomOutBtn : MonoBehaviour
     //   
     //     transform.localScale = targetLocalScale;
     // }
-    private IEnumerator ZoomOutButtonCoroutine()
+    private IEnumerator ZoomOutButtonCoroutine(Vector3 start, Vector3 end, float time)
     {
         // First scale to targetLocalScale * 1.1f over 'time' seconds
         float elapsed = 0f;
-        Vector3 startScale = Vector3.zero;
-        Vector3 endScale = Vector3.one * 1.1f;
+        Vector3 startScale =start;
+        Vector3 endScale = end;
 
         while (elapsed < time)
         {
@@ -59,10 +86,11 @@ public class ZoomOutBtn : MonoBehaviour
         }
         transform.localScale = endScale; // Ensure final scale is exact
     }
-    
+
     private void OnDisable()
     {
         DOTween.Kill("AnimationZoomOutButton");
+        DOTween.KillAll();
         //DOTween.KillAll();
     }
 

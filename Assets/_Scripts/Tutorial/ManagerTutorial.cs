@@ -47,6 +47,7 @@ namespace _Scripts.Tutorial
 
         private void ShowTut(int index)
         {
+
             tutorials[index +2].SetActive(true);
         }
 
@@ -119,8 +120,10 @@ namespace _Scripts.Tutorial
             {
                     
                 PlayerPrefs.SetInt(keyTutorial, 1);
-                
-                await Task.Delay(3000);
+
+                if (UIManager.Instance != null)
+                    await Utills.DelayUntil(() => !UIManager.Instance.boardGameUI.gameObject.activeInHierarchy);
+                await Task.Delay(2000);
                 ManagerPopup.Instance.ShowPopupFreeItem(indexFree);
                 
                 //SceneManager.LoadScene(EnumScene.HomeScene.ToString());

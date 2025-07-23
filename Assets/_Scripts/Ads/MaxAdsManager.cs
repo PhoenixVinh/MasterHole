@@ -13,6 +13,8 @@ public class MaxAdsManager : MonoBehaviour
     [SerializeField] private string rewardedAdUnitId = "YOUR_REWARDED_AD_UNIT_ID"; // ID quảng cáo có tặng thưởng
 
 
+
+
     private bool isBannerLoaded = false;
 
     public static MaxAdsManager Instance;

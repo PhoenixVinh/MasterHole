@@ -20,6 +20,7 @@ namespace _Scripts.Tutorial
 
         public void OnEnable()
         {
+            
             Message.transform.localScale = Vector3.zero;
             
             Message.transform.DOScale(Vector3.one, 0.5f);

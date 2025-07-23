@@ -3,6 +3,7 @@ using _Scripts.Firebase;
 using _Scripts.ManagerScene.HomeScene;
 using _Scripts.Sound;
 using _Scripts.Vibration;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,8 +13,8 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
 {
     public class PlayBtn : ChangeSceneBtn
     {
-        [SerializeField]private GameObject message;
-        
+        [SerializeField] private GameObject message;
+
         public override void ChangeScene()
         {
             ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.ButtonClick);
@@ -26,21 +27,36 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
                 int currentEnergy = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_ENERGY, 0);
                 if (currentEnergy == 0)
                 {
-                    GameObject messageuUI =  Instantiate(message, transform.position, Quaternion.identity);
+                    GameObject messageuUI = Instantiate(message, transform.position, Quaternion.identity);
                     messageuUI.GetComponent<TMP_Text>().text = Utills.NOT_ENOUGH_ENERGY;
                     messageuUI.transform.SetParent(transform);
                     return;
                 }
             }
-            
+
             ManagerFirebase.Instance?.ChangePositionFirebase(PositionFirebase.ingame);
             ManagerHomeScene.Instance.ShowLoadingUI();
             base.ChangeScene();
-            
-            
-          
+
+
+
         }
-        
+
+
+
+        public void AnimEnterBtn()
+        {
+            this.transform.DOScale(Vector3.one * 0.84f, 0.5f);
+        }
+        public void AnimExitBtn()
+        {
+            this.transform.DOScale(Vector3.one, 0.3f);
+        }
+
+        public void OnDisable()
+        {
+            DOTween.KillAll();
+        }
         
         
     }

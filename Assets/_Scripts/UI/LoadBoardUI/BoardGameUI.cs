@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Ads;
+using TMPro;
 using UnityEngine;
 
 
@@ -11,9 +12,13 @@ public class BoardGameUI : MonoBehaviour
     public Transform MissionContainer;
     public GameObject MissionContainerPrefab;
 
-    public void SetData(MissionSO data)
+    public TMP_Text timmerComplete; 
+    public bool isShowBoardGame = false;
+
+    public void SetData(MissionSO data, float timeComplete)
     {
         RemoveOldData();
+        timmerComplete.text = timeComplete.ToString();
         foreach (var item in data.misstionsData)
         {
             GameObject itemMission = Instantiate(MissionContainerPrefab, MissionContainer);
@@ -39,11 +44,14 @@ public class BoardGameUI : MonoBehaviour
     public void OnEnable()
     {
         StartCoroutine(CheckCMP());
+        isShowBoardGame = true;
         
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         StopAllCoroutines();
+        isShowBoardGame = false;
     }
     public void HideUI()
     {
@@ -53,7 +61,7 @@ public class BoardGameUI : MonoBehaviour
 
     private IEnumerator TurnOffBoardGameUI()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(4f);
         this.gameObject.SetActive(false);
 
     }

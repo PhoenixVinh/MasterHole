@@ -66,7 +66,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
         
         ManagerFirebase.Instance?.LogLevelStart(currentLevel, PlayType.home, (int)level.timeToComplete*1000, currentLose_Index,currentLose_Index);
         StartCoroutine(SpawnLevel(true));
-        ManagerTutorial.Instance.ShowTutorials(currentLevel);
+        ManagerTutorial.Instance?.ShowTutorials(currentLevel);
         PlayerPrefs.SetInt(StringPlayerPrefs.COUNT_USE_BOOSTER_ICE, 0);
         PlayerPrefs.SetString(StringPlayerPrefs.PLAYER_TYPE, PlayType.home.ToString());
     }
@@ -117,7 +117,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
         if (UIManager.Instance != null)
         {
-             UIManager.Instance.boardGameUI.SetData(level.missionData);
+             UIManager.Instance.boardGameUI.SetData(level.missionData, level.timeToComplete);
         }
            
         if (ManagerSound.Instance != null)

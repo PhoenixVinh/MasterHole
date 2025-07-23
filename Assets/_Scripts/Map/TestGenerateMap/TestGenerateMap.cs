@@ -757,6 +757,7 @@ namespace Map.TestGenerateMap
             // }
         }
 
+
         public void SaveData()
         {
             MapSO mapSO = ScriptableObject.CreateInstance<MapSO>();
@@ -770,27 +771,27 @@ namespace Map.TestGenerateMap
 
             if (File.Exists(path))
             {
-                AssetDatabase.DeleteAsset(path);
+                //AssetDatabase.DeleteAsset(path);
             }
+            #if UNITY_EDITOR
+            // AssetDatabase.CreateAsset(mapSO, path);
+            // AssetDatabase.SaveAssets();
 
-            AssetDatabase.CreateAsset(mapSO, path);
-            AssetDatabase.SaveAssets();
-
-
+            #endif
             // Finding nextLevel Data 
             ClearMapPositions();
             string nextName = (int.Parse(name) + 1).ToString();
-            LevelGamePlaySO nextLevelData = AssetDatabase.LoadAssetAtPath<LevelGamePlaySO>($"Assets/Resources/DataLevelNewFixSO/Data_Level_{nextName}.asset");
-            if (nextLevelData != null)
-            {
-                this.levelGamePlay = nextLevelData;
-                GetMapPositions();
+            //LevelGamePlaySO nextLevelData = AssetDatabase.LoadAssetAtPath<LevelGamePlaySO>($"Assets/Resources/DataLevelNewFixSO/Data_Level_{nextName}.asset");
+            // if (nextLevelData != null)
+            // {
+            //     this.levelGamePlay = nextLevelData;
+            //     GetMapPositions();
 
-            }
-            if (nextLevelData == null)
-            {
-                Debug.LogWarning($"Next level data not found: {nextName}");
-            }
+            // }
+            // if (nextLevelData == null)
+            // {
+            //     Debug.LogWarning($"Next level data not found: {nextName}");
+            // }
         }
 
 
