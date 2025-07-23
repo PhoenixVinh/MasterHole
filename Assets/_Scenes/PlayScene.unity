@@ -47268,7 +47268,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1537748816425854754, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2366447528836105327, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: playOnAwake
@@ -47284,11 +47284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5561249224071879411, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6906151161404507836, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6906151161404507837, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: m_Name
@@ -47352,7 +47352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6906151162964471084, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6906151162964471087, guid: cd3111c7131db644fac35140adf86612, type: 3}
       propertyPath: playOnAwake
@@ -64919,7 +64919,7 @@ RectTransform:
   m_GameObject: {fileID: 468859989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2065200776}
@@ -80932,7 +80932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &585916498
 RectTransform:
   m_ObjectHideFlags: 0
