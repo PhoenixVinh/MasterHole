@@ -52,6 +52,9 @@ public class FirebaseInitial : MonoBehaviour
     
     // Ads remote config
     public float timeBetweenRewardedAndInterstitial = 15f;
+
+
+    public int coinDefault = 100;
     
     
     private void Awake()
@@ -164,7 +167,7 @@ public class FirebaseInitial : MonoBehaviour
                     trigger_inter_playAgain_fail = (bool)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("trigger_inter_playAgain_fail").BooleanValue;
                     time_heart = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("time_heart").LongValue;
                     timeBetweenRewardedAndInterstitial = (float)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("time_between_reward_inter").DoubleValue;
-                    
+                    coinDefault = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("coin_default").LongValue;
                     
                     // Set Data
                     MaxAdsManager.Instance.timeShowInter = capingtime_inter;

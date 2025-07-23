@@ -18,12 +18,9 @@ namespace _Scripts.UI.AnimationUI
         [SerializeField] private List<Vector2> initialPos;
         [SerializeField] private List<Quaternion> initialRotation;
 
-
-        public void OnEnable()
-        {
-            
-            //RewardCoinEvent.OnRewardCoin += CountCoins;
-        }
+        
+        public bool isAnim = false;
+       
         
         public void OnDisable()
         {
@@ -66,6 +63,7 @@ namespace _Scripts.UI.AnimationUI
         
         public void CountCoins(int startCoint, int TargetCoin)
         {
+            isAnim = true;
             
             DOTween.SetTweensCapacity(500, 125);
 
@@ -112,6 +110,7 @@ namespace _Scripts.UI.AnimationUI
                     {
                         Reset();
                         this.counter.text = TargetCoin.ToString(); // Đảm bảo counter hiển thị giá trị cuối cùng
+                        isAnim = false;
                     }
                 });
 

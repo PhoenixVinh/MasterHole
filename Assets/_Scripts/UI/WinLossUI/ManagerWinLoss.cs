@@ -20,6 +20,12 @@ public class ManagerWinLoss : MonoBehaviour
    
     public bool isWin = false;
     public bool isLoss = false;
+    
+    
+    
+    // Set coin Defalut 
+
+    private int coinDefault = 100;
     public void OnEnable()
     {
         WinLossEvent.OnWin += ShowUIWin;
@@ -27,6 +33,12 @@ public class ManagerWinLoss : MonoBehaviour
         
         LevelCointEvent.OnStartLevelCoin += StartLevelCoint;
         LevelCointEvent.OnEndLevelCoin += EndLevelCoint;
+
+
+        if (ManagerFirebase.Instance != null)
+        {
+            coinDefault = ManagerFirebase.Instance.firebaseInitial.coinDefault;
+        }
         
     }
 
@@ -76,7 +88,7 @@ public class ManagerWinLoss : MonoBehaviour
             ManagerSound.Instance?.PlayEffectSound(EnumEffectSound.Victory);
         //LevelCoinUI.GetComponent<WinUI>().SetData(75);
         
-        WinUI.GetComponent<WinUI>().SetData(75);
+        WinUI.GetComponent<WinUI>().SetData(coinDefault);
         this.WinUI.SetActive(true);
         settings.SetActive(false);
         shop.SetActive(false);

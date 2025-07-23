@@ -45,6 +45,8 @@ public class MaxAdsManager : MonoBehaviour
     private float maxRetryDelay = 64f; // Thời gian delay tối đa (giây)
     
     
+    // Set Variable for reward
+    public bool isHiddenReward = false;
     
     
     // timeBetween Rewarded vs Interstitial
@@ -225,6 +227,7 @@ public class MaxAdsManager : MonoBehaviour
         MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += (string adUnitId, MaxSdkBase.AdInfo adInfo) =>
         {
             LoadRewardedAd();
+            isHiddenReward = true;
             ManagerFirebase.Instance?.LogIAA_ADComplete(AdFormat.video_rewarded, AdPlatform.MaxApplovin.ToString(),
                 adInfo.NetworkName, EndType.quit.ToString(), Utills.GetMinusTime(this.timeLoadRewarded));
             _timeDoneReward = DateTime.Now; // Reset thời gian chờ sau khi quảng cáo hoàn thành
@@ -236,13 +239,16 @@ public class MaxAdsManager : MonoBehaviour
     {
        
         timeLoadRewarded = DateTime.Now;
+        isHiddenReward = false;
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {
             // Create a local handler
             Action<string, MaxSdkBase.Reward, MaxSdkBase.AdInfo> handler = null;
             handler = (string adUnitId, MaxSdkBase.Reward reward, MaxSdkBase.AdInfo adInfo) =>
             {
+                
                 callback?.Invoke();
+               
                 LoadRewardedAd();
                 // Unsubscribe after called
                 MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent -= handler;
