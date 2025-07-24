@@ -100,8 +100,8 @@ public class HoleController : MonoBehaviour
             //transform.localScale = newScale;
             DOTween.Sequence()
                 .SetId("HoleUpScale")
-                .Append(transform.DOScale(new Vector3(radius * 1.3f, localScale.y, radius * 1.3f), 0.1f))
-                .Append(transform.DOScale(newScale, 0.2f));
+                .Append(transform.DOScale(new Vector3(radius * 1.2f, localScale.y, radius * 1.3f), 0.3f))
+                .Append(transform.DOScale(newScale, 0.3f).SetEase(Ease.Linear));
 
             CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
         }

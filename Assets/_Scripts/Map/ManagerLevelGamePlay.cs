@@ -117,7 +117,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
         if (UIManager.Instance != null)
         {
-             UIManager.Instance.boardGameUI.SetData(level.missionData, level.timeToComplete);
+            UIManager.Instance.ShowBoardGame(level.missionData, level.timeToComplete);
         }
            
         if (ManagerSound.Instance != null)
@@ -158,11 +158,11 @@ public class ManagerLevelGamePlay : MonoBehaviour
         //100
 
 
-        
-        
-        
-        
-        UIManager.Instance?.boardGameUI.HideUI();
+
+
+
+
+        UIManager.Instance?.HideUIBoardGame();
         
 
         if (isShowBanner)

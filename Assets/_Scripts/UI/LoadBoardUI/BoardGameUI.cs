@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Ads;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,10 @@ public class BoardGameUI : MonoBehaviour
     public TMP_Text timmerComplete; 
     public bool isShowBoardGame = false;
 
+
+    [Header("Mission Frame")]
+    [SerializeField] private RectTransform frameUI;
+
     public void SetData(MissionSO data, float timeComplete)
     {
         RemoveOldData();
@@ -25,13 +30,19 @@ public class BoardGameUI : MonoBehaviour
             itemMission.GetComponent<ItemMissionUI>().SetData(item.image, item.AmountItems);
 
         }
-
         this.gameObject.SetActive(true);
+        ShowAnimEnable();
+
+        //StartCoroutine(ShowFadeLoading());
+       
 
 
     }
 
-
+    private IEnumerator ShowFadeLoading()
+    {
+        yield return null;
+    }
 
     public void RemoveOldData()
     {
@@ -45,6 +56,7 @@ public class BoardGameUI : MonoBehaviour
     {
         StartCoroutine(CheckCMP());
         isShowBoardGame = true;
+       
         
     }
 
@@ -52,17 +64,40 @@ public class BoardGameUI : MonoBehaviour
     {
         StopAllCoroutines();
         isShowBoardGame = false;
+       
     }
     public void HideUI()
     {
         StartCoroutine(TurnOffBoardGameUI());
     }
 
+    [ContextMenu("Show Anim")]
+    public void ShowAnimEnable()
+    {
+        Vector2 originAnchor = Vector2.one;
+        float maxHeight = Screen.height;
+        Vector2 startAnchor = originAnchor + new Vector2(0,maxHeight+ 500);
+        frameUI.anchoredPosition = startAnchor;
+        frameUI.DOAnchorPosY(originAnchor.y, 0.6f);
+
+    }
+
 
     private IEnumerator TurnOffBoardGameUI()
     {
-        yield return new WaitForSeconds(4f);
-        this.gameObject.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        //ShowAnimDisable();
+        yield return new WaitForSeconds(1f);
+        Debug.Log("???");
+        //this.gameObject.SetActive(false);
+
+    }
+
+     [ContextMenu("Show Anim")]
+    public void ShowAnimDisable()
+    {
+        float targetAnchorY = -Screen.height - 500;
+        frameUI.DOAnchorPosY(targetAnchorY, 1f);
 
     }
 
@@ -81,9 +116,10 @@ public class BoardGameUI : MonoBehaviour
                 yield return null;
             }
         }
-        
+
 
         Time.timeScale = 1;
+        ShowAnimEnable();
     }
 
 

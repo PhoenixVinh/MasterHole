@@ -10,13 +10,13 @@ namespace _Scripts.UI.LoadBoardUI
         private float maxRadius;
         private float currentRadious = 0;
 
-        private float timeTransition = 0.2f;
+        private float timeTransition = 0.6f;
 
         public Image circle;
 
         public void Awake()
         {
-            maxRadius = (float)Math.Sqrt(Screen.width * Screen.width + Screen.height * Screen.height);
+            maxRadius = (int)Math.Sqrt(Screen.width * Screen.width + Screen.height * Screen.height);
             
             
             currentRadious = 0;
@@ -26,12 +26,29 @@ namespace _Scripts.UI.LoadBoardUI
         [ContextMenu("Transition")]
         public void UseTransition()
         {
-            DOTween.To(() => currentRadious, x => currentRadious = x, maxRadius, timeTransition)
+            circle.rectTransform.sizeDelta = new Vector2(0, 0);
+            currentRadious = 0;
+            DOTween.KillAll();
+            DOTween.To(() => currentRadious, x => currentRadious = x, maxRadius, 1f)
                 .SetUpdate(true) // Không bị ảnh hưởng bởi timescale
                 .OnUpdate(OnTweenUpdate); // Gọi hàm này mỗi khi giá trị được cập nhật
 
 
         }
+        [ContextMenu("ReserveTransition")]
+        public void ReverserTransition()
+        {
+            currentRadious = maxRadius;
+            DOTween.KillAll();
+            circle.rectTransform.sizeDelta = new Vector2(maxRadius, maxRadius);
+            
+            DOTween.To(() => currentRadious, x => currentRadious = x, 0, 1f)
+                    .SetUpdate(true)
+                    .OnUpdate(OnTweenUpdate);
+        }
+        
+
+
 
         private void OnTweenUpdate()
         {

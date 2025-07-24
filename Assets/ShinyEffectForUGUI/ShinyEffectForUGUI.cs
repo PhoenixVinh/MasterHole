@@ -105,18 +105,15 @@ namespace Coffee.UIExtensions
 		{
 			graphic.material = effectMaterial;
 			base.OnEnable();
-			//StartCoroutine(PlayEffectCoroutine());
-			InvokeRepeating(nameof(Play),3f,3f);
+			StartCoroutine(PlayEffectCoroutine());
+			
 			//Play();
 		}
 
 		private IEnumerator PlayEffectCoroutine()
 		{
-			while (true)
-			{
-				yield return new  WaitForSecondsRealtime(2f);
-				Play(-1);
-			}
+			yield return new WaitForSecondsRealtime(4f);
+			InvokeRepeating(nameof(Play),3f,3f);
 			
 		}
 
@@ -127,6 +124,7 @@ namespace Coffee.UIExtensions
 		{
 			graphic.material = null;
 			base.OnDisable();
+			StopCoroutine(PlayEffectCoroutine());
 			CancelInvoke();
 		}
 

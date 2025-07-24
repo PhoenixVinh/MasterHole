@@ -46,7 +46,7 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
 
         public void AnimEnterBtn()
         {
-            this.transform.DOScale(Vector3.one * 0.84f, 0.5f);
+            this.transform.DOScale(Vector3.one * 0.89f, 0.5f);
         }
         public void AnimExitBtn()
         {
@@ -55,6 +55,7 @@ namespace _Scripts.UI.HomeSceneUI.ButtonUI
 
         public void OnDisable()
         {
+            this.transform.localScale = Vector3.one;
             DOTween.KillAll();
         }
         

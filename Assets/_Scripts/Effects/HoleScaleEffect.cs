@@ -21,10 +21,13 @@ namespace _Scripts.Effects
         public async void PlayEffect(float size)
         {
             mainPS.Stop(true);
-            foreach (var particle in ParticleElement)
-            {
-                particle.localScale = Vector3.one * size;
-            }
+            // foreach (var particle in ParticleElement)
+            // {
+            //     Vector3 originalScale = particle.localScale;
+            //     particle.localScale = originalScale * (size/originalScale.x);
+            // }
+            
+            this.transform.localScale = Vector3.one * size / 9f;
             mainPS.Play();
             await System.Threading.Tasks.Task.Delay(400);
             this.gameObject.SetActive(false);

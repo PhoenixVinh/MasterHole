@@ -9,20 +9,22 @@ public class ChangeSceneBtn : MonoBehaviour
 {
     public EnumScene namescene;
     
-    private Button button;
+    protected Button button;
 
     private void Start()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(ChangeScene);
+        
     }
-
+    
     public virtual void ChangeScene()
     {
 
         StartCoroutine(ChangeSceneAsyns());
 
     }
+    
 
     IEnumerator ChangeSceneAsyns()
     {

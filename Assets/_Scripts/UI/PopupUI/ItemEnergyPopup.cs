@@ -24,15 +24,15 @@ namespace _Scripts.UI.PopupUI
             {
                 hasEnergy.SetActive(false);
                 noEnergy.SetActive(true);
-                if (timer != "")
-                {
-                    energyText.text = timer;
-                    Timmer.SetActive(true);
-                }
-                else
-                {
-                    Timmer.SetActive(false);
-                }
+                // if (timer != "")
+                // {
+                //     energyText.text = timer;
+                //     Timmer.SetActive(true);
+                // }
+                // else
+                // {
+                //     Timmer.SetActive(false);
+                // }
                
             }
         }

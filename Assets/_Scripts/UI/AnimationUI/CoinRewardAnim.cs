@@ -77,7 +77,9 @@ namespace _Scripts.UI.AnimationUI
             {
                 pileOfCoins[i].gameObject.SetActive(true);
                 var sequence = DOTween.Sequence();
-               
+
+                
+
                 sequence.SetUpdate(true);
 
                 int index = i; // Lưu giá trị i
@@ -104,14 +106,17 @@ namespace _Scripts.UI.AnimationUI
                 sequence.OnComplete(() =>
                 {
                     pileOfCoins[index].gameObject.SetActive(false);
-                  
+
 
                     if (index == pileOfCoins.Count - 1)
                     {
                         Reset();
+
                         this.counter.text = TargetCoin.ToString(); // Đảm bảo counter hiển thị giá trị cuối cùng
-                        isAnim = false;
+
                     }
+
+                   
                 });
 
                 // Tăng delay cho coin tiếp theo

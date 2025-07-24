@@ -246,7 +246,8 @@ namespace _Scripts.UI.WinLossUI
             //if(ManagerFirebase.Instance)
             
             coinRewardAnim.CountCoins(startCoin, endCoin);
-            yield return new WaitUntil( () => this.coinRewardAnim.isAnim == false);
+            yield return new WaitForSecondsRealtime(2.5f);
+            //yield return new WaitUntil(() => this.coinRewardAnim.isAnim == false);
             //yield return new WaitForSecondsRealtime(0.1f);
             ShowNextlevel();
 
