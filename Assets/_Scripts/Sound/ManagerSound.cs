@@ -107,6 +107,7 @@ namespace _Scripts.Sound
 
         public void ChangeBackgroundMusic(EnumBackgroundSound backgroundSound)
         {
+            if (DictBackgroundMusic[backgroundSound].isPlaying) return;
             foreach (var audioSource in DictBackgroundMusic)
             {
                 audioSource.Value.Stop();

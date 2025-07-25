@@ -78,7 +78,7 @@ public class BoardGameUI : MonoBehaviour
         float maxHeight = Screen.height;
         Vector2 startAnchor = originAnchor + new Vector2(0,maxHeight+ 500);
         frameUI.anchoredPosition = startAnchor;
-        frameUI.DOAnchorPosY(originAnchor.y, 0.6f);
+        frameUI.DOAnchorPosY(originAnchor.y, 0.3f);
 
     }
 
@@ -119,8 +119,10 @@ public class BoardGameUI : MonoBehaviour
 
 
         Time.timeScale = 1;
-        ShowAnimEnable();
+        //ShowAnimEnable();
     }
+    
+    
 
 
 }

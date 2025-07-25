@@ -39214,6 +39214,7 @@ GameObject:
   - component: {fileID: 270688508}
   - component: {fileID: 270688507}
   - component: {fileID: 270688506}
+  - component: {fileID: 270688510}
   m_Layer: 5
   m_Name: SupportGameUI
   m_TagString: Untagged
@@ -39309,6 +39310,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &270688510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270688505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ea461837e66bb4a9d2510e8d0722a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCanvas: {fileID: 270688508}
 --- !u!1 &272274615
 GameObject:
   m_ObjectHideFlags: 0
@@ -48716,7 +48730,7 @@ MonoBehaviour:
     FieldOfView: 30
     OrthographicSize: 18
     NearClipPlane: 0.01
-    FarClipPlane: 200
+    FarClipPlane: 300
     Dutch: 0
     ModeOverride: 2
     LensShift: {x: 0, y: 0}
@@ -48762,8 +48776,8 @@ MonoBehaviour:
   startLevelDistance: 20
   _virtualCamera: {fileID: 0}
   targetDistance: 10
-  scaleByHole: 5
-  baseDistance: 25
+  scaleByHole: 12
+  baseDistance: 20
 --- !u!1 &342962563
 GameObject:
   m_ObjectHideFlags: 0
@@ -63664,7 +63678,7 @@ Transform:
   m_GameObject: {fileID: 461086759}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0.02662}
+  m_LocalPosition: {x: -0, y: -0, z: -0.0224}
   m_LocalScale: {x: 0.93000007, y: 0.93000007, z: 1.2625942}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -82896,12 +82910,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afbd61f91678c144086701cb671e6af7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8959069e5835c344b3c4ee8e9ce7518, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.93
+  m_FillAmount: 1
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -126594,7 +126608,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 200
+  far clip plane: 300
   field of view: 30
   orthographic: 0
   orthographic size: 18
@@ -163177,7 +163191,7 @@ Transform:
   m_GameObject: {fileID: 1239969069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.94, y: 0.1, z: 0}
   m_LocalScale: {x: 3, y: 0.04, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -209761,8 +209775,8 @@ Transform:
   m_GameObject: {fileID: 1628307613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0.0128}
-  m_LocalScale: {x: 0.93000007, y: 0.93000007, z: 1.2625942}
+  m_LocalPosition: {x: -0, y: -0, z: -0.010209}
+  m_LocalScale: {x: 0.93000007, y: 0.93000007, z: 1.0035415}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1429687251}
@@ -226759,8 +226773,23 @@ MonoBehaviour:
   _txtLevel: {fileID: 1809029592}
   imgDisplayTime: {fileID: 598514016}
   ColdownTimeComplete: 100
-  normalTime: {fileID: 21300000, guid: afbd61f91678c144086701cb671e6af7, type: 3}
-  Dangerousime: {fileID: 21300000, guid: 15b0c575f0c809f4eacd13ef07c76374, type: 3}
+  ColorColdownTime:
+  - PresentStart: 0
+    PresentEnd: 40
+    mainColor: '#2dff03'
+    isGradient: 0
+  - PresentStart: 41
+    PresentEnd: 75
+    mainColor: '#f6ff00'
+    isGradient: 1
+  - PresentStart: 76
+    PresentEnd: 85
+    mainColor: '#fb1616'
+    isGradient: 1
+  - PresentStart: 86
+    PresentEnd: 100
+    mainColor: '#fb1616'
+    isGradient: 0
 --- !u!1 &1746112392
 GameObject:
   m_ObjectHideFlags: 0
@@ -242711,6 +242740,7 @@ GameObject:
   - component: {fileID: 1882570644}
   - component: {fileID: 1882570643}
   - component: {fileID: 1882570647}
+  - component: {fileID: 1882570648}
   m_Layer: 5
   m_Name: WinLossGameUI
   m_TagString: Untagged
@@ -242827,6 +242857,19 @@ MonoBehaviour:
   shop: {fileID: 1065893059}
   isWin: 0
   isLoss: 0
+--- !u!114 &1882570648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882570642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ea461837e66bb4a9d2510e8d0722a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCanvas: {fileID: 1882570645}
 --- !u!1 &1882711960
 GameObject:
   m_ObjectHideFlags: 0
@@ -251530,7 +251573,7 @@ Transform:
   m_GameObject: {fileID: 1949900559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0589}
+  m_LocalPosition: {x: 0, y: -0, z: -0.05}
   m_LocalScale: {x: 1, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -268091,8 +268134,7 @@ MonoBehaviour:
   _txtLevel: {fileID: 1845177184}
   imgDisplayTime: {fileID: 225990146}
   ColdownTimeComplete: 100
-  normalTime: {fileID: 0}
-  Dangerousime: {fileID: 0}
+  ColorColdownTime: []
 --- !u!114 &2083944167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283485,7 +283527,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -288315,7 +288357,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -293500,17 +293542,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210315621007058331}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 21, z: -0.14}
-  m_LocalScale: {x: 0.33333334, y: 0.4424779, z: 1.2820513}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: -0.12}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8997131024899998586}
   - {fileID: 693444248446972610}
   - {fileID: 693444248785053124}
   - {fileID: 693444247708068697}
   m_Father: {fileID: 847863087}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1210315621007058329
 ParticleSystem:
   m_ObjectHideFlags: 0

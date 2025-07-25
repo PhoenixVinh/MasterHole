@@ -84,7 +84,7 @@ namespace Map.TestGenerateMap
             SpawnMap(matrixValue);
             
 
-            transform.position = map.positionMap;
+            transform.position = new Vector3(map.positionMap.x, -0.2f, map.positionMap.z);
             transform.rotation = Quaternion.Euler(map.rotationMap);
             transform.localScale = Vector3.one;
 

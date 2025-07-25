@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Scripts.Sound;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -59,6 +60,14 @@ namespace _Scripts.UI
             yield return new WaitForSeconds(1f);
             this.boardGameUI.gameObject.SetActive(false);
             this.FadeLoading.ReverseTransition();
+            ManagerSound.Instance?.ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
+            
+        }
+
+        public void ShowPanelBlack()
+        {
+            this.FadeLoading.ShowBlackPanel();
+            
         }
     }
 }

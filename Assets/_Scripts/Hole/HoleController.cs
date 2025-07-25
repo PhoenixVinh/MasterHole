@@ -81,7 +81,7 @@ public class HoleController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        this.transform.position = _holeMovement.transform.position;
+        this.transform.position = new Vector3(_holeMovement.transform.position.x, 0.1f, _holeMovement.transform.position.z);
     }
 
 
@@ -91,17 +91,21 @@ public class HoleController : MonoBehaviour
     public void LoadLevel(int amountExp, float radius, bool isAnim)
     {
         Vector3 localScale = transform.localScale;
-
+        if (this._holeSpecialSkill.UsingSkill(0))
+        {
+            radius *= 1.5f;
+        }
         Vector3 newScale = new Vector3(radius, localScale.y, radius);
         // Update Scale of Hole 
         if (isAnim)
         {
-
+            
             //transform.localScale = newScale;
             DOTween.Sequence()
                 .SetId("HoleUpScale")
-                .Append(transform.DOScale(new Vector3(radius * 1.2f, localScale.y, radius * 1.3f), 0.3f))
+                .Append(transform.DOScale(new Vector3(radius * 1.2f, localScale.y, radius * 1.2f), 0.3f))
                 .Append(transform.DOScale(newScale, 0.3f).SetEase(Ease.Linear));
+                
 
             CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
         }
@@ -128,29 +132,29 @@ public class HoleController : MonoBehaviour
    
    
 
-    public async void Upscale(float time)
-    {
-
-        float radious = GetCurrentRadius() * 1.5f;
-        Vector3 localScale = transform.localScale;
-        Vector3 newScale = new Vector3(radious, localScale.y, radious);
-        
-        //transform.localScale = newScale;
-        DOTween.Sequence()
-            .SetId("HoleUpScale")
-            .Append(transform.DOScale(new Vector3(radious * 1.3f, localScale.y, radious*1.3f), 0.1f))
-            .Append(transform.DOScale(newScale, 0.2f));
-        // if (indexSkin != 1)
-        // {
-        //     HoleSkins.transform.localScale = new Vector3(1, 1, radious);
-        // }
-        
-        await Task.Delay((int)time*10000);
-        transform.localScale = new Vector3(GetCurrentRadius(), localScale.y, GetCurrentRadius());
-        //CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
-        
-    }
-    
+    // public async void Upscale(float time)
+    // {
+    //
+    //     float radious = GetCurrentRadius() * 1.5f;
+    //     Vector3 localScale = transform.localScale;
+    //     Vector3 newScale = new Vector3(radious, localScale.y, radious);
+    //     
+    //     //transform.localScale = newScale;
+    //     DOTween.Sequence()
+    //         .SetId("HoleUpScale")
+    //         .Append(transform.DOScale(new Vector3(radious * 1.3f, localScale.y, radious*1.3f), 0.1f))
+    //         .Append(transform.DOScale(newScale, 0.2f));
+    //     // if (indexSkin != 1)
+    //     // {
+    //     //     HoleSkins.transform.localScale = new Vector3(1, 1, radious);
+    //     // }
+    //     
+    //     await Task.Delay((int)time*10000);
+    //     transform.localScale = new Vector3(GetCurrentRadius(), localScale.y, GetCurrentRadius());
+    //     //CameraFOVEvent.OnLevelUpEvent?.Invoke(0.3f);
+    //     
+    // }
+    //
     
     
     

@@ -1,16 +1,39 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using _Scripts.Event;
 using _Scripts.Firebase;
 using _Scripts.Sound;
 using _Scripts.UI;
+using _Scripts.Vibration;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+
+
+[System.Serializable]
+public struct StatusColor
+{
+    public int PresentStart;
+    public int PresentEnd;
+    public string mainColor;
+    public bool isGradient;
+   
+
+}
+
+
 public class ColdownTime : MonoBehaviour, IPrecent
 {
+
+   
+    
+    
+    
     
     public static ColdownTime Instance;
     //[SerializeField]private Image _fillTimer;
@@ -30,10 +53,9 @@ public class ColdownTime : MonoBehaviour, IPrecent
 
     private bool iceTime = false;
 
-
-    [Header("Sprite Timmer")]
-    [SerializeField] private Sprite normalTime;
-    [SerializeField] private Sprite Dangerousime;
+    public List<StatusColor> ColorColdownTime;
+    private List<bool> _isColorSet = new List<bool>();
+  
 
     
     private void Awake()
@@ -44,11 +66,13 @@ public class ColdownTime : MonoBehaviour, IPrecent
         {
             Destroy(gameObject);
         }
+      
     }
     private void Start()
     {
         _timeColdown = ColdownTimeComplete;
-        
+       
+        SetColorColdownTime();
        
 
     }
@@ -91,19 +115,21 @@ public class ColdownTime : MonoBehaviour, IPrecent
             TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
             this._txtDisplayTime.text =  string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
             //_fillTimer.fillAmount = Precent();
-            if (_timeColdown <= 30 && !isPlaySound)
-            {
-                if (ManagerSound.Instance != null)
-                {
-                    ManagerSound.Instance.PlayEffectSound(EnumEffectSound.TimeEnd);
-                    isPlaySound = true;
-                    ScaleItem();
-                }
-                this._txtDisplayTime.color = Color.red;
-                imgDisplayTime.sprite = Dangerousime;
-                //this._txtDisplayTime.transform.DOScale(Vector3.one*1.2f, 2f);
+            // if (_timeColdown <= 30 && !isPlaySound)
+            // {
+            //     if (ManagerSound.Instance != null)
+            //     {
+            //         ManagerSound.Instance.PlayEffectSound(EnumEffectSound.TimeEnd);
+            //         isPlaySound = true;
+            //         ScaleItem();
+            //     }
+            //     this._txtDisplayTime.color = Color.red;
+            //   
+            //     //this._txtDisplayTime.transform.DOScale(Vector3.one*1.2f, 2f);
+            //
+            // }
 
-            }
+            SetColorColdownTime();
         }
         else
         {
@@ -189,10 +215,16 @@ public class ColdownTime : MonoBehaviour, IPrecent
         _txtLevel.text = "LEVEL " + level.ToString();
         DOTween.KillAll();
         this._txtDisplayTime.transform.localScale = Vector3.one;
-        this._txtDisplayTime.color = new Color(1,0.85f,0,1);
-         this.imgDisplayTime.sprite = normalTime;
+        _isColorSet.Clear();
+        for (int i = 0; i < ColorColdownTime.Count; i++)
+        {
+            _isColorSet.Add(false);
+        }
+        ResetColorSet();
+        SetColorColdownTime();
         imgDisplayTime.fillAmount = Precent();
         StartColdown();
+       
         
         
     }
@@ -205,14 +237,82 @@ public class ColdownTime : MonoBehaviour, IPrecent
         DOTween.KillAll();
         isPlaySound = false;
         this._txtDisplayTime.transform.localScale = Vector3.one;
-        this._txtDisplayTime.color = new Color(1, 0.85f, 0, 1);
-        this.imgDisplayTime.sprite = normalTime;
+   
+     
 
         if (iceTime)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(_timeColdown));
             this._txtDisplayTime.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         }
-       
+
+        ResetColorSet();
+
+    }
+    
+    private void ResetColorSet()
+    {
+        for (int i = 0; i < _isColorSet.Count; i++)
+        {
+            _isColorSet[i] = false;
+        }
+    }
+
+    public void SetColorColdownTime()
+    {
+        float currentPrecent = (1 - Precent()) * 100;
+
+        int index = 0; 
+        foreach (var statusColor in ColorColdownTime)
+        {
+            if (currentPrecent >= statusColor.PresentStart && currentPrecent <= statusColor.PresentEnd)
+            {
+                if (_isColorSet[index])
+                {
+                    continue;
+                    
+                }
+                if (!statusColor.isGradient)
+                {
+                    this._txtDisplayTime.color = ColorUtility.TryParseHtmlString(statusColor.mainColor, out var color) ? color : Color.white;
+                    imgDisplayTime.color = color;
+                }
+                else
+                {
+                    if (ColorUtility.TryParseHtmlString(statusColor.mainColor, out var color))
+                    {
+                        this._txtDisplayTime.DOColor(color, ColdownTimeComplete * (statusColor.PresentEnd - statusColor.PresentStart) / 100f).SetEase(Ease.Linear);
+                        imgDisplayTime.DOColor(color, ColdownTimeComplete * (statusColor.PresentEnd - statusColor.PresentStart) / 100f).SetEase(Ease.Linear);
+                    }
+                    else
+                    {
+                        this._txtDisplayTime.color = Color.white;
+                        imgDisplayTime.color = Color.white;
+                    }
+                }
+                _isColorSet[index] = true;
+                if (index == 3 && !isPlaySound) // Assuming index 3 is the end of the timer
+                {
+                    
+                    InvokeRepeating(nameof(UseVibrate), 1f, 2);
+                    
+                    if (ManagerSound.Instance != null)
+                    {
+                        ManagerSound.Instance.PlayEffectSound(EnumEffectSound.TimeEnd);
+                        isPlaySound = true;
+                        ScaleItem();
+                    }
+
+
+                }
+                break;
+            }
+            index++;
+        }
+    }
+
+    public void UseVibrate()
+    {
+        ManagerVibration.Instance?.UseVibration(EnumVibration.Medium);
     }
 }

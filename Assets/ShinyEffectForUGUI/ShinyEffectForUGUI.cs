@@ -105,6 +105,7 @@ namespace Coffee.UIExtensions
 		{
 			graphic.material = effectMaterial;
 			base.OnEnable();
+			this.m_Location = 0;
 			StartCoroutine(PlayEffectCoroutine());
 			
 			//Play();

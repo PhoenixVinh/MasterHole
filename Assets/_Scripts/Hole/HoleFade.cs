@@ -17,7 +17,7 @@ namespace _Scripts.Hole
 
         private void UpdateScale(float scale)
         {
-            this.transform.localScale = new Vector3(1, 1, scale);
+            this.transform.localScale = new Vector3(1, 1, scale + 1 - scale / 3f);
         }
     }
 }

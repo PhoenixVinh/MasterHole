@@ -86,4 +86,11 @@ public class CircleTransition_2 : MonoBehaviour
         StartCoroutine(TransitionCoroutine(0,1.01f));
         
     }
+
+    public void ShowBlackPanel()
+    {
+        pannel.SetActive(true);
+        this.gameObject.SetActive(true);
+        _matCircle.SetFloat(RADIUS, 1.2f);
+    }
 }

@@ -111,7 +111,7 @@ namespace _Scripts.UI.AnimationUI
                     if (index == pileOfCoins.Count - 1)
                     {
                         Reset();
-
+                        isAnim = false;
                         this.counter.text = TargetCoin.ToString(); // Đảm bảo counter hiển thị giá trị cuối cùng
 
                     }

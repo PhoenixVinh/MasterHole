@@ -190,14 +190,14 @@ namespace _Scripts.Hole
                 
                 _timeSkill01 -= Time.deltaTime;
                 
-                if (scaleIncrease < HoleController.Instance.GetCurrentRadius() * 1.5f)
-                {
-                    scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
-                    var sequence2= DOTween.Sequence();
-                    sequence2.Append(transform.DOScale(new Vector3(scaleIncrease, transform.localScale.y, scaleIncrease), 0.5f));
-                    
-                }
-                HoleEvent.OnUpdateFade?.Invoke(HoleController.Instance.GetCurrentScale());
+                // if (scaleIncrease != HoleController.Instance.GetCurrentRadius() * 1.5f)
+                // {
+                //     scaleIncrease = HoleController.Instance.GetCurrentRadius() * 1.5f;
+                //     var sequence2= DOTween.Sequence();
+                //     sequence2.Append(transform.DOScale(new Vector3(scaleIncrease,y, scaleIncrease), 3f));
+                //     
+                // }
+                // HoleEvent.OnUpdateFade?.Invoke(HoleController.Instance.GetCurrentScale());
                 yield return null;
             }
             // yield return new WaitForSeconds(timeSkill01);
@@ -207,9 +207,9 @@ namespace _Scripts.Hole
             float scaleDecrease = HoleController.Instance.GetCurrentRadius();
             //
             
-            transform.DOScale(new Vector3(scaleDecrease, y, scaleDecrease), 1f);
+            transform.DOScale(new Vector3(scaleDecrease, y, scaleDecrease), 2f);
             //
-            HoleEvent.OnUpdateFade?.Invoke(HoleController.Instance.GetCurrentScale());
+            //HoleEvent.OnUpdateFade?.Invoke(HoleController.Instance.GetCurrentScale());
             IsProcessSkill[0] = false;
         }
 

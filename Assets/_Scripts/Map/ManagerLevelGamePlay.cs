@@ -49,7 +49,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public void OnEnable()
     {
-        ManagerSound.Instance?.ChangeBackgroundMusic(EnumBackgroundSound.InGameMusic);
+       
     }
 
 
@@ -178,7 +178,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
     public void LoadNextLevel()
     {
         
-        
+        UIManager.Instance?.ShowPanelBlack();
         //currentLevel  = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL, 1);
         currentLevel = PlayerPrefs.GetInt(StringPlayerPrefs.CURRENT_LEVEL);
         Debug.Log(currentLevel);
@@ -210,6 +210,7 @@ public class ManagerLevelGamePlay : MonoBehaviour
 
     public void LoadLevelAgain()
     {
+        UIManager.Instance?.ShowPanelBlack();
         ManagerTutorial.Instance?.ShowTutorials(currentLevel);
         StartCoroutine(SpawnLevel(false));
         int currentLose_Index = PlayerPrefs.GetInt(StringPlayerPrefs.LOSE_INDEX, 0);
