@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using Unity.VisualScripting;
 using System.IO;
+using Unity.Mathematics;
 
 [Serializable]
 public struct RuleTile
@@ -121,7 +122,7 @@ namespace Map.TestGenerateMap
                     mapPositions.Add(position);
                 }
             }
-            mapPositions.Add(new Vector3(0, 0, 0)); // Add a default position for testing
+            mapPositions.Add(new Vector3(0, 0, -4)); // Add a default position for testing
 
             if (ParentItem == null)
             {
@@ -130,9 +131,190 @@ namespace Map.TestGenerateMap
 
             }
             SpawnItem();
+            GetMatrix2();
+            //GetMatrix();
 
-            GetMatrix();
+            // Create a Map for Item Spawn
         }
+
+
+        private void GetMatrix2()
+        {
+            if (mapPositions == null || mapPositions.Count == 0)
+            {
+                Debug.LogError("Map positions are empty. Please generate map positions first.");
+                return;
+            }
+
+            //mapPositions.Add(new Vector3(0, 0, 0)); // Add a default position for testing
+            float minX = mapPositions.Min(pos => pos.x);
+            float minZ = mapPositions.Min(pos => pos.z);
+            float maxX = mapPositions.Max(pos => pos.x);
+            float maxZ = mapPositions.Max(pos => pos.z);
+            this.minX = minX;
+            this.minZ = minZ;
+
+
+            float distanceX = maxX - minX;
+            float distanceZ = maxZ - minZ;
+
+            int width = Mathf.CeilToInt((maxX - minX + 1) / 16f) * 2;
+            int height = Mathf.CeilToInt((maxZ - minZ + 1) / 16f) * 2;
+
+
+            Debug.Log($"Creating matrix with dimensions: {width}x{height} based on positions from {minX},{minZ} to {maxX},{maxZ}");
+            matrix = new int[width, height];
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    matrix[x, y] = 0;
+                }
+            }
+            foreach (var pos in mapPositions)
+            {
+                int xIndex = Mathf.CeilToInt((pos.x - minX) / 8f);
+                int zIndex = Mathf.CeilToInt((pos.z - minZ) / 8f);
+
+                if (xIndex >= 0 && xIndex < width && zIndex >= 0 && zIndex < height)
+                {
+                    matrix[xIndex, zIndex] = 1;
+                }
+                else
+                {
+                    Debug.LogWarning($"Position {pos} is out of bounds for the matrix with dimensions {width}x{height}");
+                }
+            }
+            Debug.Log($"Matrix created with dimensions: {width}x{height}");
+
+
+
+            for (int i = 0; i < width; i += 2)
+            {
+                for (int j = 0; j < height; j += 2)
+                {
+                    int count = matrix[i, j] + matrix[i + 1, j] + matrix[i, j + 1] + matrix[i + 1, j + 1];
+                    if (count >= 1)
+                    {
+                        matrix[i, j] = 1; // Mark the tile as occupied
+                        matrix[i + 1, j] = 1;
+                        matrix[i, j + 1] = 1;
+                        matrix[i + 1, j + 1] = 1;
+                    }
+
+                }
+            }
+
+            // Expand the matrix to add borders
+            matrix = ExpandMatrix(matrix, 8); // Expand the matrix to add borders
+            width = matrix.GetLength(0);
+            height = matrix.GetLength(1);
+
+            Debug.Log($"Matrix expanded to dimensions: {width}x{height}");
+
+
+  
+
+         
+
+
+
+            for (int i = 0; i < width; i++)
+            {
+
+                bool checkStart = false;
+                for (int j = 0; j < height; j++)
+                {
+
+                    if (matrix[i, j] == 1 && checkStart == false && j % 2 == 0 && j > 1)
+                    {
+                        // Start of a new path
+                        checkStart = true;
+                        matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                        // if (j % 2 == 0)
+                        //     matrix[i, j - 1] = 1; // Ensure the start of the path is marked as 1
+                    }
+                    else if (matrix[i, j] == 0 && checkStart == true)
+                    {
+                        // End of a path
+                        checkStart = false;
+                        if (j % 2 == 0)
+                            matrix[i, j] = 1;
+
+                    }
+
+                }
+
+            }
+
+            for (int i = 0; i < height; i++)
+            {
+                bool checkStart = false;
+                for (int j = 0; j < width; j++)
+                {
+                    if (matrix[j, i] == 1 && checkStart == false && j % 2 == 0 && j > 1)
+                    {
+                        // Start of a new path
+                        checkStart = true;
+                        matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                        // if (j % 2 == 0)
+                        //     matrix[j - 1, i] = 1; // Ensure the start of the path is marked as 1
+                    }
+                    else if (matrix[j, i] == 0 && checkStart == true)
+                    {
+                        // End of a path
+                        checkStart = false;
+                        if (j % 2 == 0)
+                            matrix[j, i] = 1;
+
+                    }
+                }
+
+            }
+          
+
+            Dictionary<int, int> valueMaps = new Dictionary<int, int>();
+            valueMaps.Add(0, 2);
+            valueMaps.Add(1, 1);
+
+
+            for (int x = 0; x < width; x += 2)
+            {
+                for (int y = 0; y < height; y += 2)
+                {
+                    foreach (var item in ruleTiles)
+                    {
+
+                        if (valueMaps[matrix[x, y]] == item.bottomLeft && valueMaps[matrix[x + 1, y]] == item.bottomRight && valueMaps[matrix[x, y + 1]] == item.topleft && valueMaps[matrix[x +1, y+1]] == item.topRight)
+                        {
+                            //Debug.Log($"Spawning tile at {x}, {y} with prefab {item.prefab.name}");   
+                            GameObject prefab = item.prefab;
+                            if (prefab != null)
+                            {
+                                Vector3 position = new Vector3(x * 8f, 0, y * 8f);
+                                GameObject spawnedObject = Instantiate(prefab, transform);
+                                spawnedObject.transform.localPosition = position;
+
+
+                                spawnedObject.name = $"Tile_{x}_{y}";
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"Prefab for RuleTile not assigned: {item}");
+                            }
+                        }
+                    }
+
+                }
+            }
+            
+            float minXPos = Mathf.FloorToInt(this.minX / 28)*28 - width;
+            float minZPos = Mathf.FloorToInt(this.minZ / 28)*28 - height;
+            transform.position = new Vector3(minXPos, 0, minZPos);
+            
+        }
+
 
         public void GetMapPositions(MapSO map)
         {
@@ -565,12 +747,12 @@ namespace Map.TestGenerateMap
         }
 
 
-        public int[,] ExpandMatrix(int[,] original)
+        public int[,] ExpandMatrix(int[,] original, int padding = 4)
         {
             int originalRows = original.GetLength(0);
             int originalCols = original.GetLength(1);
-            int newRows = originalRows + 16;
-            int newCols = originalCols + 16;
+            int newRows = originalRows + padding;
+            int newCols = originalCols + padding;
 
             // Create new matrix with expanded dimensions
             int[,] expanded = new int[newRows, newCols];
@@ -589,7 +771,7 @@ namespace Map.TestGenerateMap
             {
                 for (int j = 0; j < originalCols; j++)
                 {
-                    expanded[i + 8, j + 8] = original[i, j];
+                    expanded[i + padding / 2, j + padding /2 ] = original[i, j];
                 }
             }
 
@@ -771,27 +953,27 @@ namespace Map.TestGenerateMap
 
             if (File.Exists(path))
             {
-                //AssetDatabase.DeleteAsset(path);
+                AssetDatabase.DeleteAsset(path);
             }
             #if UNITY_EDITOR
-            // AssetDatabase.CreateAsset(mapSO, path);
-            // AssetDatabase.SaveAssets();
+            AssetDatabase.CreateAsset(mapSO, path);
+            AssetDatabase.SaveAssets();
 
             #endif
             // Finding nextLevel Data 
             ClearMapPositions();
             string nextName = (int.Parse(name) + 1).ToString();
-            //LevelGamePlaySO nextLevelData = AssetDatabase.LoadAssetAtPath<LevelGamePlaySO>($"Assets/Resources/DataLevelNewFixSO/Data_Level_{nextName}.asset");
-            // if (nextLevelData != null)
-            // {
-            //     this.levelGamePlay = nextLevelData;
-            //     GetMapPositions();
+            LevelGamePlaySO nextLevelData = AssetDatabase.LoadAssetAtPath<LevelGamePlaySO>($"Assets/Resources/DataLevelNewFixSO/Data_Level_{nextName}.asset");
+             if (nextLevelData != null)
+             {
+                 this.levelGamePlay = nextLevelData;
+                 GetMapPositions();
 
-            // }
-            // if (nextLevelData == null)
-            // {
-            //     Debug.LogWarning($"Next level data not found: {nextName}");
-            // }
+             }
+             if (nextLevelData == null)
+             {
+                 Debug.LogWarning($"Next level data not found: {nextName}");
+             }
         }
 
 
