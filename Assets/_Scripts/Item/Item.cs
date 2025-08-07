@@ -16,20 +16,21 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int score  = 1;
+    public int score = 1;
     public string type = "food";
     private Rigidbody rb;
     private bool isGetScore = false;
-    
+
     private bool isPhysic = false;
-    
-    
-    [SerializeField]private string nameLayerOn = "NoCollision";
-    [SerializeField]private string nameLayerOff = "Collision";
-    
 
 
-    private void Awake() {
+    [SerializeField] private string nameLayerOn = "NoCollision";
+    [SerializeField] private string nameLayerOff = "Collision";
+
+
+
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody>();
     }
     public void SetData(string foodName)
@@ -43,23 +44,23 @@ public class Item : MonoBehaviour
 
     public void SetPhysic()
     {
-        
+
         if (!isPhysic)
         {
             rb.isKinematic = false;
             isPhysic = true;
-           
+
             SetLayerOn();
-          
-        
-            
+
+
+
         }
         SetLayerOn();
         rb.WakeUp();
 
-        
-        
-            
+
+
+
         //rb.velocity = new Vector3(0, -0.1f, 0);
         // if (isPhysic) return;
         // StartCoroutine(FallSmoothly());
@@ -68,26 +69,26 @@ public class Item : MonoBehaviour
 
     public void SetWakeUpPhysic()
     {
-        transform.Translate(Vector3.down*0.0001f);
-//        rb.WakeUp();
+        transform.Translate(Vector3.down * 0.0001f);
+        //        rb.WakeUp();
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 
 
 
     public void DestroyObject()
     {
-        isGetScore = true;      
+        isGetScore = true;
         ItemEvent.OnAddScore?.Invoke(score);
         //SpawnItemMap.Instance.RemoveItem(gameObject);
         TextPooling.Instance.SpawnText(HoleController.Instance.transform.position + Vector3.up * 2, score);
-                
+
         ManagerMission.Instance.CheckMinusItems(gameObject.name, gameObject);
-        if(HoleController.Instance.isUseFindingSKill())
+        if (HoleController.Instance.isUseFindingSKill())
         {
             ItemEvent.OnItemMissionFinding?.Invoke(gameObject);
         }
@@ -97,22 +98,23 @@ public class Item : MonoBehaviour
         StartCoroutine(DestroyCoroutine());
     }
 
-    
+
     private IEnumerator DestroyCoroutine()
     {
         yield return new WaitForSeconds(0.5f);
-        if (gameObject != null){
+        if (gameObject != null)
+        {
             rb.isKinematic = true;
             rb.useGravity = false;
             DestroyObject(gameObject);
         }
-        
-               
+
+
     }
 
     public void SetLayerOn()
     {
-   
+
         gameObject.layer = LayerMask.NameToLayer(nameLayerOn);
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -126,6 +128,71 @@ public class Item : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(nameLayerOff);
+        }
+    }
+
+    public void InstanceCollider()
+    {
+        Transform posChil0 = transform.GetChild(0);
+        if (posChil0 == null)
+        {
+            Debug.LogError("Item does not have a child to instantiate collider.");
+            return;
+        }
+        GameObject collider = new GameObject("Collider");
+
+        collider.transform.SetParent(transform);
+        collider.transform.localPosition = posChil0.localPosition;
+        collider.transform.localRotation = posChil0.localRotation;
+        collider.transform.localScale = Vector3.one;
+
+        if (posChil0.GetComponent<Collider>() != null)
+        {
+            Collider col = posChil0.GetComponent<Collider>();
+            if (col is BoxCollider)
+            {
+                BoxCollider boxCollider = collider.AddComponent<BoxCollider>();
+                boxCollider.size = col.bounds.size;
+
+                Vector3 localScale = posChil0.localScale;
+
+                Vector3 newSize = new Vector3(
+                   boxCollider.size.x * localScale.x,
+                    boxCollider.size.y * localScale.y,
+                    boxCollider.size.z * localScale.z
+                );
+                Debug.Log("posChil0 sử dụng BoxCollider");
+
+                boxCollider.size = newSize;
+            }
+            else if (col is SphereCollider)
+            {
+                SphereCollider sphereCollider = collider.AddComponent<SphereCollider>();
+                sphereCollider.radius = col.bounds.extents.magnitude;
+                Debug.Log("posChil0 sử dụng SphereCollider");
+            }
+            else if (col is CapsuleCollider)
+            {
+                CapsuleCollider capsuleCollider = collider.AddComponent<CapsuleCollider>();
+                capsuleCollider.radius = col.bounds.extents.magnitude;
+                Debug.Log("posChil0 sử dụng CapsuleCollider");
+            }
+            else if (col is MeshCollider)
+            {
+                SphereCollider meshCollider = collider.AddComponent<SphereCollider>();
+                Debug.Log("posChil0 sử dụng MeshCollider");
+            }
+            else
+            {
+                Debug.LogWarning("posChil0 sử dụng Collider loại khác: " + col.GetType().Name);
+            }        
+
+           
+           
+        }
+        else
+        {
+
         }
     }
 

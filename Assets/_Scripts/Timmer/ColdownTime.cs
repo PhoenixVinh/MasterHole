@@ -267,10 +267,16 @@ public class ColdownTime : MonoBehaviour, IPrecent
         {
             if (currentPrecent >= statusColor.PresentStart && currentPrecent <= statusColor.PresentEnd)
             {
+                
+                if (index >= _isColorSet.Count)
+                {
+                    break; // Prevent out of bounds
+                }
+
                 if (_isColorSet[index])
                 {
                     continue;
-                    
+
                 }
                 if (!statusColor.isGradient)
                 {

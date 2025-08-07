@@ -28,6 +28,7 @@ namespace Map.TestGenerateMap
         [Header("Level Spawn Data")]
         [Tooltip("Assign the LevelSpawnData asset that contains the spawn data for the map.")]
 
+        public bool isLuna = false;
         public LevelGamePlaySO levelGamePlay;
 
 
@@ -984,7 +985,8 @@ namespace Map.TestGenerateMap
             {
                 foreach (var spawn in item.listSpawnDatas)
                 {
-                    GameObject prefab = LoadPrefab(item.id, "PrefabInstance/GameObject/");
+                    string strPrefab = isLuna ? "PrefabInstance/GameObject_Luna/" : "PrefabInstance/GameObject/";
+                    GameObject prefab = LoadPrefab(item.id, strPrefab);
                     if (prefab != null)
                     {
                         Vector3 position = spawn.p.ToVector3();
