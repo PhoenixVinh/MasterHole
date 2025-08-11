@@ -401,10 +401,6 @@ namespace Map.TestGenerateMap
             }
             Debug.Log($"Matrix created with dimensions: {width}x{height}");
 
-
-
-
-
             // Perform BFS from the first position in the matrix
             for (int x = 0; x < width; x++)
             {
@@ -994,6 +990,19 @@ namespace Map.TestGenerateMap
                         spawnedObject.transform.localPosition = position;
                         spawnedObject.transform.localRotation = Quaternion.Euler(spawn.r.ToVector3());
 
+                        if (isLuna)
+                        {
+                            if (spawnedObject.GetComponent<Item>() != null)
+                            {
+                                spawnedObject.GetComponent<Item>().InstanceCollider();
+                            }
+
+                            Item itemComponent = spawnedObject.GetComponent<Item>();
+                            if (itemComponent != null)
+                            {
+                                Destroy(itemComponent);
+                            }
+                        }                       
                     }
                     else
                     {

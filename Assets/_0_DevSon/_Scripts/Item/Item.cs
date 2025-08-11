@@ -10,6 +10,7 @@ using _Scripts.UI.MissionUI;
 using _Scripts.Vibration;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 
@@ -134,17 +135,29 @@ public class Item : MonoBehaviour
     public void InstanceCollider()
     {
         Transform posChil0 = transform.GetChild(0);
+        string nameobject = "_" + this.gameObject.name;
         if (posChil0 == null)
         {
             Debug.LogError("Item does not have a child to instantiate collider.");
             return;
         }
+
+        MeshRenderer meshRenderer = posChil0.GetComponent<MeshRenderer>();
+        if (meshRenderer == null)
+        {
+            Debug.LogError("Item does not have a MeshRenderer.");
+            return;
+        }
+        meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+
         GameObject collider = new GameObject("Collider");
 
         collider.transform.SetParent(transform);
         collider.transform.localPosition = posChil0.localPosition;
         collider.transform.localRotation = posChil0.localRotation;
         collider.transform.localScale = Vector3.one;
+        
+
 
         if (posChil0.GetComponent<Collider>() != null)
         {
@@ -164,31 +177,62 @@ public class Item : MonoBehaviour
                 Debug.Log("posChil0 sử dụng BoxCollider");
 
                 boxCollider.size = newSize;
+                collider.gameObject.name = "BoxCollider" + nameobject;
+
+                Destroy(col);
+
             }
             else if (col is SphereCollider)
             {
+                Vector3 vector3Center = (col as SphereCollider).center;
+                float radius = (col as SphereCollider).radius;
+                Vector3 localScale = posChil0.localScale;
+
                 SphereCollider sphereCollider = collider.AddComponent<SphereCollider>();
-                sphereCollider.radius = col.bounds.extents.magnitude;
+                sphereCollider.radius = localScale.x * radius;
+                sphereCollider.center = localScale.x * vector3Center;
+
+                collider.gameObject.name = "SphereCollider" + nameobject;
+
                 Debug.Log("posChil0 sử dụng SphereCollider");
+
+                Destroy(col);
+
             }
             else if (col is CapsuleCollider)
             {
+                Vector3 vector3Center = (col as CapsuleCollider).center;
+                float vector3Height = (col as CapsuleCollider).height;
+                float radius = (col as CapsuleCollider).radius;
+
+                Vector3 localScale = posChil0.localScale;
+
                 CapsuleCollider capsuleCollider = collider.AddComponent<CapsuleCollider>();
-                capsuleCollider.radius = col.bounds.extents.magnitude;
+                capsuleCollider.radius = localScale.x * radius;
+                capsuleCollider.height = localScale.x * vector3Height;
+                capsuleCollider.center = localScale.x * vector3Center;
+
                 Debug.Log("posChil0 sử dụng CapsuleCollider");
+
+                collider.gameObject.name = "CapsuleCollider" + nameobject;
+
+                Destroy(col);
             }
             else if (col is MeshCollider)
             {
                 SphereCollider meshCollider = collider.AddComponent<SphereCollider>();
                 Debug.Log("posChil0 sử dụng MeshCollider");
+
+                collider.gameObject.name = "MeshCollider" + nameobject;
+
             }
             else
             {
                 Debug.LogWarning("posChil0 sử dụng Collider loại khác: " + col.GetType().Name);
-            }        
+            }
 
-           
-           
+
+
         }
         else
         {

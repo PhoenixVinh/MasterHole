@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: MissionLevel_11
   m_EditorClassIdentifier: 
   misstionsData:
+  - idItem: TableLeg_Short
+    AmountItems: 5
+    image: {fileID: 21300000, guid: 6c9d68b1974cecb4b9acd01027ca8045, type: 3}
+  - idItem: TableTop
+    AmountItems: 4
+    image: {fileID: 21300000, guid: 0ce14d140d403924a929131238a33a56, type: 3}
   - idItem: Cloudberry
     AmountItems: 155
     image: {fileID: 21300000, guid: c3ec50cf495b6c348b8c8d04853b7f6e, type: 3}
-  - idItem: Watermelon_Half_1
-    AmountItems: 1
-    image: {fileID: 21300000, guid: 140b0b824d870614091891fed10275ec, type: 3}
+  - idItem: Plum_Red_Whole
+    AmountItems: 28
+    image: {fileID: 21300000, guid: dad6b56bb17ff7f42880fd6b620ab07b, type: 3}
+  - idItem: Blackberry
+    AmountItems: 169
+    image: {fileID: 21300000, guid: 0a42624a12b2212428dca2dcbc87409a, type: 3}
