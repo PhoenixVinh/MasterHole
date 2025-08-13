@@ -520,7 +520,7 @@ namespace Map.TestGenerateMap
             height = matrix.GetLength(1);
 
 
-                        for (int i = 0; i < width; i++)
+            for (int i = 0; i < width; i++)
             {
 
                 bool checkStart = false;
@@ -1000,8 +1000,18 @@ namespace Map.TestGenerateMap
                             Item itemComponent = spawnedObject.GetComponent<Item>();
                             if (itemComponent != null)
                             {
-                                Destroy(itemComponent);
+                                DestroyImmediate(itemComponent);
                             }
+
+                            Rigidbody rigidbody = spawnedObject.GetComponent<Rigidbody>();
+                            if (rigidbody != null)
+                            {
+                                DestroyImmediate(rigidbody);
+                            }
+
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(spawnedObject);
+#endif
                         }                       
                     }
                     else
