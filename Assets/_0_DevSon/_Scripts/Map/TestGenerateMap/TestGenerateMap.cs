@@ -48,9 +48,49 @@ namespace Map.TestGenerateMap
 
         public GameObject ParentItem;
 
+        [HideInInspector]
+        public int inputLevel = 1; // Biến lưu giá trị level nhập vào
 
 
+#if UNITY_EDITOR
 
+        public void DelayActionEditor(float delaySeconds, Action callback)
+        {
+            double startTime = EditorApplication.timeSinceStartup;
+            EditorApplication.update += CheckDelay;
+            void CheckDelay()
+            {
+                if (EditorApplication.timeSinceStartup - startTime >= delaySeconds)
+                {
+                    EditorApplication.update -= CheckDelay;
+                    callback?.Invoke();
+                }
+            }
+        }
+
+        public void LoadLevelGamePlaySOByLevel(int level)
+        {
+            string assetPath = $"Assets/_0_DevSon/Resources/DataLevelNewFixSO/Data_Level_{level}.asset";
+            LevelGamePlaySO loadedSO = AssetDatabase.LoadAssetAtPath<LevelGamePlaySO>(assetPath);
+            if (loadedSO != null)
+            {
+                levelGamePlay = loadedSO;
+                Debug.Log($"Loaded LevelGamePlaySO for level {level}");
+
+                EditorUtility.SetDirty(this);
+
+                // // Gọi delay 2 giây rồi thực hiện GetMatrix
+                // DelayActionEditor(1f, () => ClearMapPositions());
+                // // Gọi delay 2 giây rồi thực hiện GetMatrix
+                // DelayActionEditor(2f, () => GetMatrix());
+
+            }
+            else
+            {
+                Debug.LogWarning($"Không tìm thấy LevelGamePlaySO cho level {level} tại đường dẫn: {assetPath}");
+            }
+        }
+#endif
 
         public void SpawnTileMapByMatrix(MapSO map)
         {
@@ -1059,6 +1099,7 @@ namespace Map.TestGenerateMap
 [CustomEditor(typeof(TestGenerateMap))]
 public class TestGenerateMapEditor : Editor
 {
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -1075,14 +1116,36 @@ public class TestGenerateMapEditor : Editor
         }
         if (GUILayout.Button("Get Matrix"))
         {
-
             script.GetMatrix();
-
-
         }
         if (GUILayout.Button("Save Data"))
         {
             script.SaveData();
+        }
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Load LevelGamePlaySO by Level:");
+        script.inputLevel = EditorGUILayout.IntField("Level:", script.inputLevel);
+        if (GUILayout.Button("Load LevelGamePlaySO"))
+        {
+            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
+        }
+
+        if (GUILayout.Button("Next Level"))
+        {
+            script.inputLevel++;
+            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
+        }
+
+        if (GUILayout.Button("Previous Level"))
+        {
+            script.inputLevel--;
+
+            if (script.inputLevel < 1)
+            {
+                script.inputLevel = 1; // Prevent negative level index
+            }
+            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
         }
 
         // Optionally, display the matrix in the inspector

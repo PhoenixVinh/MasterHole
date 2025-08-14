@@ -143,13 +143,13 @@ public class Item : MonoBehaviour
             return;
         }
 
-        MeshRenderer meshRenderer = posChil0.GetComponent<MeshRenderer>();
-        if (meshRenderer == null)
-        {
-            Debug.LogError("Item does not have a MeshRenderer.");
-            return;
-        }
-        meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        // MeshRenderer meshRenderer = posChil0.GetComponent<MeshRenderer>();
+        // if (meshRenderer == null)
+        // {
+        //     Debug.LogError("Item does not have a MeshRenderer.");
+        //     return;
+        // }
+        // meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
 
         GameObject collider = new GameObject("Collider");
 
@@ -158,9 +158,9 @@ public class Item : MonoBehaviour
         collider.transform.localRotation = posChil0.localRotation;
         collider.transform.localScale = Vector3.one;
 
-        Collider[] cols = posChil0.GetComponents<Collider>();
+        Collider[] cols = transform.GetComponentsInChildren<Collider>();
 
-        if (posChil0.GetComponent<Collider>() != null)
+        if (cols.Length > 0)
         {
             foreach (Collider col in cols)
             {
@@ -170,7 +170,7 @@ public class Item : MonoBehaviour
                     boxCollider.size = (col as BoxCollider).size;
                     boxCollider.center = (col as BoxCollider).center;
 
-                    Vector3 localScale = posChil0.localScale;
+                    Vector3 localScale = col.gameObject.transform.localScale;
 
                     Vector3 newSize = new Vector3(
                        boxCollider.size.x * localScale.x,
@@ -195,7 +195,7 @@ public class Item : MonoBehaviour
                 {
                     Vector3 vector3Center = (col as SphereCollider).center;
                     float radius = (col as SphereCollider).radius;
-                    Vector3 localScale = posChil0.localScale;
+                    Vector3 localScale = col.gameObject.transform.localScale;
 
                     SphereCollider sphereCollider = collider.AddComponent<SphereCollider>();
                     sphereCollider.radius = localScale.x * radius;
@@ -212,7 +212,7 @@ public class Item : MonoBehaviour
                     float vector3Height = (col as CapsuleCollider).height;
                     float radius = (col as CapsuleCollider).radius;
 
-                    Vector3 localScale = posChil0.localScale;
+                    Vector3 localScale = col.gameObject.transform.localScale;
 
                     CapsuleCollider capsuleCollider = collider.AddComponent<CapsuleCollider>();
                     capsuleCollider.radius = localScale.x * radius;
@@ -231,6 +231,7 @@ public class Item : MonoBehaviour
                     Debug.Log("posChil0 sử dụng MeshCollider");
 
                     collider.gameObject.name = strLuna + "MeshCollider" + nameobject;
+
 
                 }
                 else
