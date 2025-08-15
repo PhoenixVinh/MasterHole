@@ -79,10 +79,10 @@ namespace Map.TestGenerateMap
 
                 EditorUtility.SetDirty(this);
 
-                // // Gọi delay 2 giây rồi thực hiện GetMatrix
-                // DelayActionEditor(1f, () => ClearMapPositions());
-                // // Gọi delay 2 giây rồi thực hiện GetMatrix
-                // DelayActionEditor(2f, () => GetMatrix());
+                // Gọi delay 2 giây rồi thực hiện GetMatrix
+                DelayActionEditor(0.25f, () => ClearMapPositions());
+                // Gọi delay 2 giây rồi thực hiện GetMatrix
+                DelayActionEditor(0.5f, () => GetMapPositions());
 
             }
             else
@@ -1126,18 +1126,11 @@ public class TestGenerateMapEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Load LevelGamePlaySO by Level:");
         script.inputLevel = EditorGUILayout.IntField("Level:", script.inputLevel);
-        if (GUILayout.Button("Load LevelGamePlaySO"))
-        {
-            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
-        }
+      
 
-        if (GUILayout.Button("Next Level"))
-        {
-            script.inputLevel++;
-            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
-        }
+EditorGUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Previous Level"))
+         if (GUILayout.Button("Previous Level"))
         {
             script.inputLevel--;
 
@@ -1145,6 +1138,23 @@ public class TestGenerateMapEditor : Editor
             {
                 script.inputLevel = 1; // Prevent negative level index
             }
+            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
+        }
+        EditorGUILayout.Space();
+        script.inputLevel = EditorGUILayout.IntField("Level:", script.inputLevel);
+        EditorGUILayout.Space();
+
+        if (GUILayout.Button("Next Level"))
+        {
+            script.inputLevel++;
+            script.LoadLevelGamePlaySOByLevel(script.inputLevel);
+        }
+
+       
+EditorGUILayout.EndHorizontal();
+
+          if (GUILayout.Button("Load LevelGamePlaySO"))
+        {
             script.LoadLevelGamePlaySOByLevel(script.inputLevel);
         }
 
